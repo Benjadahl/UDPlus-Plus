@@ -15,8 +15,8 @@
   "content_scripts": [
     {
       "matches":[
-        "http://*/*",
-        "https://*/*"
+        "http://www.uddataplus.dk/*",
+        "https://www.uddataplus.dk/*"
       ],
       "js": ["jquery-3.1.0.min.js","content.js"],
       "run_at": "document_end"
