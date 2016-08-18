@@ -3,10 +3,11 @@
   <head>
     <title>Getting Started Extension's Popup</title>
     <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+			
+			body {
+        font-family: "Courier";
         font-size: 100%;
-      }
+		  }
       #status {
         /* avoid an excessively wide status text */
         white-space: pre;
@@ -14,11 +15,19 @@
         overflow: hidden;
         max-width: 400px;
       }
+			
+			
+			
     </style>
+		<script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
-    <p>
-      kek
-    </p>
+		<select onchange="window['setTheme_'+this.value]();">
+  		<option value="Default">Default</option>
+  		<option value="dark">Dark</option>
+  		<option value="green">Green</option>
+  		<option value="red">Red</option>
+		</select>
+		<p><a href="colorpic.html">Custom</a><p>
   </body>
 </html>
