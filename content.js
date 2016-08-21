@@ -1,7 +1,11 @@
-$(document).ready(function(){
-  console.log("Uddata++ starting");
-  $(".navbar-inner").css("background-color","red");
-  $(".ace-nav>li>a>[class*='icon-']").css("color","red");
-  $(".ace-nav>li.light-blue").css("background","red");
-  $("#navbar>div>div>a>img").attr("src", chrome.extension.getURL("UddataLogo.png"));
-});
+console.log("Uddata++ starting");
+
+document.querySelector("#navbar>div>div>a>img").src= chrome.extension.getURL("UddataLogo.png");
+
+//Injects script.js into the html file of the Uddata website
+var s = document.createElement('script');
+s.src = chrome.extension.getURL('script.js');
+s.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(s);
