@@ -18,7 +18,7 @@
         "http://www.uddataplus.dk/*",
         "https://www.uddataplus.dk/*"
       ],
-      "js": ["content.js"],
+      "js": ["content.js","UD++Functions.js"],
       "run_at": "document_end"
     }
   ],
