@@ -7,6 +7,3 @@ function rightDropdown(color){
 function navbarIcon(color){
     $(".ace-nav>li>a>[class*='icon-']").css("color",color);
 }
-navbarColor("green");
-rightDropdown("green");
-navbarIcon("green");
