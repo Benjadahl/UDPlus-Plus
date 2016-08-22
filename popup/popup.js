@@ -1,5 +1,5 @@
 
-var themes = {"dark" : {"foreground": "001100", "text" : "110000", "background": "000011"}, "green" : {"foreground": "220011", "text" : "dd0022", "background": "000000"}, "red": {"foreground": "000000", "text" : "000000", "background": "000000"}}
+var themes = {"default" : {"foreground": "438eb9", "text" : "438eb9", "background": "FFFFFF"}, "dark" : {"foreground": "323232", "text" : "FFFFFF", "background": "282828"}, "green" : {"foreground": "779933", "text" : "FFFFFF", "background": "5C7827"}, "red": {"foreground": "FF3333", "text" : "FFFFFF", "background": "CC3333"}, "blue" : {"foreground": "0092CC", "text" : "FFFFFF", "background": "087099"}}
 
 document.addEventListener('DOMContentLoaded', function() {
   var themeSelect = document.getElementById('theme');

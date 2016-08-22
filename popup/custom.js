@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         foregroundSelect.value = "438eb9";
       }
+      $("#foreground").css("background-color","#" + foregroundSelect.value);
+
 		}
 	});
 
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         textSelect.value = "438eb9"
       }
+      $("#text").css("background-color","#" + textSelect.value);
 		}
 	});
 
@@ -32,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         backgroundSelect.value = "FFFFFF"
       }
+      $("#background").css("background-color","#" + backgroundSelect.value);
 		}
 	});
-
 
 
   saveButton.addEventListener('click', function() {
