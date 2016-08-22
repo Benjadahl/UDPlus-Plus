@@ -1,8 +1,12 @@
 function navbarColor(color){
-    document.getElementsByClassName("navbar-inner")[0].style.backgroundColor = color;
+    $(".navbar-inner").css("background-color",color);
 }
 function rightDropdown(color){
-    document.querySelector(".ace-nav>li.light-blue").style.backgroundColor = color;
+    $(".ace-nav>li.light-blue").css("background-color",color);
+}
+function navbarIcon(color){
+    $(".ace-nav>li>a>[class*='icon-']").css("color",color);
 }
 navbarColor("green");
 rightDropdown("green");
+navbarIcon("green");
