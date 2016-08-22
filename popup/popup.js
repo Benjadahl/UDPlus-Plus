@@ -7,13 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	chrome.storage.sync.get('theme', function (obj) {
 		if (!chrome.runtime.error) {
-			themeSelect.value = obj.theme;
+      if(typeof obj.theme != "undefined"){
+			  themeSelect.value = obj.theme;
+      }else{
+        themeSelect.value = "default"
+      }
 		}
 	});
 
 	chrome.storage.sync.get('font', function (obj) {
 		if (!chrome.runtime.error) {
-			fontSelect.value = obj.font;
+      if(typeof obj.font != "undefined"){
+			  fontSelect.value = obj.font;
+      }else{
+        fontSelect.value = "Open sans"
+      }
 		}
 	});
 
