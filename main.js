@@ -14,6 +14,3 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-$(".page-content>div>table").each(function( index ) {
-  console.log( index + ": " + $( this ).text() );
-});
