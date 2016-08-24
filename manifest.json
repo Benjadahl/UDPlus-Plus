@@ -19,8 +19,9 @@
         "http://www.uddataplus.dk/*",
         "https://www.uddataplus.dk/*"
       ],
-      "js": ["jquery-3.1.0.min.js" ,"content.js"],
+      "js": ["jquery-3.1.0.min.js","UD++Functions.js","main.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "web_accessible_resources": ["UddataLogo.png", "script.js"]
 }
