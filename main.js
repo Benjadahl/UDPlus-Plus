@@ -7,9 +7,9 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
             console.log(request.theme);
-            navbarColor(request.theme.foreground);
-            rightDropdown(request.theme.background);
-            navbarIcon(request.theme.text);
+            changeColor(colorElements.navBar, request.theme.foreground);
+            changeColor(colorElements.rightDropdown, request.theme.background);
+            changeColor(colorElements.navbarIcon, request.theme.text);
         }
     }
 );
