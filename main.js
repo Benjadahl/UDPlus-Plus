@@ -17,7 +17,8 @@ getStorage('homework', function (obj) {
 			window.setInterval(function () {
 				$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
 					if ($(this).text().toUpperCase().includes("LEKTIE")) {
-						$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+						//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+                        $(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
 					}
 				});
 			}, (2 * 1000));
