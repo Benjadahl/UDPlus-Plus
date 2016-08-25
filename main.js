@@ -41,6 +41,8 @@ function runThemeLater(){
   changeColor(colorElements.tableTop, curtheme.navBar);
 }
 
+
+//Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
@@ -51,6 +53,7 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+//Get current freme from settings
 getStorage('theme', function (obj) {
   if (!chrome.runtime.error) {
     curtheme = obj.theme
@@ -58,6 +61,7 @@ getStorage('theme', function (obj) {
   }
 });
 
+//Wait for a h1 to exist, this would be then the rest of the side loads.
 var checkExist = setInterval(function() {
    if ($('h1').length) {
       clearInterval(checkExist);
@@ -65,6 +69,8 @@ var checkExist = setInterval(function() {
    }
 }, 1000);
 
+
+//Check if current messages button has changes in color and change it back
 var checkExist = setInterval(function() {
    if ($(".ace-nav>li.light-blue").css("background") == "#62a8d1") {
       console.log("loool");

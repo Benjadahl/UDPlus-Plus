@@ -1,12 +1,15 @@
+//Themes availeble
 var themes = {
 	"dark" : {"navBar": "#1d183d", "navbarIcon" : "#8f8f8f", "rightDropdown": "#171717"},
 	"green" : {"navBar": "#539e24", "navbarIcon" : "#ed8f12", "rightDropdown": "#1e4004"},
-	"red": {"navBar": "#ee3915", "navbarIcon": "#254918", "rightDropdown": "#e4642e"}}
+	"red": {"navBar": "#ee3915", "navbarIcon": "#254918", "rightDropdown": "#e4642e"}};
 
+//wait for document to load
 	document.addEventListener('DOMContentLoaded', function() {
 		var themeSelect = document.getElementById('theme');
 		var fontSelect = document.getElementById('font');
-
+		
+		//Firefox and chrome settings manager
 		getStorage('theme', function (obj) {
 			if (!chrome.runtime.error) {
 				if(typeof obj.theme != "undefined"){
@@ -16,7 +19,7 @@ var themes = {
 				}
 			}
 		});
-
+		//Firefox and chrome settings manager
 		getStorage('font', function (obj) {
 			if (!chrome.runtime.error) {
 				if(typeof obj.font != "undefined"){
@@ -26,7 +29,7 @@ var themes = {
 				}
 			}
 		});
-
+		//Wait for theme selector to change
 		themeSelect.addEventListener('change', function() {
 			setStorage({'theme' : themes[theme.value]});
 			setStorage(themes[theme.value]);
@@ -36,8 +39,6 @@ var themes = {
 			});
 		}, false);
 
-		fontSelect.addEventListener('change', function() {
-			setStorage({'font' : fontSelect.value});
-		}, false);
+		
 
 	}, false);
