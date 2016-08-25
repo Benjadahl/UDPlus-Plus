@@ -14,6 +14,7 @@ const colorElements =
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
 		header:{cssSel:"h1", cssAttr:["color"]},
+		h4:{cssSel:"h4", cssAttr:["color"]}
 };
 
 //Function for changing color of element

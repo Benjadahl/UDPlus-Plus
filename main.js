@@ -39,6 +39,7 @@ function runThemeLater(){
   changeColor(colorElements.arrows, curtheme.navBar);
   changeColor(colorElements.tableButtons, curtheme.navBar);
   changeColor(colorElements.tableTop, curtheme.navBar);
+  changeColor(colorElements.h4, curtheme.navBar);
 }
 
 
