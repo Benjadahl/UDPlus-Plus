@@ -24,18 +24,17 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-
-chrome.storage.sync.get('theme', function (obj) {
-  if (!chrome.runtime.error) {
-    curtheme = obj.theme
-    runTheme();
-  }
+console.log("Test");
+getStorage('theme', function(obj) {
+	console.log(obj.theme);
+	curtheme = obj.theme;
 });
+runTheme();
+console.log("Test2");
 
 var checkExist = setInterval(function() {
    if ($('h1').length) {
       clearInterval(checkExist);
-      console.log("Lol");
       changeColor(colorElements.pile, curtheme.navBar);
       changeColor(colorElements.skemaButtons, curtheme.navBar);
       changeColor(colorElements.skemaTop, curtheme.navBar);
