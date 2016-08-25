@@ -21,7 +21,7 @@ And installation guide for the plugin can be found on our [Github Wiki](https://
 
   4. Homework list
 
-  5. Firefox support
+  5. Firefox support D
 
   6. Hiding already delivered assignments
   7. Making assignments automatically sort after delivery date
