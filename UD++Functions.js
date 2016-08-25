@@ -1,3 +1,4 @@
+//Changeble element 
 const colorElements =
 	{navBar:{cssSel:".navbar-inner", cssAttr:["background-color"]},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"]},
@@ -12,9 +13,10 @@ const colorElements =
 		menuFarve:{cssSel:"#menufarve", cssAttr:["background-color"]},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
-		header:{cssSel:"h1", cssAttr:["color"]},
+		header:{cssSel:"h1", cssAttr:["color"]}
 };
 
+//Function for changing color of element
 function changeColor (element, color) {
 	if(typeof element != "undefined"){
 		for(i = 0; i < element.cssAttr.length; i++){
@@ -25,6 +27,8 @@ function changeColor (element, color) {
 	}
 }
 
+
+//Firefox and chrome settings manager
 function getStorage(name, callback) {
 	//Check if chrome sync is enabled
 	if (navigator.userAgent.includes("Chrome")) {
@@ -36,6 +40,7 @@ function getStorage(name, callback) {
 	}
 }
 
+//Firefox and chrome settings manager
 function setStorage(value) {
 	if (navigator.userAgent.includes("Chrome")) {
 		//Chrome sync is enabled
