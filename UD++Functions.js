@@ -3,7 +3,7 @@ const colorElements ={
 		navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: false},
-		tableTop:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: false},
+		tableTop:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true},
 		menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: false},
 		skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: false},
 		pile:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: false},
@@ -22,14 +22,15 @@ const colorElements ={
 //Function for changing color of element
 function changeColor (element, color) {
 	if(typeof element != "undefined"){
-		if(!element.styleRule){
-			for(i = 0; i < element.cssAttr.length; i++){
+		for(i = 0; i < element.cssAttr.length; i++){
+			if(!element.styleRule){
 				$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
 				//$(element.cssSel).css(element.cssAttr[i], color);
+			}else{
+				$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + " !important;}</style>");
 			}
-		}else{
-			$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[0] + ":" + color + " !important;}</style>");
 		}
+
 	}
 }
 

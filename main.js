@@ -53,9 +53,9 @@ function runTheme(){
 
 //Later changes
 function runThemeLater(){
-    changeColor(colorElements.mainBackground, "#464646");
-    changeColor(colorElements.leftMenuBottom, "#464646");
-    changeColor(colorElements.leftMenuBorder, "#ff0000");
+    //changeColor(colorElements.mainBackground, "#464646");
+    //changeColor(colorElements.leftMenuBottom, "#464646");
+    //changeColor(colorElements.leftMenuBorder, "#ff0000");
     //$("head").append("<style>sidebar:before {border-right:red !important;}</style>");
 
 	changeColor(colorElements.pile, curtheme.navBar);
