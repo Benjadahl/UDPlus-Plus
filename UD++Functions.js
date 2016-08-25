@@ -14,7 +14,6 @@ function changeColor (element, color) {
 	for(i = 0; i < element.cssAttr.length; i++){
 		$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
 		//$(element.cssSel).css(element.cssAttr[i], color);
-		console.log(element.cssSel + "   " + element.cssAttr[i]);
 
 	}
 }
@@ -22,24 +21,19 @@ function changeColor (element, color) {
 function getStorage(name, callback) {
 	//Check if chrome sync is enabled
 	if (navigator.userAgent.includes("Chrome")) {
-		console.log("Sync is enabled");
 		//Chrome sync is enabled
 		chrome.storage.sync.get(name, callback);
 	} else {
-		console.log("Sync is disabled");
 		//Chrome sync is disabled.
 		chrome.storage.local.get(name, callback);
 	}
 }
 
 function setStorage(value) {
-	console.log("Saving thing.");
 	if (navigator.userAgent.includes("Chrome")) {
-		console.log("Chrome sync is enabled")
 		//Chrome sync is enabled
 		chrome.storage.sync.set(value);
 	} else {
-		console.log("Chrome sync is disabled")
 		//Chrome sync is disabled.
 		chrome.storage.local.set(value);
 	}

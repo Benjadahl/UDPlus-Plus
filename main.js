@@ -3,7 +3,14 @@ console.log("Uddata++ starting");
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
-curtheme = "";
+curtheme = "Default";
+
+getStorage('theme', function (obj) {
+  if (!chrome.runtime.error) {
+    curtheme = obj.theme
+    runTheme();
+  }
+});
 
 function runTheme(){
   changeColor(colorElements.navBar, curtheme.navBar);
@@ -14,7 +21,6 @@ function runTheme(){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
-            console.log(request.theme);
             curtheme = request.theme
             runTheme();
             changeColor(colorElements.pile, curtheme.navBar);
@@ -24,13 +30,6 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-console.log("Test");
-getStorage('theme', function(obj) {
-	console.log(obj.theme);
-	curtheme = obj.theme;
-});
-runTheme();
-console.log("Test2");
 
 var checkExist = setInterval(function() {
    if ($('h1').length) {

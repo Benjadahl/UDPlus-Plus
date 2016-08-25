@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   var saveButton = document.getElementById('savebtn');
   var foregroundSelect = document.getElementById('foreground');
