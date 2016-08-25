@@ -3,17 +3,18 @@ console.log("Uddata++ starting");
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
+window.setInterval(function () {
+	console.log("Checking homework.");
+	console.log("Ayy");
+	$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+		if ($(this).text().toUpperCase().includes("LEKTIE")) {
+			$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+		}
+	});
+}, (2 * 1000));
 
-window.onload = function() {
-	setTimeout(function() {
-		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
-			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				console.log("Thing");
-				$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0')
-			}
-		});
-	}, (8 * 1000));
-}
+
+
 curtheme = "Default";
 
 getStorage('theme', function (obj) {
