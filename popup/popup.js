@@ -1,7 +1,4 @@
-
-
-var themes = {"dark" : {"foreground": "#1d183d", "text" : "#8f8f8f", "background": "#171717"}, "green" : {"foreground": "#539e24", "text" : "#ed8f12", "background": "#1e4004"}, "red": {"foreground": "#ee3915", "text": "#254918", "background": "#e4642e"}}
-
+var themes = {"dark" : {"navBar": "#1d183d", "navbarIcon" : "#8f8f8f", "rightDropdown": "#171717"}, "green" : {"navBar": "#539e24", "navbarIcon" : "#ed8f12", "rightDropdown": "#1e4004"}, "red": {"navBar": "#ee3915", "navbarIcon": "#254918", "rightDropdown": "#e4642e"}}
 
 document.addEventListener('DOMContentLoaded', function() {
   var themeSelect = document.getElementById('theme');
@@ -28,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	themeSelect.addEventListener('change', function() {
-		chrome.storage.sync.set({'theme' : theme.value});
+		chrome.storage.sync.set({'theme' : themes[theme.value]});
 		chrome.storage.sync.set(themes[theme.value]);
         //attempt to send message to content script
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
