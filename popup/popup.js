@@ -11,6 +11,7 @@ var themes = {
 	document.addEventListener('DOMContentLoaded', function() {
 		var themeSelect = document.getElementById('theme');
 		var fontSelect = document.getElementById('font');
+		var homeworkSelect = document.getElementById('homework');
 		
 		//Firefox and chrome settings manager
 		getStorage('theme', function (obj) {
@@ -22,6 +23,15 @@ var themes = {
 				}
 			}
 		});
+		
+		getStorage('homework', function (obj) {
+			if (!chrome.runtime.error) {
+				if(typeof obj.homework != "undefined" && obj.homework){
+					homeworkSelect.setAttribute("checked", "");
+				}
+			}
+		});
+		
 		//Firefox and chrome settings manager
 		getStorage('font', function (obj) {
 			if (!chrome.runtime.error) {
@@ -40,6 +50,12 @@ var themes = {
 			chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
 				chrome.tabs.sendMessage(tabs[0].id, {type: "theme", theme: themes[theme.value]}, function(response) {});
 			});
+		}, false);
+		
+		homeworkSelect.addEventListener('change', function() {
+			setStorage({'homework' : homeworkSelect.checked});
+			setStorage(themes[theme.value]);
+			
 		}, false);
 
 		

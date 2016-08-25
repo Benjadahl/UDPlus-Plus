@@ -104,6 +104,10 @@ html[dir='rtl'] .weakrtl input::-webkit-input-placeholder {
   direction: rtl;
 }
 
+html{
+  width: 400px;
+}
+
 //Normal css
 body {
   margin-left: 1em;
@@ -111,6 +115,7 @@ body {
   margin-right: 1em;
   margin-bottom: 0;
   min-width: 20em;
+  
 }
 
 /* Don't wrap text for important stuff. */

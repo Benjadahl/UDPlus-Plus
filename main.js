@@ -4,17 +4,22 @@ console.log("Uddata++ starting");
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
 
-if (window.location.href.indexOf("skema")) {
-	//Every two seconds, we try to find lessons containing the word homework.
-	window.setInterval(function () {
-		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
-			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-			}
-		});
-	}, (2 * 1000));
 
-}
+getStorage('homework', function (obj) {
+	if (!chrome.runtime.error) {
+		if (window.location.href.indexOf("skema") && obj.homework) {
+			//Every two seconds, we try to find lessons containing the word homework.
+			window.setInterval(function () {
+				$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+					if ($(this).text().toUpperCase().includes("LEKTIE")) {
+						$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+					}
+				});
+			}, (2 * 1000));
+
+		}
+	}
+});
 
 
 
