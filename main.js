@@ -72,7 +72,6 @@ function runThemeLater(){
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
-<<<<<<< HEAD
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
             curtheme = request.theme;
@@ -80,30 +79,14 @@ chrome.runtime.onMessage.addListener(
             runThemeLater();
         }
     }
-=======
-	function(request, sender, sendResponse) {
-		if (request.type == "theme"){
-			curtheme = request.theme
-			runTheme();
-			runThemeLater();
-		}
-	}
->>>>>>> d5434a97795fa33b39b383323ec8eb82e5da0509
 );
 
 //Get current freme from settings
 getStorage('theme', function (obj) {
-<<<<<<< HEAD
   if (!chrome.runtime.error) {
     curtheme = obj.theme;
     runTheme();
   }
-=======
-	if (!chrome.runtime.error) {
-		curtheme = obj.theme
-		runTheme();
-	}
->>>>>>> d5434a97795fa33b39b383323ec8eb82e5da0509
 });
 
 //Wait for a h1 to exist, this would be then the rest of the side loads.
