@@ -5,20 +5,30 @@ $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"))
 
 curtheme = "";
 
+
+//Changes color off element
 function runTheme(){
   changeColor(colorElements.navBar, curtheme.navBar);
   changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
   changeColor(colorElements.menuButtons, curtheme.navBar);
   changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
+  changeColor(colorElements.menuFarve, curtheme.navBar);
 }
 
+
+//Later changes
 function runThemeLater(){
   changeColor(colorElements.pile, curtheme.navBar);
   changeColor(colorElements.skemaButtons, curtheme.navBar);
-  changeColor(colorElements.skemaTop, curtheme.navBar);
+  
   changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
   changeColor(colorElements.loginBtn, curtheme.navBar);
-  //changeColor(colorElements.overskrift, curtheme.navbarIcon);
+  changeColor(colorElements.loginBtn, curtheme.navBar);
+  changeColor(colorElements.overSkrift, curtheme.navBar);
+  
+  
+  
+  changeColor(colorElements.skemaTop, curtheme.navBar);
 }
 
 chrome.runtime.onMessage.addListener(
@@ -42,7 +52,6 @@ chrome.storage.sync.get('theme', function (obj) {
 var checkExist = setInterval(function() {
    if ($('h1').length) {
       clearInterval(checkExist);
-      console.log("Lol");
       runThemeLater();
    }
 }, 1000);
