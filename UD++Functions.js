@@ -12,7 +12,7 @@ const colorElements =
 		menuFarve:{cssSel:"#menufarve", cssAttr:["background-color"]},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
-		header:{cssSel:"h1", cssAttr:["color"]},
+		header:{cssSel:"h1", cssAttr:["color"]}
 };
 
 function changeColor (element, color) {

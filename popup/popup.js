@@ -1,7 +1,9 @@
 var themes = {
-	"dark" : {"navBar": "#1d183d", "navbarIcon" : "#8f8f8f", "rightDropdown": "#171717"},
+	"default" : {"navBar": "#438eb9", "navbarIcon" : "#FFFFFF", "rightDropdown": "#62a8d1"},
+	"dark" : {"navBar": "rgb(43, 43, 43)", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(43, 43, 43)"},
 	"green" : {"navBar": "#539e24", "navbarIcon" : "#ed8f12", "rightDropdown": "#1e4004"},
-	"red": {"navBar": "#ee3915", "navbarIcon": "#254918", "rightDropdown": "#e4642e"}}
+	"red": {"navBar": "#B22222", "navbarIcon": "#FFFF99", "rightDropdown": "rgba(0, 0, 0, 0.2)"},
+	"blue": {"navBar": "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)"}}
 
 	document.addEventListener('DOMContentLoaded', function() {
 		var themeSelect = document.getElementById('theme');

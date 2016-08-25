@@ -50,6 +50,9 @@ function runThemeLater(){
 	changeColor(colorElements.arrows, curtheme.navBar);
 	changeColor(colorElements.tableButtons, curtheme.navBar);
 	changeColor(colorElements.tableTop, curtheme.navBar);
+	
+	changeColor(colorElements.a, curtheme.navBar);
+	changeColor(colorElements.aHover, curtheme.rightDropdown);
 }
 
 chrome.runtime.onMessage.addListener(
