@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	themeSelect.addEventListener('change', function() {
-		chrome.storage.sync.set({'theme' : theme.value});
+		chrome.storage.sync.set({'theme' : themes[theme.value]});
 		chrome.storage.sync.set(themes[theme.value]);
         //attempt to send message to content script
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs){

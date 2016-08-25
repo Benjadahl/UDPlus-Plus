@@ -13,3 +13,12 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+
+chrome.storage.sync.get('theme', function (obj) {
+  if (!chrome.runtime.error) {
+    changeColor(colorElements.navBar, obj.theme.navBar);
+    changeColor(colorElements.rightDropdown, obj.theme.rightDropdown);
+    changeColor(colorElements.navbarIcon, obj.theme.navbarIcon);
+  }
+});
