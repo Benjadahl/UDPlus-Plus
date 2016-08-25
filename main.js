@@ -13,12 +13,12 @@ function runTheme(){
 }
 
 function runThemeLater(){
-  changeColor(colorElements.pile, curtheme.navBar);
-  changeColor(colorElements.skemaButtons, curtheme.navBar);
-  changeColor(colorElements.skemaTop, curtheme.navBar);
+  changeColor(colorElements.arrows, curtheme.navBar);
+  changeColor(colorElements.tableButtons, curtheme.navBar);
+  changeColor(colorElements.tableTop, curtheme.navBar);
   changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
   changeColor(colorElements.loginBtn, curtheme.navBar);
-  //changeColor(colorElements.overskrift, curtheme.navbarIcon);
+  //changeColor(colorElements.header, curtheme.navbarIcon);
 }
 
 chrome.runtime.onMessage.addListener(
