@@ -8,10 +8,11 @@ const colorElements =
     pile:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
     overSkrift:{cssSel:".page-header h1", cssAttr:["color"]},
     loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"]},
+    arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
+    menuFarve:{cssSel:"#menufarve", cssAttr:["background-color"]},
     tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
     arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
-    overSkrift:{cssSel:"h1", cssAttr:["color"]},
-    menuFarve:{cssSel:"#menufarve", cssAttr:["background-color"]}
+    header:{cssSel:"h1", cssAttr:["color"]},
     };
 
 function changeColor (element, color) {
