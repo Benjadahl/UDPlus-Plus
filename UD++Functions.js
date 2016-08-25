@@ -6,7 +6,8 @@ const colorElements =
     menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"]},
     skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
     pile:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
-    overSkrift:{cssSel:"h1", cssAttr:["color"]}
+    overSkrift:{cssSel:"h1", cssAttr:["color"]},
+    loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"]}
     };
 
 function changeColor (element, color) {

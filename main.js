@@ -11,15 +11,22 @@ function runTheme(){
   changeColor(colorElements.menuButtons, curtheme.navBar);
 }
 
+function runThemeLater(){
+  changeColor(colorElements.pile, curtheme.navBar);
+  changeColor(colorElements.skemaButtons, curtheme.navBar);
+  changeColor(colorElements.skemaTop, curtheme.navBar);
+  changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
+  changeColor(colorElements.loginBtn, curtheme.navBar);
+  //changeColor(colorElements.overskrift, curtheme.navbarIcon);
+}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
             console.log(request.theme);
             curtheme = request.theme
             runTheme();
-            changeColor(colorElements.pile, curtheme.navBar);
-            changeColor(colorElements.skemaButtons, curtheme.navBar);
-            changeColor(colorElements.skemaTop, curtheme.navBar);
+            runThemeLater();
         }
     }
 );
@@ -35,10 +42,6 @@ var checkExist = setInterval(function() {
    if ($('h1').length) {
       clearInterval(checkExist);
       console.log("Lol");
-      changeColor(colorElements.pile, curtheme.navBar);
-      changeColor(colorElements.skemaButtons, curtheme.navBar);
-      changeColor(colorElements.skemaTop, curtheme.navBar);
-      changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-      //changeColor(colorElements.overskrift, curtheme.navbarIcon);
+      runThemeLater();
    }
 }, 1000);
