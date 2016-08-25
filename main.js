@@ -1,5 +1,7 @@
 console.log("Uddata++ starting");
 
+
+
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
@@ -16,9 +18,16 @@ function runThemeLater(){
   changeColor(colorElements.arrows, curtheme.navBar);
   changeColor(colorElements.tableButtons, curtheme.navBar);
   changeColor(colorElements.tableTop, curtheme.navBar);
+
   changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
   changeColor(colorElements.loginBtn, curtheme.navBar);
   //changeColor(colorElements.header, curtheme.navbarIcon);
+
+
+  changeColor(colorElements.mainBackground, "#464646");
+  changeColor(colorElements.leftMenuBottom, "#464646");
+  changeColor(colorElements.leftMenuBorder, "#ff0000");
+  //$("head").append("<style>sidebar:before {border-right:red !important;}</style>");
 }
 
 chrome.runtime.onMessage.addListener(
