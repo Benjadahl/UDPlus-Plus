@@ -58,3 +58,11 @@ var checkExist = setInterval(function() {
       runThemeLater();
    }
 }, 1000);
+
+var checkExist = setInterval(function() {
+   if ($(".ace-nav>li.light-blue").css("background") == "#62a8d1") {
+      console.log("loool");
+      changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
+   }
+}, 1000);
+
