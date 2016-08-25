@@ -7,7 +7,7 @@ curtheme = "Default";
 
 getStorage('theme', function (obj) {
   if (!chrome.runtime.error) {
-    curtheme = obj.theme
+    curtheme = obj.theme;
     runTheme();
   }
 });
@@ -44,7 +44,7 @@ function runThemeLater(){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
-            curtheme = request.theme
+            curtheme = request.theme;
             runTheme();
             runThemeLater();
         }
@@ -53,7 +53,7 @@ chrome.runtime.onMessage.addListener(
 
 getStorage('theme', function (obj) {
   if (!chrome.runtime.error) {
-    curtheme = obj.theme
+    curtheme = obj.theme;
     runTheme();
   }
 });
@@ -71,4 +71,3 @@ var checkExist = setInterval(function() {
       changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
    }
 }, 1000);
-
