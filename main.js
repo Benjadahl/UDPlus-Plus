@@ -9,6 +9,7 @@ function runTheme(){
   changeColor(colorElements.navBar, curtheme.navBar);
   changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
   changeColor(colorElements.menuButtons, curtheme.navBar);
+  changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
 }
 
 chrome.runtime.onMessage.addListener(
