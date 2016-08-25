@@ -1,5 +1,6 @@
-const colorElements =
-	{navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: false},
+//Changeble element
+const colorElements ={
+		navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: false},
 		tableTop:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: false},
@@ -18,6 +19,7 @@ const colorElements =
 		leftMenuBorder:{cssSel: ".sidebar:before", cssAttr:["border-right"], styleRule: true}
 };
 
+//Function for changing color of element
 function changeColor (element, color) {
 	if(typeof element != "undefined"){
 		if(!element.styleRule){
@@ -31,6 +33,7 @@ function changeColor (element, color) {
 	}
 }
 
+//Firefox and chrome settings manager
 function getStorage(name, callback) {
 	//Check if chrome sync is enabled
 	if (navigator.userAgent.includes("Chrome")) {
@@ -39,5 +42,16 @@ function getStorage(name, callback) {
 	} else {
 		//Chrome sync is disabled.
 		chrome.storage.local.get(name, callback);
+	}
+}
+
+//Firefox and chrome settings manager
+function setStorage(value) {
+	if (navigator.userAgent.includes("Chrome")) {
+		//Chrome sync is enabled
+		chrome.storage.sync.set(value);
+	} else {
+		//Chrome sync is disabled.
+		chrome.storage.local.set(value);
 	}
 }
