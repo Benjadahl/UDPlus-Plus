@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Uddata++",
-  "description": "An exstesion that makes the experience of using uddata+ better",
+  "description": "An extension that makes the experience of using uddata+ better",
   "version": "0.1",
 
   "browser_action": {
