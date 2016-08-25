@@ -1,13 +1,13 @@
 var themes = {
-    "dark" : {"navBar": "#1d183d", "navbarIcon" : "#8f8f8f", "rightDropdown": "#171717"}, 
-    "green" : {"navBar": "#539e24", "navbarIcon" : "#ed8f12", "rightDropdown": "#1e4004"}, 
+    "dark" : {"navBar": "#1d183d", "navbarIcon" : "#8f8f8f", "rightDropdown": "#171717"},
+    "green" : {"navBar": "#539e24", "navbarIcon" : "#ed8f12", "rightDropdown": "#1e4004"},
     "red": {"navBar": "#ee3915", "navbarIcon": "#254918", "rightDropdown": "#e4642e"}}
 
 document.addEventListener('DOMContentLoaded', function() {
   var themeSelect = document.getElementById('theme');
 	var fontSelect = document.getElementById('font');
 
-	chrome.storage.sync.get('theme', function (obj) {
+	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
       if(typeof obj.theme != "undefined"){
 			  themeSelect.value = obj.theme;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	chrome.storage.sync.get('font', function (obj) {
+	getStorage('font', function (obj) {
 		if (!chrome.runtime.error) {
       if(typeof obj.font != "undefined"){
 			  fontSelect.value = obj.font;
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	themeSelect.addEventListener('change', function() {
-		chrome.storage.sync.set({'theme' : themes[theme.value]});
-		chrome.storage.sync.set(themes[theme.value]);
+		setStorage({'theme' : themes[theme.value]});
+		setStorage(themes[theme.value]);
         //attempt to send message to content script
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
             chrome.tabs.sendMessage(tabs[0].id, {type: "theme", theme: themes[theme.value]}, function(response) {});
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}, false);
 
 	fontSelect.addEventListener('change', function() {
-		chrome.storage.sync.set({'font' : fontSelect.value});
+		setStorage({'font' : fontSelect.value});
 	}, false);
 
 }, false);

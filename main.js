@@ -3,7 +3,14 @@ console.log("Uddata++ starting");
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
-curtheme = "";
+curtheme = "Default";
+
+getStorage('theme', function (obj) {
+  if (!chrome.runtime.error) {
+    curtheme = obj.theme
+    runTheme();
+  }
+});
 
 
 //Changes color off element
@@ -21,13 +28,13 @@ function runThemeLater(){
 
   changeColor(colorElements.pile, curtheme.navBar);
   changeColor(colorElements.skemaButtons, curtheme.navBar);
-  
+
   changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
   changeColor(colorElements.loginBtn, curtheme.navBar);
   changeColor(colorElements.overSkrift, curtheme.navBar);
-  
-  
-  
+
+
+
   changeColor(colorElements.skemaTop, curtheme.navBar);
   changeColor(colorElements.arrows, curtheme.navBar);
   changeColor(colorElements.tableButtons, curtheme.navBar);
@@ -37,7 +44,6 @@ function runThemeLater(){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
-            console.log(request.theme);
             curtheme = request.theme
             runTheme();
             runThemeLater();
@@ -45,7 +51,7 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-chrome.storage.sync.get('theme', function (obj) {
+getStorage('theme', function (obj) {
   if (!chrome.runtime.error) {
     curtheme = obj.theme
     runTheme();
