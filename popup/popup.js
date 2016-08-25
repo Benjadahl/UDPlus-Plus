@@ -1,3 +1,4 @@
+
 //Themes availeble
 var themes = {
 	"default" : {"navBar": "#438eb9", "navbarIcon" : "#FFFFFF", "rightDropdown": "#62a8d1", "name": "default"},
@@ -9,6 +10,18 @@ var themes = {
 
 //wait for document to load
 	document.addEventListener('DOMContentLoaded', function() {
+		
+		getStorage('lang', function (obj) {
+			if (!chrome.runtime.error) {
+				var path = window.location.pathname;
+				var page = path.split("/").pop();
+				console.log(obj.lang)
+				if(page == "popup.html" && obj.lang == "dansk"){
+					window.location.href = "popupdk.html";
+				}
+			}
+		});
+		
 		var themeSelect = document.getElementById('theme');
 		var fontSelect = document.getElementById('font');
 		var homeworkSelect = document.getElementById('homework');
@@ -32,16 +45,7 @@ var themes = {
 			}
 		});
 		
-		//Firefox and chrome settings manager
-		getStorage('font', function (obj) {
-			if (!chrome.runtime.error) {
-				if(typeof obj.font != "undefined"){
-					fontSelect.value = obj.font;
-				}else{
-					fontSelect.value = "Open sans"
-				}
-			}
-		});
+		
 		//Wait for theme selector to change
 		themeSelect.addEventListener('change', function() {
 			setStorage({'theme' : themes[theme.value]});
