@@ -4,16 +4,10 @@ const colorElements =
     navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"]},
     tableTop:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"]},
     menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"]},
-<<<<<<< HEAD
     skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
     pile:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
     overSkrift:{cssSel:"h1", cssAttr:["color"]},
     loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"]}
-=======
-    tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"]},
-    arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"]},
-    overSkrift:{cssSel:"h1", cssAttr:["color"]}
->>>>>>> benja-development
     };
 
 function changeColor (element, color) {
