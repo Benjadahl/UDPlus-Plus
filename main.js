@@ -18,9 +18,9 @@ chrome.runtime.onMessage.addListener(
             console.log(request.theme);
             curtheme = request.theme
             runTheme();
-            changeColor(colorElements.pile, curtheme.navBar);
-            changeColor(colorElements.skemaButtons, curtheme.navBar);
-            changeColor(colorElements.skemaTop, curtheme.navBar);
+            changeColor(colorElements.arrows, curtheme.navBar);
+            changeColor(colorElements.tableButtons, curtheme.navBar);
+            changeColor(colorElements.tableTop, curtheme.navBar);
         }
     }
 );
@@ -36,9 +36,9 @@ var checkExist = setInterval(function() {
    if ($('h1').length) {
       clearInterval(checkExist);
       console.log("Lol");
-      changeColor(colorElements.pile, curtheme.navBar);
-      changeColor(colorElements.skemaButtons, curtheme.navBar);
-      changeColor(colorElements.skemaTop, curtheme.navBar);
+      changeColor(colorElements.arrows, curtheme.navBar);
+      changeColor(colorElements.tableButtons, curtheme.navBar);
+      changeColor(colorElements.tableTop, curtheme.navBar);
       changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
       //changeColor(colorElements.overskrift, curtheme.navbarIcon);
    }
