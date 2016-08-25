@@ -3,14 +3,18 @@ console.log("Uddata++ starting");
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
-//Every two seconds, we try to find lessons containing the word homework.
-window.setInterval(function () {
-	$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
-		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-		}
-	});
-}, (2 * 1000));
+
+if (window.location.href.indexOf("skema")) {
+	//Every two seconds, we try to find lessons containing the word homework.
+	window.setInterval(function () {
+		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+			if ($(this).text().toUpperCase().includes("LEKTIE")) {
+				$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+			}
+		});
+	}, (2 * 1000));
+
+}
 
 
 
