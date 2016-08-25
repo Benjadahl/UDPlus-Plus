@@ -4,6 +4,11 @@ console.log("Uddata++ starting");
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
 
+if($("#language > a").html() == "English"){
+	setStorage({"lang": "dansk"});
+}else{
+	setStorage({"lang": "engelsk"});
+}
 
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
