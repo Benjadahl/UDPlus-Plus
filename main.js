@@ -12,24 +12,47 @@ if($("#language > a").html() == "English"){
 	setStorage({"lang": "engelsk"});
 }
 
+
+// <---- HOMEWORK MARKING
+var mark;
+
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
-		if (window.location.href.indexOf("skema") && obj.homework) {
-			//Every two seconds, we try to find lessons containing the word homework.
-			window.setInterval(function () {
-				$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
-					if ($(this).text().toUpperCase().includes("LEKTIE")) {
-						//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-                        $(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
-					}
-				});
-			}, (2 * 1000));
-
+		if (window.location.href.indexOf("skema")) {
+			mark = obj.homework;
 		}
 	}
 });
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.type == "homeworkChange"){
+			console.log(request.checked);
+            mark = request.checked;
+			markHomework();
+        }
+    }
+);
 
+function markHomework(){
+	if(mark){
+		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+			if ($(this).text().toUpperCase().includes("LEKTIE")) {
+				//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+				$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
+			}
+		});
+	}else{
+		$("svg .GEIF5TWDNX rect").css('fill', 'rgb(255,239,197)');
+	}
+}
+
+// ---->
+
+//Every two seconds, we try to find lessons containing the word homework.
+window.setInterval(function () {
+	markHomework();
+}, (2 * 1000));
 
 curtheme = "Default";
 
@@ -48,7 +71,7 @@ function runTheme(){
 	changeColor(colorElements.menuButtons, curtheme.navBar);
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
 	changeColor(colorElements.menuFarve, curtheme.navBar);
-  changeColor(colorElements.pile, curtheme.navBar);
+  	changeColor(colorElements.pile, curtheme.navBar);
 	changeColor(colorElements.skemaButtons, curtheme.navBar);
 
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);

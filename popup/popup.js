@@ -44,7 +44,7 @@ var themes = {
 				}
 			}
 		});
-		
+
 		//Wait for theme selector to change
 		themeSelect.addEventListener('change', function() {
 			setStorage({'theme' : themes[theme.value]});
@@ -58,7 +58,9 @@ var themes = {
 		homeworkSelect.addEventListener('change', function() {
 			setStorage({'homework' : homeworkSelect.checked});
 			setStorage(themes[theme.value]);
-
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+				chrome.tabs.sendMessage(tabs[0].id, {type: "homeworkChange", checked: homeworkSelect.checked}, function(response) {});
+			});
 		}, false);
 
 
