@@ -48,17 +48,7 @@ function runTheme(){
 	changeColor(colorElements.menuButtons, curtheme.navBar);
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
 	changeColor(colorElements.menuFarve, curtheme.navBar);
-}
-
-
-//Later changes
-function runThemeLater(){
-    //changeColor(colorElements.mainBackground, "#464646");
-    //changeColor(colorElements.leftMenuBottom, "#464646");
-    //changeColor(colorElements.leftMenuBorder, "#ff0000");
-    //$("head").append("<style>sidebar:before {border-right:red !important;}</style>");
-
-	changeColor(colorElements.pile, curtheme.navBar);
+  changeColor(colorElements.pile, curtheme.navBar);
 	changeColor(colorElements.skemaButtons, curtheme.navBar);
 
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
@@ -77,13 +67,15 @@ function runThemeLater(){
 }
 
 
+
+
+
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
             curtheme = request.theme;
             runTheme();
-            runThemeLater();
         }
     }
 );
@@ -95,20 +87,3 @@ getStorage('theme', function (obj) {
     runTheme();
   }
 });
-
-//Wait for a h1 to exist, this would be then the rest of the side loads.
-var checkExist = setInterval(function() {
-	if ($('h1').length) {
-		clearInterval(checkExist);
-		runThemeLater();
-	}
-}, 1000);
-
-
-//Check if current messages button has changes in color and change it back
-var checkExist = setInterval(function() {
-	if ($(".ace-nav>li.light-blue").css("background") == "#62a8d1") {
-		console.log("loool");
-		changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-	}
-}, 1000);
