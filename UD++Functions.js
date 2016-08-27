@@ -6,11 +6,9 @@ const colorElements ={
 		tableTop:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true},
 		menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true},
 		skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true},
-		pile:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true},
 		overSkrift:{cssSel:".page-header h1", cssAttr:["color"], styleRule: true},
 		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true},
-		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true},
-		menuFarve:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true},
+		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true},
 		header:{cssSel:"h1", cssAttr:["color"], styleRule: true},
@@ -18,7 +16,10 @@ const colorElements ={
 		leftMenuBottom:{cssSel:".sidebar:before", cssAttr:["background-color"], styleRule: true},
 		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right"], styleRule: true},
 		leftMenuLI:{cssSel:".nav-list>li>a", cssAttr:["background-color"], styleRule: true},
-		leftMenuLIborderTop:{cssSel:".nav-list>li>a", cssAttr:["border-top"], styleRule: true}
+		leftMenuLIborderTop:{cssSel:".nav-list>li>a", cssAttr:["border-top"], styleRule: true},
+		sidebarCollapse:{cssSel:".sidebar-collapse", cssAttr:["background-color"], styleRule: true},
+		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true},
+		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true}
 };
 
 //Function for changing color of element

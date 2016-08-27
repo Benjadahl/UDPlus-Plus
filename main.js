@@ -70,8 +70,7 @@ function runTheme(){
 	changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
 	changeColor(colorElements.menuButtons, curtheme.navBar);
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-	changeColor(colorElements.menuFarve, curtheme.navBar);
-  	changeColor(colorElements.pile, curtheme.navBar);
+	changeColor(colorElements.rightDropdownRightEdge, curtheme.navBar);
 	changeColor(colorElements.skemaButtons, curtheme.navBar);
 
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
@@ -87,11 +86,18 @@ function runTheme(){
 
 	changeColor(colorElements.a, curtheme.navBar);
 	changeColor(colorElements.aHover, curtheme.rightDropdown);
+
+	changeColor(colorElements.leftMenuLI, "red");
+	changeColor(colorElements.leftMenuBottom, "red");
+	changeColor(colorElements.mainBackground, "red");
+	changeColor(colorElements.sidebarCollapse, "red");
+	changeColor(colorElements.sidebarCollapseIcon, "red");
+	changeColor(colorElements.tableBottom, "red");
 }
 
-
-
-
+$(document).ready(function(){
+	$("#sidebar-collapse").hide();
+});
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
