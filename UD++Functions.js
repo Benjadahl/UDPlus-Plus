@@ -14,9 +14,11 @@ const colorElements ={
 		header:{cssSel:"h1", cssAttr:["color"], styleRule: true},
 		mainBackground:{cssSel:".page-content", cssAttr:["background"], styleRule: true},
 		leftMenuBottom:{cssSel:".sidebar:before", cssAttr:["background-color"], styleRule: true},
-		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right"], styleRule: true},
+		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right-color"], styleRule: true},
 		leftMenuLI:{cssSel:".nav-list>li>a", cssAttr:["background-color"], styleRule: true},
-		leftMenuLIborderTop:{cssSel:".nav-list>li>a", cssAttr:["border-top"], styleRule: true},
+		leftMenuLIborderTop:{cssSel:".nav-list>li", cssAttr:["border-top-color"], styleRule: true},
+		leftMenuLIborderBottom:{cssSel:".nav-list>li", cssAttr:["border-bottom-color"], styleRule: true},
+		leftMenuLIborderRight:{cssSel:".nav-list>li", cssAttr:["border-right-color"], styleRule: true},
 		sidebarCollapse:{cssSel:".sidebar-collapse", cssAttr:["background-color"], styleRule: true},
 		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true},
 		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true},
@@ -25,7 +27,15 @@ const colorElements ={
 		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true},
 		lessonFill:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill"], styleRule: true},
 		lessonStroke:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["stroke"], styleRule: true},
-		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true}
+		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true},
+		tableButtonsText:{cssSel:".btn", cssAttr:["color"], styleRule: true},
+		studentInfo:{cssSel:".page-header h1 small", cssAttr:["color"], styleRule: true},
+		navBarText:{cssSel:".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", cssAttr:["color"], styleRule: true},
+		messageCounter:{cssSel:".badge", cssAttr:["background-color"], styleRule: true},
+		copyRightNotice:{cssSel:".copyright>a", cssAttr:["color"], styleRule: true},
+		mainText:{cssSel:"body", cssAttr:["color"], styleRule: true},
+		linkLanguage:{cssSel: "#language>a", cssAttr:["color"], styleRule: true},
+		tableTopText:{cssSel: ".fc-widget-header", cssAttr:["color"], styleRule: true}
 };
 
 //Function for changing color of element

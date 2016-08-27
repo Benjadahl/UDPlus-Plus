@@ -100,6 +100,7 @@ function runTheme(){
 
 	changeColor(colorElements.leftMenuLI, "red");
 	changeColor(colorElements.leftMenuBottom, "red");
+	changeColor(colorElements.leftMenuRight, "blue");
 	changeColor(colorElements.mainBackground, "red");
 	changeColor(colorElements.sidebarCollapse, "red");
 	changeColor(colorElements.sidebarCollapseIcon, "red");
@@ -110,10 +111,28 @@ function runTheme(){
 	changeColor(colorElements.lessonFill, "blue");
 	changeColor(colorElements.outerBackground, "red");
 	changeColor(colorElements.lessonStroke, "red");
+	changeColor(colorElements.leftMenuLIborderTop, "blue");
+	changeColor(colorElements.leftMenuLIborderBottom, "blue");
+	changeColor(colorElements.leftMenuLIborderRight, "blue");
+	changeColor(colorElements.tableButtonsText,"red");
+	changeColor(colorElements.studentInfo,"white");
+	changeColor(colorElements.navBarText,"blue");
+	changeColor(colorElements.messageCounter,"blue");
+	changeColor(colorElements.copyRightNotice, "blue");
+	changeColor(colorElements.mainText, "blue");
+	changeColor(colorElements.linkLanguage, "blue");
+	changeColor(colorElements.tableTopText, "blue")
+
+	$("head").append("<style>.sidebar:before{border-right:1px solid blue!important;}</style>");
+	$("head").append("<style>.copyright{border-top:1px solid blue!important;}</style>");
+	//Tech college border
+	$("head").append("<style>.ace-nav>li{border-left:1px solid blue!important;}</style>");
+	$("head").append("<style>.round{border:2px solid blue!important;}</style>");
 }
 
 $(document).ready(function(){
 	$("#sidebar-collapse").hide();
+
 });
 
 //Wait for change in theme from popup
