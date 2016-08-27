@@ -25,6 +25,8 @@ var themes = {
 		var themeSelect = document.getElementById('theme');
 		var fontSelect = document.getElementById('font');
 		var homeworkSelect = document.getElementById('homework');
+		var hideTaskSelect = document.getElementById('hideTask');
+		var sortTaskBySelect = document.getElementById('sortTaskBy');
 
 		//Firefox and chrome settings manager
 		getStorage('theme', function (obj) {
@@ -37,6 +39,18 @@ var themes = {
 			}
 		});
 
+		getStorage('sortTaskBy', function (obj) {
+			if (!chrome.runtime.error) {
+				if(typeof obj.sortTaskBy != "undefined"){
+					sortTaskBySelect.value = obj.sortTaskBy;
+				}else{
+					sortTaskBySelect.value = "5";
+				}
+			}
+		});
+
+
+
 		getStorage('homework', function (obj) {
 			if (!chrome.runtime.error) {
 				if(typeof obj.homework != "undefined" && obj.homework){
@@ -44,7 +58,15 @@ var themes = {
 				}
 			}
 		});
-		
+
+		getStorage('hideTask', function (obj) {
+			if (!chrome.runtime.error) {
+				if(typeof obj.hideTask != "undefined" && obj.hideTask){
+					hideTaskSelect.setAttribute("checked", "");
+				}
+			}
+		});
+
 		//Wait for theme selector to change
 		themeSelect.addEventListener('change', function() {
 			setStorage({'theme' : themes[theme.value]});
@@ -55,9 +77,19 @@ var themes = {
 			});
 		}, false);
 
+		sortTaskBySelect.addEventListener('change', function() {
+			setStorage({'sortTaskBy' : sortTaskBySelect.value});
+
+		}, false);
+
 		homeworkSelect.addEventListener('change', function() {
 			setStorage({'homework' : homeworkSelect.checked});
 			setStorage(themes[theme.value]);
+
+		}, false);
+
+		hideTaskSelect.addEventListener('change', function() {
+			setStorage({'hideTask' : hideTaskSelect.checked});
 
 		}, false);
 
