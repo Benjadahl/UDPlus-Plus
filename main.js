@@ -27,32 +27,43 @@ getStorage('homework', function (obj) {
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "homeworkChange"){
-			console.log(request.checked);
             mark = request.checked;
 			markHomework();
         }
     }
 );
 
+$("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</style>");
+
 function markHomework(){
 	if(mark){
 		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
 			if ($(this).text().toUpperCase().includes("LEKTIE")) {
 				//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-				$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
+				//$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
+				$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
 			}
 		});
 	}else{
-		$("svg .GEIF5TWDNX rect").css('fill', 'rgb(255,239,197)');
+		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+			if ($(this).text().toUpperCase().includes("LEKTIE")) {
+				//$(this).parent().parent().parent().find('rect').css('fill', 'rgb(255,239,197)');
+				$(this).parent().parent().parent().find('rect').removeAttr("style");
+			}
+		});
 	}
 }
 
-// ---->
+setTimeout(function() {
+	markHomework();
+}, 5000);
 
 //Every two seconds, we try to find lessons containing the word homework.
-window.setInterval(function () {
+/*window.setInterval(function () {
 	markHomework();
-}, (2 * 1000));
+}, (2 * 1000));*/
+
+// ---->
 
 curtheme = "Default";
 
@@ -96,6 +107,9 @@ function runTheme(){
 	changeColor(colorElements.tableTop, "red");
 	changeColor(colorElements.tableLeftSide, "red");
 	changeColor(colorElements.tableCorner, "red");
+	changeColor(colorElements.lessonFill, "blue");
+	changeColor(colorElements.outerBackground, "red");
+	changeColor(colorElements.lessonStroke, "red");
 }
 
 $(document).ready(function(){

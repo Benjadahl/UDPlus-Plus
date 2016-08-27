@@ -22,7 +22,10 @@ const colorElements ={
 		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true},
 		tableTop:{cssSel:".fc-widget-header", cssAttr:["background-color"], styleRule: true},
 		tableLeftSide:{cssSel:".GEIF5TWDL- table", cssAttr:["background"], styleRule: true},
-		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true}
+		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true},
+		lessonFill:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill"], styleRule: true},
+		lessonStroke:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["stroke"], styleRule: true},
+		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true}
 };
 
 //Function for changing color of element
@@ -33,7 +36,8 @@ function changeColor (element, color) {
 				$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
 				//$(element.cssSel).css(element.cssAttr[i], color);
 			}else{
-				$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + " !important;}</style>");
+
+				$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + "!important;}</style>");
 			}
 		}
 
