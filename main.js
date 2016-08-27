@@ -82,7 +82,7 @@ function runTheme(){
 	changeColor(colorElements.skemaTop, curtheme.navBar);
 	changeColor(colorElements.arrows, curtheme.navBar);
 	changeColor(colorElements.tableButtons, curtheme.navBar);
-	changeColor(colorElements.tableTop, curtheme.navBar);
+	changeColor(colorElements.tableTopActive, curtheme.navBar);
 
 	changeColor(colorElements.a, curtheme.navBar);
 	changeColor(colorElements.aHover, curtheme.rightDropdown);
@@ -93,6 +93,7 @@ function runTheme(){
 	changeColor(colorElements.sidebarCollapse, "red");
 	changeColor(colorElements.sidebarCollapseIcon, "red");
 	changeColor(colorElements.tableBottom, "red");
+	changeColor(colorElements.tableTop, "red");
 }
 
 $(document).ready(function(){
