@@ -21,7 +21,15 @@
       ],
       "js": ["jquery-3.1.0.min.js","UD++Functions.js","main.js"],
       "run_at": "document_end"
-    }
+    },
+    {
+      "matches":[
+        "http://www.uddataplus.dk/opgave/*",
+        "https://www.uddataplus.dk/opgave/*"
+      ],
+      "js": ["jquery-3.1.0.min.js","opgaveSide.js"],
+      "run_at": "document_end"
+    }	
   ],
   "web_accessible_resources": ["UddataLogo.png", "script.js"]
 }
