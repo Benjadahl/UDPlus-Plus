@@ -14,9 +14,11 @@ const colorElements ={
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true},
 		header:{cssSel:"h1", cssAttr:["color"], styleRule: true},
-		mainBackground:{cssSel: ".page-content", cssAttr:["background"], styleRule: true},
-		leftMenuBottom:{cssSel: ".sidebar:before", cssAttr:["background-color"], styleRule: true},
-		leftMenuBorder:{cssSel: ".sidebar:before", cssAttr:["border-right"], styleRule: true}
+		mainBackground:{cssSel:".page-content", cssAttr:["background"], styleRule: true},
+		leftMenuBottom:{cssSel:".sidebar:before", cssAttr:["background-color"], styleRule: true},
+		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right"], styleRule: true},
+		leftMenuLI:{cssSel:".nav-list>li>a", cssAttr:["background-color"], styleRule: true},
+		leftMenuLIborderTop:{cssSel:".nav-list>li>a", cssAttr:["border-top"], styleRule: true}
 };
 
 //Function for changing color of element
