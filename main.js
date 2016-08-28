@@ -146,8 +146,8 @@ $(document).ready(function(){
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type == "theme"){
-            curtheme = request.theme;
-            runTheme();
+            	curtheme = request.theme;
+				location.reload();
         }
     }
 );

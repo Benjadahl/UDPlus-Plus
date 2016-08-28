@@ -1,6 +1,8 @@
 //Themes availeble
 var themes = {
-	"default" : {"name": "default", "navbar": "#438eb9", "navbarIcon" : "#FFFFFF", "rightDropdown": "#62a8d1"},
+	"default" : {
+        "name": "default"
+     },
 	"black" : {"name": "black", "navbar": "rgb(43, 43, 43)", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(43, 43, 43)"},
 	"green" : { "name": "green", "navbar": "#539e24", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(53, 115, 6)"},
 	"red": {"name": "red", "navbar": "#B22222", "navbarIcon": "#FFFF99", "rightDropdown": "rgba(0, 0, 0, 0.2)"},
