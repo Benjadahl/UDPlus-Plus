@@ -41,6 +41,9 @@ const colorElements ={
 		schoolEdges:{cssSel:".ace-nav>li", cssAttr:["border-left"], styleRule: true, isImportant: true, specialBorder: true},
 		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true},
 		leftMenuTextActive:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
+		tableBackground:{cssSel:".GEIF5TWDI- table.GEIF5TWDH- tr td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
 };
 
 //Function for changing color of element
@@ -61,7 +64,7 @@ function changeColor (element, color) {
 				}
 			}
 		}else{
-			if(element.cssSel === ".round"){
+			if(element.cssSel === ".round" || element.cssSel === ".nav-list>li.active:after"){
 				var pixels = 2;
 			}else{
 				var pixels = 1;
