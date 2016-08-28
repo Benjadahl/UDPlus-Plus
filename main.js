@@ -54,9 +54,9 @@ function markHomework(){
 	}
 }
 
-setTimeout(function() {
+setInterval(function() {
 	markHomework();
-}, 5000);
+}, 500);
 
 //Every two seconds, we try to find lessons containing the word homework.
 /*window.setInterval(function () {
@@ -79,7 +79,7 @@ getStorage('theme', function (obj) {
 function runTheme(){
 	changeColor(colorElements.navBar, curtheme.navBar);
 	changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
-	changeColor(colorElements.menuButtons, curtheme.navBar);
+	changeColor(colorElements.menuButtons, "blue");
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
 	changeColor(colorElements.rightDropdownRightEdge, curtheme.navBar);
 	changeColor(colorElements.skemaButtons, curtheme.navBar);
@@ -98,6 +98,9 @@ function runTheme(){
 	changeColor(colorElements.a, curtheme.navBar);
 	changeColor(colorElements.aHover, curtheme.rightDropdown);
 
+	changeColor(colorElements.leftMenuBorder, "blue");
+	changeColor(colorElements.copyrightTop, "blue")
+
 	changeColor(colorElements.leftMenuLI, "red");
 	changeColor(colorElements.leftMenuBottom, "red");
 	changeColor(colorElements.leftMenuRight, "blue");
@@ -111,9 +114,10 @@ function runTheme(){
 	changeColor(colorElements.lessonFill, "blue");
 	changeColor(colorElements.outerBackground, "red");
 	changeColor(colorElements.lessonStroke, "red");
+	changeColor(colorElements.leftMenuLIborderRight, "blue");
 	changeColor(colorElements.leftMenuLIborderTop, "blue");
 	changeColor(colorElements.leftMenuLIborderBottom, "blue");
-	changeColor(colorElements.leftMenuLIborderRight, "blue");
+
 	changeColor(colorElements.tableButtonsText,"red");
 	changeColor(colorElements.studentInfo,"white");
 	changeColor(colorElements.navBarText,"blue");
@@ -121,13 +125,12 @@ function runTheme(){
 	changeColor(colorElements.copyRightNotice, "blue");
 	changeColor(colorElements.mainText, "blue");
 	changeColor(colorElements.linkLanguage, "blue");
-	changeColor(colorElements.tableTopText, "blue")
-
-	$("head").append("<style>.sidebar:before{border-right:1px solid blue!important;}</style>");
-	$("head").append("<style>.copyright{border-top:1px solid blue!important;}</style>");
-	//Tech college border
-	$("head").append("<style>.ace-nav>li{border-left:1px solid blue!important;}</style>");
-	$("head").append("<style>.round{border:2px solid blue!important;}</style>");
+	changeColor(colorElements.tableTopText, "black");
+	changeColor(colorElements.tableTopTextActive, "blue");
+	changeColor(colorElements.leftMenuActiveLi, "green");
+	changeColor(colorElements.tableRowNote, "green");
+	changeColor(colorElements.schoolEdges, "red");
+	changeColor(colorElements.profileRing, "red");
 }
 
 $(document).ready(function(){

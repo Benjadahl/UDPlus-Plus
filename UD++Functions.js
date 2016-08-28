@@ -1,56 +1,72 @@
 //Changeble element
 const colorElements ={
-		navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true},
-		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true},
-		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true},
-		tableTopActive:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true},
-		menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true},
-		skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true},
-		overSkrift:{cssSel:".page-header h1", cssAttr:["color"], styleRule: true},
-		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true},
-		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true},
-		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true},
-		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true},
-		header:{cssSel:"h1", cssAttr:["color"], styleRule: true},
-		mainBackground:{cssSel:".page-content", cssAttr:["background"], styleRule: true},
-		leftMenuBottom:{cssSel:".sidebar:before", cssAttr:["background-color"], styleRule: true},
-		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right-color"], styleRule: true},
-		leftMenuLI:{cssSel:".nav-list>li>a", cssAttr:["background-color"], styleRule: true},
-		leftMenuLIborderTop:{cssSel:".nav-list>li", cssAttr:["border-top-color"], styleRule: true},
-		leftMenuLIborderBottom:{cssSel:".nav-list>li", cssAttr:["border-bottom-color"], styleRule: true},
-		leftMenuLIborderRight:{cssSel:".nav-list>li", cssAttr:["border-right-color"], styleRule: true},
-		sidebarCollapse:{cssSel:".sidebar-collapse", cssAttr:["background-color"], styleRule: true},
-		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true},
-		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true},
-		tableTop:{cssSel:".fc-widget-header", cssAttr:["background-color"], styleRule: true},
-		tableLeftSide:{cssSel:".GEIF5TWDL- table", cssAttr:["background"], styleRule: true},
-		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true},
-		lessonFill:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill"], styleRule: true},
-		lessonStroke:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["stroke"], styleRule: true},
-		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true},
-		tableButtonsText:{cssSel:".btn", cssAttr:["color"], styleRule: true},
-		studentInfo:{cssSel:".page-header h1 small", cssAttr:["color"], styleRule: true},
-		navBarText:{cssSel:".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", cssAttr:["color"], styleRule: true},
-		messageCounter:{cssSel:".badge", cssAttr:["background-color"], styleRule: true},
-		copyRightNotice:{cssSel:".copyright>a", cssAttr:["color"], styleRule: true},
-		mainText:{cssSel:"body", cssAttr:["color"], styleRule: true},
-		linkLanguage:{cssSel: "#language>a", cssAttr:["color"], styleRule: true},
-		tableTopText:{cssSel: ".fc-widget-header", cssAttr:["color"], styleRule: true}
+		navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTopActive:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
+		menuButtons:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		skemaButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true, isImportant: true, specialBorder: false},
+		overSkrift:{cssSel:".page-header h1", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true, isImportant: true, specialBorder: false},
+		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true, isImportant: true, specialBorder: false},
+		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true, isImportant: true, specialBorder: false},
+		header:{cssSel:"h1", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		mainBackground:{cssSel:".page-content", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		leftMenuBottom:{cssSel:".sidebar:before", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		leftMenuBorder:{cssSel:".sidebar:before", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
+		leftMenuLI:{cssSel:".nav-list>li>a", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		leftMenuLIborderTop:{cssSel:".nav-list>li", cssAttr:["border-top"], styleRule: true, isImportant: true, specialBorder: true},
+		leftMenuLIborderBottom:{cssSel:".nav-list>li", cssAttr:["border-bottom"], styleRule: true, isImportant: false, specialBorder: true},
+		sidebarCollapse:{cssSel:".sidebar-collapse", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: true},
+		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTop:{cssSel:".fc-widget-header", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableLeftSide:{cssSel:".GEIF5TWDL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonFill:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonStroke:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["stroke"], styleRule: true, isImportant: true, specialBorder: false},
+		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableButtonsText:{cssSel:".btn", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		studentInfo:{cssSel:".page-header h1 small", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		navBarText:{cssSel:".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		messageCounter:{cssSel:".badge", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		copyRightNotice:{cssSel:".copyright>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		mainText:{cssSel:"body", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		linkLanguage:{cssSel: "#language>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTopText:{cssSel: ".fc-widget-header", cssAttr:["color"], styleRule: true, isImportant: false, specialBorder: false},
+		tableTopTextActive:{cssSel: ".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableRowNote:{cssSel:".GEIF5TWDL- table tr th", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		copyrightTop:{cssSel:".copyright", cssAttr:["border-top"], styleRule: true, isImportant: true, specialBorder: true},
+		schoolEdges:{cssSel:".ace-nav>li", cssAttr:["border-left"], styleRule: true, isImportant: true, specialBorder: true},
+		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true}
 };
 
 //Function for changing color of element
 function changeColor (element, color) {
 	if(typeof element != "undefined"){
-		for(i = 0; i < element.cssAttr.length; i++){
-			if(!element.styleRule){
-				$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
-				//$(element.cssSel).css(element.cssAttr[i], color);
-			}else{
-
-				$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + "!important;}</style>");
-			}
+		if(element.isImportant){
+			var cssEnd = " !important";
+		}else{
+			var cssEnd = "";
 		}
-
+		if(!element.specialBorder){
+			for(i = 0; i < element.cssAttr.length; i++){
+				if(!element.styleRule){
+					$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
+					//$(element.cssSel).css(element.cssAttr[i], color);
+				}else{
+					$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + cssEnd + ";}</style>");
+				}
+			}
+		}else{
+			if(element.cssSel === ".round"){
+				var pixels = 2;
+			}else{
+				var pixels = 1;
+			}
+			$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[0] + ": solid " + pixels + "px " + color + cssEnd + ";}</style>");
+		}
 	}
 }
 
