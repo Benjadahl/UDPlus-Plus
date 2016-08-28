@@ -19,23 +19,58 @@ if($("#language > a").html() == "English"){
 	setStorage({"lang": "engelsk"});
 }
 
+
+// <---- HOMEWORK MARKING
+var mark;
+
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
-		if (window.location.href.indexOf("skema") && obj.homework) {
-			//Every two seconds, we try to find lessons containing the word homework.
-			window.setInterval(function () {
-				$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
-					if ($(this).text().toUpperCase().includes("LEKTIE")) {
-						//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-						$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
-					}
-				});
-			}, (2 * 1000));
-
+		if (window.location.href.indexOf("skema")) {
+			mark = obj.homework;
 		}
 	}
 });
 
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if (request.type == "homeworkChange"){
+			mark = request.checked;
+			markHomework();
+		}
+	}
+);
+
+$("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</style>");
+
+function markHomework(){
+	if(mark){
+		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+			if ($(this).text().toUpperCase().includes("LEKTIE")) {
+				//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
+				//$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
+				$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
+			}
+		});
+	}else{
+		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+			if ($(this).text().toUpperCase().includes("LEKTIE")) {
+				//$(this).parent().parent().parent().find('rect').css('fill', 'rgb(255,239,197)');
+				$(this).parent().parent().parent().find('rect').removeAttr("style");
+			}
+		});
+	}
+}
+
+setInterval(function() {
+	markHomework();
+}, 500);
+
+//Every two seconds, we try to find lessons containing the word homework.
+/*window.setInterval(function () {
+	markHomework();
+	}, (2 * 1000));*/
+
+// ---->
 
 curtheme = "Default";
 
@@ -49,35 +84,77 @@ getStorage('theme', function (obj) {
 
 //Changes color off element
 function runTheme(){
-	changeColor(colorElements.navBar, curtheme.navBar);
-	changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
-	changeColor(colorElements.menuButtons, curtheme.navBar);
-	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-	changeColor(colorElements.menuFarve, curtheme.navBar);
-	changeColor(colorElements.pile, curtheme.navBar);
-	changeColor(colorElements.skemaButtons, curtheme.navBar);
+	for (var T in curtheme) {
+		changeColor(colorElements[T], curtheme[T]);
+	}
 
-	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-	changeColor(colorElements.loginBtn, curtheme.navBar);
-	changeColor(colorElements.overSkrift, curtheme.navBar);
+	/*changeColor(colorElements.navBar, curtheme.navBar);
+		changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
+		changeColor(colorElements.menuButtons, "blue");
+		changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
+		changeColor(colorElements.rightDropdownRightEdge, curtheme.navBar);
+		changeColor(colorElements.skemaButtons, curtheme.navBar);
+
+		changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
+		changeColor(colorElements.loginBtn, curtheme.navBar);
+		changeColor(colorElements.overSkrift, curtheme.navBar);
 
 
 
-	changeColor(colorElements.skemaTop, curtheme.navBar);
-	changeColor(colorElements.arrows, curtheme.navBar);
-	changeColor(colorElements.tableButtons, curtheme.navBar);
-	changeColor(colorElements.tableTop, curtheme.navBar);
+		changeColor(colorElements.skemaTop, curtheme.navBar);
+		changeColor(colorElements.arrows, curtheme.navBar);
+		changeColor(colorElements.tableButtons, curtheme.navBar);
+		changeColor(colorElements.tableTopActive, curtheme.navBar);
 
-	changeColor(colorElements.a, curtheme.navBar);
-	changeColor(colorElements.aHover, curtheme.rightDropdown);
+		changeColor(colorElements.a, curtheme.navBar);
+		changeColor(colorElements.aHover, curtheme.rightDropdown);
+
+		changeColor(colorElements.leftMenuBorder, "blue");
+		changeColor(colorElements.copyrightTop, "blue")
+
+		changeColor(colorElements.leftMenuLI, "red");
+		changeColor(colorElements.leftMenuBottom, "red");
+		changeColor(colorElements.leftMenuRight, "blue");
+		changeColor(colorElements.mainBackground, "red");
+		changeColor(colorElements.sidebarCollapse, "red");
+		changeColor(colorElements.sidebarCollapseIcon, "red");
+		changeColor(colorElements.tableBottom, "red");
+		changeColor(colorElements.tableTop, "red");
+		changeColor(colorElements.tableLeftSide, "red");
+		changeColor(colorElements.tableCorner, "red");
+		changeColor(colorElements.lessonFill, "blue");
+		changeColor(colorElements.outerBackground, "red");
+		changeColor(colorElements.lessonStroke, "red");
+		changeColor(colorElements.leftMenuLIborderRight, "blue");
+		changeColor(colorElements.leftMenuLIborderTop, "blue");
+		changeColor(colorElements.leftMenuLIborderBottom, "blue");
+
+		changeColor(colorElements.tableButtonsText,"red");
+		changeColor(colorElements.studentInfo,"white");
+		changeColor(colorElements.navBarText,"blue");
+		changeColor(colorElements.messageCounter,"blue");
+		changeColor(colorElements.copyRightNotice, "blue");
+		changeColor(colorElements.mainText, "blue");
+		changeColor(colorElements.linkLanguage, "blue");
+		changeColor(colorElements.tableTopText, "black");
+		changeColor(colorElements.tableTopTextActive, "blue");
+		changeColor(colorElements.leftMenuActiveLi, "green");
+		changeColor(colorElements.tableRowNote, "green");
+		changeColor(colorElements.schoolEdges, "red");
+		changeColor(colorElements.profileRing, "red");*/
 }
+
+$(document).ready(function(){
+	$("#sidebar-collapse").hide();
+
+});
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if (request.type == "theme"){
 			curtheme = request.theme;
-			runTheme();
+			location.reload();
 		}
 	}
 );
@@ -94,127 +171,95 @@ getStorage('theme', function (obj) {
 function activ_plus_menu() {
 	var pagecontent = $(".page-content");
 	var homework = true;
+	var hideTask = true;
 	pagecontent.html("");
 
 	$.ajax({
-  type: "GET",
-	url: chrome.extension.getURL('/settings.html'),
-	dataType: "html",
-	success: function(data, textStatus, errorThrown){
+		type: "GET",
+		url: chrome.extension.getURL('/settings.html'),
+		dataType: "html",
+		success: function(data, textStatus, errorThrown){
 
-		// Your HTTP call was successful but nothing else has happened with the response yet
-		// Therefore you can now do whatever you want with the it...
-
-		// First modify the HTML using the dataValModify function
-		// Assumption being that your function returns the modified HTML string
-		//
-
-		var toAdd = data;
+			var toAdd = data;
 
 
-		var themeSelect = $(toAdd).find('#theme');
-		var homeworkSelect = $(toAdd).find('#homework');
+			var themeSelect = $(toAdd).find('#theme');
+			var homeworkSelect = $(toAdd).find('#homework');
 
-		//Firefox and chrome settings manager
-		getStorage('theme', function (obj) {
-			if (!chrome.runtime.error) {
-				if (typeof obj.theme != "undefined"){
-					toAdd = toAdd.replace('"' + obj.theme.name + '"', '"' + obj.theme.name + '" selected="selected"');
-				} else {
-					toAdd = toAdd.replace('"default"', '"default" selected="selected"');
-				}
-			}
-
-			getStorage('homework', function (obj) {
+			//Firefox and chrome settings manager
+			getStorage('theme', function (obj) {
 				if (!chrome.runtime.error) {
-					console.log(obj.homework);
-					if(obj.homework){
-						homework = true;
-						console.log("Turned on");
+					if (typeof obj.theme != "undefined"){
+						toAdd = toAdd.replace('"' + obj.theme.name + '"', '"' + obj.theme.name + '" selected="selected"');
 					} else {
-						toAdd = toAdd.replace('checked="checked"', '');
-						homework = false;
-						console.log("Turned off");
+						toAdd = toAdd.replace('"default"', '"default" selected="selected"');
 					}
-
-					pagecontent.html(toAdd);
 				}
+
+				getStorage('homework', function (obj) {
+					if (!chrome.runtime.error) {
+						if(obj.homework){
+							homework = true;
+						} else {
+							toAdd = toAdd.replace('checked="checked"', '');
+							homework = false;
+						}
+
+						getStorage('sortTaskBy', function (obj) {
+							if (!chrome.runtime.error) {
+								if(typeof obj.sortTaskBy != "undefined"){
+									toAdd = toAdd.replace('"' + obj.sortTaskBy +'"', '"' + obj.sortTaskBy + '" selected="selected"')
+								}else{
+									toAdd = toAdd.replace('"5"', '"5" selected="selected"')
+								}
+
+								getStorage('hideTask', function (obj) {
+									if (!chrome.runtime.error) {
+										if(obj.hideTask){
+											hideTask = true;
+										} else {
+											toAdd = toAdd.replace('checked="checked"', '');
+											hideTask = false;
+										}
+										pagecontent.html(toAdd);
+
+
+									}
+								});
+							}
+						});
+					}
+				});
+			});
+
+			pagecontent.off("change");
+
+			pagecontent.on("change", "#theme", function() {
+				setStorage({'theme' : themes[theme.value]});
+				setStorage(themes[theme.value]);
+				//attempt to send message to content script
+				curtheme = themes[theme.value];
+				runTheme();
+			});
+
+			pagecontent.on("change", "#homework", function() {
+				homework = !homework;
+				setStorage({'homework' : homework});
+			});
+
+			pagecontent.on("change", "#sortTaskBy", function() {
+				setStorage({'sortTaskBy' : $('#sortTaskBy').val()});
+			});
+
+			pagecontent.on("change", "#hideTask", function() {
+				hideTask = !hideTask;
+				setStorage({'hideTask' : hideTask});
 			});
 
 
 
-		});
-
-		pagecontent.off("change");
-
-		//Wait for theme selector to change
-		pagecontent.on("change", "#theme", function() {
-			setStorage({'theme' : themes[theme.value]});
-			setStorage(themes[theme.value]);
-			//attempt to send message to content script
-			curtheme = themes[theme.value];
-			runTheme();
-		});
-
-		pagecontent.on("change", "#homework", function() {
-			homework = !homework;
-			setStorage({'homework' : homework});
-			console.log(homework);
-		});
-
-		//console.log(toAdd);
-	}
+		}
 	});
-
-	//	$.get(chrome.extension.getURL('/settings.html'), function(data) {
-	//
-	//		var toAdd = data;
-	//
-	//		var themeSelect = $(toAdd).find('#theme');
-	//		var homeworkSelect = $(toAdd).find('#homework');
-	//
-	//		console.log(themeSelect);
-	//		console.log(homeworkSelect);
-	//
-	//		//Firefox and chrome settings manager
-	//		getStorage('theme', function (obj) {
-	//			if (!chrome.runtime.error) {
-	//				if (typeof obj.theme != "undefined"){
-	//					themeSelect.val("green");
-	//				} else {
-	//					themeSelect.val("default");
-	//				}
-	//			}
-	//
-	//			pagecontent.html($(toAdd.activeElement.innerHTML));
-	//
-	//
-	//		});
-	//
-	//		getStorage('homework', function (obj) {
-	//			if (!chrome.runtime.error) {
-	//				if(typeof obj.homework != "undefined" && obj.homework){
-	//					homeworkSelect.prop("checked", true);
-	//				}
-	//			}
-	//		});
-	//
-	//		//Wait for theme selector to change
-	//		pagecontent.on("change", "#theme", function() {
-	//			setStorage({'theme' : themes[theme.value]});
-	//			setStorage(themes[theme.value]);
-	//			//attempt to send message to content script
-	//			curtheme = themes[theme.value];
-	//			runTheme();
-	//		});
-	//
-	//		pagecontent.on("change", "#homework", function() {
-	//			setStorage({'homework' : homeworkSelect.checked});
-	//			setStorage(themes[theme.value]);
-	//		});
-	//
-	//		console.log(toAdd);
-	//	})
 
 	$('.active').removeClass("active");
 	$('#id_settings').parent().addClass("active");
