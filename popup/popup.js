@@ -1,13 +1,3 @@
-
-//Themes availeble
-var themes = {
-	"default" : {"navBar": "#438eb9", "navbarIcon" : "#FFFFFF", "rightDropdown": "#62a8d1", "name": "default"},
-	"dark" : {"navBar": "rgb(43, 43, 43)", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(43, 43, 43)", "name": "dark"},
-	"green" : {"navBar": "#539e24", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(53, 115, 6)", "name": "green"},
-	"red": {"navBar": "#B22222", "navbarIcon": "#FFFF99", "rightDropdown": "rgba(0, 0, 0, 0.2)", "name": "red"},
-	"blue": {"navBar": "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "name": "blue"}};
-
-
 //wait for document to load
 	document.addEventListener('DOMContentLoaded', function() {
 
@@ -85,7 +75,9 @@ var themes = {
 		homeworkSelect.addEventListener('change', function() {
 			setStorage({'homework' : homeworkSelect.checked});
 			setStorage(themes[theme.value]);
-
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+				chrome.tabs.sendMessage(tabs[0].id, {type: "homeworkChange", checked: homeworkSelect.checked}, function(response) {});
+			});
 		}, false);
 
 		hideTaskSelect.addEventListener('change', function() {
