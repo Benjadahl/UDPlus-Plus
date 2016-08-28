@@ -90,36 +90,58 @@ getStorage('theme', function (obj) {
 	}
 });
 
+var homework = true;
+
 function activ_plus_menu() {
 	var pagecontent = $(".page-content");
 	pagecontent.html("");
-	pagecontent.load(chrome.extension.getURL('/settings.html'), function () {
 
-		var themeSelect = $("#theme");
-		var homeworkSelect = $("#homework");
+	$.ajax({
+  type: "GET",
+	url: chrome.extension.getURL('/settings.html'),
+	dataType: "html",
+	success: function(data, textStatus, errorThrown){
 
-		console.log(themeSelect);
-		console.log(homeworkSelect);
+		// Your HTTP call was successful but nothing else has happened with the response yet
+		// Therefore you can now do whatever you want with the it...
+
+		// First modify the HTML using the dataValModify function
+		// Assumption being that your function returns the modified HTML string
+		//
+
+		var toAdd = data;
+
+
+		var themeSelect = $(toAdd).find('#theme');
+		var homeworkSelect = $(toAdd).find('#homework');
 
 		//Firefox and chrome settings manager
 		getStorage('theme', function (obj) {
 			if (!chrome.runtime.error) {
 				if (typeof obj.theme != "undefined"){
-					themeSelect.value = obj.theme.name;
+					toAdd = toAdd.replace('"' + obj.theme.name + '"', '"' + obj.theme.name + '" selected="selected"');
 				} else {
-					themeSelect.value = "default";
+					toAdd = toAdd.replace('"default"', '"default" selected="selected"');
 				}
 			}
-		});
 
-		getStorage('homework', function (obj) {
-			if (!chrome.runtime.error) {
-				if(typeof obj.homework != "undefined" && obj.homework){
-					homeworkSelect.prop("checked", true);
+			getStorage('homework', function (obj) {
+				if (!chrome.runtime.error) {
+					if(obj.homework != false){
+						console.log("Hey");
+						console.log(homework);
+						toAdd = toAdd.replace('checked="unchecked"', 'checked="checked"');
+					} else {
+						homework = false;
+					}
+
+					pagecontent.html(toAdd);
 				}
-			}
-		});
+			});
 
+
+
+		});
 		//Wait for theme selector to change
 		pagecontent.on("change", "#theme", function() {
 			setStorage({'theme' : themes[theme.value]});
@@ -130,12 +152,63 @@ function activ_plus_menu() {
 		});
 
 		pagecontent.on("change", "#homework", function() {
-			setStorage({'homework' : homeworkSelect.checked});
-			setStorage(themes[theme.value]);
+			homework = !homework;
+			setStorage({'homework' : false});
 		});
 
-
+		//console.log(toAdd);
+	}
 	});
+
+	//	$.get(chrome.extension.getURL('/settings.html'), function(data) {
+	//
+	//		var toAdd = data;
+	//
+	//		var themeSelect = $(toAdd).find('#theme');
+	//		var homeworkSelect = $(toAdd).find('#homework');
+	//
+	//		console.log(themeSelect);
+	//		console.log(homeworkSelect);
+	//
+	//		//Firefox and chrome settings manager
+	//		getStorage('theme', function (obj) {
+	//			if (!chrome.runtime.error) {
+	//				if (typeof obj.theme != "undefined"){
+	//					themeSelect.val("green");
+	//				} else {
+	//					themeSelect.val("default");
+	//				}
+	//			}
+	//
+	//			pagecontent.html($(toAdd.activeElement.innerHTML));
+	//
+	//
+	//		});
+	//
+	//		getStorage('homework', function (obj) {
+	//			if (!chrome.runtime.error) {
+	//				if(typeof obj.homework != "undefined" && obj.homework){
+	//					homeworkSelect.prop("checked", true);
+	//				}
+	//			}
+	//		});
+	//
+	//		//Wait for theme selector to change
+	//		pagecontent.on("change", "#theme", function() {
+	//			setStorage({'theme' : themes[theme.value]});
+	//			setStorage(themes[theme.value]);
+	//			//attempt to send message to content script
+	//			curtheme = themes[theme.value];
+	//			runTheme();
+	//		});
+	//
+	//		pagecontent.on("change", "#homework", function() {
+	//			setStorage({'homework' : homeworkSelect.checked});
+	//			setStorage(themes[theme.value]);
+	//		});
+	//
+	//		console.log(toAdd);
+	//	})
 
 	$('.active').removeClass("active");
 	$('#id_settings').parent().addClass("active");
