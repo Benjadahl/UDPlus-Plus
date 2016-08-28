@@ -77,7 +77,11 @@ getStorage('theme', function (obj) {
 
 //Changes color off element
 function runTheme(){
-	changeColor(colorElements.navBar, curtheme.navBar);
+	for (var T in curtheme) {
+		changeColor(colorElements[T], curtheme[T]);
+	}
+
+	/*changeColor(colorElements.navBar, curtheme.navBar);
 	changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
 	changeColor(colorElements.menuButtons, "blue");
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
@@ -130,7 +134,7 @@ function runTheme(){
 	changeColor(colorElements.leftMenuActiveLi, "green");
 	changeColor(colorElements.tableRowNote, "green");
 	changeColor(colorElements.schoolEdges, "red");
-	changeColor(colorElements.profileRing, "red");
+	changeColor(colorElements.profileRing, "red");*/
 }
 
 $(document).ready(function(){

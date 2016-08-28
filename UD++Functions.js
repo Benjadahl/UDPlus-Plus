@@ -1,6 +1,6 @@
 //Changeble element
 const colorElements ={
-		navBar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTopActive:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -29,7 +29,7 @@ const colorElements ={
 		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableButtonsText:{cssSel:".btn", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		studentInfo:{cssSel:".page-header h1 small", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
-		navBarText:{cssSel:".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbarText:{cssSel:".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		messageCounter:{cssSel:".badge", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		copyRightNotice:{cssSel:".copyright>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		mainText:{cssSel:"body", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -39,7 +39,8 @@ const colorElements ={
 		tableRowNote:{cssSel:".GEIF5TWDL- table tr th", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		copyrightTop:{cssSel:".copyright", cssAttr:["border-top"], styleRule: true, isImportant: true, specialBorder: true},
 		schoolEdges:{cssSel:".ace-nav>li", cssAttr:["border-left"], styleRule: true, isImportant: true, specialBorder: true},
-		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true}
+		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true},
+		leftMenuTextActive:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 };
 
 //Function for changing color of element
