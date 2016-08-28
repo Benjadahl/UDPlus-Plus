@@ -90,10 +90,10 @@ getStorage('theme', function (obj) {
 	}
 });
 
-var homework = true;
 
 function activ_plus_menu() {
 	var pagecontent = $(".page-content");
+	var homework = true;
 	pagecontent.html("");
 
 	$.ajax({
@@ -127,12 +127,14 @@ function activ_plus_menu() {
 
 			getStorage('homework', function (obj) {
 				if (!chrome.runtime.error) {
-					if(obj.homework != false){
-						console.log("Hey");
-						console.log(homework);
-						toAdd = toAdd.replace('checked="unchecked"', 'checked="checked"');
+					console.log(obj.homework);
+					if(obj.homework){
+						homework = true;
+						console.log("Turned on");
 					} else {
+						toAdd = toAdd.replace('checked="checked"', '');
 						homework = false;
+						console.log("Turned off");
 					}
 
 					pagecontent.html(toAdd);
@@ -142,6 +144,9 @@ function activ_plus_menu() {
 
 
 		});
+
+		pagecontent.off("change");
+
 		//Wait for theme selector to change
 		pagecontent.on("change", "#theme", function() {
 			setStorage({'theme' : themes[theme.value]});
@@ -153,7 +158,8 @@ function activ_plus_menu() {
 
 		pagecontent.on("change", "#homework", function() {
 			homework = !homework;
-			setStorage({'homework' : false});
+			setStorage({'homework' : homework});
+			console.log(homework);
 		});
 
 		//console.log(toAdd);
