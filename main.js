@@ -182,10 +182,6 @@ function activ_plus_menu() {
 
 			var toAdd = data;
 
-
-			var themeSelect = $(toAdd).find('#theme');
-			var homeworkSelect = $(toAdd).find('#homework');
-
 			//Firefox and chrome settings manager
 			getStorage('theme', function (obj) {
 				if (!chrome.runtime.error) {
@@ -201,7 +197,7 @@ function activ_plus_menu() {
 						if(obj.homework){
 							homework = true;
 						} else {
-							toAdd = toAdd.replace('checked="checked"', '');
+							toAdd = toAdd.replace('"homeworkCheck" checked="checked"', '"homeworkCheck"');
 							homework = false;
 						}
 
@@ -218,7 +214,7 @@ function activ_plus_menu() {
 										if(obj.hideTask){
 											hideTask = true;
 										} else {
-											toAdd = toAdd.replace('checked="checked"', '');
+											toAdd = toAdd.replace('"hideTask" checked="checked"', '"hideTask"');
 											hideTask = false;
 										}
 										pagecontent.html(toAdd);
