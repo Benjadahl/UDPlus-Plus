@@ -219,6 +219,13 @@ function activ_plus_menu() {
 										}
 										pagecontent.html(toAdd);
 
+										$('.active').removeClass("active");
+										$('#id_settings').parent().addClass("active");
+
+
+										$('#id_skema').click(function() {
+											location.reload(true);
+										});
 
 									}
 								});
@@ -258,13 +265,6 @@ function activ_plus_menu() {
 		}
 	});
 
-	$('.active').removeClass("active");
-	$('#id_settings').parent().addClass("active");
-
-
-	$('#id_skema').click(function() {
-		location.reload(true);
-	});
 
 
 }
