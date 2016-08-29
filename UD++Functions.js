@@ -5,7 +5,8 @@ const colorElements ={
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTopActive:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
 		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true, isImportant: true, specialBorder: false},
-		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbarEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		backEdge:{cssSel:"body", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true, isImportant: true, specialBorder: false},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true, isImportant: true, specialBorder: false},
 		header:{cssSel:"h1", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -40,7 +41,8 @@ const colorElements ={
 		leftMenuTextActive:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
 		tableBackground:{cssSel:".GEIF5TWDI- table.GEIF5TWDH- tr td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false}
+		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
+		menuButtons:{cssSel:".nav-list>li>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element

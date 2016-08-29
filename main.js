@@ -85,7 +85,7 @@ function runTheme(){
 	changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
 	changeColor(colorElements.menuButtons, "blue");
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-	changeColor(colorElements.rightDropdownRightEdge, curtheme.navBar);
+	
 	changeColor(colorElements.skemaButtons, curtheme.navBar);
 
 	changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
