@@ -160,4 +160,4 @@ getStorage('theme', function (obj) {
   }
 });
 
-$('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list').append('<li><a ontouchend="javascript:uddata_activ_menu(&quot;id_opgave&quot;);" href="/opgave/?id=id_opgave#oversigt:" id="id_opgave"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>');
+//$('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list').append('<li><a ontouchend="javascript:uddata_activ_menu(&quot;id_opgave&quot;);" href="/opgave/?id=id_opgave#oversigt:" id="id_opgave"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>');
