@@ -236,6 +236,7 @@ function activ_plus_menu() {
 				//attempt to send message to content script
 				curtheme = themes[theme.value];
 				runTheme();
+				location.reload();
 			});
 
 			pagecontent.on("change", "#homework", function() {
