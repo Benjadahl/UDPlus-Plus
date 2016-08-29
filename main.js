@@ -261,6 +261,11 @@ function activ_plus_menu() {
 	$('#id_settings').parent().addClass("active");
 
 
+	$('#id_skema').click(function() {
+		location.reload(true);
+	});
+
+
 }
 
 //The ++Settings menu button
