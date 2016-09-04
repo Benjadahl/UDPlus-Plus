@@ -65,13 +65,6 @@ setInterval(function() {
 	markHomework();
 }, 500);
 
-//Every two seconds, we try to find lessons containing the word homework.
-/*window.setInterval(function () {
-	markHomework();
-	}, (2 * 1000));*/
-
-// ---->
-
 curtheme = "Default";
 
 getStorage('theme', function (obj) {
@@ -87,61 +80,6 @@ function runTheme(){
 	for (var T in curtheme) {
 		changeColor(colorElements[T], curtheme[T]);
 	}
-
-	/*changeColor(colorElements.navBar, curtheme.navBar);
-		changeColor(colorElements.navbarIcon, curtheme.navbarIcon);
-		changeColor(colorElements.menuButtons, "blue");
-		changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-		changeColor(colorElements.rightDropdownRightEdge, curtheme.navBar);
-		changeColor(colorElements.skemaButtons, curtheme.navBar);
-
-		changeColor(colorElements.rightDropdown, curtheme.rightDropdown);
-		changeColor(colorElements.loginBtn, curtheme.navBar);
-		changeColor(colorElements.overSkrift, curtheme.navBar);
-
-
-
-		changeColor(colorElements.skemaTop, curtheme.navBar);
-		changeColor(colorElements.arrows, curtheme.navBar);
-		changeColor(colorElements.tableButtons, curtheme.navBar);
-		changeColor(colorElements.tableTopActive, curtheme.navBar);
-
-		changeColor(colorElements.a, curtheme.navBar);
-		changeColor(colorElements.aHover, curtheme.rightDropdown);
-
-		changeColor(colorElements.leftMenuBorder, "blue");
-		changeColor(colorElements.copyrightTop, "blue")
-
-		changeColor(colorElements.leftMenuLI, "red");
-		changeColor(colorElements.leftMenuBottom, "red");
-		changeColor(colorElements.leftMenuRight, "blue");
-		changeColor(colorElements.mainBackground, "red");
-		changeColor(colorElements.sidebarCollapse, "red");
-		changeColor(colorElements.sidebarCollapseIcon, "red");
-		changeColor(colorElements.tableBottom, "red");
-		changeColor(colorElements.tableTop, "red");
-		changeColor(colorElements.tableLeftSide, "red");
-		changeColor(colorElements.tableCorner, "red");
-		changeColor(colorElements.lessonFill, "blue");
-		changeColor(colorElements.outerBackground, "red");
-		changeColor(colorElements.lessonStroke, "red");
-		changeColor(colorElements.leftMenuLIborderRight, "blue");
-		changeColor(colorElements.leftMenuLIborderTop, "blue");
-		changeColor(colorElements.leftMenuLIborderBottom, "blue");
-
-		changeColor(colorElements.tableButtonsText,"red");
-		changeColor(colorElements.studentInfo,"white");
-		changeColor(colorElements.navBarText,"blue");
-		changeColor(colorElements.messageCounter,"blue");
-		changeColor(colorElements.copyRightNotice, "blue");
-		changeColor(colorElements.mainText, "blue");
-		changeColor(colorElements.linkLanguage, "blue");
-		changeColor(colorElements.tableTopText, "black");
-		changeColor(colorElements.tableTopTextActive, "blue");
-		changeColor(colorElements.leftMenuActiveLi, "green");
-		changeColor(colorElements.tableRowNote, "green");
-		changeColor(colorElements.schoolEdges, "red");
-		changeColor(colorElements.profileRing, "red");*/
 }
 
 $(document).ready(function(){
