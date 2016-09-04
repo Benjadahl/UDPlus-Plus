@@ -44,7 +44,7 @@ $("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</st
 
 function markHomework(){
 	if(mark){
-		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+		$('.skemaBrikGruppe>.GI4H3JYPX>g>text>title').each(function(index) {
 			if ($(this).text().toUpperCase().includes("LEKTIE")) {
 				//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
 				//$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
@@ -52,7 +52,7 @@ function markHomework(){
 			}
 		});
 	}else{
-		$('.skemaBrikGruppe>g.GEIF5TWDNX>g>text>title').each(function(index) {
+		$('.skemaBrikGruppe>g.GI4H3JYPX>g>text>title').each(function(index) {
 			if ($(this).text().toUpperCase().includes("LEKTIE")) {
 				//$(this).parent().parent().parent().find('rect').css('fill', 'rgb(255,239,197)');
 				$(this).parent().parent().parent().find('rect').removeAttr("style");
