@@ -41,6 +41,7 @@ var themes = {
         "mainText":"#757575",
         "leftMenuArrowBorder":"#ada315",
         "tableBackground":"#707070",
-        "lessonOpacity":"1"
+        "lessonOpacity":"1",
+				"commentText":"#757575"
     }
 };
