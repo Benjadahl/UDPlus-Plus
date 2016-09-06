@@ -155,6 +155,9 @@ function activ_plus_menu() {
 										$('#id_skema').click(function() {
 											location.reload(true);
 										});
+										setTimeout(function() {
+											$('.popupContent').remove();
+										}, 1000);
 
 									}
 								});
