@@ -109,6 +109,7 @@ function activ_plus_menu() {
 		dataType: "html",
 		success: function(data, textStatus, errorThrown){
 
+			pagecontent.html("");
 			var toAdd = data;
 
 			//Firefox and chrome settings manager
@@ -155,6 +156,10 @@ function activ_plus_menu() {
 										$('#id_skema').click(function() {
 											location.reload(true);
 										});
+										//Removes popupContent
+										setTimeout(function() {
+											$('.popupContent').remove();
+										}, 200);
 
 									}
 								});
