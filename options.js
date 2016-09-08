@@ -40,10 +40,8 @@ getStorage('sortTaskBy', function (obj) {
 
 $('#theme').on("change", function() {
 	setStorage({'theme' : themes[theme.value]});
-	setStorage(themes[$('#theme').val()]);
 	curtheme = themes[$('#theme').val()];
 	runTheme();
-	location.reload();
 });
 
 $('#homework').change(function() {
