@@ -5,13 +5,16 @@
   "description": "An extension that makes the experience of using uddata+ better",
   "version": "0.1",
   "options_ui":{
-	"page": "options.html",
+	  "page": "options.html",
     "chrome_style": true
   },
   "permissions": [
     "activeTab",
 		"storage"
   ],
+  "background":{
+    "scripts":["background.js"]
+  },
   "content_scripts": [
     {
       "matches":[
