@@ -3,7 +3,7 @@ const colorElements ={
 		navbar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
-		tableTopActive:{cssSel:".GEIF5TWDK- th.GEIF5TWDB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTopActive:{cssSel:".GI4H3JYK- th.GI4H3JYB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
 		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true, isImportant: true, specialBorder: false},
 		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -18,11 +18,11 @@ const colorElements ={
 		sidebarCollapse:{cssSel:".sidebar-collapse", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: true},
 		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		tableTop:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		tableLeftSide:{cssSel:".GEIF5TWDL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		tableCorner:{cssSel:".GEIF5TWDFHB>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		lessonFill:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill"], styleRule: true, isImportant: true, specialBorder: false},
-		lessonStroke:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["stroke"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTop:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		tableLeftSide:{cssSel:".GI4H3JYL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		//tableCorner:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonFill:{cssSel:"svg .GI4H3JYPX rect", cssAttr:["fill"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonStroke:{cssSel:"svg .GI4H3JYPX rect", cssAttr:["stroke"], styleRule: true, isImportant: true, specialBorder: false},
 		outerBackground:{cssSel:"#wrapper", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableButtonsText:{cssSel:".btn", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		studentInfo:{cssSel:".page-header h1 small", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -39,8 +39,9 @@ const colorElements ={
 		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true},
 		leftMenuTextActive:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
-		tableBackground:{cssSel:".GEIF5TWDI- table.GEIF5TWDH- tr td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false}
+		tableBackground:{cssSel:".GI4H3JYI- table.GI4H3JYJ- td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
+		commentText:{cssSel:".LAAVCED-m-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
