@@ -39,7 +39,7 @@ getStorage('sortTaskBy', function (obj) {
 });
 
 $('#theme').on("change", function() {
-	setStorage({'theme' : themes[theme.value]});
+	setStorage({'theme' : theme.value});
 	curtheme = themes[$('#theme').val()];
 	runTheme();
 });
