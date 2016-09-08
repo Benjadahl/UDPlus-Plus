@@ -41,7 +41,6 @@ getStorage('sortTaskBy', function (obj) {
 $('#theme').on("change", function() {
 	setStorage({'theme' : themes[theme.value]});
 	setStorage(themes[$('#theme').val()]);
-	//attempt to send message to content script
 	curtheme = themes[$('#theme').val()];
 	runTheme();
 	location.reload();
@@ -59,4 +58,3 @@ $('#hideTask').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideTask' : $('#hideTask').prop("checked")});
 });
-
