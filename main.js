@@ -22,14 +22,14 @@ getStorage('homework', function (obj) {
 	}
 });
 
-chrome.runtime.onMessage.addListener(
+/*chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if (request.type == "homeworkChange"){
 			mark = request.checked;
 			markHomework();
 		}
 	}
-);
+);*/
 
 $("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</style>");
 
@@ -209,4 +209,8 @@ var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\'
 //Finds the left navbar and appends extraMenu
 $('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list').append(extraMenu);
 
-$('#id_settings').click(activ_plus_menu);
+$('#id_settings').click(function(){
+	chrome.runtime.sendMessage({optionsClick: true}, function(response) {
+  	console.log("Send optionsclick");
+	});
+});

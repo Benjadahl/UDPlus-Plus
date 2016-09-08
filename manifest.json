@@ -4,11 +4,17 @@
   "name": "Uddata++",
   "description": "An extension that makes the experience of using uddata+ better",
   "version": "0.1",
-
+  "options_ui":{
+	  "page": "options.html",
+    "chrome_style": true
+  },
   "permissions": [
     "activeTab",
 		"storage"
   ],
+  "background":{
+    "scripts":["background.js"]
+  },
   "content_scripts": [
     {
       "matches":[
@@ -35,5 +41,6 @@
       "run_at": "document_end"
     }
   ],
-  "web_accessible_resources": ["UddataLogo.png", "script.js", "settings.html"]
+  "web_accessible_resources": ["UddataLogo.png", "UD++Functions.js", "settings.html"]
+
 }
