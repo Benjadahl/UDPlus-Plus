@@ -61,6 +61,7 @@ curtheme = "Default";
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		curtheme = obj.theme;
+		
 		runTheme();
 	}
 });
@@ -68,8 +69,8 @@ getStorage('theme', function (obj) {
 
 //Changes color off element
 function runTheme(){
-	for (var T in curtheme) {
-		changeColor(colorElements[T], curtheme[T]);
+	for (var T in themes[curtheme]) {
+		changeColor(colorElements[T], themes[curtheme][T]);
 	}
 }
 
@@ -172,8 +173,7 @@ function activ_plus_menu() {
 			pagecontent.off("change");
 
 			pagecontent.on("change", "#theme", function() {
-				setStorage({'theme' : themes[theme.value]});
-				setStorage(themes[theme.value]);
+				setStorage({'theme' : theme.value});
 				//attempt to send message to content script
 				curtheme = themes[theme.value];
 				runTheme();
