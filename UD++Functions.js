@@ -41,7 +41,11 @@ const colorElements ={
 		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
 		tableBackground:{cssSel:".GI4H3JYI- table.GI4H3JYJ- td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
-		commentText:{cssSel:".LAAVCED-m-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
+		commentText:{cssSel:".LAAVCED-m-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		absence:{cssSel:".table thead tr th, .table tr.thead td", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		absenceSlider:{cssSel:".ui-slider-range", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		activity:{cssSel: ".LAAVCED-f-b", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		menuText:{cssSel: ".nav-list>li>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
