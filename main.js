@@ -22,30 +22,18 @@ getStorage('homework', function (obj) {
 	}
 });
 
-/*chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse) {
-		if (request.type == "homeworkChange"){
-			mark = request.checked;
-			markHomework();
-		}
-	}
-);*/
-
 $("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</style>");
 
 function markHomework(){
 	if(mark){
 		$('.skemaBrikGruppe>.GI4H3JYPX>g>text>title').each(function(index) {
 			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				//$(this).parent().parent().parent().find('rect').css('fill-opacity', '0.0');
-				//$(this).parent().parent().parent().find('rect').css('fill', '#ff0000');
 				$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
 			}
 		});
 	}else{
 		$('.skemaBrikGruppe>g.GI4H3JYPX>g>text>title').each(function(index) {
 			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				//$(this).parent().parent().parent().find('rect').css('fill', 'rgb(255,239,197)');
 				$(this).parent().parent().parent().find('rect').removeAttr("style");
 			}
 		});
@@ -61,7 +49,7 @@ curtheme = "Default";
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		curtheme = obj.theme;
-		
+
 		runTheme();
 	}
 });
