@@ -3,7 +3,7 @@ console.log("Uddata++ starting");
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
 
-
+//Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
 	setStorage({"lang": "dansk"});
 }else{
@@ -14,6 +14,7 @@ if($("#language > a").html() == "English"){
 // <---- HOMEWORK MARKING
 var mark;
 
+//Get the homework settings from storage and save it to the mark variable
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
 		if (window.location.href.indexOf("skema")) {
@@ -22,8 +23,7 @@ getStorage('homework', function (obj) {
 	}
 });
 
-$("head").append("<style>svg .GEIF5TWDNX rect{fill-opacity:0.75 !important;}</style>");
-
+//If variable mark is true then mark the homework, else do not mark it
 function markHomework(){
 	if(mark){
 		$('.skemaBrikGruppe>.GI4H3JYPX>g>text>title').each(function(index) {
@@ -40,31 +40,34 @@ function markHomework(){
 	}
 }
 
+//Interval to mark homework in real time
 setInterval(function() {
 	markHomework();
 }, 500);
 
-curtheme = "Default";
+// ---->
 
+//Define the variable curtheme to contain the current theme
+var curtheme = "Default";
+
+//Try to import the theme from the settings storage
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		curtheme = obj.theme;
-
 		runTheme();
 	}
 });
 
-
-//Changes color off element
+//Changes color off each element in the current theme
 function runTheme(){
 	for (var T in themes[curtheme]) {
 		changeColor(colorElements[T], themes[curtheme][T]);
 	}
 }
 
+//When the document is ready remove the sidebar collapse button, which is broken
 $(document).ready(function(){
 	$("#sidebar-collapse").hide();
-
 });
 
 //Wait for change in theme from popup
@@ -77,7 +80,7 @@ chrome.runtime.onMessage.addListener(
 	}
 );
 
-//Get current freme from settings
+//Get current theme from settings and execute the function that switches theme
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		curtheme = obj.theme;
@@ -91,8 +94,8 @@ var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\'
 //Finds the left navbar and appends extraMenu
 $('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list').append(extraMenu);
 
+//Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
 	chrome.runtime.sendMessage({optionsClick: true}, function(response) {
-  	console.log("Send optionsclick");
 	});
 });
