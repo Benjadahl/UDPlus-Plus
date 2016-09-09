@@ -12,39 +12,29 @@ if($("#language > a").html() == "English"){
 
 
 // <---- HOMEWORK MARKING
-var mark;
+//Function for marking the homework
+function markHomework(){
+	$('.skemaBrikGruppe>.GI4H3JYPX>g>text>title').each(function(index) {
+		if ($(this).text().toUpperCase().includes("LEKTIE")) {
+			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
+		}
+	});
+}
 
-//Get the homework settings from storage and save it to the mark variable
+//Get the homework setting
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
+		//If the schedule object exists and the homework setting is true, setup interval to mark
 		if (window.location.href.indexOf("skema")) {
-			mark = obj.homework;
+			if(obj.homework){
+				//Interval to mark homework, they will be marked when they load in
+				setInterval(function() {
+					markHomework();
+				}, 250);
+			}
 		}
 	}
 });
-
-//If variable mark is true then mark the homework, else do not mark it
-function markHomework(){
-	if(mark){
-		$('.skemaBrikGruppe>.GI4H3JYPX>g>text>title').each(function(index) {
-			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
-			}
-		});
-	}else{
-		$('.skemaBrikGruppe>g.GI4H3JYPX>g>text>title').each(function(index) {
-			if ($(this).text().toUpperCase().includes("LEKTIE")) {
-				$(this).parent().parent().parent().find('rect').removeAttr("style");
-			}
-		});
-	}
-}
-
-//Interval to mark homework in real time
-setInterval(function() {
-	markHomework();
-}, 500);
-
 // ---->
 
 //Define the variable curtheme to contain the current theme
