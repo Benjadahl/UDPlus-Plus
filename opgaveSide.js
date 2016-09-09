@@ -1,5 +1,5 @@
 
-var table = ".page-content > div > table > tbody"
+var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
 
