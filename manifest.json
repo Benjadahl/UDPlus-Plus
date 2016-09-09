@@ -9,8 +9,8 @@
      "chrome_style": true
   },
   "permissions": [
-    "activeTab",
-		"storage"
+      "activeTab",
+	    "storage"
   ],
   "background":{
     "scripts":["background.js"]
