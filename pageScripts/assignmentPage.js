@@ -34,14 +34,10 @@ var checkExist = setInterval(function() {
 
      var tasks = $(table).children();
 
-     console.log(hideTask);
-
-
      if(hideTask){
        for(var i = 0; i < tasks.length; i++){
          var button = $(tasks.eq(i).children()[12]).find("div>button");
          if(button.attr("style") == "display: none;"){
-            console.log("DONE");
             $(tasks.eq(i)).remove();
          }
        }
