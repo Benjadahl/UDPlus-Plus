@@ -29,7 +29,7 @@
         "http://www.uddataplus.dk/opgave/*",
         "https://www.uddataplus.dk/opgave/*"
       ],
-      "js": ["jquery-3.1.0.min.js","opgaveSide.js"],
+      "js": ["jquery-3.1.0.min.js","assignmentPage.js"],
       "run_at": "document_end"
     },
     {
