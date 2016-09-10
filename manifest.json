@@ -37,7 +37,7 @@
         "http://www.uddataplus.dk/ressourcer/*",
         "https://www.uddataplus.dk/ressourcer/*"
       ],
-      "js": ["jquery-3.1.0.min.js","resourcer.js"],
+      "js": ["jquery-3.1.0.min.js","resources.js"],
       "run_at": "document_end"
     }
   ],
