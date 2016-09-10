@@ -5,7 +5,7 @@
   "description": "An extension that makes the experience of using uddata+ better",
   "version": "0.1",
   "options_ui":{
-	 "page": "options.html",
+	 "page": "./options/options.html",
      "chrome_style": true
   },
   "permissions": [
