@@ -4,22 +4,24 @@
   "name": "Uddata++",
   "description": "An extension that makes the experience of using uddata+ better",
   "version": "0.1",
-
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup/popup.html"
+  "options_ui":{
+	 "page": "options.html",
+     "chrome_style": true
   },
   "permissions": [
-    "activeTab",
-		"storage"
+      "activeTab",
+	    "storage"
   ],
+  "background":{
+    "scripts":["background.js"]
+  },
   "content_scripts": [
     {
       "matches":[
         "http://www.uddataplus.dk/*",
         "https://www.uddataplus.dk/*"
       ],
-      "js": ["jquery-3.1.0.min.js","UD++Functions.js","main.js"],
+      "js": ["jquery-3.1.0.min.js","UD++Functions.js","main.js","themes.js"],
       "run_at": "document_end"
     },
     {
@@ -29,7 +31,15 @@
       ],
       "js": ["jquery-3.1.0.min.js","opgaveSide.js"],
       "run_at": "document_end"
-    }	
+    },
+    {
+      "matches":[
+        "http://www.uddataplus.dk/ressourcer/*",
+        "https://www.uddataplus.dk/ressourcer/*"
+      ],
+      "js": ["jquery-3.1.0.min.js","resourcer.js"],
+      "run_at": "document_end"
+    }
   ],
-  "web_accessible_resources": ["UddataLogo.png", "script.js"]
+  "web_accessible_resources": ["UddataLogo.png", "UD++Functions.js", "settings.html"]
 }

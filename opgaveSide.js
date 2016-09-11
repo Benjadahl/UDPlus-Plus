@@ -1,11 +1,9 @@
 
-var table = ".page-content > div > table > tbody"
+var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
 
-function hideIf(index, value){
-  console.log($(table).children("tr")[value]);
-}
+
 
 
 getStorage('hideTask', function (obj) {
@@ -38,13 +36,7 @@ var checkExist = setInterval(function() {
 
 
      if(hideTask){
-       for(var i = 0; i < tasks.length; i++){
-         var button = $(tasks.eq(i).children()[12]).find("div>button");
-         if(button.attr("style") == "display: none;"){
-            console.log("DONE");
-            $(tasks.eq(i)).remove();
-         }
-       }
+       $(".GEL3H0BDF").children().eq(1).find("input").trigger("click");
      }
 
 
