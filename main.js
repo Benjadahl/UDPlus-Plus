@@ -1,7 +1,7 @@
 console.log("Uddata++ starting");
 
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
-$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("UddataLogo.png"));
+$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
 
 //Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
