@@ -53,7 +53,7 @@ function runTheme(){
 	for (var T in themes[curtheme]) {
 		changeColor(colorElements[T], themes[curtheme][T]);
 	}
-
+}
 
 //When the document is ready remove the sidebar collapse button, which is broken
 $(document).ready(function(){
@@ -78,7 +78,6 @@ getStorage('theme', function (obj) {
 	}
 });
 
-
 //The ++Settings menu button
 var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\');" href="#" id="id_settings"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>';
 
@@ -87,6 +86,5 @@ $('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-
 
 //Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
-	chrome.runtime.sendMessage({optionsClick: true}, function(response) {
-	});
+	chrome.runtime.sendMessage({optionsClick: true});
 });
