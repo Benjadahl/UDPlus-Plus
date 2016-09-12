@@ -13,6 +13,7 @@ var themes = {
 			"absenceSlider": "rgb(53, 115, 6)",
 			"rightDropdown": "rgb(53, 115, 6)",
 			"rightDropdownRightEdge": "#539e24",
+			"navbarEdge" : "#539e24",
 			"profileRing": "rgb(53, 115, 6)",
 			"studentInfo":"#999999",
 			"header":"#539e24",
