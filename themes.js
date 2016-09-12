@@ -24,7 +24,7 @@ var themes = {
 			"arrows":"#539e24",
 			"leftMenuTextActive":"#539e24",
 			"linkLanguage":"#539e24",
-			"mainText":"#539e24",
+			"mainText":"rgb(53, 115, 6)",
 			"leftMenuArrowBorder":"#539e24",
 			"lessonOpacity":"1"
 	},
@@ -60,7 +60,7 @@ var themes = {
 				"backEdge": "#414141",
 		"absence": "#0d0d0d",
 		"absenceSlider": "#0d0d0d",
-		"rightDropdownRightEdge": "#0d0d0d", 
+		"rightDropdownRightEdge": "#0d0d0d",
         "profileRing": "#ababab",
         "schoolEdges":"#ababab",
         "navbarText":"#dfdede",
