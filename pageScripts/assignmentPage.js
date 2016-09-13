@@ -33,7 +33,7 @@ var checkExist = setInterval(function() {
      var tasks = $(table).children();
 
      if(hideTask){
-       $(".GEL3H0BDF").children().eq(1).find("input").trigger("click");
+       $(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
      }
       clearInterval(checkExist);
    }
