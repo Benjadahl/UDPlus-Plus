@@ -14,7 +14,7 @@ if($("#language > a").html() == "English"){
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
-	$('.skemaBrikGruppe>.GC0H5P4BPX>g>text>title').each(function(index) {
+	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		if ($(this).text().toUpperCase().includes("LEKTIE")) {
 			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
 		}
