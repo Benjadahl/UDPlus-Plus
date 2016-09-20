@@ -90,6 +90,7 @@ var themes = {
         "leftMenuArrowBorder":"#ada315",
         "tableBackground":"#707070",
         "lessonOpacity":"1",
-				"commentText":"#757575"
+				"commentText":"#757575",
+				"assignmentSetting": "#0d0d0d"
     }
 };
