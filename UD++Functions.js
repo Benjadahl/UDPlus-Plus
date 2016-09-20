@@ -19,7 +19,7 @@ const colorElements ={
 		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTop:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		tableLeftSide:{cssSel:".GI4H3JYL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		tableLeftSide:{cssSel:".GC0H5P4BL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		//tableCorner:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonFill:{cssSel:"svg .GI4H3JYPX rect", cssAttr:["fill"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonStroke:{cssSel:"svg .GI4H3JYPX rect", cssAttr:["stroke"], styleRule: true, isImportant: true, specialBorder: false},
