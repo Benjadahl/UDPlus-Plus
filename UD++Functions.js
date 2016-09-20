@@ -39,7 +39,7 @@ const colorElements ={
 		profileRing:{cssSel:".round", cssAttr:["border"], styleRule: true, isImportant: true, specialBorder: true},
 		leftMenuTextActive:{cssSel:".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
-		tableBackground:{cssSel:".GI4H3JYI- table.GI4H3JYJ- td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		tableBackground:{cssSel:".GC0H5P4BI- table.GC0H5P4BH- tr td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonOpacity:{cssSel:"svg .GEIF5TWDNX rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
 		commentText:{cssSel:".LAAVCED-m-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		absence:{cssSel:".table thead tr th, .table tr.thead td", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
