@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Uddata++",
+  "name": "UD++",
   "description": "An extension that makes the experience of using uddata+ better",
-  "version": "0.1",
+  "version": "1.0",
   "options_ui":{
 	 "page": "options/options.html",
      "chrome_style": true
