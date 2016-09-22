@@ -34,6 +34,7 @@ var checkExist = setInterval(function() {
 
      if(hideTask){
        $(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
+       $(".page-content").children().eq(1).find("div>div").children().eq(2).find("input").trigger("click");
      }
       clearInterval(checkExist);
    }

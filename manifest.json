@@ -1,12 +1,18 @@
 {
   "manifest_version": 2,
 
-  "name": "Uddata++",
+  "name": "UD++",
   "description": "An extension that makes the experience of using uddata+ better",
-  "version": "0.1",
+  "version": "1.0",
   "options_ui":{
 	 "page": "options/options.html",
      "chrome_style": true
+  },
+  "icons":{
+    "16":"resources/icons/icon16.png",
+    "19":"resources/icons/icon19.png",
+    "48":"resources/icons/icon48.png",
+    "128":"resources/icons/icon128.png"
   },
   "permissions": [
       "activeTab",
