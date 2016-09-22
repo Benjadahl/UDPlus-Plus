@@ -26,7 +26,7 @@ var themes = {
 			"linkLanguage":"#539e24",
 			"mainText":"#539e24",
 			"leftMenuArrowBorder":"#539e24",
-			"lessonOpacity":"1"
+			"lessonOpacity":"0.7"
 	},
 	"red" : {
 			"name": "red",

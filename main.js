@@ -16,7 +16,7 @@ if($("#language > a").html() == "English"){
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ff0000", 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ED2939", 'important' ); });
 		}
 	});
 }
