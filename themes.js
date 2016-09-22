@@ -91,6 +91,8 @@ var themes = {
         "tableBackground":"#707070",
         "lessonOpacity":"1",
 				"commentText":"#757575",
-				"assignmentSetting": "#0d0d0d"
+				"assignmentSetting": "#0d0d0d",
+				"assignmentText": "#FFFFFF"
+				
     }
 };

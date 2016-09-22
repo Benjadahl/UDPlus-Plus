@@ -46,7 +46,8 @@ const colorElements ={
 		absenceSlider:{cssSel:".ui-slider-range", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		activity:{cssSel: ".LAAVCED-f-b", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		menuText:{cssSel: ".nav-list>li>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
-		assignmentSetting:{cssSel: ".GD1SXJ-CF", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
+		assignmentSetting:{cssSel: ".page-content>div>div>div", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		assignmentText:{cssSel: ".table td", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
