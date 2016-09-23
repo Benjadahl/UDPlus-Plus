@@ -5,7 +5,8 @@ const colorElements ={
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTopActive:{cssSel:".GC0H5P4BK- th.GC0H5P4BB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
 		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true, isImportant: true, specialBorder: false},
-		rightDropdownRightEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbarEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		backEdge:{cssSel:"body", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableButtons:{cssSel:".btn-info", cssAttr:["background-color","border-color"], styleRule: true, isImportant: true, specialBorder: false},
 		arrows:{cssSel:".nav-list li.active>a:after", cssAttr:["border-right-color"], styleRule: true, isImportant: true, specialBorder: false},
 		header:{cssSel:"h1", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -46,7 +47,7 @@ const colorElements ={
 		absenceSlider:{cssSel:".ui-slider-range", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		activity:{cssSel: ".LAAVCED-f-b", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		menuText:{cssSel: ".nav-list>li>a", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
-		assignmentSetting:{cssSel: ".page-content>div>div>div", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		assignmentSetting:{cssSel: ".GD1SXJ-CF", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		assignmentText:{cssSel: ".table td", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 

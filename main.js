@@ -88,6 +88,5 @@ $('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-
 
 //Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
-	chrome.runtime.sendMessage({optionsClick: true}, function(response) {
-	});
+	chrome.runtime.sendMessage({optionsClick: true});
 });

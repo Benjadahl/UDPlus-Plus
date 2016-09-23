@@ -38,4 +38,4 @@ var checkExist = setInterval(function() {
      }
       clearInterval(checkExist);
    }
-}, 1000);
+}, 200);

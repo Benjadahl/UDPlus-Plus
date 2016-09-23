@@ -35,7 +35,8 @@ var themes = {
 			"absence": "#539e24",
 			"absenceSlider": "rgb(53, 115, 6)",
 			"rightDropdown": "rgb(53, 115, 6)",
-			"rightDropdownRightEdge": "#539e24", 
+			"rightDropdownRightEdge": "#539e24",
+			"navbarEdge" : "#539e24",
 			"profileRing": "rgb(53, 115, 6)",
 			"studentInfo":"#999999",
 			"header":"#539e24",
@@ -47,7 +48,7 @@ var themes = {
 			"arrows":"#539e24",
 			"leftMenuTextActive":"#539e24",
 			"linkLanguage":"#539e24",
-			"mainText":"#539e24",
+			"mainText":"rgb(53, 115, 6)",
 			"leftMenuArrowBorder":"#539e24",
 			"lessonOpacity":"0.7",
 			"lektieMark": "#ED2939"
@@ -60,7 +61,7 @@ var themes = {
 			"absence": "#B22222",
 			"absenceSlider": "rgba(0, 0, 0, 0.2)",
 			"rightDropdown": "rgba(0, 0, 0, 0.2)",
-			"rightDropdownRightEdge": "#B22222", 
+			"rightDropdownRightEdge": "#B22222",
 			"profileRing": "#B22222",
 			"studentInfo":"#999999",
 			"header":"#B22222",
@@ -82,12 +83,15 @@ var themes = {
         "navbar": "#0d0d0d",
         "navbarIcon" : "#ababab",
         "rightDropdown": "#1f1e1e",
+				"navbarEdge": "#0d0d0d",
+				"backEdge": "#414141",
 		"absence": "#0d0d0d",
 		"absenceSlider": "#0d0d0d",
-		"rightDropdownRightEdge": "#0d0d0d", 
+		"rightDropdownRightEdge": "#0d0d0d",
         "profileRing": "#ababab",
         "schoolEdges":"#ababab",
         "navbarText":"#dfdede",
+				"menuButtons":"#dfdede",
         "mainBackground":"#393939",
         "header":"#d6c91d",
         "studentInfo":"#999999",
@@ -120,6 +124,5 @@ var themes = {
 				"assignmentSetting": "#0d0d0d",
 				"assignmentText": "#FFFFFF",
 				"lektieMark": "#ED2939"
-				
     }
 };
