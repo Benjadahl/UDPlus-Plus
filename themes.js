@@ -3,8 +3,31 @@ var themes = {
 	"default" : {
         "name": "default"
      },
-	"black" : {"name": "black", "navbar": "rgb(43, 43, 43)", "navbarIcon" : "#FFFFFF", "rightDropdown": "rgb(43, 43, 43)"},
 	"blue": {"name": "blue", "navbar": "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)"},
+	"black" : {
+			"name": "black",
+			"navbar": "rgb(43, 43, 43)",
+			"navbarIcon" : "#FFFFFF",
+			"absence": "rgb(43, 43, 43)",
+			"absenceSlider": "rgba(0, 0, 0, 0.2)",
+			"rightDropdown": "rgba(0, 0, 0, 0.2)",
+			"rightDropdownRightEdge": "rgb(43, 43, 43)", 
+			"profileRing": "rgb(53, 115, 6)",
+			"studentInfo":"#999999",
+			"header":"rgb(43, 43, 43)",
+			"tableButtons":"rgb(43, 43, 43)",
+			"loginBtn":"rgb(43, 43, 43)",
+			"tableTopActive":"rgb(43, 43, 43)",
+			"lessonFill":"rgb(43, 43, 43)",
+			"lessonStroke":"rgba(0, 0, 0, 0)",
+			"arrows":"rgb(43, 43, 43)",
+			"leftMenuTextActive":"rgb(43, 43, 43)",
+			"linkLanguage":"rgb(43, 43, 43)",
+			"mainText":"rgb(43, 43, 43)",
+			"leftMenuArrowBorder":"rgb(43, 43, 43)",
+			"lektieMark": "#c0392b",
+			"lessonOpacity":"0.7"
+	},
 	"green" : {
 			"name": "green",
 			"navbar": "#539e24",
@@ -26,7 +49,9 @@ var themes = {
 			"linkLanguage":"#539e24",
 			"mainText":"#539e24",
 			"leftMenuArrowBorder":"#539e24",
-			"lessonOpacity":"0.7"
+			"lessonOpacity":"0.7",
+			"lektieMark": "#ED2939"
+
 	},
 	"red" : {
 			"name": "red",
@@ -42,14 +67,15 @@ var themes = {
 			"tableButtons":"#B22222",
 			"loginBtn":"#B22222",
 			"tableTopActive":"#B22222",
-			"lessonFill":"#B22222",
-			"lessonStroke":"#B22222",
+			"lessonStroke":"#e74c3c",
+			"lessonFill":"rgba(0,0,0,0)",
 			"arrows":"#B22222",
 			"leftMenuTextActive":"#B22222",
 			"linkLanguage":"#B22222",
 			"mainText":"#B22222",
 			"leftMenuArrowBorder":"#B22222",
-			"lessonOpacity":"1"
+			"lessonOpacity":"0.7",
+			"lektieMark": "#e74c3c"
 	},
 		"dark" : {
         "name": "dark",
@@ -92,7 +118,8 @@ var themes = {
         "lessonOpacity":"1",
 				"commentText":"#757575",
 				"assignmentSetting": "#0d0d0d",
-				"assignmentText": "#FFFFFF"
+				"assignmentText": "#FFFFFF",
+				"lektieMark": "#ED2939"
 				
     }
 };

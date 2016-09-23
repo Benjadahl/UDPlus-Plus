@@ -16,7 +16,7 @@ if($("#language > a").html() == "English"){
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#ED2939", 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", themes[curtheme]["lektieMark"], 'important' ); });
 		}
 	});
 }
@@ -51,7 +51,9 @@ getStorage('theme', function (obj) {
 //Changes color off each element in the current theme
 function runTheme(){
 	for (var T in themes[curtheme]) {
-		changeColor(colorElements[T], themes[curtheme][T]);
+		if(T != "lektieMark"){
+			changeColor(colorElements[T], themes[curtheme][T]);
+		}
 	}
 }
 

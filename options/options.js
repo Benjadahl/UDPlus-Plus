@@ -1,9 +1,23 @@
+
+getStorage('lang', function (obj) {
+	if (!chrome.runtime.error) {
+		var path = window.location.pathname;
+		var page = path.split("/").pop();
+		console.log(obj.lang)
+		if(page == "options.html" && obj.lang == "dansk"){
+			window.location.href = "indstillinger.html";
+		}
+	
+	}
+});
+
+
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.theme != "undefined"){
-			$('#theme').val(obj.theme.name);
+			//$('#theme').val(obj.theme.name);
 		} else {
-			$('#theme').val("default");
+			//$('#theme').val("default");
 		}
 	}
 });
