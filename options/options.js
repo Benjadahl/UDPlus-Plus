@@ -15,9 +15,9 @@ getStorage('lang', function (obj) {
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.theme != "undefined"){
-			//$('#theme').val(obj.theme.name);
+			$('#theme').val(obj.theme);
 		} else {
-			//$('#theme').val("default");
+			$('#theme').val("default");
 		}
 	}
 });
