@@ -25,3 +25,8 @@ And installation guide for the plugin can be found on our [Github Wiki](https://
 
   6. Hiding already delivered assignments
   7. Making assignments automatically sort after delivery date
+
+
+### Plugin
+
+Link to the chrome plugin [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
