@@ -69,3 +69,8 @@ $('#hideTask').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideTask' : $('#hideTask').prop("checked")});
 });
+
+$('#minimizeSetting').change(function() {
+	hideTask = !hideTask;
+	setStorage({'minimizeSetting' : $('#minimizeSetting').prop("checked")});
+});
