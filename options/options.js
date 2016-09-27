@@ -7,7 +7,7 @@ getStorage('lang', function (obj) {
 		if(page == "options.html" && obj.lang == "dansk"){
 			window.location.href = "indstillinger.html";
 		}
-	
+
 	}
 });
 
@@ -55,7 +55,6 @@ getStorage('sortTaskBy', function (obj) {
 $('#theme').on("change", function() {
 	setStorage({'theme' : theme.value});
 	curtheme = themes[$('#theme').val()];
-	runTheme();
 });
 
 $('#homework').change(function() {
