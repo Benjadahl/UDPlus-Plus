@@ -59,11 +59,11 @@ function runTheme(){
 
 //When the document is ready remove the sidebar collapse button, which is broken
 $(document).ready(function(){
-	$("#sidebar-collapse").hide();
-	getStorage('minimizeSetting', function (obj) {
+	$("#sidebar-collapse").show();
+	getStorage('hideSidebarCollapse', function (obj) {
 		if (!chrome.runtime.error) {
-			if(obj.minimizeSetting){
-				$("#sidebar-collapse").show();
+			if(obj.hideSidebarCollapse){
+				$("#sidebar-collapse").hide();
 			}
 		}
 	});

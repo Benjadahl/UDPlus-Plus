@@ -125,6 +125,8 @@ var themes = {
 				"commentText":"#757575",
 				"assignmentSetting": "#0d0d0d",
 				"assignmentText": "#FFFFFF",
-				"lektieMark": "#ED2939"
+				"lektieMark": "#ED2939",
+				"sidebarArrow": "#707070",
+				"sidebarCollapse": "#2b2b2b"
     }
 };

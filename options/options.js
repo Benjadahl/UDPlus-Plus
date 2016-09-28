@@ -70,7 +70,7 @@ $('#hideTask').change(function() {
 	setStorage({'hideTask' : $('#hideTask').prop("checked")});
 });
 
-$('#minimizeSetting').change(function() {
+$('#hideSidebarCollapse').change(function() {
 	hideTask = !hideTask;
-	setStorage({'minimizeSetting' : $('#minimizeSetting').prop("checked")});
+	setStorage({'hideSidebarCollapse' : $('#hideSidebarCollapse').prop("checked")});
 });
