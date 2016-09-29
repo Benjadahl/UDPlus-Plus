@@ -1,9 +1,10 @@
 //Themes availeble
 var themes = {
 	"default" : {
-        "name": "default"
+        "name": "default",
+				"homeworkMark": "#ED2939"
      },
-	"blue": {"name": "blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)"},
+	"blue": {"name": "blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
 	"black" : {
 			"name": "black",
 			"navbar": "rgb(43, 43, 43)",
@@ -26,7 +27,7 @@ var themes = {
 			"linkLanguage":"rgb(43, 43, 43)",
 			"mainText":"rgb(43, 43, 43)",
 			"leftMenuArrowBorder":"rgb(43, 43, 43)",
-			"lektieMark": "#c0392b",
+			"homeworkMark": "#c0392b",
 			"lessonOpacity":"0.7"
 	},
 	"green" : {
@@ -52,7 +53,7 @@ var themes = {
 			"mainText":"rgb(53, 115, 6)",
 			"leftMenuArrowBorder":"#539e24",
 			"lessonOpacity":"0.7",
-			"lektieMark": "#ED2939"
+			"homeworkMark": "#ED2939"
 
 	},
 	"red" : {
@@ -78,7 +79,7 @@ var themes = {
 			"mainText":"#B22222",
 			"leftMenuArrowBorder":"#B22222",
 			"lessonOpacity":"0.7",
-			"lektieMark": "#e74c3c"
+			"homeworkMark": "#e74c3c"
 	},
 		"dark" : {
         "name": "dark",
@@ -125,8 +126,12 @@ var themes = {
 				"commentText":"#757575",
 				"assignmentSetting": "#0d0d0d",
 				"assignmentText": "#FFFFFF",
+<<<<<<< HEAD
 				"lektieMark": "#ED2939",
 				"sidebarArrow": "#707070",
 				"sidebarCollapse": "#2b2b2b"
+=======
+				"homeworkMark": "#ED2939"
+>>>>>>> master
     }
 };
