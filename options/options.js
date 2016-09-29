@@ -18,6 +18,7 @@ getStorage('theme', function (obj) {
 			$('#theme').val(obj.theme);
 		} else {
 			$('#theme').val("default");
+			setStorage({'theme' : "default"});
 		}
 	}
 });
@@ -31,6 +32,8 @@ getStorage('homework', function (obj) {
 		}
 	}
 });
+
+
 
 getStorage('hideTask', function (obj) {
 	if (!chrome.runtime.error) {
