@@ -1,9 +1,5 @@
 //Themes availeble
 var themes = {
-	"default" : {
-        "name": "default",
-				"homeworkMark": "#ED2939"
-     },
 	"blue": {"name": "blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
 	"black" : {
 			"name": "black",
@@ -126,12 +122,8 @@ var themes = {
 				"commentText":"#757575",
 				"assignmentSetting": "#0d0d0d",
 				"assignmentText": "#FFFFFF",
-<<<<<<< HEAD
-				"lektieMark": "#ED2939",
 				"sidebarArrow": "#707070",
-				"sidebarCollapse": "#2b2b2b"
-=======
+				"sidebarCollapse": "#2b2b2b",
 				"homeworkMark": "#ED2939"
->>>>>>> master
     }
 };

@@ -16,7 +16,12 @@ if($("#language > a").html() == "English"){
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", themes[curtheme]["homeworkMark"], 'important' ); });
+			if(typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
+				var homeworkColour = "#ED2939";
+			}else{
+				var homeworkColour = themes[curtheme]["homeworkMark"];
+			}
+			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
 		}
 	});
 }
