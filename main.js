@@ -26,6 +26,14 @@ function markHomework(){
 	});
 }
 
+//On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
+function setTitleToDownload() {
+	$( "a[download]" ).each(function( index ) {
+  	$(this).attr("title", $(this).attr("download"));
+	});
+}
+setInterval(setTitleToDownload, 250);
+
 //Get the homework setting
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
@@ -40,7 +48,6 @@ getStorage('homework', function (obj) {
 		}
 	}
 });
-// ---->
 
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";
