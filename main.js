@@ -10,15 +10,26 @@ if($("#language > a").html() == "English"){
 	setStorage({"lang": "engelsk"});
 }
 
+var homeworkList = ["lektie"];
+getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
+	if (!chrome.runtime.error) {
+		homeworkList = obj.homeworkWords.split(",");
+	}
+});
 
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
-		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			if(typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
+		var toMark = false;
+		var arrayLength = homeworkList.length;
+		for (var i=0; i < arrayLength; i++) {
+			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
+		}
+		if (toMark) {
+			if (typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
 				var homeworkColour = "#ED2939";
-			}else{
+			} else {
 				var homeworkColour = themes[curtheme]["homeworkMark"];
 			}
 			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });

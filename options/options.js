@@ -1,4 +1,3 @@
-
 getStorage('lang', function (obj) {
 	if (!chrome.runtime.error) {
 		var path = window.location.pathname;
@@ -33,6 +32,11 @@ getStorage('homework', function (obj) {
 	}
 });
 
+getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
+	if (!chrome.runtime.error) {
+		$('#homeworkWords').val(obj.homeworkWords);
+	}
+});
 
 
 getStorage('hideTask', function (obj) {
@@ -62,6 +66,10 @@ $('#theme').on("change", function() {
 
 $('#homework').change(function() {
 	setStorage({'homework' : $('#homework').prop("checked")});
+});
+
+$('#homeworkWords').change(function() {
+	setStorage({'homeworkWords' : $('#homeworkWords').val()});
 });
 
 $('#sortTaskBy').on("change", function() {
