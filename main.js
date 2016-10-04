@@ -16,6 +16,7 @@ getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		homeworkList = obj.homeworkWords.split(",");
 		//We have to remove the empty elements, or everything will be matched as homework.
 		for (var i=0; i < homeworkList.length; i++) {
+			homeworkList[i] = homeworkList[i].replace(/\s/g, "");
 			if (homeworkList[i] == "") homeworkList.splice(i, 1);
 		}
 		if (homeworkList == [""]) homeworkList.splice(0, 1);
