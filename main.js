@@ -14,6 +14,13 @@ var homeworkList = ["lektie"];
 getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 	if (!chrome.runtime.error) {
 		homeworkList = obj.homeworkWords.split(",");
+
+		//We have to remove the empty elements, or everything will be matched as homework.
+		for (var i=0; i < homeworkList.length; i++) {
+			if (homeworkList[i] = "") homeworkList.splice(i, 1);
+		}
+		if (homeworkList = [""]) homeworkList.splice(0, 1);
+		console.log(homeworkList);
 	}
 });
 
