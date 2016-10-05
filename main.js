@@ -10,16 +10,46 @@ if($("#language > a").html() == "English"){
 	setStorage({"lang": "engelsk"});
 }
 
+var homeworkList = ["lektie"];
+getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
+	if (!chrome.runtime.error) {
+		homeworkList = obj.homeworkWords.split(",");
+		//We have to remove the empty elements, or everything will be matched as homework.
+		for (var i=0; i < homeworkList.length; i++) {
+			homeworkList[i] = homeworkList[i].replace(/\s/g, "");
+			if (homeworkList[i] == "") homeworkList.splice(i, 1);
+		}
+		if (homeworkList == [""]) homeworkList.splice(0, 1);
+	}
+});
 
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
-		if ($(this).text().toUpperCase().includes("LEKTIE")) {
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", themes[curtheme]["lektieMark"], 'important' ); });
+		var toMark = false;
+		var arrayLength = homeworkList.length;
+		for (var i=0; i < arrayLength; i++) {
+			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
+		}
+		if (toMark) {
+			if (typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
+				var homeworkColour = "#ED2939";
+			} else {
+				var homeworkColour = themes[curtheme]["homeworkMark"];
+			}
+			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
 		}
 	});
 }
+
+//On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
+function setTitleToDownload() {
+	$( "a[download]" ).each(function( index ) {
+  	$(this).attr("title", $(this).attr("download"));
+	});
+}
+setInterval(setTitleToDownload, 250);
 
 //Mark lesson that contains file
 function markFiles () {
@@ -57,7 +87,6 @@ getStorage('homework', function (obj) {
 		}
 	}
 });
-// ---->
 
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";
@@ -73,7 +102,7 @@ getStorage('theme', function (obj) {
 //Changes color off each element in the current theme
 function runTheme(){
 	for (var T in themes[curtheme]) {
-		if(T != "lektieMark"){
+		if(T != "homeworkMark"){
 			changeColor(colorElements[T], themes[curtheme][T]);
 		}
 	}
