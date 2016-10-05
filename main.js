@@ -21,6 +21,28 @@ function markHomework(){
 	});
 }
 
+//Mark lesson that contains file
+function markFiles () {
+	$('.skemaBrikGruppe>g>g').each(function(){
+		//console.log($(this).html());
+		//console.log($(this).children().eq(3).html());
+		try{
+			if($(this).children().eq(3).html().toUpperCase().includes("VIRTUEL")){
+				console.log("YAS");
+				$(this).children().eq(3).html().toUpperCase().includes("VIRTUEL").parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#004fff", 'important' ); });
+				//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", "#004fff", 'important' ); });
+			}
+		}catch(err){
+
+		}
+	});
+}
+
+setTimeout(function() {
+	markFiles();
+}, 4000);
+
+
 //Get the homework setting
 getStorage('homework', function (obj) {
 	if (!chrome.runtime.error) {
