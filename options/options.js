@@ -2,18 +2,27 @@ getStorage('lang', function (obj) {
 	if (!chrome.runtime.error) {
 		var path = window.location.pathname;
 		var page = path.split("/").pop();
-		console.log(obj.lang)
 		if(page == "options.html" && obj.lang == "dansk"){
 			window.location.href = "indstillinger.html";
 		}
-
 	}
 });
 
+//Dynamically add themes from themes file
+var themeSelect = $("#theme");
+for (var key in themes) {
+	if (true) {
+		themeSelect.append($('<option>', {
+			value: key,
+			text: themes[key].name
+		}));
+	}
+}
 
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.theme != "undefined"){
+			console.log(obj.theme);
 			$('#theme').val(obj.theme);
 		} else {
 			$('#theme').val("default");
