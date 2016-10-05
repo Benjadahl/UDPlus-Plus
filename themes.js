@@ -190,7 +190,7 @@ var themes = {
 		"navbarText":"#C5C8C6",
 		"menuButtons":"#8C9440",
 		"mainBackground":"#373B41",
-		"header":"#064f7f",
+		"header":"#A54242",
 		"studentInfo":"#5F819D",
 		"outerBackground":"#373B41",
 		"tableButtons":"#A54242",
