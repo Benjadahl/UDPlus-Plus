@@ -141,7 +141,7 @@ var themes = {
 		"navbarText":"#dfdede",
 		"menuButtons":"#dfdede",
 		"mainBackground":"#393939",
-		"header":"#000000",
+		"header":"#064f7f",
 		"studentInfo":"#999999",
 		"outerBackground":"#393939",
 		"tableButtons":"#064f7f",
