@@ -176,7 +176,7 @@ var themes = {
 		"homeworkMark": "#ED2939"
 	},
 	"base16" : {
-		"name": "base16",
+		"name": "Base16 dark",
 		"navbar": "#1D1F21",
 		"navbarIcon" : "#A54242",
 		"rightDropdown": "#1D1F21",
