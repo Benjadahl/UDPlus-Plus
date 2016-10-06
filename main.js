@@ -51,20 +51,28 @@ function setTitleToDownload() {
 }
 setInterval(setTitleToDownload, 250);
 
-//Get the homework setting
-getStorage('homework', function (obj) {
-	if (!chrome.runtime.error) {
-		//If the schedule object exists and the homework setting is true, setup interval to mark
-		if (window.location.href.indexOf("skema")) {
-			if(obj.homework){
-				//Interval to mark homework, they will be marked when they load in
-				setInterval(function() {
-					markHomework();
-				}, 250);
+//Check if we are actually on the schedule page
+if(window.location.href.includes("skema")){
+	//Get the homework setting
+	getStorage('homework', function (obj) {
+		if (!chrome.runtime.error) {
+			//If the schedule object exists and the homework setting is true, setup interval to mark
+			if (window.location.href.indexOf("skema")) {
+				if(obj.homework){
+					//Interval to mark homework, they will be marked when they load in
+					var homeWorkInterval = setInterval(function() {
+						console.log("looping");
+						markHomework();
+						//Clear the interval when the homework description exists, to save up resources
+						if($(".skemaBrikGruppe>g>g>text>title").length > 0){
+							clearInterval(homeWorkInterval);
+						}
+					}, 250);
+				}
 			}
 		}
-	}
-});
+	});
+}
 
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";

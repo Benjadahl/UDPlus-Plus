@@ -1,5 +1,4 @@
-# UddataPlus-Plus
-### AKA Uddata++
+# UD++
 
 A Chrome extension for the web platform [Uddata+](https://www.uddataplus.dk).
 
@@ -7,26 +6,13 @@ It aims to enhance the experience of using the platform. By enabling community r
 
 ### Installation
 
-And installation guide for the plugin can be found on our [Github Wiki](https://github.com/Benjadahl/UddataPlus-Plus/wiki/Install-guide)
+An installation guide for the plugin can be found at the [Github Wiki Page](https://github.com/Benjadahl/UddataPlus-Plus/wiki/Install-guide)
 
 ### Roadmap
-##### Legend:
-* *D* - Done
-* *U* - Under development
-* *P* - Planned
+A Roadmap can be found at the [Github Wiki Page](https://github.com/Benjadahl/UDPlus-Plus/wiki/Roadmap)
 
-  1. General themes - U
-  2. Customizable themes - U
-  3. Import/Export themes - U
+### Chrome Webstore
 
-  4. Homework list
+Link to the chrome plugin page for the Chrome Webstore [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
 
-  5. Firefox support D
-
-  6. Hiding already delivered assignments
-  7. Making assignments automatically sort after delivery date
-
-
-### Plugin
-
-Link to the chrome plugin [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
+_We are currently awaiting revision of the plugin for Firefox_
