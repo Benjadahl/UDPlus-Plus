@@ -58,8 +58,12 @@ getStorage('homework', function (obj) {
 		if (window.location.href.indexOf("skema")) {
 			if(obj.homework){
 				//Interval to mark homework, they will be marked when they load in
-				setInterval(function() {
+				var homeWorkInterval = setInterval(function() {
 					markHomework();
+					//Clear the interval when the homework description exists, to save up resources 
+					if($(".skemaBrikGruppe>g>g>text>title").length > 0){
+						clearInterval(homeWorkInterval);
+					}
 				}, 250);
 			}
 		}
