@@ -64,9 +64,9 @@ if(window.location.href.includes("skema")){
 						console.log("looping");
 						markHomework();
 						//Clear the interval when the homework description exists, to save up resources
-						if($(".skemaBrikGruppe>g>g>text>title").length > 0){
-							clearInterval(homeWorkInterval);
-						}
+						//if($(".skemaBrikGruppe>g>g>text>title").length > 0){
+						//	clearInterval(homeWorkInterval);
+						//}
 					}, 250);
 				}
 			}
