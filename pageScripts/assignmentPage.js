@@ -21,7 +21,7 @@ getStorage('sortTaskBy', function (obj) {
       if(typeof obj.sortTaskBy != "undefined"){
         sortBy = obj.sortTaskBy;
       }else{
-        sortBy = 5;
+        sortBy = 3;
       }
   }
 });
