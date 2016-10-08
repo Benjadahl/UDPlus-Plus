@@ -19,7 +19,7 @@
 	    "storage"
   ],
   "background":{
-    "scripts":["background.js"]
+    "page":"background/background.html"
   },
   "content_scripts": [
     {
