@@ -16,6 +16,7 @@ function fixOverviewButton(){
            //If it is right, it will run the function for hiding the tasks acording to user settings
            if($("title").html() === "Assignment Overview"){
              hideTasks();
+             sortTasks();
              //Clear the interval and run the function again
              clearInterval(checkTitle);
              fixOverviewButton();
@@ -48,6 +49,10 @@ getStorage('hideTask', function (obj) {
   }
 });
 
+function sortTasks(){
+  $("thead > tr").children().eq(sortBy).trigger("click");
+}
+
 getStorage('sortTaskBy', function (obj) {
   if (!chrome.runtime.error) {
       if(typeof obj.sortTaskBy != "undefined"){
@@ -60,8 +65,7 @@ getStorage('sortTaskBy', function (obj) {
 
 var checkExist = setInterval(function() {
    if ($(table + " > tr > td > div > button").length) {
-     $("thead > tr").children().eq(sortBy).trigger("click");
-
+     sortTasks();
      var tasks = $(table).children();
 
      hideTasks();
