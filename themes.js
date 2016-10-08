@@ -185,7 +185,7 @@ var themes = {
 		"absence": "#A54242",
 		"absenceSlider": "#A54242",
 		"rightDropdownRightEdge": "#1D1F21",
-		"profileRing": "#282A2E",
+		"profileRing": "#A54242",
 		"schoolEdges":"#282A2E",
 		"navbarText":"#C5C8C6",
 		"menuButtons":"#8C9440",
