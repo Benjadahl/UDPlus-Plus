@@ -16,7 +16,9 @@
   },
   "permissions": [
       "activeTab",
-	    "storage"
+	    "storage",
+      "https://*/",
+      "http://*/"
   ],
   "background":{
     "page":"background/background.html"
