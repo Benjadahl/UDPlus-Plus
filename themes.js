@@ -226,7 +226,7 @@ var themes = {
 	}
 };
 
-
+//This is the different thing the client can change
 var customTemplate = {"Navigationsbar" : ["navbar", "rightDropdown", "navbarEdge", "backEdge"], 
 				   "Background1" : ["mainBackground", "outerBackground"], 
 				   "Background2" : ["tableBackground", "leftMenuLI", "leftMenuBottom", "sidebarCollapse"] ,

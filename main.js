@@ -104,6 +104,9 @@ function runTheme(){
 			}
 		}
 	}else{
+		//This will run if a custom theme is on
+
+		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
 				changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
