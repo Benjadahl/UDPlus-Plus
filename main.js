@@ -38,7 +38,17 @@ function markHomework(){
 			} else {
 				var homeworkColour = themes[curtheme]["homeworkMark"];
 			}
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () {
+				this.style.setProperty("fill", homeworkColour, 'important' );
+			});
+
+			if ($(this).has(".homeworkCheckbox").length == 0) {
+				console.log("Adding HomeworkCheck");
+				var homeworkCheckbox = '<text class="homeworkCheckbox" x="145" y="65" style="fill: black; font-family: FontAwesome; font-size: 13px;"><title>Done homework</title></text>';
+				homeworkCheckbox = "<p>Uddata, you ignorant slut";
+				$(this).parent().parent().append($(homeworkCheckbox));
+			}
+
 		}
 	});
 }
@@ -46,7 +56,7 @@ function markHomework(){
 //On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
 function setTitleToDownload() {
 	$( "a[download]" ).each(function( index ) {
-  	$(this).attr("title", $(this).attr("download"));
+		$(this).attr("title", $(this).attr("download"));
 	});
 }
 setInterval(setTitleToDownload, 250);
@@ -61,7 +71,6 @@ if(window.location.href.includes("skema")){
 				if(obj.homework){
 					//Interval to mark homework, they will be marked when they load in
 					var homeWorkInterval = setInterval(function() {
-						console.log("looping");
 						markHomework();
 						//Clear the interval when the homework description exists, to save up resources
 						//if($(".skemaBrikGruppe>g>g>text>title").length > 0){
