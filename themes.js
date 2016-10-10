@@ -227,6 +227,11 @@ var themes = {
 };
 
 
-var customNames = {"test" : ["navbar", "rightDropdown", "navbarEdge", "backEdge"]};
+var customTemplate = {"Navigationsbar" : ["navbar", "rightDropdown", "navbarEdge", "backEdge"], 
+				   "Background1" : ["mainBackground", "outerBackground"], 
+				   "Background2" : ["tableBackground", "leftMenuLI", "leftMenuBottom", "sidebarCollapse"] ,
+				   "Accent" : ["tableButtons", "header", "menuButtons","sidebarArrow","menuButtons", "navbarIcon", "absenceSlider", "profileRing", "menuText", "arrows", "assignmentSetting", "tableTopActive", "loginBtn"],
+				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"]
+			};
 
-var customTheme = {"Julian": {"test": "#FFFFFF"}}
+var customTheme = {"Julian": {"Navigationsbar": "green", "Background1": "gray", "Background2": "black", "Accent" : "yellow", "Text" : "white"}}
