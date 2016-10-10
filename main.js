@@ -75,23 +75,34 @@ if(window.location.href.includes("skema")){
 }
 
 //Define the variable curtheme to contain the current theme
-var curtheme = "Default";
+var curtheme = "Julian";
 
 //Try to import the theme from the settings storage
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
-		curtheme = obj.theme;
+		//curtheme = obj.theme;
 		runTheme();
 	}
 });
 
 //Changes color off each element in the current theme
 function runTheme(){
-	for (var T in themes[curtheme]) {
-		if(T != "homeworkMark"){
-			changeColor(colorElements[T], themes[curtheme][T]);
+	console.log(curtheme);
+	if(typeof themes[curtheme] != "undefined"){
+		for (var T in themes[curtheme]) {
+			if(T != "homeworkMark"){
+				changeColor(colorElements[T], themes[curtheme][T]);
+			}
+		}
+	}else{
+		for(var T in customTheme[curtheme]){
+			for(var X in customNames[T]){
+				changeColor(colorElements[customNames[T][X]], customTheme[curtheme][T]);
+				console.log(colorElements[customNames[T][X]] + "    " + customTheme[curtheme][T]);
+			}
 		}
 	}
+
 }
 
 //When the document is ready remove the sidebar collapse button, which is broken
@@ -110,7 +121,7 @@ $(document).ready(function(){
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if (request.type == "theme"){
-			curtheme = request.theme;
+			//curtheme = request.theme;
 			location.reload();
 		}
 	}
@@ -119,7 +130,7 @@ chrome.runtime.onMessage.addListener(
 //Get current theme from settings and execute the function that switches theme
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
-		curtheme = obj.theme;
+		//curtheme = obj.theme;
 		runTheme();
 	}
 });

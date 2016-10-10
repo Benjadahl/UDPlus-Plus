@@ -225,3 +225,8 @@ var themes = {
 		"homeworkMark": "#A54242"
 	}
 };
+
+
+var customNames = {"test" : ["navbar", "rightDropdown", "navbarEdge", "backEdge"]};
+
+var customTheme = {"Julian": {"test": "#FFFFFF"}}
