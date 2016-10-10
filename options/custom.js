@@ -1,8 +1,7 @@
 
 //We start out by making the textboxes for the different colors to change
 for(var T in customTemplate){
-    //$("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br> ');
-    $("#frame").append(T + ' : <input type="color" name="favcolor" id="' + T + '"><br><br> ');
+    $("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br>');
 }
 
 //This function is run then the user selects a new theme
