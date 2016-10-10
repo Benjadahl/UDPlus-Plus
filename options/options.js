@@ -8,6 +8,19 @@ getStorage('lang', function (obj) {
 	}
 });
 
+getStorage('customTheme', function (obj) {
+	if (!chrome.runtime.error) {
+		if(typeof obj.customTheme != "undefined"){
+			for(var T in obj.customTheme){
+				themeSelect.append($('<option>', {
+					value: T,
+					text: T
+				}));
+			}
+		}
+	}
+});
+
 //Dynamically add themes from themes file
 var themeSelect = $("#theme");
 for (var key in themes) {
