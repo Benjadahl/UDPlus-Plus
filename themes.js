@@ -234,4 +234,5 @@ var customTemplate = {"Navigationsbar" : ["navbar", "rightDropdown", "navbarEdge
 				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"]
 			};
 
-var customTheme = {"Julian": {"Navigationsbar": "green", "Background1": "gray", "Background2": "black", "Accent" : "yellow", "Text" : "white"}}
+var customTheme = {}
+

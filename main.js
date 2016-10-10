@@ -85,6 +85,15 @@ getStorage('theme', function (obj) {
 	}
 });
 
+
+getStorage('customTheme', function (obj) {
+	if (!chrome.runtime.error) {
+		customTheme = obj.customTheme;
+		runTheme();
+	}
+});
+
+
 //Changes color off each element in the current theme
 function runTheme(){
 	console.log(curtheme);
@@ -96,9 +105,8 @@ function runTheme(){
 		}
 	}else{
 		for(var T in customTheme[curtheme]){
-			for(var X in customNames[T]){
-				changeColor(colorElements[customNames[T][X]], customTheme[curtheme][T]);
-				console.log(colorElements[customNames[T][X]] + "    " + customTheme[curtheme][T]);
+			for(var X in customTemplate[T]){
+				changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
 			}
 		}
 	}
