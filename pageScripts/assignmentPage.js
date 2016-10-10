@@ -50,7 +50,9 @@ getStorage('hideTask', function (obj) {
 });
 
 function sortTasks(){
-  $("thead > tr").children().eq(sortBy).trigger("click");
+  if(sortBy != -1){
+    $("thead > tr").children().eq(sortBy).trigger("click");
+  }
 }
 
 getStorage('sortTaskBy', function (obj) {
