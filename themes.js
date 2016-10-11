@@ -231,7 +231,7 @@ var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"
 				   "Background1" : ["mainBackground", "outerBackground", "backEdge"], 
 				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop"] ,
 				   "Background3" : [ "tableBackground"],
-				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "navbarIcon", "absenceSlider", "profileRing",  "arrows", "assignmentSetting", "tableTopActive", "loginBtn", "leftMenuTextActive"],
+				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "assignmentSetting", "tableTopActive", "loginBtn", "leftMenuTextActive"],
 				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText", "menuText"],
 				   "Lesson_Transparent" : ["lessonOpacity"],
 				   "Lesson_Color" : ["lessonFill"],
