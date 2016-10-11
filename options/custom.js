@@ -1,4 +1,15 @@
 
+//Lang support 
+getStorage('lang', function (obj) {
+	if (!chrome.runtime.error) {
+		var path = window.location.pathname;
+		var page = path.split("/").pop();
+		if(page == "custom.html" && obj.lang == "dansk"){
+			window.location.href = "egetTema.html";
+		}
+	}
+});
+
 //We start out by making the textboxes for the different colors to change
 for(var T in customTemplate){
     $("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br>');
