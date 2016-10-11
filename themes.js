@@ -227,11 +227,15 @@ var themes = {
 };
 
 //This is the different thing the client can change
-var customTemplate = {"Navigationsbar" : ["navbar", "rightDropdown", "navbarEdge", "backEdge"], 
-				   "Background1" : ["mainBackground", "outerBackground"], 
-				   "Background2" : ["tableBackground", "leftMenuLI", "leftMenuBottom", "sidebarCollapse"] ,
-				   "Accent" : ["tableButtons", "header", "menuButtons","sidebarArrow","menuButtons", "navbarIcon", "absenceSlider", "profileRing", "menuText", "arrows", "assignmentSetting", "tableTopActive", "loginBtn"],
-				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"]
+var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"], 
+				   "Background1" : ["mainBackground", "outerBackground", "backEdge"], 
+				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop"] ,
+				   "Background3" : [ "tableBackground"],
+				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "navbarIcon", "absenceSlider", "profileRing",  "arrows", "assignmentSetting", "tableTopActive", "loginBtn", "leftMenuTextActive"],
+				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText", "menuText"],
+				   "Lesson_Transparent" : ["lessonOpacity"],
+				   "Lesson_Color" : ["lessonFill"],
+				   "Lesson_border_color" : ["lessonStroke"]
 			};
 
 var customTheme = {}

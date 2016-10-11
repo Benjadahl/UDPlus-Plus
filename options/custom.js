@@ -65,7 +65,12 @@ $("#btnSave").click(function (){
 
     //Adding the different colors to the theme object
     for(var T in customTemplate){
-        themeObj[T] = $("#" + T).val();
+        if($("#" + T).val() != ""){
+            themeObj[T] = $("#" + T).val();
+        }else{
+            delete themeObj[T];
+        }
+
     }
 
     //Copying the custom themes object for editing
