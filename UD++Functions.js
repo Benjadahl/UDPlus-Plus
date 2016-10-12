@@ -3,7 +3,7 @@ const colorElements ={
 		navbar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
-		tableTopActive:{cssSel:".GNK2GVDDM- th.GNK2GVDDD-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
+		tableTopActive:{cssSel:".GC0H5P4BK- th.GC0H5P4BB-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
 		loginBtn:{cssSel:".btn"  , cssAttr:["background-color", "border-color"], styleRule: true, isImportant: true, specialBorder: false},
 		navbarEdge:{cssSel:"#menufarve", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		backEdge:{cssSel:"body", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
@@ -20,7 +20,7 @@ const colorElements ={
 		sideBarCollpaseIcon:{cssSel:'.sidebar-collapse>[class*="icon-"]', cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableBottom:{cssSel:".well", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTop:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
-		tableLeftSide:{cssSel:".GNK2GVDDN- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
+		tableLeftSide:{cssSel:".GC0H5P4BL- table", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		//tableCorner:{cssSel:"html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonFill:{cssSel:"svg rect", cssAttr:["fill"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonStroke:{cssSel:"svg rect", cssAttr:["stroke"], styleRule: true, isImportant: true, specialBorder: false},
@@ -67,7 +67,7 @@ function changeColor (element, color) {
 					$(element.cssSel ).each(function () { this.style.setProperty( element.cssAttr[i], color, 'important' ); });
 					//$(element.cssSel).css(element.cssAttr[i], color);
 				}else{
-					$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + cssEnd + ";}</style>");
+					$("head").append("<style class='UDPPCustom'>" + element.cssSel + "{" + element.cssAttr[i] + ":" + color + cssEnd + ";}</style>");
 				}
 			}
 		}else{
@@ -76,7 +76,7 @@ function changeColor (element, color) {
 			}else{
 				var pixels = 1;
 			}
-			$("head").append("<style>" + element.cssSel + "{" + element.cssAttr[0] + ": solid " + pixels + "px " + color + cssEnd + ";}</style>");
+			$("head").append("<style class='UDPPCustom'>" + element.cssSel + "{" + element.cssAttr[0] + ": solid " + pixels + "px " + color + cssEnd + ";}</style>");
 		}
 	}
 }
