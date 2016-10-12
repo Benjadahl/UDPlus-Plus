@@ -126,13 +126,7 @@ chrome.runtime.onMessage.addListener(
 		}
 		);
 
-//Get current theme from settings and execute the function that switches theme
-getStorage('theme', function (obj) {
-	if (!chrome.runtime.error) {
-		curtheme = obj.theme;
-		runTheme();
-	}
-});
+
 
 //The ++Settings menu button
 var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\');" href="#" id="id_settings"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>';
