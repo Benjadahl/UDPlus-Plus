@@ -35,7 +35,6 @@ for (var key in themes) {
 getStorage('theme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.theme != "undefined"){
-			console.log(obj.theme);
 			$('#theme').val(obj.theme);
 		} else {
 			$('#theme').val("default");
