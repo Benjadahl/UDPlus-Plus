@@ -58,39 +58,45 @@ getStorage('customTheme', function (obj) {
 
 //This happens then you click save
 $("#btnSave").click(function (){
+    
+    if(typeof themes[$("#saveName").val()] == "undefined" && $("#saveName").val() != ""){
+        //Making new var for themes so you dont overwrite evertime you change something
+        var themeObj = {};
 
-    //Making new var for themes so you dont overwrite evertime you change something
-    var themeObj = {};
+        //Loading the theme name
+        var name = $("#saveName").val();
 
-    //Loading the theme name
-    var name = $("#saveName").val();
+        //Adding the different colors to the theme object
+        for(var T in customTemplate){
+            if($("#" + T).val() != ""){
+                themeObj[T] = $("#" + T).val();
+            }else{
+                delete themeObj[T];
+            }
 
-    //Adding the different colors to the theme object
-    for(var T in customTemplate){
-        if($("#" + T).val() != ""){
-            themeObj[T] = $("#" + T).val();
-        }else{
-            delete themeObj[T];
         }
 
+        //Copying the custom themes object for editing
+        var obj = customTheme;
+
+        //Adds or changes the new custom theme 
+        obj[name] = themeObj;
+        
+        //Saving the whole customtheme object again
+        setStorage({"customTheme": obj});
+        //Reloading the page to load everything again
+        location.reload();
+    }else{
+        $("#error").show();
+        console.log("Cant use this name");
     }
-
-    //Copying the custom themes object for editing
-    var obj = customTheme;
-
-    //Adds or changes the new custom theme 
-    obj[name] = themeObj;
     
-    //Saving the whole customtheme object again
-    setStorage({"customTheme": obj});
-
-    //Reloading the page to load everything again
-    location.reload();
 });
 
 
 //This happends then you click delete
 $("#btnDel").click(function (){
+    
     //Making a copy for editing
     var obj = customTheme;
 
@@ -99,9 +105,10 @@ $("#btnDel").click(function (){
 
     //Saving the whole object again.
     setStorage({"customTheme" : obj});
-
+    
     //Reloading the page to load everything again
     location.reload();
+
 });
 
 
