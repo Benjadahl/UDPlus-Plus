@@ -2,22 +2,24 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <script src="../resources/jscolor.min.js"></script>
-    <a href="options.html">Back</a><div id="error" hidden style="background-color:red;color:white;">Du kan ikke bruge dette tema navn</div>
+    <script src="../../resources/jscolor.min.js"></script>
+		<form action="../options.html">
+			<input type="submit" value="<"/>
+		</form>
+		<div id="error" hidden style="background-color:red;color:white;">Du kan ikke bruge dette tema navn</div>
     <p>Hvis du vil redigere et tema du allerede har lavet skal du vælge den i menuen nedenunder. Og flere instruktioner kan blive fundet i bunden.</p>
     <select id="curTheme">
-    </select>   
-    
+    </select>
 
     <div id="frame">
-        
+
     </div>
 
-    
-    <input type="button" value="Gem tema" id="btnSave"></input>  
+
+    <input type="button" value="Gem tema" id="btnSave"></input>
     <input type="text" id="saveName" placeholder="Tema navn"></input>
     <input type="button" value="Slet tema" id="btnDel"></input>
-    
+
     <p>Hvordan gør man<br>
         1. Indfyld farverne. Farver kan findes <a href="http://htmlcolorcodes.com/color-picker/">her</a><br>
         2. Husk at følg farve formaterne<br>
@@ -25,9 +27,9 @@
         4. Tryk gem<br>
         5. Husk at indstil temaet
     </p>
-    <script src="../themes.js"></script>
-	<script src="../resources/jquery-3.1.0.min.js"></script>
-	<script src="../UD++Functions.js"></script>
+    <script src="../../themes.js"></script>
+	<script src="../../resources/jquery-3.1.0.min.js"></script>
+	<script src="../../UD++Functions.js"></script>
     <script src="custom.js"></script>
-    
+
 </body>
