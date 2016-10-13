@@ -50,7 +50,11 @@ const colorElements ={
 		assignmentSetting:{cssSel: ".GD1SXJ-CF", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		assignmentText:{cssSel: ".table td", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		sidebarArrow:{cssSel: ".sidebar-collapse>[class*='icon-']", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		sidebarCollapse:{cssSel: ".sidebar-collapse", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
+		sidebarCollapse:{cssSel: ".sidebar-collapse", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		noteHeader:{cssSel: ".modal-header", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		filesHeader:{cssSel: ".label-info, .badge-info", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		noteBottom:{cssSel: ".GNK2GVDDCGB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
+
 };
 
 //Function for changing color of element
