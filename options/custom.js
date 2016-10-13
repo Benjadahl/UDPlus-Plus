@@ -12,7 +12,8 @@ getStorage('lang', function (obj) {
 
 //We start out by making the textboxes for the different colors to change
 for(var T in customTemplate){
-    $("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br>');
+    //$("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br>');
+    $("#frame").append(T + ' : <input type="text" class="jscolor {required:false, hash:true}" id="' + T + '"></input><br><br>');
 }
 
 //This function is run then the user selects a new theme
@@ -28,6 +29,7 @@ function loadTheme(){
     //And then it fills them in with the colors from the current theme
     for(var T in customTheme[curTheme]){
         $("#" + T).val(customTheme[curTheme][T]);
+        $("#" + T).css("background-color", customTheme[curTheme][T]);
     }
 
     //And it sets the button textbox to the current theme name for easy saving and deleting
