@@ -42,7 +42,7 @@ const colorElements ={
 		leftMenuArrowBorder:{cssSel:".nav-list>li.active:after", cssAttr:["border-right"], styleRule: true, isImportant: true, specialBorder: true},
 		tableBackground:{cssSel:"tr td", cssAttr:["background"], styleRule: true, isImportant: true, specialBorder: false},
 		lessonOpacity:{cssSel:"svg rect", cssAttr:["fill-opacity"], styleRule: true, isImportant: true, specialBorder: false},
-		commentText:{cssSel:".BIQY2BD-n-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		commentText:{cssSel:".K1CYATD-q-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		absence:{cssSel:".table thead tr th, .table tr.thead td", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		absenceSlider:{cssSel:".ui-slider-range", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		activity:{cssSel: ".LAAVCED-f-b", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
