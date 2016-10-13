@@ -229,17 +229,19 @@ var themes = {
 	}
 };
 
-//This is the different thing the client can change
-var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"], 
-				   "Background1" : ["mainBackground", "outerBackground", "backEdge"], 
+//These are the options that the client can change
+var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"],
+				   "Background1" : ["mainBackground", "outerBackground", "backEdge"],
 				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop"] ,
 				   "Background3" : [ "tableBackground"],
 				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "assignmentSetting", "tableTopActive", "loginBtn", "leftMenuTextActive"],
 				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText", "menuText"],
 				   "Lesson_Transparent" : ["lessonOpacity"],
 				   "Lesson_Color" : ["lessonFill"],
-				   "Lesson_border_color" : ["lessonStroke"]
+				   "Lesson_Border_Color" : ["lessonStroke"],
+					 "Schedule_Rows" : ["tableLeftSide"],
+					 "Schedule_Columns" : ["tableTop"],
+					 "Schedule_Bottom" : ["tableBottom"]
 			};
 
 var customTheme = {}
-
