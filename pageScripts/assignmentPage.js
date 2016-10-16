@@ -1,4 +1,3 @@
-
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
@@ -9,18 +8,18 @@ function fixOverviewButton(){
   //Create interval which is looking for the button
   var backToOverviewInterval = setInterval(function() {
     //If the button exsits, then assign the click atrribute to it
-     if($(".page-header>div>.btn.btn-mini").length > 0){
-       $(".page-header>div>.btn.btn-mini").click(function(){
-         //When the button is clicked start a new interval, which looks for the title of the page being right
-         var checkTitle = setInterval(function() {
+    if($(".page-header>div>.btn.btn-mini").length > 0){
+      $(".page-header>div>.btn.btn-mini").click(function(){
+        //When the button is clicked start a new interval, which looks for the title of the page being right
+        var checkTitle = setInterval(function() {
            //If it is right, it will run the function for hiding the tasks acording to user settings
-           if($("title").html() === "Assignment Overview"){
-             hideTasks();
-             sortTasks();
-             //Clear the interval and run the function again
-             clearInterval(checkTitle);
-             fixOverviewButton();
-           }
+          if($("title").html() === "Assignment Overview"){
+            hideTasks();
+            sortTasks();
+            //Clear the interval and run the function again
+            clearInterval(checkTitle);
+            fixOverviewButton();
+          }
         }, 100);
       });
       clearInterval(backToOverviewInterval);
