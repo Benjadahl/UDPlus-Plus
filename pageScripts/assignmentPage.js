@@ -2,6 +2,31 @@ var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
 
+function onAssignmentPageLoad(){
+  //When the button is clicked start a new interval, which looks for the title of the page being right
+  var checkTitle = setInterval(function() {
+     //If it is right, it will run the function for hiding the tasks acording to user settings
+    if($("title").html() === "Assignment Overview" || $("title").html() === "Opgaveoversigt"){
+      hideTasks();
+      sortTasks();
+      //Clear the interval and run the function again
+      clearInterval(checkTitle);
+      fixOverviewButton();
+    }
+  }, 100);
+}
+
+//Assign the hidedTasks and sortTasks functions to the asignments button in the menu
+var menuButtonInterval = setInterval(function() {
+  //Loop untill the button is detected
+  if($(".active").length > 0){
+    //When it is detected assign the click function to the function that fixes the assignmentspage
+    $(".active").click(function(){
+      onAssignmentPageLoad();
+    });
+    clearInterval(menuButtonInterval);
+  }
+}, 250);
 
 //Try to assign the to overview button's click function to hide the proper assignments
 function fixOverviewButton(){
@@ -10,17 +35,7 @@ function fixOverviewButton(){
     //If the button exsits, then assign the click atrribute to it
     if($(".page-header>div>.btn.btn-mini").length > 0){
       $(".page-header>div>.btn.btn-mini").click(function(){
-        //When the button is clicked start a new interval, which looks for the title of the page being right
-        var checkTitle = setInterval(function() {
-           //If it is right, it will run the function for hiding the tasks acording to user settings
-          if($("title").html() === "Assignment Overview"){
-            hideTasks();
-            sortTasks();
-            //Clear the interval and run the function again
-            clearInterval(checkTitle);
-            fixOverviewButton();
-          }
-        }, 100);
+        onAssignmentPageLoad();
       });
       clearInterval(backToOverviewInterval);
     }
