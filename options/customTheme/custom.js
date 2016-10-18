@@ -15,7 +15,7 @@ for(var T in customTemplate){
     if(T != "Lesson_Transparent"){
         $("#frame").append(T + ' : <input type="text" class="jscolor {required:false, hash:true}" id="' + T + '"></input><br><br>');
     }else{
-        $("#frame").append(T + ' | Fra 0 til 1 : <input type="range" min="0" max="1" step="0.05" id="' + T + '" ></input><br><br>');
+        $("#frame").append(T + ' | Fra 0 til 1 : <input type="range" min="0" max="1" step="0.05" id="' + T + '" value="0.75"></input><br><br>');
     }
 }
 
