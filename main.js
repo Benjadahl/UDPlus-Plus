@@ -23,16 +23,22 @@ getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 	}
 });
 
+
+//Check if a string contains any of the homework markers that we need
+function stringContainsHomework(teststring) {
+	var toMark = false;
+	var arrayLength = homeworkList.length;
+	for (var i=0; i < arrayLength; i++) {
+		if (teststring.toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
+	}
+	return toMark;
+}
+
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
-		var toMark = false;
-		var arrayLength = homeworkList.length;
-		for (var i=0; i < arrayLength; i++) {
-			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
-		}
-		if (toMark) {
+		if (stringContainsHomework($(this).text())) {
 			if (typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
 				var homeworkColour = "#ED2939";
 			} else {
@@ -41,17 +47,63 @@ function markHomework(){
 			$(this).parent().parent().parent().find('rect').each(function () {
 				this.style.setProperty("fill", homeworkColour, 'important' );
 			});
-
-			if ($(this).has(".homeworkCheckbox").length == 0) {
-				console.log("Adding HomeworkCheck");
-				var homeworkCheckbox = '<text class="homeworkCheckbox" x="145" y="65" style="fill: black; font-family: FontAwesome; font-size: 13px;"><title>Done homework</title></text>';
-				homeworkCheckbox = "<p>Uddata, you ignorant slut";
-				$(this).parent().parent().append($(homeworkCheckbox));
-			}
-
 		}
 	});
 }
+
+function setHomeworkDone(note, done) {
+	getStorage('doneHomework', function (obj) {
+		if (!chrome.runtime.error) {
+			var homeworkList = obj.doneHomework;
+			if (typeof obj.doneHomework == "undefined") homeworkList = {};
+			console.log(homeworkList);
+			homeworkList[note.hashCode()] = done;
+			setStorage({'doneHomework': homeworkList});
+		}
+	});
+}
+
+
+
+function homeworkIsDone(note) {
+	getStorage('doneHomework', function (obj) {
+		if (!chrome.runtime.error) {
+			console.log(obj.doneHomework);
+			try {
+				var homeworkList = obj.doneHomework;
+				console.log(note.hashCode());
+				if (homeworkList[note.hashCode()] === true) return true;
+			} catch (err) {
+				return false;
+			}
+			return false;
+		}
+	});
+}
+
+//Adds the homework checkbox to the note
+function addNoteCheckbox() {
+	var note = $('.ps-container > .do-select:visible');
+	if (stringContainsHomework(note.text())) {
+		if (note.find(".homeworkCheckbox").length < 1) {
+			console.log("Ayy");
+			var homeworkCheckboxText = "<input type='checkbox' class='homeworkCheckbox'>Did your homework?</input>";
+			var homeworkCheckbox = note.append(homeworkCheckboxText);
+			homeworkCheckbox = homeworkCheckbox.find("input");
+
+
+			console.log("Ayyee");
+			console.log(homeworkCheckbox);
+			console.log(homeworkIsDone(note.text()));
+			if (homeworkIsDone(note.text())) homeworkCheckbox.prop("checked", true);
+			homeworkCheckbox.change(function () {
+				console.log("Test");
+				setHomeworkDone(note.text(), homeworkCheckbox.prop("checked"));
+			});
+		}
+	}
+}
+setInterval(addNoteCheckbox, 250);
 
 //On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
 function setTitleToDownload() {
@@ -117,13 +169,13 @@ $(document).ready(function(){
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse) {
-		if (request.type == "theme"){
-			curtheme = request.theme;
-			location.reload();
+		function(request, sender, sendResponse) {
+			if (request.type == "theme"){
+				curtheme = request.theme;
+				location.reload();
+			}
 		}
-	}
-);
+		);
 
 //Get current theme from settings and execute the function that switches theme
 getStorage('theme', function (obj) {
