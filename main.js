@@ -70,6 +70,13 @@ function loadSettings() {
 
 }
 
+// Removes the no-select class, allowing us to select stuff once again.
+function allowSelect() {
+	$(".no-select").removeClass("no-select");
+}
+
+setInterval(allowSelect, 250);
+
 //Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
 	setStorage({"lang": "dansk"});
