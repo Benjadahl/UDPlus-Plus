@@ -74,6 +74,8 @@ function loadSettings() {
 function allowSelect() {
 	$(".no-select").removeClass("no-select");
 }
+//Define the variable curtheme to contain the current theme
+var curtheme = "";
 
 setInterval(allowSelect, 250);
 
@@ -101,14 +103,35 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 
+
+getStorage('customTheme', function (obj) {
+	if (!chrome.runtime.error) {
+		customTheme = obj.customTheme;
+		runTheme();
+	}
+});
+
+
 //Changes color off each element in the current theme
 function runTheme(){
-	$('.UDPPCustom').remove();
-	for (var T in themes[curtheme]) {
-		if(T != "homeworkMark"){
-			changeColor(colorElements[T], themes[curtheme][T]);
+	console.log(curtheme);
+	if(typeof themes[curtheme] != "undefined"){
+		for (var T in themes[curtheme]) {
+			if(T != "homeworkMark"){
+				changeColor(colorElements[T], themes[curtheme][T]);
+			}
+		}
+	}else{
+		//This will run if a custom theme is on
+
+		//This is the same as our themes just with a few extra steps involving the customTemplate
+		for(var T in customTheme[curtheme]){
+			for(var X in customTemplate[T]){
+				changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
+			}
 		}
 	}
+
 }
 
 //When the document is ready remove the sidebar collapse button, which is broken
