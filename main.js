@@ -72,7 +72,7 @@ function loadSettings() {
 
 // Removes the no-select class, allowing us to select stuff once again.
 function allowSelect() {
-	$(".no-select").removeClass("no-select");
+	if (window.location.href.indexOf("skema") === -1 ) $(".no-select").removeClass("no-select");
 }
 //Define the variable curtheme to contain the current theme
 var curtheme = "";
