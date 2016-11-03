@@ -1,3 +1,5 @@
+setStorage({'showNews' : false});
+
 getStorage('lang', function (obj) {
 	if (!chrome.runtime.error) {
 		var path = window.location.pathname;

@@ -162,10 +162,20 @@ chrome.runtime.onMessage.addListener(
 //The ++Settings menu button
 var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\');" href="#" id="id_settings"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>';
 
+const menuSelector = 'html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list';
+
 //Finds the left navbar and appends extraMenu
-$('html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list').append(extraMenu);
+$(menuSelector).append(extraMenu);
 
 //Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
 	chrome.runtime.sendMessage({optionsClick: true});
+});
+
+getStorage('showNews', function (obj) {
+	if (!chrome.runtime.error) {
+		if(obj.showNews){
+			$(menuSelector).append("<p style='margin-left: 20px'>Custom Themes Now Available</p>");
+		}
+	}
 });
