@@ -84,26 +84,3 @@ function changeColor (element, color) {
 		}
 	}
 }
-
-//Firefox and chrome settings manager
-function getStorage(name, callback) {
-	//Check if chrome sync is enabled
-	if (navigator.userAgent.includes("Chrome")) {
-		//Chrome sync is enabled
-		chrome.storage.sync.get(name, callback);
-	} else {
-		//Chrome sync is disabled.
-		chrome.storage.local.get(name, callback);
-	}
-}
-
-//Firefox and chrome settings manager
-function setStorage(value) {
-	if (navigator.userAgent.includes("Chrome")) {
-		//Chrome sync is enabled
-		chrome.storage.sync.set(value);
-	} else {
-		//Chrome sync is disabled.
-		chrome.storage.local.set(value);
-	}
-}

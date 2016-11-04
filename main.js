@@ -175,7 +175,7 @@ $('#id_settings').click(function(){
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.showNews){
-			$(menuSelector).append("<p style='margin-left: 20px'>Custom Themes Now Available</p>");
+			$(menuSelector).append("<p style='margin-left: 20px'><i>Custom Themes Now Available</i></p>");
 		}
 	}
 });

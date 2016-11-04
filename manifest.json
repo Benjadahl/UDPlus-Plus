@@ -25,7 +25,7 @@
 		"storage"
 	],
 	"background":{
-		"scripts":["background.js"]
+		"scripts":["storageHandler.js","background.js"]
 	},
 	"content_scripts": [
 		{
@@ -33,7 +33,7 @@
 				"http://www.uddataplus.dk/*",
 				"https://www.uddataplus.dk/*"
 			],
-			"js": ["resources/jquery-3.1.0.min.js","UD++Functions.js","main.js","themes.js"],
+			"js": ["resources/jquery-3.1.0.min.js","storageHandler.js","UD++Functions.js","main.js","themes.js"],
 			"run_at": "document_end"
 		},
 		{
