@@ -1,5 +1,5 @@
 
-//Lang support 
+//Lang support
 getStorage('lang', function (obj) {
 	if (!chrome.runtime.error) {
 		var path = window.location.pathname;
@@ -50,10 +50,10 @@ getStorage('customTheme', function (obj) {
 
             //Setting the customTheme object
             customTheme = obj.customTheme;
-            
+
             //Setting the current theme to nothing for a fresh start
             $("#curTheme").val("");
-            
+
 		}
 	}
 });
@@ -61,7 +61,7 @@ getStorage('customTheme', function (obj) {
 
 //This happens then you click save
 $("#btnSave").click(function (){
-    
+
     if(typeof themes[$("#saveName").val()] == "undefined" && $("#saveName").val() != ""){
         //Making new var for themes so you dont overwrite evertime you change something
         var themeObj = {};
@@ -82,9 +82,9 @@ $("#btnSave").click(function (){
         //Copying the custom themes object for editing
         var obj = customTheme;
 
-        //Adds or changes the new custom theme 
+        //Adds or changes the new custom theme
         obj[name] = themeObj;
-        
+
         //Saving the whole customtheme object again
         setStorage({"customTheme": obj});
 
@@ -95,15 +95,14 @@ $("#btnSave").click(function (){
         location.reload();
     }else{
         $("#error").show();
-        console.log("Cant use this name");
     }
-    
+
 });
 
 
 //This happends then you click delete
 $("#btnDel").click(function (){
-    
+
     //Making a copy for editing
     var obj = customTheme;
 
@@ -112,7 +111,7 @@ $("#btnDel").click(function (){
 
     //Saving the whole object again.
     setStorage({"customTheme" : obj});
-    
+
     //Reloading the page to load everything again
     location.reload();
 
@@ -121,7 +120,6 @@ $("#btnDel").click(function (){
 
 //This happens then you select a new theme to edit
 $('#curTheme').on("change", function (){
-    console.log("Reloading config");
     loadTheme();
-    
+
 });

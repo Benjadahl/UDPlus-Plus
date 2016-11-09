@@ -115,7 +115,6 @@ getStorage('customTheme', function (obj) {
 //Changes color off each element in the current theme
 function runTheme(){
 	$('.UDPPCustom').remove();
-	console.log(curtheme);
 	if(typeof themes[curtheme] != "undefined"){
 		for (var T in themes[curtheme]) {
 			if(T != "homeworkMark"){
