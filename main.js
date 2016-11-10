@@ -173,8 +173,8 @@ $('#id_settings').click(function(){
 
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
-		if(obj.showNews){
-			$(menuSelector).append("<p style='margin-left: 20px'><i>Custom Themes Now Available</i></p>");
+		if(true){
+			$('#sidebar').append("<marquee style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Custom Themes Now Available</i></marquee>");
 		}
 	}
 });
