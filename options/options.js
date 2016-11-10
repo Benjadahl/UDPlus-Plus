@@ -82,6 +82,24 @@ getStorage('sortTaskBy', function (obj) {
 	}
 });
 
+if (new Date().getMonth() === 11) {
+	getStorage('disableSnow', function(obj) {
+		if (!chrome.runtime.error) {
+			if (obj.disableSnow) {
+				$("#disableSnow").prop("checked", true);
+			} else {
+				$("#disableSnow").prop("checked", false);
+			}
+		}
+	});
+	$('#disableSnow').on("change", function() {
+		setStorage({'disableSnow' : $('#disableSnow').prop("checked")})
+	});
+} else {
+	$(".disableSnow").remove();
+}
+
+
 $('#theme').on("change", function() {
 	setStorage({'theme' : theme.value});
 	curtheme = themes[$('#theme').val()];

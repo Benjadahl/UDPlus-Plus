@@ -1,4 +1,4 @@
-console.log("Uddata++ starting");
+//Console.log("Uddata++ starting");
 
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
@@ -57,6 +57,16 @@ function loadSettings() {
 						markHomework();
 					}, 250);
 				}
+			}
+		}
+	});
+
+	getStorage('disableSnow', function(obj) {
+		if (!chrome.runtime.error) {
+			if (!obj.disableSnow) {
+				$(document).ready( function(){
+					if (new Date().getMonth() === 11) $.fn.snow();
+				});
 			}
 		}
 	});
@@ -173,8 +183,10 @@ $('#id_settings').click(function(){
 
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
-		if(ob.showNews){
+		if(obj.showNews){
 			$('#sidebar').append("<marquee style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Custom Themes Now Available</i></marquee>");
 		}
 	}
 });
+
+
