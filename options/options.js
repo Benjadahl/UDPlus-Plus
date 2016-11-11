@@ -132,13 +132,13 @@ $('#hideSidebarCollapse').change(function() {
 });
 
 
-$('#navbarBack').change(function() {
-	setStorage({'backgrounds' : $('#navbarBack').val()});
+$('.background').change(function() {
+	setStorage({'backgrounds' : [$('#navbarBack').val()]});
 });
 
 
 getStorage('backgrounds', function (obj) {
 	if (!chrome.runtime.error) {
-		$('#navbarBack').val(obj.backgrounds);
+		$('#navbarBack').val(obj.backgrounds[0]);
 	}
 });

@@ -137,24 +137,20 @@ function runTheme(){
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
-				changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
+				
+				if(T == "Navigationbar_image"){
+					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
+					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
+					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+				}else{
+					changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
+				}
 			}
 		}
 	}
 
-	//Set background images
-	getStorage('backgrounds', function (obj) {
-		if (!chrome.runtime.error) {
-			if(typeof obj.backgrounds != "undefined" && obj.backgrounds != ""){
-				console.log(obj.backgrounds);
-				changeColor(colorElements["navbarImg"], "url(" + obj.backgrounds + ")")
-			}
-			changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-			changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-			changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-			
-		}
-	});
+	
 
 }
 

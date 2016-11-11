@@ -54,8 +54,8 @@ const colorElements ={
 		sidebarCollapse:{cssSel: ".sidebar-collapse", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		noteHeader:{cssSel: ".modal-header", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		filesHeader:{cssSel: ".label-info, .badge-info", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		noteBottom:{cssSel: ".GNK2GVDDCGB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
-
+		noteBottom:{cssSel: ".GNK2GVDDCGB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		mainBackImg:{cssSel: "#main-content", cssAttr:["background-image"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element

@@ -250,7 +250,8 @@ var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"
 				   "Lesson_Border_Color" : ["lessonStroke"],
 					 "Schedule_Rows" : ["tableLeftSide"],
 					 "Schedule_Columns" : ["tableTop"],
-					 "Schedule_Bottom" : ["tableBottom"]
+					 "Schedule_Bottom" : ["tableBottom"],
+					 "Navigationbar_image" : ["navbarImg"]
 			};
 
 var customTheme = {}
