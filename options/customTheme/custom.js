@@ -30,9 +30,17 @@ function loadTheme(){
     }
 
     //And then it fills them in with the colors from the current theme
-    for(var T in customTheme[curTheme]){
-        $("#" + T).val(customTheme[curTheme][T]);
-        $("#" + T).css("background-color", customTheme[curTheme][T]);
+    
+    if(typeof themes[curTheme] != "undefined"){
+        for(var T in themeConvert){
+            $("#" + themeConvert[T]).val(themes[curTheme][T]);
+            $("#" + themeConvert[T]).css("background-color", themes[curTheme][T]);
+        }
+    }else{
+        for(var T in customTheme[curTheme]){
+            $("#" + T).val(customTheme[curTheme][T]);
+            $("#" + T).css("background-color", customTheme[curTheme][T]);
+        }
     }
 
     //And it sets the button textbox to the current theme name for easy saving and deleting
@@ -43,6 +51,21 @@ function loadTheme(){
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.customTheme != "undefined"){
+            
+            //Adding default themes
+            for (var key in themes) {
+                if (true) {
+                    $("#curTheme").append($('<option>', {
+                        value: key,
+                        text: themes[key].name
+                    }));
+                }
+            }
+
+            //Adding dropdown seperator
+            if(!jQuery.isEmptyObject(obj.customTheme)){
+				$("#curTheme").append("<option disabled>&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</option>");
+			}
             //Adding clients themes to the dropdown
             for(var T in obj.customTheme){
                 $("#curTheme").append('<option value="' + T +'">' + T + '</option>');

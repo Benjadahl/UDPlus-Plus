@@ -13,6 +13,10 @@ getStorage('lang', function (obj) {
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		if(typeof obj.customTheme != "undefined"){
+			//Adding dropdown seperator
+			if(!jQuery.isEmptyObject(obj.customTheme)){
+				themeSelect.append("<option disabled>&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</option>");
+			}
 			for(var T in obj.customTheme){
 				themeSelect.append($('<option>', {
 					value: T,

@@ -253,3 +253,21 @@ var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"
 			};
 
 var customTheme = {}
+
+
+var themeConvert = {
+	"navbar" : "Navigationbar",
+	"mainBackground" : "Background1",
+	"leftMenuBottom" : "Background2",
+	"tableBackground" : "Background3",
+	"tableButtons" : "Accent",
+	"menuText" : "Text",
+	"lessonOpacity" : "Lesson_Transparent",
+	"lessonFill" : "Lesson_Color",
+	"lessonStroke" : "Lesson_Border_Color",
+	"tableLeftSide" : "Schedule_Rows",
+	"tableTop" : "Schedule_Columns",
+	"tableBottom" : "Schedule_Bottom"
+
+
+}
