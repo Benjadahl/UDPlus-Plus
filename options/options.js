@@ -130,3 +130,15 @@ $('#hideSidebarCollapse').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideSidebarCollapse' : $('#hideSidebarCollapse').prop("checked")});
 });
+
+
+$('#navbarBack').change(function() {
+	setStorage({'backgrounds' : $('#navbarBack').val()});
+});
+
+
+getStorage('backgrounds', function (obj) {
+	if (!chrome.runtime.error) {
+		$('#navbarBack').val(obj.backgrounds);
+	}
+});

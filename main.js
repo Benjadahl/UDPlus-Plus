@@ -142,6 +142,20 @@ function runTheme(){
 		}
 	}
 
+	//Set background images
+	getStorage('backgrounds', function (obj) {
+		if (!chrome.runtime.error) {
+			if(typeof obj.backgrounds != "undefined" && obj.backgrounds != ""){
+				console.log(obj.backgrounds);
+				changeColor(colorElements["navbarImg"], "url(" + obj.backgrounds + ")")
+			}
+			changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
+			changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+			changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+			
+		}
+	});
+
 }
 
 //When the document is ready remove the sidebar collapse button, which is broken

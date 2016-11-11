@@ -1,7 +1,8 @@
 //Themes availeble
 var themes = {
 	"default" :{
-		"name": "Default"
+		"name": "Default",
+		"mainBackground" : "rgba(0,0,0,0)"
 	},
 	"blue": {"name": "Blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
 	"black" : {

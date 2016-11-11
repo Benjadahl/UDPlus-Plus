@@ -1,6 +1,7 @@
 //Changeble element
 const colorElements ={
 		navbar:{cssSel:".navbar-inner", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		navbarImg:{cssSel:".navbar-inner", cssAttr:["background-image"], styleRule: true, isImportant: true, specialBorder: false},
 		rightDropdown: {cssSel:".ace-nav>li.light-blue", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		navbarIcon:{cssSel:".ace-nav>li>a>[class*='icon-']", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
 		tableTopActive:{cssSel:".GNK2GVDDN- th.GNK2GVDDE-", cssAttr:["background-color", "border-top-color"], styleRule: true, isImportant: true, specialBorder: false},
