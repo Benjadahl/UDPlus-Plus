@@ -270,7 +270,8 @@ var themeConvert = {
 	"lessonStroke" : "Lesson_Border_Color",
 	"tableLeftSide" : "Schedule_Rows",
 	"tableTop" : "Schedule_Columns",
-	"tableBottom" : "Schedule_Bottom"
+	"tableBottom" : "Schedule_Bottom",
+	"homeworkMark" : "Homework_color"
 
 
 }
