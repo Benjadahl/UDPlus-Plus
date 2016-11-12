@@ -8,6 +8,8 @@ var curtheme = "Default";
 
 var homeworkList = ["lektie"];
 
+var homeworkColour = "#ED2939";
+
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
@@ -18,11 +20,7 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			if (typeof themes[curtheme] === "undefined" || typeof themes[curtheme]["homeworkMark"] === "undefined"){
-				var homeworkColour = "#ED2939";
-			} else {
-				var homeworkColour = themes[curtheme]["homeworkMark"];
-			}
+			
 			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
 		}
 	});
@@ -129,6 +127,8 @@ function runTheme(){
 		for (var T in themes[curtheme]) {
 			if(T != "homeworkMark"){
 				changeColor(colorElements[T], themes[curtheme][T]);
+			}else{
+				homeworkColour = themes[curtheme][T]
 			}
 		}
 	}else{
@@ -144,7 +144,12 @@ function runTheme(){
 					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
 					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
 				}else{
-					changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
+					if(T != "Homework_color"){
+						changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
+					}else{
+						homeworkColour = customTheme[curtheme][T];
+					}
+					
 				}
 			}
 		}

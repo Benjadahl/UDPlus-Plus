@@ -251,6 +251,7 @@ var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"
 					 "Schedule_Rows" : ["tableLeftSide"],
 					 "Schedule_Columns" : ["tableTop"],
 					 "Schedule_Bottom" : ["tableBottom"],
+					 "Homework_color" : ["homeworkMark"],
 					 "Navigationbar_image" : ["navbarImg"]
 			};
 
