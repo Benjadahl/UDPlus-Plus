@@ -55,7 +55,8 @@ const colorElements ={
 		noteHeader:{cssSel: ".modal-header", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		filesHeader:{cssSel: ".label-info, .badge-info", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		noteBottom:{cssSel: ".GNK2GVDDCGB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		mainBackImg:{cssSel: "#main-content", cssAttr:["background-image"], styleRule: true, isImportant: true, specialBorder: false}
+		mainBackImg:{cssSel: "#main-content", cssAttr:["background-image"], styleRule: true, isImportant: true, specialBorder: false},
+		assignmentsTableActive:{cssSel: ".dataTable th.sorting_desc, .dataTable th.sorting_asc", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
