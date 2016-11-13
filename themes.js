@@ -30,7 +30,8 @@ var themes = {
 		"homeworkMark": "#c0392b",
 		"lessonOpacity":"0.7",
 		"noteHeader":"rgb(43, 43, 43)",
-		"filesHeader":"rgb(43, 43, 43)"
+		"filesHeader":"rgb(43, 43, 43)",
+		"assignmentsTableActive":"#080707"
 	},
 	"green" : {
 		"name": "Green",
@@ -84,7 +85,8 @@ var themes = {
 		"lessonOpacity":"0.7",
 		"homeworkMark": "#e74c3c",
 		"noteHeader":"#B22222",
-		"filesHeader":"#B22222"
+		"filesHeader":"#B22222",
+		"assignmentsTableActive":"#e74c3c"
 	},
 	"dark" : {
 		"name": "Dark",
@@ -136,7 +138,8 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"noteHeader":"#ada315",
 		"filesHeader":"#ada315",
-		"noteBottom":"#414141"
+		"noteBottom":"#414141",
+		"assignmentsTableActive":"#ada315"
 	},
 	"rendark" : {
 		"name": "RenDark",
@@ -185,7 +188,8 @@ var themes = {
 		"assignmentText": "#FFFFFF",
 		"sidebarArrow": "#707070",
 		"sidebarCollapse": "#2b2b2b",
-		"homeworkMark": "#ED2939"
+		"homeworkMark": "#ED2939",
+		"assignmentsTableActive":"#064f7f"
 	},
 	"base16" : {
 		"name": "Base16 dark",
@@ -200,7 +204,7 @@ var themes = {
 		"profileRing": "#A54242",
 		"schoolEdges":"#282A2E",
 		"navbarText":"#C5C8C6",
-		"menuButtons":"#8C9440",
+		"menuButtons":"#A54242",
 		"mainBackground":"#373B41",
 		"header":"#A54242",
 		"studentInfo":"#5F819D",
@@ -222,8 +226,8 @@ var themes = {
 		"leftMenuBorder":"#A54242",
 		"leftMenuLIborderTop":"#414141",
 		"leftMenuLIborderBottom":"#414141",
-		"copyrightTop":"#8C9440",
-		"linkLanguage":"#8C9440",
+		"copyrightTop":"#A54242",
+		"linkLanguage":"#A54242",
 		"mainText":"#C5C8C6",
 		"menuText": "#C5C8C6",
 		"leftMenuArrowBorder":"#A54242",
@@ -234,7 +238,8 @@ var themes = {
 		"assignmentText": "#C5C8C6",
 		"sidebarArrow": "#A54242",
 		"sidebarCollapse": "#A54242",
-		"homeworkMark": "#A54242"
+		"homeworkMark": "#A54242",
+		"assignmentsTableActive":"#A54242"
 	}
 };
 
