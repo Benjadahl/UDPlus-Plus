@@ -241,9 +241,9 @@ var themes = {
 //These are the options that the client can change
 var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"],
 				   "Background1" : ["mainBackground", "outerBackground", "backEdge"],
-				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop"] ,
+				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
 				   "Background3" : [ "tableBackground"],
-				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "assignmentSetting", "tableTopActive", "loginBtn", "leftMenuTextActive"],
+				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
 				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText", "menuText"],
 				   "Lesson_Transparent" : ["lessonOpacity"],
 				   "Lesson_Color" : ["lessonFill"],
