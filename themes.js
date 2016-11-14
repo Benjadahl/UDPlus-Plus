@@ -139,7 +139,8 @@ var themes = {
 		"noteHeader":"#ada315",
 		"filesHeader":"#ada315",
 		"noteBottom":"#414141",
-		"assignmentsTableActive":"#ada315"
+		"assignmentsTableActive":"#ada315",
+		"mainContainer" : "#393939"
 	},
 	"rendark" : {
 		"name": "RenDark",
@@ -189,7 +190,8 @@ var themes = {
 		"sidebarArrow": "#707070",
 		"sidebarCollapse": "#2b2b2b",
 		"homeworkMark": "#ED2939",
-		"assignmentsTableActive":"#064f7f"
+		"assignmentsTableActive":"#064f7f",
+		"mainContainer" : "#393939"
 	},
 	"base16" : {
 		"name": "Base16 dark",
@@ -239,13 +241,14 @@ var themes = {
 		"sidebarArrow": "#A54242",
 		"sidebarCollapse": "#A54242",
 		"homeworkMark": "#A54242",
-		"assignmentsTableActive":"#A54242"
+		"assignmentsTableActive":"#A54242",
+		"mainContainer" : "#373B41"
 	}
 };
 
 //These are the options that the client can change
 var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"],
-				   "Background1" : ["mainBackground", "outerBackground", "backEdge"],
+				   "Background1" : ["mainBackground", "outerBackground", "backEdge", "mainContainer"],
 				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
 				   "Background3" : [ "tableBackground"],
 				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
