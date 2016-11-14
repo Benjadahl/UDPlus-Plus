@@ -252,15 +252,17 @@ var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"
 				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
 				   "Background3" : [ "tableBackground"],
 				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
-				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText", "menuText"],
-				   "Lesson_Transparent" : ["lessonOpacity"],
+				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"],
+					 "Menu_button_text" : ["menuText"],
+					 "Lesson_Transparent" : ["lessonOpacity"],
 				   "Lesson_Color" : ["lessonFill"],
 				   "Lesson_Border_Color" : ["lessonStroke"],
 					 "Schedule_Rows" : ["tableLeftSide"],
 					 "Schedule_Columns" : ["tableTop"],
 					 "Schedule_Bottom" : ["tableBottom"],
 					 "Homework_color" : ["homeworkMark"],
-					 "Navigationbar_image" : ["navbarImg"]
+					 "Navigationbar_image" : ["navbarImg"],
+					 "BackgroundImg_BETA" : ["mainBackImg"]
 			};
 
 var customTheme = {}
@@ -272,7 +274,8 @@ var themeConvert = {
 	"leftMenuBottom" : "Background2",
 	"tableBackground" : "Background3",
 	"tableButtons" : "Accent",
-	"menuText" : "Text",
+	"mainText" : "Text",
+	"menuText" : "Menu_button_text",
 	"lessonOpacity" : "Lesson_Transparent",
 	"lessonFill" : "Lesson_Color",
 	"lessonStroke" : "Lesson_Border_Color",

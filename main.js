@@ -20,7 +20,7 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			
+
 			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
 		}
 	});
@@ -133,29 +133,35 @@ function runTheme(){
 		}
 	}else{
 		//This will run if a custom theme is on
-
+		console.log(customTheme[curtheme]);
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
-				
+
 				if(T == "Navigationbar_image"){
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
 					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
 					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+				}else if(T == "BackgroundImg_BETA"){
+					console.log(T);
+					setTrans();
+					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 				}else{
 					if(T != "Homework_color"){
 						changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
 					}else{
 						homeworkColour = customTheme[curtheme][T];
 					}
-					
+
 				}
 			}
 		}
+
+
+
 	}
 
-	
 
 }
 
@@ -205,3 +211,12 @@ getStorage('showNews', function (obj) {
 });
 
 
+function setTrans(){
+	console.log("Init cancer")
+	var array = ["navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
+	for (var i = 0; i < array.length; i++) {
+		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
+	}
+
+
+}

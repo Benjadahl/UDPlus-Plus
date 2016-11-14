@@ -12,11 +12,11 @@ getStorage('lang', function (obj) {
 
 //We start out by making the textboxes for the different colors to change
 for(var T in customTemplate){
-    if(T != "Lesson_Transparent" && T != "Navigationbar_image"){
+    if(T != "Lesson_Transparent" && T != "Navigationbar_image" && T != "BackgroundImg_BETA"){
         $("#frame").append(T + ' : <input type="text" class="jscolor {required:false, hash:true}" id="' + T + '"></input><br><br>');
-    }else if( T == "Navigationbar_image"){
+    }else if( T == "Navigationbar_image" || T == "BackgroundImg_BETA"){
         $("#frame").append(T + ' : <input type="text" id="' + T + '"></input><br><br>');
-    
+
     }else{
         $("#frame").append(T + ' | Fra 0 til 1 : <input type="range" min="0" max="1" step="0.05" id="' + T + '" value="0.75"></input><br><br>');
     }
@@ -30,10 +30,11 @@ function loadTheme(){
     //Then cleans all the textboxes
     for(var T in customTemplate){
         $("#" + T).val("");
+				$("#" + T).css("background-color", "#FFFFFF");
     }
 
     //And then it fills them in with the colors from the current theme
-    
+
     if(typeof themes[curTheme] != "undefined"){
         for(var T in themeConvert){
             $("#" + themeConvert[T]).val(themes[curTheme][T]);
@@ -54,7 +55,7 @@ function loadTheme(){
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.customTheme != "undefined"){
-            
+
             //Adding default themes
             for (var key in themes) {
                 if (true) {
@@ -99,6 +100,7 @@ $("#btnSave").click(function (){
         for(var T in customTemplate){
             if($("#" + T).val() != ""){
                 themeObj[T] = $("#" + T).val();
+								console.log("#" + T + "   " + $("#" + T).val())
             }else{
                 delete themeObj[T];
             }
