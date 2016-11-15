@@ -20,7 +20,7 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			
+
 			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
 		}
 	});
@@ -125,37 +125,62 @@ function runTheme(){
 	$('.UDPPCustom').remove();
 	if(typeof themes[curtheme] != "undefined"){
 		for (var T in themes[curtheme]) {
-			if(T != "homeworkMark"){
-				changeColor(colorElements[T], themes[curtheme][T]);
+			if(T == "navbarImg"){
+				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
+				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
+				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+			}else if(T == "mainBackImg"){
+				setTrans();
+				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
 			}else{
-				homeworkColour = themes[curtheme][T]
+				if(T != "homeworkMark"){
+					changeColor(colorElements[T], themes[curtheme][T]);
+				}else{
+					homeworkColour = themes[curtheme][T];
+				}
+
 			}
 		}
 	}else{
 		//This will run if a custom theme is on
+		//console.log(customTheme[curtheme]);
+
+		//For getting static theme format out of customtheme. Comment this line on release
+		var convertstring = "";
 
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
-				
+				//For converting custom into a static theme. Comment this line on release
+				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
+
+				//Handling background images.
 				if(T == "Navigationbar_image"){
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
 					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
 					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+				}else if(T == "BackgroundImg_BETA"){
+					setTrans();
+					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 				}else{
 					if(T != "Homework_color"){
 						changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
 					}else{
 						homeworkColour = customTheme[curtheme][T];
 					}
-					
+
 				}
 			}
+
+			console.log(convertstring);
 		}
+
+
+
 	}
 
-	
 
 }
 
@@ -199,9 +224,20 @@ $('#id_settings').click(function(){
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.showNews){
-			$('#sidebar').append("<marquee style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Custom Themes Now Available</i></marquee>");
+			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Custom Themes Now Available</i></p>");
 		}
 	}
 });
 
 
+function setTrans(){
+	console.log("Init cancer")
+	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
+	for (var i = 0; i < array.length; i++) {
+		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
+	}
+	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
+	changeColor(colorElements["mainBackImgFill"], "cover");
+
+
+}
