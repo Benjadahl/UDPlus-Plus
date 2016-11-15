@@ -195,13 +195,13 @@ $(document).ready(function(){
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
-		function(request, sender, sendResponse) {
-			if (request.type == "theme"){
-				curtheme = request.theme;
-				location.reload();
-			}
+	function(request, sender, sendResponse) {
+		if (request.type == "theme"){
+			curtheme = request.theme;
+			location.reload();
 		}
-		);
+	}
+);
 
 
 
@@ -235,7 +235,9 @@ function setTrans(){
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
-setTimeout(function(){
-	$(".gwt-TextArea").css("background-color","rgba(176, 5, 60, 0)");
-	$(".gwt-TextArea").css("color","rgba(176, 5, 60, 0)");
-}, 5000);
+var messageFix = setInterval(function(){
+	if($(".gwt-TextArea").length > 0){
+		$(".gwt-TextArea").css("background-color","rgba(176, 5, 60, 0)");
+		$(".gwt-TextArea").css("color","rgba(176, 5, 60, 0)");
+	}
+}, 250);
