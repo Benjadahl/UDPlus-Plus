@@ -226,6 +226,31 @@ var themes = {
 		"navbarEdge" : "#89042F",
 		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"
 
+	},
+	"ColorCrazy" : {
+		"name" : "Color_Crazy",
+		"leftMenuArrowBorder" : "#539e24",
+		"tableButtons" : "#539e24",
+		"header" : "#539e24",
+		"menuButtons" : "#539e24",
+		"sidebarArrow" : "#539e24",
+		"absenceSlider" : "#539e24",
+		"profileRing" : "#539e24",
+		"arrows" : "#539e24",
+		"tableTopActive" : "#539e24",
+		"loginBtn" : "#539e24",
+		"leftMenuTextActive" : "#539e24",
+		"absence" : "#539e24",
+		"mainBackImg" : "https://media.giphy.com/media/Eu2WvP6MFcA12/giphy.gif",
+		"homeworkMark" : "#ED2939",
+		"lessonStroke" : "#539e24",
+		"lessonFill" : "#539e24",
+		"lessonOpacity" : "1",
+		"navbar" : "#539e24",
+		"rightDropdown" : "#539e24",
+		"navbarEdge" : "#539e24",
+		"mainText" : "#FFFFFF",
+		"navbarImg" : "https://media.giphy.com/media/URZcG7uLd9h4s/giphy.gif"
 	}
 };
 
