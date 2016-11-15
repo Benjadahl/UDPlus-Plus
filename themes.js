@@ -201,6 +201,7 @@ var themes = {
 		"header" : "#89042F",
 		"menuButtons" : "#89042F",
 		"sidebarArrow" : "#89042F",
+		"popOutMenuText" : "#89042F",
 		"absenceSlider" : "#89042F",
 		"profileRing" : "#89042F",
 		"arrows" : "#89042F",
@@ -257,7 +258,7 @@ var themes = {
 //These are the options that the client can change
 var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"],
 				   "Background1" : ["mainBackground", "outerBackground", "backEdge", "mainContainer"],
-				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
+				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom","89042F" ,"leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
 				   "Background3" : [ "tableBackground"],
 				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
 				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"],

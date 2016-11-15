@@ -61,7 +61,8 @@ const colorElements ={
 		assignmentsTableActive:{cssSel: ".dataTable th.sorting_desc, .dataTable th.sorting_asc", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		mainContainer:{cssSel: ".main-container", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		mainContainerH:{cssSel: ".main-container", cssAttr:["height"], styleRule: true, isImportant: true, specialBorder: false},
-		sidebarColor:{cssSel: ".sidebar", cssAttr:["background-color", "border-right"], styleRule: true, isImportant: true, specialBorder: false}
+		sidebarColor:{cssSel: ".sidebar", cssAttr:["background-color", "border-right"], styleRule: true, isImportant: true, specialBorder: false},
+		popOutMenuText:{cssSel: ".menu-text", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
 
 };
 
