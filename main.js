@@ -213,10 +213,11 @@ getStorage('showNews', function (obj) {
 
 function setTrans(){
 	console.log("Init cancer")
-	var array = ["navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
+	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
 		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
 	}
+	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 
 
 }
