@@ -63,7 +63,8 @@ const colorElements ={
 		messageBackground:{cssSel: ".K1CYATD-u-f", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		mainContainerH:{cssSel: ".main-container", cssAttr:["height"], styleRule: true, isImportant: true, specialBorder: false},
 		sidebarColor:{cssSel: ".sidebar", cssAttr:["background-color", "border-right"], styleRule: true, isImportant: true, specialBorder: false},
-		activeMessage:{cssSel: ".K1CYATD-j-e", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
+		activeMessage:{cssSel: ".K1CYATD-j-e", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		scheduleTopAnnouncements:{cssSel: ".GNK2GVDDPHB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
