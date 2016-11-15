@@ -140,7 +140,8 @@ var themes = {
 		"filesHeader":"#ada315",
 		"noteBottom":"#414141",
 		"assignmentsTableActive":"#ada315",
-		"mainContainer" : "#393939"
+		"mainContainer" : "#393939",
+		"messageBackground": "#393939"
 	},
 	"rendark" : {
 		"name": "RenDark",
