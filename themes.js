@@ -224,7 +224,7 @@ var themes = {
 		"navbar" : "#89042F",
 		"rightDropdown" : "#89042F",
 		"navbarEdge" : "#89042F",
-		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jp"
+		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"
 
 	}
 };
@@ -265,7 +265,9 @@ var themeConvert = {
 	"tableLeftSide" : "Schedule_Rows",
 	"tableTop" : "Schedule_Columns",
 	"tableBottom" : "Schedule_Bottom",
-	"homeworkMark" : "Homework_color"
+	"homeworkMark" : "Homework_color",
+	"navbarImg" : "Navigationbar_image",
+	"mainBackImg" : "BackgroundImg_BETA"
 
 
 }
