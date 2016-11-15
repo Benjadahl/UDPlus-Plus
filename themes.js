@@ -227,7 +227,7 @@ var themes = {
 		"navbar" : "#89042F",
 		"rightDropdown" : "#89042F",
 		"navbarEdge" : "#89042F",
-		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
+		"navbarImg" : "http://i.imgur.com/ex7rXzY.png",
 		"activeMessage" : "rgba(176, 5, 60, 0.3)",
 		"commentText":"#FFFFFF",
 		"messageBackground" : "rgba(176, 5, 60, 0.3)"
