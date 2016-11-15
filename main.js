@@ -1,4 +1,4 @@
-//Console.log("Uddata++ starting");
+console.log("Uddata++ starting");
 
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
@@ -144,7 +144,6 @@ function runTheme(){
 		}
 	}else{
 		//This will run if a custom theme is on
-		//console.log(customTheme[curtheme]);
 
 		//For getting static theme format out of customtheme. Comment this line on release
 		var convertstring = "";
@@ -173,8 +172,6 @@ function runTheme(){
 
 				}
 			}
-
-			console.log(convertstring);
 		}
 
 
@@ -231,13 +228,14 @@ getStorage('showNews', function (obj) {
 
 
 function setTrans(){
-	console.log("Init cancer")
 	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
 		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
 	}
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
-
-
 }
+setTimeout(function(){
+	$(".gwt-TextArea").css("background-color","rgba(176, 5, 60, 0)");
+	$(".gwt-TextArea").css("color","rgba(176, 5, 60, 0)");
+}, 5000);

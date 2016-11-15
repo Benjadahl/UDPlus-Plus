@@ -209,7 +209,8 @@ var themes = {
 		"loginBtn" : "#89042F",
 		"leftMenuTextActive" : "#89042F",
 		"absence" : "#89042F",
-		"copyrightTop" : "#B0053C",
+		"copyrightTop" : "#FFFFFF",
+		"linkLanguage":"#FFFFFF",
 		"leftMenuLIborderBottom" : "#B0053C",
 		"leftMenuBorder" : "#B0053C",
 		"leftMenuLI" : "#B0053C",
@@ -225,8 +226,10 @@ var themes = {
 		"navbar" : "#89042F",
 		"rightDropdown" : "#89042F",
 		"navbarEdge" : "#89042F",
-		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"
-
+		"navbarImg" : "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
+		"activeMessage" : "rgba(176, 5, 60, 0.3)",
+		"commentText":"#FFFFFF",
+		"messageBackground" : "rgba(176, 5, 60, 0.3)"
 	},
 	"ColorCrazy" : {
 		"name" : "Color_Crazy",
