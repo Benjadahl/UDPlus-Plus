@@ -80,7 +80,7 @@ function loadSettings() {
 		if (!chrome.runtime.error) {
 			if (!obj.disableSnow) {
 				$(document).ready( function(){
-						if (new Date().getMonth() === 10){
+						if (new Date().getMonth() === 11){
  						$.fn.snow();
  						//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
  						$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
