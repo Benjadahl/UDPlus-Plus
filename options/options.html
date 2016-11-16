@@ -11,6 +11,10 @@
 	<h3>Homework Marking</h3>
 	<input type="checkbox" name="homeworkCheck" id="homework">Check for homework</input> <input type="text" id="homeworkWords"></input>
 	<p><i>This function marks lessons which have the word in the checkbox in the note red. This function is not case-sensitive. Individual words are seperated by commas.</i></p>
+	<h3>Schedule tweak</h3>
+	Lesson keywords: <input type="text" id="lessonWords"></input>
+	<p><i>This function hides lessons from the schedule that contain the keywords in the box. This one is case sensitive, because making jQuery not do that is "hard", and Rendal is lazy.</i></p>
+
 	<h3>Menu Tweaks</h3>
 	<input type="checkbox" id="hideSidebarCollapse">Hide the minimize button in the menu</input>
 	<br></br>
@@ -25,7 +29,7 @@
 		<option value="3">Deadline</option>
 	</select>
 	<br><br/>
-	
+
 	<input type="checkbox" name="hideTask" id="hideTask">Auto hide done assignments, this will also hide assignment grades</input></br>
 	<h3 class="disableSnow">Snow in December</h3>
 	<input type="checkbox" name="disableSnow" id="disableSnow" class="disableSnow"></input><p class="disableSnow" style="display:inline;">Disables snow in December</p>

@@ -26,19 +26,24 @@ function markHomework(){
 	});
 }
 
+function stringToList(string) {
+	var thelist = string.split(",");
+
+	for (var i=0; i< thelist.length; i++) {
+		thelist[i] = thelist[i].replace(/\s/g, "");
+		if (thelist[i] == "") thelist.splice(i,1);
+	}
+	if (thelist == [""]) thelist.splice(0,1);
+	return thelist;
+}
+
 //We need to use this function to load all the settings
 function loadSettings() {
 
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = obj.homeworkWords.split(",");
-			//We have to remove the empty elements, or everything will be matched as homework.
-			for (var i=0; i < homeworkList.length; i++) {
-				homeworkList[i] = homeworkList[i].replace(/\s/g, "");
-				if (homeworkList[i] == "") homeworkList.splice(i, 1);
-			}
-			if (homeworkList == [""]) homeworkList.splice(0, 1);
+			homeworkList = stringToList(obj.homeworkWords);
 		}
 	});
 
@@ -56,6 +61,18 @@ function loadSettings() {
 					}, 250);
 				}
 			}
+		}
+	});
+
+	//Delete lessons that contain the words
+	getStorage({toHide: ""}, function(obj) {
+		if (!chrome.runtime.error) {
+			toHideList = stringToList(obj.toHide);
+			setInterval(function() {
+				for (var i=0; i < toHideList.length; i++) {
+					$("text:contains('" + toHideList[i] + "')").parent().parent().remove();
+				}
+			}, 250);
 		}
 	});
 
@@ -128,8 +145,8 @@ function runTheme(){
 			if(T == "navbarImg"){
 				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
 				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
 			}else if(T == "mainBackImg"){
 				setTrans();
 				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
@@ -158,8 +175,8 @@ function runTheme(){
 				if(T == "Navigationbar_image"){
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+						changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+						//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
 				}else if(T == "BackgroundImg_BETA"){
 					setTrans();
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
@@ -195,13 +212,13 @@ $(document).ready(function(){
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse) {
-		if (request.type == "theme"){
-			curtheme = request.theme;
-			location.reload();
+		function(request, sender, sendResponse) {
+			if (request.type == "theme"){
+				curtheme = request.theme;
+				location.reload();
+			}
 		}
-	}
-);
+		);
 
 
 
@@ -229,9 +246,9 @@ getStorage('showNews', function (obj) {
 
 function setTrans(){
 	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
-	for (var i = 0; i < array.length; i++) {
-		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
-	}
+		for (var i = 0; i < array.length; i++) {
+			changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
+		}
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }

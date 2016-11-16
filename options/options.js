@@ -65,6 +65,11 @@ getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
 	}
 });
 
+getStorage({toHide: ""}, function (obj) {
+	if (!chrome.runtime.error) {
+		$('#lessonWords').val(obj.toHide);
+	}
+});
 
 getStorage('hideTask', function (obj) {
 	if (!chrome.runtime.error) {
@@ -115,6 +120,10 @@ $('#homework').change(function() {
 
 $('#homeworkWords').change(function() {
 	setStorage({'homeworkWords' : $('#homeworkWords').val()});
+});
+
+$('#lessonWords').change(function() {
+	setStorage({'toHide' : $('#lessonWords').val()});
 });
 
 $('#sortTaskBy').on("change", function() {
