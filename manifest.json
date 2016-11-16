@@ -53,5 +53,5 @@
 			"run_at": "document_end"
 		}
 	],
-	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js"]
+	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png"]
 }

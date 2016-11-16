@@ -80,7 +80,14 @@ function loadSettings() {
 		if (!chrome.runtime.error) {
 			if (!obj.disableSnow) {
 				$(document).ready( function(){
-					if (new Date().getMonth() === 11) $.fn.snow();
+						if (new Date().getMonth() === 10){
+ 						$.fn.snow();
+ 						//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
+ 						$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+ 						$(".nissehue").css("position", "absolute");
+ 						$(".nissehue").css("top", "-11px");
+ 						$(".nissehue").css("right", "104px");
+ 					}
 				});
 			}
 		}
@@ -163,13 +170,13 @@ function runTheme(){
 		//This will run if a custom theme is on
 
 		//For getting static theme format out of customtheme. Comment this line on release
-		var convertstring = "";
+		//var convertstring = "";
 
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
 				//For converting custom into a static theme. Comment this line on release
-				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
+				//convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
 
 				//Handling background images.
 				if(T == "Navigationbar_image"){
