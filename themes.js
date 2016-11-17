@@ -141,7 +141,8 @@ var themes = {
 		"noteBottom":"#414141",
 		"assignmentsTableActive":"#ada315",
 		"mainContainer" : "#393939",
-		"messageBackground": "#393939"
+		"messageBackground": "#393939",
+		"commentWritingBackground": "#393939"
 	},
 	"rendark" : {
 		"name": "RenDark",
@@ -192,7 +193,8 @@ var themes = {
 		"sidebarCollapse": "#2b2b2b",
 		"homeworkMark": "#ED2939",
 		"assignmentsTableActive":"#064f7f",
-		"mainContainer" : "#393939"
+		"mainContainer" : "#393939",
+		"commentWritingBackground": "#393939"
 	},
 	"wallDemo" : {
 		"name" : "Wallpaper_Demo",
@@ -234,7 +236,9 @@ var themes = {
 		"messageBackground" : "rgba(176, 5, 60, 0.3)",
 		"tableLeftSide":"rgba(176, 5, 60, 0.3)",
 		"scheduleTopAnnouncements":"rgba(176, 5, 60, 0.5)",
-		"assignmentsTableActive" : "#690223"
+		"assignmentsTableActive" : "#690223",
+		"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
+		"commentMessageText":"#FFFFFF"
 	},
 	"base16" : {
 		"name": "Base16 dark",
@@ -283,6 +287,10 @@ var themes = {
 		"assignmentText": "#C5C8C6",
 		"sidebarArrow": "#A54242",
 		"sidebarCollapse": "#A54242",
+		"assignmentsTableActive" : "#8a3434",
+		"mainContainer" : "#373B41",
+		"noteHeader":"#A54242",
+		"filesHeader":"#A54242",
 		"homeworkMark": "#A54242"
 	}
 };

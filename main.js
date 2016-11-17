@@ -26,24 +26,19 @@ function markHomework(){
 	});
 }
 
-function stringToList(string) {
-	var thelist = string.split(",");
-
-	for (var i=0; i< thelist.length; i++) {
-		thelist[i] = thelist[i].replace(/\s/g, "");
-		if (thelist[i] == "") thelist.splice(i,1);
-	}
-	if (thelist == [""]) thelist.splice(0,1);
-	return thelist;
-}
-
 //We need to use this function to load all the settings
 function loadSettings() {
 
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = stringToList(obj.homeworkWords);
+			homeworkList = obj.homeworkWords.split(",");
+			//We have to remove the empty elements, or everything will be matched as homework.
+			for (var i=0; i < homeworkList.length; i++) {
+				homeworkList[i] = homeworkList[i].replace(/\s/g, "");
+				if (homeworkList[i] == "") homeworkList.splice(i, 1);
+			}
+			if (homeworkList == [""]) homeworkList.splice(0, 1);
 		}
 	});
 
@@ -64,30 +59,11 @@ function loadSettings() {
 		}
 	});
 
-	//Delete lessons that contain the words
-	getStorage({toHide: ""}, function(obj) {
-		if (!chrome.runtime.error) {
-			toHideList = stringToList(obj.toHide);
-			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$("text:contains('" + toHideList[i] + "')").parent().parent().remove();
-				}
-			}, 250);
-		}
-	});
-
 	getStorage('disableSnow', function(obj) {
 		if (!chrome.runtime.error) {
 			if (!obj.disableSnow) {
 				$(document).ready( function(){
-						if (new Date().getMonth() === 11){
- 						$.fn.snow();
- 						//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
- 						$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
- 						$(".nissehue").css("position", "absolute");
- 						$(".nissehue").css("top", "-11px");
- 						$(".nissehue").css("right", "104px");
- 					}
+					if (new Date().getMonth() === 11) $.fn.snow();
 				});
 			}
 		}
@@ -152,8 +128,8 @@ function runTheme(){
 			if(T == "navbarImg"){
 				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
 				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
 			}else if(T == "mainBackImg"){
 				setTrans();
 				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
@@ -170,20 +146,20 @@ function runTheme(){
 		//This will run if a custom theme is on
 
 		//For getting static theme format out of customtheme. Comment this line on release
-		//var convertstring = "";
+		var convertstring = "";
 
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[curtheme]){
 			for(var X in customTemplate[T]){
 				//For converting custom into a static theme. Comment this line on release
-				//convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
+				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
 
 				//Handling background images.
 				if(T == "Navigationbar_image"){
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-						changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-						//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
 				}else if(T == "BackgroundImg_BETA"){
 					setTrans();
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
@@ -219,13 +195,13 @@ $(document).ready(function(){
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
-		function(request, sender, sendResponse) {
-			if (request.type == "theme"){
-				curtheme = request.theme;
-				location.reload();
-			}
+	function(request, sender, sendResponse) {
+		if (request.type == "theme"){
+			curtheme = request.theme;
+			location.reload();
 		}
-		);
+	}
+);
 
 
 
@@ -253,15 +229,9 @@ getStorage('showNews', function (obj) {
 
 function setTrans(){
 	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
-		for (var i = 0; i < array.length; i++) {
-			changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
-		}
+	for (var i = 0; i < array.length; i++) {
+		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
+	}
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
-var messageFix = setInterval(function(){
-	if($(".gwt-TextArea").length > 0){
-		$(".gwt-TextArea").css("background-color","rgba(176, 5, 60, 0)");
-		$(".gwt-TextArea").css("color","rgba(176, 5, 60, 0)");
-	}
-}, 250);
