@@ -142,7 +142,7 @@ var themes = {
 		"assignmentsTableActive":"#ada315",
 		"mainContainer" : "#393939",
 		"messageBackground": "#393939",
-		"commentWritingBackground": "#393939"
+		//"commentWritingBackground": "#393939"
 	},
 	"rendark" : {
 		"name": "RenDark",
@@ -194,7 +194,7 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"assignmentsTableActive":"#064f7f",
 		"mainContainer" : "#393939",
-		"commentWritingBackground": "#393939"
+		//"commentWritingBackground": "#393939"
 	},
 	"wallDemo" : {
 		"name" : "Wallpaper_Demo",
@@ -237,7 +237,7 @@ var themes = {
 		"tableLeftSide":"rgba(176, 5, 60, 0.3)",
 		"scheduleTopAnnouncements":"rgba(176, 5, 60, 0.5)",
 		"assignmentsTableActive" : "#690223",
-		"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
+		//"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
 		"commentMessageText":"#FFFFFF"
 	},
 	"base16" : {
