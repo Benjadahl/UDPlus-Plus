@@ -135,7 +135,11 @@ function runTheme(){
 				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
 			}else{
 				if(T != "homeworkMark"){
-					changeColor(colorElements[T], themes[curtheme][T]);
+					//changeColor(colorElements[T], themes[curtheme][T]);
+					if(typeof PlusPlusList.general[T] !== "undefined") {
+						PlusPlusList.general[T].value = themes[curtheme][T];
+						PlusPlusList.general[T].apply();
+					}
 				}else{
 					homeworkColour = themes[curtheme][T];
 				}
