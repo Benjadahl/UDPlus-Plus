@@ -94,18 +94,27 @@ getStorage('sortTaskBy', function (obj) {
 if (new Date().getMonth() === 11) {
 	getStorage('snowState', function(obj) {
 		if (!chrome.runtime.error) {
-			if (obj.snowState) {
-				$("#disableSnow").prop("checked", true);
+			if (obj.snowState[0]) {
+				$("#SnowOn").prop("checked", true);
 			} else {
-				$("#disableSnow").prop("checked", false);
+				$("#SnowOn").prop("checked", false);
+			}
+			if (obj.snowState[1]) {
+				$("#xmashat").prop("checked", true);
+			} else {
+				$("#xmashat").prop("checked", false);
 			}
 		}
 	});
-	$('#disableSnow').on("change", function() {
-		setStorage({'snowState' : $('#disableSnow').prop("checked")})
+	$('#SnowOn').on("change", function() {
+		setStorage({'snowState' : [$('#SnowOn').prop("checked"), $('#xmashat').prop("checked")]})
+	});
+	$('#xmashat').on("change", function() {
+		setStorage({'snowState' : [$('#SnowOn').prop("checked"), $('#xmashat').prop("checked")]})
 	});
 } else {
-	$(".disableSnow").remove();
+	$(".SnowOn").remove();
+	$(".xmashat").remove();
 }
 
 
