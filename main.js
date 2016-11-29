@@ -59,13 +59,23 @@ function loadSettings() {
 		}
 	});
 
-	getStorage('disableSnow', function(obj) {
+	getStorage('snowState', function(obj) {
 		if (!chrome.runtime.error) {
-			if (!obj.disableSnow) {
+			if (obj.snowState) {
 				$(document).ready( function(){
-					if (new Date().getMonth() === 11) $.fn.snow();
+					if (new Date().getMonth() === 11){
+						if(obj.snowState[0]){$.fn.snow();}
+						if(obj.snowState[1]){
+							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
+							$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+							$(".nissehue").css("position", "absolute");
+							$(".nissehue").css("top", "-11px");
+							$(".nissehue").css("right", "104px");
+						}
+					}
 				});
 			}
+			
 		}
 	});
 
@@ -228,7 +238,7 @@ getStorage('showNews', function (obj) {
 
 
 function setTrans(){
-	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
+	var array = ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
 		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
 	}

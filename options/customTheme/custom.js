@@ -51,20 +51,22 @@ function loadTheme(){
     $("#saveName").val(curTheme);
 }
 
+
+//Adding default themes
+for (var key in themes) {
+		if (true) {
+				$("#curTheme").append($('<option>', {
+						value: key,
+						text: themes[key].name
+				}));
+		}
+}
 //Loading the clients custom themes
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.customTheme != "undefined"){
 
-            //Adding default themes
-            for (var key in themes) {
-                if (true) {
-                    $("#curTheme").append($('<option>', {
-                        value: key,
-                        text: themes[key].name
-                    }));
-                }
-            }
+
 
             //Adding dropdown seperator
             if(!jQuery.isEmptyObject(obj.customTheme)){
@@ -123,6 +125,7 @@ $("#btnSave").click(function (){
         location.reload();
     }else{
         $("#error").show();
+				$("#errorNoTheme").hide();
     }
 
 });
@@ -131,17 +134,24 @@ $("#btnSave").click(function (){
 //This happends then you click delete
 $("#btnDel").click(function (){
 
+
     //Making a copy for editing
     var obj = customTheme;
 
-    //Deleting the current theme
-    delete obj[$("#saveName").val()];
+		if(typeof obj[$("#saveName").val()] != "undefined"){
 
-    //Saving the whole object again.
-    setStorage({"customTheme" : obj});
+	    //Deleting the current theme
+	    delete obj[$("#saveName").val()];
 
-    //Reloading the page to load everything again
-    location.reload();
+	    //Saving the whole object again.
+	    setStorage({"customTheme" : obj});
+			//Reloading the page to load everything again
+	    location.reload();
+		}else{
+			$("#errorNoTheme").show();
+			$("#error").hide();
+		}
+
 
 });
 
