@@ -13,6 +13,7 @@ var homeworkColour = "#ED2939";
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
+	$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
@@ -20,11 +21,15 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
 		}
 	});
 }
+
+var sheet = document.createElement('style')
+sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
+document.body.appendChild(sheet);
 
 function stringToList(string) {
 	var thelist = string.split(",");
