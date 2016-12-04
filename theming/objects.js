@@ -9,7 +9,7 @@ var PlusPlusList = {
     sidebarColor: new PlusPlusObject(".sidebar", applyCssRule, ["background-color", "border-right"]),
     mainContainerH: new PlusPlusObject(".main-container", applyCssRule, ["height"]),
     mainContainer: new PlusPlusObject(".main-container", applyCssRule, ["background-color"]),
-    mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", apply)
+    mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
     
 
   },

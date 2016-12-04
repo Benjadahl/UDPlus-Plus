@@ -125,26 +125,31 @@ function runTheme(){
 	$('.UDPPCustom').remove();
 	if(typeof themes[curtheme] != "undefined"){
 		for (var T in themes[curtheme]) {
-			if(T == "navbarImg"){
-				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-			}else if(T == "mainBackImg"){
-				setTrans();
-				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-			}else{
-				if(T != "homeworkMark"){
-					//changeColor(colorElements[T], themes[curtheme][T]);
+			switch(T){
+				case "navbarImg":
+					changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
+					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
+					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+					break;
+				case "mainBackImg":
+					setTrans();
+					changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
+					break;
+				case "homeworkMark":
+					homeworkColour = themes[curtheme][T];
+					break;
+				default:
 					if(typeof PlusPlusList.general[T] !== "undefined") {
 						PlusPlusList.general[T].value = themes[curtheme][T];
 						PlusPlusList.general[T].apply();
 					}
-				}else{
-					homeworkColour = themes[curtheme][T];
-				}
-
+					break;
 			}
+			console.log(T);
+
+
+			
 		}
 	}else{
 		//This will run if a custom theme is on
@@ -157,24 +162,28 @@ function runTheme(){
 			for(var X in customTemplate[T]){
 				//For converting custom into a static theme. Comment this line on release
 				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
-
-				//Handling background images.
-				if(T == "Navigationbar_image"){
+				switch(customTemplate[T][X]){
+				case "navbarImg":
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
 					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
 					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-				}else if(T == "BackgroundImg_BETA"){
+					break;
+				case "mainBackImg":
 					setTrans();
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
-				}else{
-					if(T != "Homework_color"){
-						changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
-					}else{
-						homeworkColour = customTheme[curtheme][T];
-					}
+					break;
+				case "homeworkMark":
+					homeworkColour = customTheme[curtheme][T];
+					break;
+				default:
+					if(typeof PlusPlusList.general[T] !== "undefined") {
+						PlusPlusList.general[customTemplate[T][X]].value = customTheme[curtheme][T];
+						PlusPlusList.general[customTemplate[T][X]].apply();
 
-				}
+					}
+					break;
+			}
 			}
 		}
 
