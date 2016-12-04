@@ -18,7 +18,9 @@ var PlusPlusList = {
     sidebarColor: new PlusPlusObject(".sidebar", applyCssRule, ["background-color", "border-right"]),
     mainContainerH: new PlusPlusObject(".main-container", applyCssRule, ["height"]),
     leftMenuArrowBorder: new PlusPlusObject(".nav-list>li.active:after", applyBorderRule, ["border-right"], flags={pixels: 2}),
-    leftMenuLI: new PlusPlusObject(".nav-list>li>a", applyCssRule, ["background-color"])
+    leftMenuLI: new PlusPlusObject(".nav-list>li>a", applyCssRule, ["background-color"]),
+    mainContainer: new PlusPlusObject(".main-container", applyCssRule, ["background-color"]),
+    mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
   },
   start:{},
   schedule:{
@@ -33,7 +35,9 @@ var PlusPlusList = {
     messageBackground: new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"])
   },
   plan:{},
-  assignemnets:{},
+  assignemnets:{
+    assignmentsTableActive: new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"])
+  },
   resources:{},
   grades:{}
 };
