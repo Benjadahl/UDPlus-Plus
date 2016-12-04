@@ -26,19 +26,24 @@ function markHomework(){
 	});
 }
 
+function stringToList(string) {
+	var thelist = string.split(",");
+	for (var i=0; i<thelist.length; i++) {
+		thelist[i] = thelist[i].replace(/\s/g, "");
+		if (thelist[i] == "") thelist.splice(i,1);
+	}
+	if (thelist === [""]) thelist.splice(0,1);
+	return thelist;
+
+}
+
 //We need to use this function to load all the settings
 function loadSettings() {
 
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = obj.homeworkWords.split(",");
-			//We have to remove the empty elements, or everything will be matched as homework.
-			for (var i=0; i < homeworkList.length; i++) {
-				homeworkList[i] = homeworkList[i].replace(/\s/g, "");
-				if (homeworkList[i] == "") homeworkList.splice(i, 1);
-			}
-			if (homeworkList == [""]) homeworkList.splice(0, 1);
+			homeworkList = stringToList(obj.homeworkWords);
 		}
 	});
 
@@ -56,6 +61,18 @@ function loadSettings() {
 					}, 250);
 				}
 			}
+		}
+	});
+
+	getStorage({toHide: ""}, function(obj) {
+		if (!chrome.runtime.error) {
+			toHideList = stringToList(obj.toHide);
+			$(".hiddenLesson").removeClass("hiddenLesson");
+			setInterval(function() {
+				for (var i=0; i < toHideList.length; i++) {
+					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
+				}
+			}, 250);
 		}
 	});
 
@@ -245,3 +262,6 @@ function setTrans(){
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
+
+
+$(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
