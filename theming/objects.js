@@ -3,8 +3,6 @@ var PlusPlusList = {
     navbar:new PlusPlusObject(".navbar-inner", applyCssRule, ["background-color"]),
     rightDropdown:new PlusPlusObject(".ace-nav>li.light-blue", applyCssRule, ["background-color"]),
     navbarIcon:new PlusPlusObject(".ace-nav>li>a>[class*='icon-']", applyCssRule, ["color"]),
-    tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
-    leftMenuLIborderBottom:new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-bottom"], flags={pixels: 1}),
     loginBtn:new PlusPlusObject(".btn", applyCssRule, ["background-color", "border-color"]),
     navbarEdge:new PlusPlusObject("#menuFarve", applyCssRule, ["background-color"]),
     backEdge:new PlusPlusObject("body", applyCssRule, ["background-color"]),
@@ -20,11 +18,19 @@ var PlusPlusList = {
     leftMenuArrowBorder: new PlusPlusObject(".nav-list>li.active:after", applyBorderRule, ["border-right"], flags={pixels: 2}),
     leftMenuLI: new PlusPlusObject(".nav-list>li>a", applyCssRule, ["background-color"]),
     mainContainer: new PlusPlusObject(".main-container", applyCssRule, ["background-color"]),
-    mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
+    mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"]),
+    leftMenuLIborderTop: new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-top"], flags={pixels: 1}),
+    leftMenuLIborderBottom:new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-bottom"], flags={pixels: 1}),
+    homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
+    sidebarCollapse:new PlusPlusObject(".sidebar-collapse", applyCssRule, ["background-color"]),
+    sidebarArrow:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"])
+    
   },
-  start:{},
+  start:{}, 
   schedule:{
-    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"])
+    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
+    tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
+    tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"])
   },
   absence:{},
   calender:{},
