@@ -13,6 +13,7 @@ var homeworkColour = "#ED2939";
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
+	$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
@@ -20,10 +21,25 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
 		}
 	});
+}
+
+var sheet = document.createElement('style')
+sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
+document.body.appendChild(sheet);
+
+function stringToList(string) {
+	var thelist = string.split(",");
+	for (var i=0; i<thelist.length; i++) {
+		thelist[i] = thelist[i].replace(/\s/g, "");
+		if (thelist[i] == "") thelist.splice(i,1);
+	}
+	if (thelist === [""]) thelist.splice(0,1);
+	return thelist;
+
 }
 
 //We need to use this function to load all the settings
@@ -32,13 +48,7 @@ function loadSettings() {
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = obj.homeworkWords.split(",");
-			//We have to remove the empty elements, or everything will be matched as homework.
-			for (var i=0; i < homeworkList.length; i++) {
-				homeworkList[i] = homeworkList[i].replace(/\s/g, "");
-				if (homeworkList[i] == "") homeworkList.splice(i, 1);
-			}
-			if (homeworkList == [""]) homeworkList.splice(0, 1);
+			homeworkList = stringToList(obj.homeworkWords);
 		}
 	});
 
@@ -59,13 +69,35 @@ function loadSettings() {
 		}
 	});
 
-	getStorage('disableSnow', function(obj) {
+	getStorage({toHide: ""}, function(obj) {
 		if (!chrome.runtime.error) {
-			if (!obj.disableSnow) {
+			toHideList = stringToList(obj.toHide);
+			$(".hiddenLesson").removeClass("hiddenLesson");
+			setInterval(function() {
+				for (var i=0; i < toHideList.length; i++) {
+					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
+				}
+			}, 250);
+		}
+	});
+
+	getStorage('snowState', function(obj) {
+		if (!chrome.runtime.error) {
+			if (obj.snowState) {
 				$(document).ready( function(){
-					if (new Date().getMonth() === 11) $.fn.snow();
+					if (new Date().getMonth() === 11){
+						if(obj.snowState[0]){$.fn.snow();}
+						if(obj.snowState[1]){
+							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
+							$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+							$(".nissehue").css("position", "relative");
+							$(".nissehue").css("top", "-75px");
+							//$(".nissehue").css("right", "0px");
+						}
+					}
 				});
 			}
+
 		}
 	});
 
@@ -235,17 +267,20 @@ $('#id_settings').click(function(){
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.showNews){
-			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: image backgrounds now available from the settings menu</i></p>");
+			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Christmas decorations available in the settings menu (December)</i></p>");
 		}
 	}
 });
 
 
 function setTrans(){
-	var array = ["sidebarColor", "navbarIcon", "mainBackground", "outerBackground", "backEdge", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
+	var array = ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
 		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
 	}
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
+
+
+$(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
