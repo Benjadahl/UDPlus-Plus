@@ -86,7 +86,7 @@ getStorage('sortTaskBy', function (obj) {
 		if (typeof obj.sortTaskBy != "undefined"){
 			$('#sortTaskBy').val(obj.sortTaskBy);
 		} else {
-			$('#sortTaskBy').val(5);
+			$('#sortTaskBy').val(3);
 		}
 	}
 });
