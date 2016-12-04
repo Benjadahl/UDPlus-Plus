@@ -41,7 +41,7 @@
 				"http://www.uddataplus.dk/opgave/*",
 				"https://www.uddataplus.dk/opgave/*"
 			],
-			"js": ["resources/jquery-3.1.0.min.js","pageScripts/assignmentPage.js"],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/assignmentPage.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		},
 		{
@@ -49,7 +49,7 @@
 				"http://www.uddataplus.dk/ressourcer/*",
 				"https://www.uddataplus.dk/ressourcer/*"
 			],
-			"js": ["resources/jquery-3.1.0.min.js","pageScripts/resources.js"],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/resources.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		},
 		{
@@ -57,7 +57,7 @@
 				"http://www.uddataplus.dk/besked/*",
 				"https://www.uddataplus.dk/besked/*"
 			],
-			"js": ["resources/jquery-3.1.0.min.js","pageScripts/message.js"],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/message.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		}
 	],
