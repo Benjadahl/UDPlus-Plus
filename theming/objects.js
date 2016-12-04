@@ -16,7 +16,9 @@ var PlusPlusList = {
     leftMenuBorder:new PlusPlusObject(".sidebar:before", applyBorderRule, ["border-right"]),
     popOutMenuText: new PlusPlusObject(".menu-text", applyCssRule, ["background-color"]),
     sidebarColor: new PlusPlusObject(".sidebar", applyCssRule, ["background-color", "border-right"]),
-    mainContainerH: new PlusPlusObject(".main-container", applyCssRule, ["height"])
+    mainContainerH: new PlusPlusObject(".main-container", applyCssRule, ["height"]),
+    leftMenuArrowBorder: new PlusPlusObject(".nav-list>li.active:after", applyBorderRule, ["border-right"], flags={pixels: 2}),
+    leftMenuLI: new PlusPlusObject(".nav-list>li>a", applyCssRule, ["background-color"])
   },
   start:{},
   schedule:{

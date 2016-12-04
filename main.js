@@ -137,6 +137,7 @@ function runTheme(){
 				if(T != "homeworkMark"){
 					//changeColor(colorElements[T], themes[curtheme][T]);
 					if(typeof PlusPlusList.general[T] !== "undefined") {
+					  console.log(T + themes[curtheme][T]);
 						PlusPlusList.general[T].value = themes[curtheme][T];
 						PlusPlusList.general[T].apply();
 					}
