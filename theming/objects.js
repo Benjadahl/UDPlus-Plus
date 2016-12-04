@@ -13,17 +13,23 @@ var PlusPlusList = {
     header:new PlusPlusObject("h1", applyCssRule, ["color"]),
     mainBackground:new PlusPlusObject(".page-content", applyCssRule, ["background"]),
     leftMenuBottom:new PlusPlusObject(".sidebar:before", applyCssRule, ["background-color"]),
-    leftMenuBorder:new PlusPlusObject(".sidebar:before", applyBorderRule, ["border-right"])
-    
+    leftMenuBorder:new PlusPlusObject(".sidebar:before", applyBorderRule, ["border-right"]),
+    popOutMenuText: new PlusPlusObject(".menu-text", applyCssRule, ["background-color"]),
+    sidebarColor: new PlusPlusObject(".sidebar", applyCssRule, ["background-color", "border-right"]),
+    mainContainerH: new PlusPlusObject(".main-container", applyCssRule, ["height"])
   },
   start:{},
   schedule:{
-    
+    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"])
   },
-  absence:{
-  },
+  absence:{},
   calender:{},
-  conversations:{},
+  conversations:{
+    commentMessageText: new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
+    commentWritingBackground: new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
+    activeMessage: new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
+    messageBackground: new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"])
+  },
   plan:{},
   assignemnets:{},
   resources:{},

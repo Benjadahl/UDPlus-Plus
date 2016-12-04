@@ -61,13 +61,13 @@ const colorElements ={
 		assignmentsTableActive:{cssSel: ".dataTable th.sorting_desc, .dataTable th.sorting_asc", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		mainContainer:{cssSel: ".main-container", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		messageBackground:{cssSel: ".K1CYATD-u-f", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		mainContainerH:{cssSel: ".main-container", cssAttr:["height"], styleRule: true, isImportant: true, specialBorder: false},
-		sidebarColor:{cssSel: ".sidebar", cssAttr:["background-color", "border-right"], styleRule: true, isImportant: true, specialBorder: false},
-		activeMessage:{cssSel: ".K1CYATD-j-e", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		scheduleTopAnnouncements:{cssSel: ".GNK2GVDDPHB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		popOutMenuText:{cssSel: ".menu-text", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		commentWritingBackground:{cssSel: ".gwt-TextArea", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		commentMessageText:{cssSel: ".K1CYATD-u-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
+		//mainContainerH:{cssSel: ".main-container", cssAttr:["height"], styleRule: true, isImportant: true, specialBorder: false},
+		//sidebarColor:{cssSel: ".sidebar", cssAttr:["background-color", "border-right"], styleRule: true, isImportant: true, specialBorder: false},
+		//activeMessage:{cssSel: ".K1CYATD-j-e", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		//scheduleTopAnnouncements:{cssSel: ".GNK2GVDDPHB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		//popOutMenuText:{cssSel: ".menu-text", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		//commentWritingBackground:{cssSel: ".gwt-TextArea", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
+		//commentMessageText:{cssSel: ".K1CYATD-u-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
