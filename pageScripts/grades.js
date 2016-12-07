@@ -36,7 +36,7 @@ window.setTimeout(function() {
 	var subject = $("table > tbody >tr:last-child > td:nth-child(1)>div");
 	var grade = $("table > tbody >tr:last-child > td:nth-child(2)>div");
 
-	subject.html("Average");
-	var average = Math.round(((totalGrades / totalWeight)*10)) / 10;
+	subject.html("Weighted Average");
+	var average = Math.round(10*totalGrades / totalWeight) / 10;
 	grade.html(average);
 }, 2000);
