@@ -55,9 +55,9 @@ function addAverage() {
 	var subject = $("table > tbody >tr:last-child > td:nth-child(1)>div");
 	var grade = $("table > tbody >tr:last-child > td:nth-child(2)>div");
 
-	subject.html("Weighted Average");
+	subject.html("<b>Weighted Average</b>");
 	//The reason we have this weird rounding is so we can round it to one decimal by multiplying the number to ten, rounding it to an integer, and dividing by ten again.
 	var average = Math.round(10*totalGrades / totalWeight) / 10;
-	grade.html(average);
+	grade.html("<b>" + average + "</b>");
 }
 checkTableIsThere();
