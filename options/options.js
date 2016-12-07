@@ -86,7 +86,7 @@ getStorage('sortTaskBy', function (obj) {
 		if (typeof obj.sortTaskBy != "undefined"){
 			$('#sortTaskBy').val(obj.sortTaskBy);
 		} else {
-			$('#sortTaskBy').val(5);
+			$('#sortTaskBy').val(3);
 		}
 	}
 });
@@ -149,14 +149,3 @@ $('#hideSidebarCollapse').change(function() {
 	setStorage({'hideSidebarCollapse' : $('#hideSidebarCollapse').prop("checked")});
 });
 
-
-$('.background').change(function() {
-	setStorage({'backgrounds' : [$('#navbarBack').val()]});
-});
-
-
-getStorage('backgrounds', function (obj) {
-	if (!chrome.runtime.error) {
-		$('#navbarBack').val(obj.backgrounds[0]);
-	}
-});

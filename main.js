@@ -1,4 +1,4 @@
-console.log("Uddata++ starting");
+console.log("UD++ starting");
 
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
@@ -13,6 +13,7 @@ var homeworkColour = "#ED2939";
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
+	$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
@@ -20,10 +21,25 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-
-			$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
+			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
 		}
 	});
+}
+
+var sheet = document.createElement('style')
+sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
+document.body.appendChild(sheet);
+
+function stringToList(string) {
+	var thelist = string.split(",");
+	for (var i=0; i<thelist.length; i++) {
+		thelist[i] = thelist[i].replace(/\s/g, "");
+		if (thelist[i] == "") thelist.splice(i,1);
+	}
+	if (thelist === [""]) thelist.splice(0,1);
+	return thelist;
+
 }
 
 //We need to use this function to load all the settings
@@ -32,13 +48,7 @@ function loadSettings() {
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = obj.homeworkWords.split(",");
-			//We have to remove the empty elements, or everything will be matched as homework.
-			for (var i=0; i < homeworkList.length; i++) {
-				homeworkList[i] = homeworkList[i].replace(/\s/g, "");
-				if (homeworkList[i] == "") homeworkList.splice(i, 1);
-			}
-			if (homeworkList == [""]) homeworkList.splice(0, 1);
+			homeworkList = stringToList(obj.homeworkWords);
 		}
 	});
 
@@ -59,6 +69,18 @@ function loadSettings() {
 		}
 	});
 
+	getStorage({toHide: ""}, function(obj) {
+		if (!chrome.runtime.error) {
+			toHideList = stringToList(obj.toHide);
+			$(".hiddenLesson").removeClass("hiddenLesson");
+			setInterval(function() {
+				for (var i=0; i < toHideList.length; i++) {
+					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
+				}
+			}, 250);
+		}
+	});
+
 	getStorage('snowState', function(obj) {
 		if (!chrome.runtime.error) {
 			if (obj.snowState) {
@@ -68,9 +90,9 @@ function loadSettings() {
 						if(obj.snowState[1]){
 							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
 							$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
-							$(".nissehue").css("position", "absolute");
-							$(".nissehue").css("top", "-11px");
-							$(".nissehue").css("right", "104px");
+							$(".nissehue").css("position", "relative");
+							$(".nissehue").css("top", "-75px");
+							//$(".nissehue").css("right", "0px");
 						}
 					}
 				});
@@ -245,3 +267,6 @@ function setTrans(){
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
+
+
+$(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
