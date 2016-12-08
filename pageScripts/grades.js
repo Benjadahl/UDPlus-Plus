@@ -1,5 +1,7 @@
 var average_string = "<b>Weighted Average</b>";
 
+
+//Just to figure out what language we are printing in.
 var langGot = false;
 getStorage('lang', function(obj) {
 	if (!chrome.runtime.error) {
@@ -9,7 +11,7 @@ getStorage('lang', function(obj) {
 	}
 });
 
-//This function is pretty cool. It calculates if the table rows are there, and if not, it just calls itself after 100 ms. If it is there, we call addAverage;
+//This function is pretty cool. It calculates if the table rows are there, and we have figured out the users language yet, and if not, it just calls itself after 100 ms. If it is there, we call addAverage;
 function checkTableIsThere() {
 	if ($("table > tbody > tr").length < 1 || !langGot) {
 		window.setTimeout(checkTableIsThere, 100);
