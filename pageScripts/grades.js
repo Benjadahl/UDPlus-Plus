@@ -1,25 +1,26 @@
+//The string to show by deault in our new table row.
 var average_string = "<b>Weighted Average</b>";
 
-
-//Just to figure out what language we are printing in.
+//Just to figure out what language we are printing in. If we're in Danish, we change average_string to a Danish one. Then we call the checkTableIsThere when we're ready to go.
 var langGot = false;
 getStorage('lang', function(obj) {
 	if (!chrome.runtime.error) {
 		console.log(obj);
 		if (obj.lang === "dansk") average_string = "<b>Vægtet gennemsnit</b>";
-		langGot = true;
+		checkTableIsThere();
 	}
 });
 
 //This function is pretty cool. It calculates if the table rows are there, and we have figured out the users language yet, and if not, it just calls itself after 100 ms. If it is there, we call addAverage;
 function checkTableIsThere() {
-	if ($("table > tbody > tr").length < 1 || !langGot) {
+	if ($("table > tbody > tr").length < 1) {
 		window.setTimeout(checkTableIsThere, 100);
 	} else {
 		addAverage();
 	}
 }
 
+//This function adds an extra row to the grades table, which has a weighted average
 function addAverage() {
 
 	//To keep a running total
@@ -45,8 +46,7 @@ function addAverage() {
 			var weight = 0;
 
 			//level[1] is the part matched by the ()'s. Now we have a switch case to calculate the weights.
-			level = level[1];
-			switch(level) {
+			switch(level[1]) {
 				case "A":
 					weight = 2;
 				break;
@@ -73,4 +73,3 @@ function addAverage() {
 	var average = Math.round(10*totalGrades / totalWeight) / 10;
 	grade.html("<b>" + average + "</b>");
 }
-checkTableIsThere();
