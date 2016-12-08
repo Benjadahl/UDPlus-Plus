@@ -23,10 +23,16 @@ var PlusPlusList = {
     leftMenuLIborderBottom:new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-bottom"], flags={pixels: 1}),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     sidebarCollapse:new PlusPlusObject(".sidebar-collapse", applyCssRule, ["background-color"]),
-    sidebarArrow:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"])
-    
+    sidebarArrow:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"]),
+    leftMenuTextActive:new PlusPlusObject(".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", applyCssRule, ["color"]),
+    sidebarArrow:new PlusPlusObject(".round", applyBorderRule, ["border"], flags={pixels: 2}),
+    menuText:new PlusPlusObject(".nav-list>li>a", applyCssRule, ["color"]),
+    mainText:new PlusPlusObject("body", applyCssRule, ["color"]),
+    linkLanguage:new PlusPlusObject("#language>a", applyCssRule, ["color"]),
+    studentInfo:new PlusPlusObject(".page-header h1 small", applyCssRule, ["color"]),  //The name studentInfo refers to the schedule page, however this applies to all pages
+    schoolEdges:new PlusPlusObject(".ace-nav>li", applyBorderRule, ["border-left"])
   },
-  start:{}, 
+  start:{},
   schedule:{
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
     tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
