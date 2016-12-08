@@ -2,7 +2,6 @@
 var average_string = "<b>Weighted Average</b>";
 
 //Just to figure out what language we are printing in. If we're in Danish, we change average_string to a Danish one. Then we call the checkTableIsThere when we're ready to go.
-var langGot = false;
 getStorage('lang', function(obj) {
 	if (!chrome.runtime.error) {
 		console.log(obj);
