@@ -1,6 +1,17 @@
+var average_string = "<b>Weighted Average</b>";
+
+var langGot = false;
+getStorage('lang', function(obj) {
+	if (!chrome.runtime.error) {
+		console.log(obj);
+		if (obj.lang === "dansk") average_string = "<b>Vægtet gennemsnit</b>";
+		langGot = true;
+	}
+});
+
 //This function is pretty cool. It calculates if the table rows are there, and if not, it just calls itself after 100 ms. If it is there, we call addAverage;
 function checkTableIsThere() {
-	if ($("table > tbody > tr").length < 1) {
+	if ($("table > tbody > tr").length < 1 || !langGot) {
 		window.setTimeout(checkTableIsThere, 100);
 	} else {
 		addAverage();
@@ -55,7 +66,7 @@ function addAverage() {
 	var subject = $("table > tbody >tr:last-child > td:nth-child(1)>div");
 	var grade = $("table > tbody >tr:last-child > td:nth-child(2)>div");
 
-	subject.html("<b>Weighted Average</b>");
+	subject.html(average_string);
 	//The reason we have this weird rounding is so we can round it to one decimal by multiplying the number to ten, rounding it to an integer, and dividing by ten again.
 	var average = Math.round(10*totalGrades / totalWeight) / 10;
 	grade.html("<b>" + average + "</b>");
