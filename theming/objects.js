@@ -4,7 +4,7 @@ var PlusPlusList = {
     rightDropdown:new PlusPlusObject(".ace-nav>li.light-blue", applyCssRule, ["background-color"]),
     navbarIcon:new PlusPlusObject(".ace-nav>li>a>[class*='icon-']", applyCssRule, ["color"]),
     loginBtn:new PlusPlusObject(".btn", applyCssRule, ["background-color", "border-color"]),
-    navbarEdge:new PlusPlusObject("#menuFarve", applyCssRule, ["background-color"]),
+    navbarEdge:new PlusPlusObject("#menufarve", applyCssRule, ["background-color"]),
     backEdge:new PlusPlusObject("body", applyCssRule, ["background-color"]),
     tableButtons:new PlusPlusObject(".btn-info", applyCssRule, ["background-color","border-color"]),
     arrows:new PlusPlusObject(".nav-list li.active>a:after", applyCssRule, ["border-right-color"]),
