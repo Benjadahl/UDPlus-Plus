@@ -104,7 +104,7 @@ function loadSettings() {
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
 			curtheme = obj.theme;
-			runTheme();
+			runTheme(curtheme);
 		}
 	});
 
@@ -147,85 +147,11 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		customTheme = obj.customTheme;
-		runTheme();
+		console.log(customTheme);
+		runTheme(curtheme);
 	}
 });
 
-
-//Changes color off each element in the current theme
-function runTheme(){
-	$('.UDPPCustom').remove();
-	if(typeof themes[curtheme] != "undefined"){
-		for (var T in themes[curtheme]) {
-			switch(T){
-				case "navbarImg":
-					changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-					break;
-				case "mainBackImg":
-					setTrans();
-					changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-					break;
-				case "homeworkMark":
-					homeworkColour = themes[curtheme][T];
-					break;
-				default:
-					if(typeof PlusPlusList.general[T] !== "undefined") {
-					  console.log(T + themes[curtheme][T]);
-						PlusPlusList.general[T].value = themes[curtheme][T];
-						PlusPlusList.general[T].apply();
-					}
-					break;
-			}
-			console.log(T);
-
-
-			
-		}
-	}else{
-		//This will run if a custom theme is on
-
-		//For getting static theme format out of customtheme. Comment this line on release
-		var convertstring = "";
-
-		//This is the same as our themes just with a few extra steps involving the customTemplate
-		for(var T in customTheme[curtheme]){
-			for(var X in customTemplate[T]){
-				//For converting custom into a static theme. Comment this line on release
-				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
-				switch(customTemplate[T][X]){
-				case "navbarImg":
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
-					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-					break;
-				case "mainBackImg":
-					setTrans();
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
-					break;
-				case "homeworkMark":
-					homeworkColour = customTheme[curtheme][T];
-					break;
-				default:
-					if(typeof PlusPlusList.general[T] !== "undefined") {
-						PlusPlusList.general[customTemplate[T][X]].value = customTheme[curtheme][T];
-						PlusPlusList.general[customTemplate[T][X]].apply();
-
-					}
-					break;
-			}
-			}
-		}
-
-
-
-	}
-
-
-}
 
 //When the document is ready remove the sidebar collapse button, which is broken
 $(document).ready(function(){

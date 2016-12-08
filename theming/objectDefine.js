@@ -25,7 +25,6 @@ function applyCssRule(flags) {
 }
 
 function applyBorderRule(flags){
-  console.log(flags);
   if(typeof flags.pixels === "undefined") flags.pixels = 1;
   if(typeof flags.important === "undefined") flags.important = true;
   var cssEnd = "";
