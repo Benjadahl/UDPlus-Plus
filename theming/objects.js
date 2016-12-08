@@ -21,7 +21,6 @@ var PlusPlusList = {
     mainBackImgNoRepeat: new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"]),
     leftMenuLIborderTop: new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-top"], flags={pixels: 1}),
     leftMenuLIborderBottom:new PlusPlusObject(".nav-list>li", applyBorderRule, ["border-bottom"], flags={pixels: 1}),
-    homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     sidebarCollapse:new PlusPlusObject(".sidebar-collapse", applyCssRule, ["background-color"]),
     sidebarArrow:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"]),
     leftMenuTextActive:new PlusPlusObject(".nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active", applyCssRule, ["color"]),
@@ -36,6 +35,7 @@ var PlusPlusList = {
   schedule:{
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
     tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
+    homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"])
   },
   absence:{},

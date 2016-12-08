@@ -6,6 +6,9 @@ $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataL
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";
 
+//Define the current page variable, which is used with runTheme
+var curPage = "start";
+
 var homeworkList = ["lektie"];
 
 var homeworkColour = "#ED2939";
@@ -104,7 +107,8 @@ function loadSettings() {
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
 			curtheme = obj.theme;
-			runTheme(curtheme);
+			console.log("loaded curtheme");
+			runTheme(curtheme, curPage);
 		}
 	});
 
@@ -115,7 +119,7 @@ function allowSelect() {
 	if (window.location.href.indexOf("skema") === -1 ) $(".no-select").removeClass("no-select");
 }
 //Define the variable curtheme to contain the current theme
-var curtheme = "";
+//var curtheme = "";
 
 setInterval(allowSelect, 250);
 
@@ -147,8 +151,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 getStorage('customTheme', function (obj) {
 	if (!chrome.runtime.error) {
 		customTheme = obj.customTheme;
-		console.log(customTheme);
-		runTheme(curtheme);
 	}
 });
 

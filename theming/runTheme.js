@@ -1,4 +1,4 @@
-/*          runTheme.js
+/*			runTheme.js
 
   THIS FUNCTION IS USED TO APPLY THE GIVEN THEME
 

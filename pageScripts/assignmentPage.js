@@ -1,3 +1,6 @@
+//Set the current page variable
+curPage = "assignemnets";
+
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
