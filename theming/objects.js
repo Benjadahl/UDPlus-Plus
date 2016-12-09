@@ -29,7 +29,9 @@ var PlusPlusList = {
     mainText:new PlusPlusObject("body", applyCssRule, ["color"]),
     linkLanguage:new PlusPlusObject("#language>a", applyCssRule, ["color"]),
     studentInfo:new PlusPlusObject(".page-header h1 small", applyCssRule, ["color"]),  //The name studentInfo refers to the schedule page, however this applies to all pages
-    schoolEdges:new PlusPlusObject(".ace-nav>li", applyBorderRule, ["border-left"])
+    outerBackground:new PlusPlusObject("#wrapper", applyCssRule, ["background-color"]),
+    schoolEdges:new PlusPlusObject(".ace-nav>li", applyBorderRule, ["border-left"]),
+    tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"])
   },
   start:{},
   schedule:{
