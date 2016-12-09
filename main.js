@@ -47,6 +47,12 @@ function stringToList(string) {
 
 //We need to use this function to load all the settings
 function loadSettings() {
+	//Load custom theme
+	getStorage('customTheme', function (obj) {
+		if (!chrome.runtime.error) {
+			customTheme = obj.customTheme;
+		}
+	});
 
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
@@ -148,11 +154,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 
 
-getStorage('customTheme', function (obj) {
-	if (!chrome.runtime.error) {
-		customTheme = obj.customTheme;
-	}
-});
+
 
 
 //When the document is ready remove the sidebar collapse button, which is broken
