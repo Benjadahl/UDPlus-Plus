@@ -3,7 +3,7 @@
 
 	"name": "UD++",
 	"description": "An extension that makes the experience of using uddata+ better",
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"options_ui":{
 		"page": "options/options.html",
@@ -30,8 +30,7 @@
 	"content_scripts": [
 		{
 			"matches":[
-				"http://www.uddataplus.dk/*",
-				"https://www.uddataplus.dk/*"
+				"*://www.uddataplus.dk/*"
 			],
 			"js": ["resources/jquery-3.1.0.min.js", "resources/jquery.snow.min.1.0.js","storageHandler.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js","theming/runTheme.js","main.js","themes.js"],
 			"css": ["resources/customclasses.css"],
@@ -47,26 +46,30 @@
 		},
 		{
 			"matches":[
-				"http://www.uddataplus.dk/opgave/*",
-				"https://www.uddataplus.dk/opgave/*"
+				"*://www.uddataplus.dk/opgave/*"
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/assignmentPage.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		},
 		{
 			"matches":[
-				"http://www.uddataplus.dk/ressourcer/*",
-				"https://www.uddataplus.dk/ressourcer/*"
+				"*://www.uddataplus.dk/ressourcer/*"
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/resources.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		},
 		{
 			"matches":[
-				"http://www.uddataplus.dk/besked/*",
-				"https://www.uddataplus.dk/besked/*"
+				"*://www.uddataplus.dk/besked/*"
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/message.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/bevis/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		}
 	],
