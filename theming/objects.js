@@ -38,19 +38,31 @@ var PlusPlusList = {
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
     tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
-    tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"])
+    tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
+    tableTopTextActive: new PlusPlusObject(".GC0H5P4BK- th.GC0H5P4BB-", applyCssRule, ["color"], flags={"important":false}),
+    tableTop: new PlusPlusObject("html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", applyCssRule, ["background"]),
+    tableLeftSide:new PlusPlusObject(".GNK2GVDDO- table", applyCssRule, ["background"]),
+    tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
+    noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
+    noteBottom:new PlusPlusObject(".GNK2GVDDCGB", applyCssRule, ["background-color"]),
+    filesHeader:new PlusPlusObject(".label-info, .badge-info", applyCssRule, ["background-color"]),
+    lessonOpacity:new PlusPlusObject("svg rect", applyCssRule, ["fill-opacity"]),
+    lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
+    lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"])
   },
   absence:{},
   calender:{},
   conversations:{
-    commentMessageText: new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
-    commentWritingBackground: new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
-    activeMessage: new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
-    messageBackground: new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"])
+    commentMessageText:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
+    commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
+    activeMessage:new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
+    messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"])
+
   },
   plan:{},
   assignemnets:{
-    assignmentsTableActive: new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"])
+    assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
+    assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"])
   },
   resources:{},
   grades:{}
