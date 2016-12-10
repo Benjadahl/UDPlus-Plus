@@ -86,6 +86,7 @@ function loadSettings() {
 			if (obj.snowState) {
 				$(document).ready( function(){
 					if (new Date().getMonth() === 11){
+						$(".nissehue").remove();
 						if(obj.snowState[0]){$.fn.snow();}
 						if(obj.snowState[1]){
 							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
