@@ -97,7 +97,20 @@ function loadSettings() {
 							$(".xmasHat").css("position", "absolute");
 							//Adjust positioning of hat
 							$(".xmasHat").css("top", "-11px");
-							$(".xmasHat").css("right", "100px");
+
+							//The hat will have a different position for each language
+							getStorage('lang', function(obj) {
+								//Variable for storing the right attribute for the hat
+								var xHatRight = "100px";
+
+								if (!chrome.runtime.error) {
+									//If the language is danish add slightly more to the margin
+									if (obj.lang === "dansk") xHatRight = "104px";
+								}
+
+								//Apply the margin
+								$(".xmasHat").css("right", xHatRight);
+							});
 						}
 					}
 				});
