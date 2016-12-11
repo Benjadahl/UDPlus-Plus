@@ -270,7 +270,7 @@ $('#id_settings').click(function(){
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.showNews){
-			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Christmas decorations available in the settings menu (December)</i></p>");
+			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><b>UD++:</b> Christmas decorations available in the settings menu (December)</p>");
 		}
 	}
 });
