@@ -86,19 +86,22 @@ function loadSettings() {
 			if (obj.snowState) {
 				$(document).ready( function(){
 					if (new Date().getMonth() === 11){
-						$(".nissehue").remove();
+						$(".xmasHat").remove();
 						if(obj.snowState[0]){$.fn.snow();}
 						if(obj.snowState[1]){
-							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
-							$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
-							$(".nissehue").css("position", "relative");
-							$(".nissehue").css("top", "-75px");
-							//$(".nissehue").css("right", "0px");
+							//URL for xmas-hat https://pixabay.com/p-1087651/?no_redirect
+
+							//The dropdown-toggle is the div that includes the dropdown menu and profile picture
+							$(".dropdown-toggle").eq(0).append("<img width=39px class='xmasHat' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+							//The position needs to be absolute, so that other elements do not get moved around by it
+							$(".xmasHat").css("position", "absolute");
+							//Adjust positioning of hat
+							$(".xmasHat").css("top", "-11px");
+							$(".xmasHat").css("right", "100px");
 						}
 					}
 				});
 			}
-
 		}
 	});
 
