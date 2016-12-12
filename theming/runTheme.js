@@ -23,9 +23,6 @@ function runTheme(theme, page){
 					setTrans();
 					changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
 					break;
-				case "homeworkMark":
-					homeworkColour = themes[theme][T];
-					break;
 				default:
 					if(typeof PlusPlusList.general[T] !== "undefined") {
 						PlusPlusList.general[T].value = themes[theme][T];

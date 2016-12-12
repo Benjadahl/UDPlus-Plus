@@ -30,9 +30,9 @@ function markHomework(){
 	});
 }
 
-var sheet = document.createElement('style')
-sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
-document.body.appendChild(sheet);
+//var sheet = document.createElement('style')
+//sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
+//document.body.appendChild(sheet);
 
 function stringToList(string) {
 	var thelist = string.split(",");
