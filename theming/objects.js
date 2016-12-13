@@ -31,7 +31,10 @@ var PlusPlusList = {
     studentInfo:new PlusPlusObject(".page-header h1 small", applyCssRule, ["color"]),  //The name studentInfo refers to the schedule page, however this applies to all pages
     outerBackground:new PlusPlusObject("#wrapper", applyCssRule, ["background-color"]),
     schoolEdges:new PlusPlusObject(".ace-nav>li", applyBorderRule, ["border-left"]),
-    tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"])
+    tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"]),
+    copyrightTop:new PlusPlusObject(".copyright", applyBorderRule, ["border-top"]),
+    assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"]), //assignmentText refers to all text in tables
+    absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"])  //absence refers to all table heads
   },
   start:{},
   schedule:{
@@ -51,19 +54,21 @@ var PlusPlusList = {
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"])
   },
-  absence:{},
+  absence:{
+    absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
+  },
   calender:{},
   conversations:{
     commentMessageText:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
     commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
     activeMessage:new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
-    messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"])
-
+    messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"]),
+    commentText:new PlusPlusObject(".K1CYATD-q-f", applyCssRule, ["color"])
   },
   plan:{},
   assignemnets:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"])
+    assignmentSetting:new PlusPlusObject(".GD1SXJ-CF", applyCssRule, ["background-color"])
   },
   resources:{},
   grades:{}
