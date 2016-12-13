@@ -1,11 +1,10 @@
 //The string to show by deault in our new table row.
-var average_string = "<b>Weighted Average</b>";
+var average_string = "<b>Weighted Average (UD++ estimate)</b>";
 
 //Just to figure out what language we are printing in. If we're in Danish, we change average_string to a Danish one. Then we call the checkTableIsThere when we're ready to go.
 getStorage('lang', function(obj) {
 	if (!chrome.runtime.error) {
-		console.log(obj);
-		if (obj.lang === "dansk") average_string = "<b>Vægtet gennemsnit</b>";
+		if (obj.lang === "dansk") average_string = "<b>Vægtet gennemsnit (UD++ estimeret)</b>";
 		checkTableIsThere();
 	}
 });

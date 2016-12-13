@@ -95,18 +95,35 @@ function loadSettings() {
 			if (obj.snowState) {
 				$(document).ready( function(){
 					if (new Date().getMonth() === 11){
+						$(".xmasHat").remove();
 						if(obj.snowState[0]){$.fn.snow();}
 						if(obj.snowState[1]){
-							//Link til nissehue https://pixabay.com/p-1087651/?no_redirect
-							$(".light-blue").eq(1).append("<img width=39px class='nissehue' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
-							$(".nissehue").css("position", "relative");
-							$(".nissehue").css("top", "-75px");
-							//$(".nissehue").css("right", "0px");
+							//URL for xmas-hat https://pixabay.com/p-1087651/?no_redirect
+
+							//The dropdown-toggle is the div that includes the dropdown menu and profile picture
+							$(".dropdown-toggle").eq(0).append("<img width=39px class='xmasHat' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+							//The position needs to be absolute, so that other elements do not get moved around by it
+							$(".xmasHat").css("position", "absolute");
+							//Adjust positioning of hat
+							$(".xmasHat").css("top", "-11px");
+
+							//The hat will have a different position for each language
+							getStorage('lang', function(obj) {
+								//Variable for storing the right attribute for the hat
+								var xHatRight = "100px";
+
+								if (!chrome.runtime.error) {
+									//If the language is danish add slightly more to the margin
+									if (obj.lang === "dansk") xHatRight = "104px";
+								}
+
+								//Apply the margin
+								$(".xmasHat").css("right", xHatRight);
+							});
 						}
 					}
 				});
 			}
-
 		}
 	});
 
@@ -184,7 +201,7 @@ $('#id_settings').click(function(){
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.showNews){
-			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><i>UD++: Christmas decorations available in the settings menu (December)</i></p>");
+			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><b>UD++:</b> Christmas decorations available in the settings menu (December)</p>");
 		}
 	}
 });
