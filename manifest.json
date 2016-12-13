@@ -67,6 +67,13 @@
 		},
 		{
 			"matches":[
+				"*://www.uddataplus.dk/?id=id_start*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/start.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
 				"*://www.uddataplus.dk/bevis/*"
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
