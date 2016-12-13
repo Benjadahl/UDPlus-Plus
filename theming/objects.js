@@ -47,6 +47,7 @@ var PlusPlusList = {
     noteBottom:new PlusPlusObject(".GNK2GVDDCGB", applyCssRule, ["background-color"]),
     filesHeader:new PlusPlusObject(".label-info, .badge-info", applyCssRule, ["background-color"]),
     lessonOpacity:new PlusPlusObject("svg rect", applyCssRule, ["fill-opacity"]),
+    lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"])
   },

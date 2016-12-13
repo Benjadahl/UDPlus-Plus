@@ -237,6 +237,7 @@ var themes = {
 		"tableLeftSide":"rgba(176, 5, 60, 0.3)",
 		"scheduleTopAnnouncements":"rgba(176, 5, 60, 0.5)",
 		"assignmentsTableActive" : "#690223",
+	"lessonDropdownText": "#363636",
 		//"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
 		"commentMessageText":"#FFFFFF"
 	},
