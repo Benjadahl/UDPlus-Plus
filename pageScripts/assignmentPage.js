@@ -1,5 +1,5 @@
 //Set the current page variable
-curPage = "assignemnets";
+curPage = "assignments";
 
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";

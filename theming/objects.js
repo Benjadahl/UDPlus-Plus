@@ -57,7 +57,7 @@ var PlusPlusList = {
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
   },
-  calender:{},
+  calendar:{},
   conversations:{
     commentMessageText:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
     commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
@@ -66,7 +66,7 @@ var PlusPlusList = {
     commentText:new PlusPlusObject(".K1CYATD-q-f", applyCssRule, ["color"])
   },
   plan:{},
-  assignemnets:{
+  assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
     assignmentSetting:new PlusPlusObject(".GD1SXJ-CF", applyCssRule, ["background-color"])
   },
