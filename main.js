@@ -124,10 +124,11 @@ function loadSettings() {
 function allowSelect() {
 	if (window.location.href.indexOf("skema") === -1 ) $(".no-select").removeClass("no-select");
 }
+setInterval(allowSelect, 250);
+
 //Define the variable curtheme to contain the current theme
 //var curtheme = "";
 
-setInterval(allowSelect, 250);
 
 //Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
@@ -137,25 +138,12 @@ if($("#language > a").html() == "English"){
 }
 
 
-//On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
-function setTitleToDownload() {
-	$( "a[download]" ).each(function( index ) {
-		$(this).attr("title", $(this).attr("download"));
-	});
-}
-setInterval(setTitleToDownload, 250);
-
 loadSettings();
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
 	//Try to import the theme from the settings storage
 	loadSettings();
 });
-
-
-
-
-
 
 //When the document is ready remove the sidebar collapse button, which is broken
 $(document).ready(function(){
@@ -180,7 +168,6 @@ chrome.runtime.onMessage.addListener(
 );
 
 
-
 //The ++Settings menu button
 var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\');" href="#" id="id_settings"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>';
 
@@ -202,7 +189,6 @@ getStorage('showNews', function (obj) {
 	}
 });
 
-
 function setTrans(){
 	var array = ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
@@ -211,6 +197,3 @@ function setTrans(){
 	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
 	changeColor(colorElements["mainBackImgFill"], "cover");
 }
-
-
-$(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
