@@ -67,7 +67,8 @@ const colorElements ={
 		scheduleTopAnnouncements:{cssSel: ".GNK2GVDDPHB", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		popOutMenuText:{cssSel: ".menu-text", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
 		commentWritingBackground:{cssSel: ".gwt-TextArea", cssAttr:["background-color"], styleRule: true, isImportant: true, specialBorder: false},
-		commentMessageText:{cssSel: ".K1CYATD-u-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
+		commentMessageText:{cssSel: ".K1CYATD-u-f", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false},
+		noteBackTextColour:{cssSel: ".GNK2GVDDBGB textarea", cssAttr:["color"], styleRule: true, isImportant: true, specialBorder: false}
 };
 
 //Function for changing color of element
