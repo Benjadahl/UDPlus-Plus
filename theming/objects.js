@@ -33,7 +33,7 @@ var PlusPlusList = {
     schoolEdges:new PlusPlusObject(".ace-nav>li", applyBorderRule, ["border-left"]),
     tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"]),
     copyrightTop:new PlusPlusObject(".copyright", applyBorderRule, ["border-top"]),
-    assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"]), //assignmentText refers to all text in tables
+    assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"]),  //assignmentText refers to all text in tables
     absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"]),  //absence refers to all table heads
     navbarImg:new PlusPlusObject(".navbar-inner", applyCssRule, ["background-image"]),
     tableButtonsText:new PlusPlusObject(".btn", applyCssRule, ["color"]),
@@ -59,7 +59,8 @@ var PlusPlusList = {
     lessonOpacity:new PlusPlusObject("svg rect", applyCssRule, ["fill-opacity"]),
     lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
-    lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"])
+    lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
+    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"])
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
