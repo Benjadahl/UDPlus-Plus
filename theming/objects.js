@@ -34,17 +34,24 @@ var PlusPlusList = {
     tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"]),
     copyrightTop:new PlusPlusObject(".copyright", applyBorderRule, ["border-top"]),
     assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"]), //assignmentText refers to all text in tables
-    absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"])  //absence refers to all table heads
+    absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"]),  //absence refers to all table heads
+    navbarImg:new PlusPlusObject(".navbar-inner", applyCssRule, ["background-image"]),
+    tableButtonsText:new PlusPlusObject(".btn", applyCssRule, ["color"]),
+    navbarText:new PlusPlusObject(".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", applyCssRule, ["color"]),
+    copyRightNotice:new PlusPlusObject(".copyright>a", applyCssRule, ["color"]),
+    mainBackImg:new PlusPlusObject(".container-fluid", applyCssRule, ["background-image"]),
+    mainBackImgFill:new PlusPlusObject(".container-fluid", applyCssRule, ["background-size"]),
+    mainBackImgNoRepeat:new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
   },
   start:{},
   schedule:{
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
-    tableTopActive:new PlusPlusObject(".GNK2GVDDN- th.GNK2GVDDE-", applyCssRule, ["background-color", "border-top-color"]),
+    tableTopActive:new PlusPlusObject(".GNK2GVDDO- th.GNK2GVDDF-", applyCssRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
     tableTopTextActive: new PlusPlusObject(".GC0H5P4BK- th.GC0H5P4BB-", applyCssRule, ["color"], flags={"important":false}),
     tableTop: new PlusPlusObject("html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", applyCssRule, ["background"]),
-    tableLeftSide:new PlusPlusObject(".GNK2GVDDO- table", applyCssRule, ["background"]),
+    tableLeftSide:new PlusPlusObject(".GNK2GVDDP- table", applyCssRule, ["background"]),
     tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
     noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
     noteBottom:new PlusPlusObject(".GNK2GVDDCGB", applyCssRule, ["background-color"]),
@@ -63,12 +70,12 @@ var PlusPlusList = {
     commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
     activeMessage:new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
     messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"]),
-    commentText:new PlusPlusObject(".K1CYATD-q-f", applyCssRule, ["color"])
+    commentText:new PlusPlusObject(".K1CYATD-r-f", applyCssRule, ["color"])
   },
   plan:{},
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentSetting:new PlusPlusObject(".GD1SXJ-CF", applyCssRule, ["background-color"])
+    assignmentSetting:new PlusPlusObject(".GI4UTTLBF", applyCssRule, ["background-color"])
   },
   resources:{},
   grades:{}

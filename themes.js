@@ -142,7 +142,8 @@ var themes = {
 		"assignmentsTableActive":"#ada315",
 		"mainContainer" : "#393939",
 		"messageBackground": "#393939",
-		//"commentWritingBackground": "#393939"
+		//"commentWritingBackground": "#393939",
+		"noteBackTextColour":"rgba(0, 0, 0, 0)"
 	},
 	"rendark" : {
 		"name": "RenDark",
