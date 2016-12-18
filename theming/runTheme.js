@@ -41,12 +41,12 @@ function runTheme(theme, page){
 		//For getting static theme format out of customtheme. Comment this line on release
 		var convertstring = "";
 
+    
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
-				//For converting custom into a static theme. Comment this line on release
-				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[theme][T] + '",\n');
-				switch(customTemplate[T][X]){
+        
+        switch(customTemplate[T][X]){
 				case "navbarImg":
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[theme][T] + ")");
 					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
@@ -61,7 +61,7 @@ function runTheme(theme, page){
 					homeworkColour = customTheme[theme][T];
 					break;
 				default:
-					if(typeof PlusPlusList.general[T] !== "undefined") {
+					if(typeof PlusPlusList.general[customTemplate[T][X]] !== "undefined") {
 						PlusPlusList.general[customTemplate[T][X]].value = customTheme[theme][T];
 						PlusPlusList.general[customTemplate[T][X]].apply();
 
