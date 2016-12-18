@@ -1,6 +1,6 @@
 /*			runTheme.js
 
-  THIS FUNCTION IS USED TO APPLY THE GIVEN THEME
+        THIS FUNCTION IS USED TO APPLY THE GIVEN THEME
 
 
 
@@ -12,27 +12,29 @@ function runTheme(theme, page){
 	$('.UDPPCustom').remove();
 	if(typeof themes[theme] != "undefined"){
 		for (var T in themes[theme]) {
+
+			//Check if the selector is and image or a homework color.
 			switch(T){
-				case "navbarImg":
-					changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
-					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-					break;
-				case "mainBackImg":
-					setTrans();
-					changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
-					break;
-				default:
-					if(typeof PlusPlusList.general[T] !== "undefined") {
-						PlusPlusList.general[T].value = themes[theme][T];
-						PlusPlusList.general[T].apply();
-					}
-					if(typeof PlusPlusList[page][T] !== "undefined") {
-						PlusPlusList[page][T].value = themes[theme][T];
-						PlusPlusList[page][T].apply();
-					}
-					break;
+			case "navbarImg":
+				changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
+				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
+				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
+				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
+				break;
+			case "mainBackImg":
+				setTrans();
+				changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
+				break;
+			default:
+				if(typeof PlusPlusList.general[T] !== "undefined") {
+					PlusPlusList.general[T].value = themes[theme][T];
+					PlusPlusList.general[T].apply();
+				}
+				if(typeof PlusPlusList[page][T] !== "undefined") {
+					PlusPlusList[page][T].value = themes[theme][T];
+					PlusPlusList[page][T].apply();
+				}
+				break;
 			}
 		}
 	}else{
@@ -45,7 +47,9 @@ function runTheme(theme, page){
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
-        
+
+				
+				//Check if the selector is and image or a homework color.
         switch(customTemplate[T][X]){
 				case "navbarImg":
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[theme][T] + ")");

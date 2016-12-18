@@ -41,7 +41,9 @@ var PlusPlusList = {
     copyRightNotice:new PlusPlusObject(".copyright>a", applyCssRule, ["color"]),
     mainBackImg:new PlusPlusObject(".container-fluid", applyCssRule, ["background-image"]),
     mainBackImgFill:new PlusPlusObject(".container-fluid", applyCssRule, ["background-size"]),
-    mainBackImgNoRepeat:new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
+    mainBackImgNoRepeat:new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"]),
+		sideBarCollpaseIcon:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"]),
+		messageCounter:new PlusPlusObject('.badge', applyCssRule, ["background-color"])
   },
   start:{},
   schedule:{
@@ -60,7 +62,8 @@ var PlusPlusList = {
     lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
-    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"])
+    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]),
+		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"])
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
