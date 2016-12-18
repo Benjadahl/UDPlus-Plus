@@ -10,7 +10,7 @@
 function runTheme(theme, page){
 	console.log("Loading theme: " + theme);
 	$('.UDPPCustom').remove();
-	if(typeof themes[theme] != "undefined"){
+	if(typeof themes[theme] != "undefined") {
 		for (var T in themes[theme]) {
 
 			//Check if the selector is and image or a homework color.
@@ -37,18 +37,18 @@ function runTheme(theme, page){
 				break;
 			}
 		}
-	}else{
+	} else {
 		//This will run if a custom theme is on
 
 		//For getting static theme format out of customtheme. Comment this line on release
 		var convertstring = "";
 
-    
+
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
 
-				
+
 				//Check if the selector is and image or a homework color.
         switch(customTemplate[T][X]){
 				case "navbarImg":
@@ -61,15 +61,16 @@ function runTheme(theme, page){
 					setTrans();
 					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[theme][T] + ")");
 					break;
-				case "homeworkMark":
-					homeworkColour = customTheme[theme][T];
-					break;
 				default:
 					if(typeof PlusPlusList.general[customTemplate[T][X]] !== "undefined") {
 						PlusPlusList.general[customTemplate[T][X]].value = customTheme[theme][T];
 						PlusPlusList.general[customTemplate[T][X]].apply();
-
 					}
+					if(typeof PlusPlusList[page][customTemplate[T][X]] !== "undefined") {
+						PlusPlusList[page][customTemplate[T][X]].value = customTheme[theme][T];
+						PlusPlusList[page][customTemplate[T][X]].apply();
+					}
+
 					break;
 				}
 			}
