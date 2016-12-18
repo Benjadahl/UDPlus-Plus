@@ -34,7 +34,14 @@ var PlusPlusList = {
     tableBackground:new PlusPlusObject("tr td", applyCssRule, ["background"]),
     copyrightTop:new PlusPlusObject(".copyright", applyBorderRule, ["border-top"]),
     assignmentText:new PlusPlusObject(".table td", applyCssRule, ["color"]), //assignmentText refers to all text in tables
-    absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"])  //absence refers to all table heads
+    absence:new PlusPlusObject(".table thead tr th, .table tr.thead td", applyCssRule, ["background-color"]),  //absence refers to all table heads
+    navbarImg:new PlusPlusObject(".navbar-inner", applyCssRule, ["background-image"]),
+    tableButtonsText:new PlusPlusObject(".btn", applyCssRule, ["color"]),
+    navbarText:new PlusPlusObject(".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", applyCssRule, ["color"]),
+    copyRightNotice:new PlusPlusObject(".copyright>a", applyCssRule, ["color"]),
+    mainBackImg:new PlusPlusObject(".container-fluid", applyCssRule, ["background-image"]),
+    mainBackImgFill:new PlusPlusObject(".container-fluid", applyCssRule, ["background-size"]),
+    mainBackImgNoRepeat:new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"])
   },
   start:{},
   schedule:{
