@@ -8,85 +8,12 @@ var curtheme = "Default";
 
 //Define the current page variable, which is used with runTheme
 var curPage = "start";
-
-var homeworkList = ["lektie"];
-
-var homeworkColour = "#ED2939";
-
-// <---- HOMEWORK MARKING
-//Function for marking the homework
-function markHomework(){
-	$(".homeworkLesson").removeClass("homeworkLesson");
-	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
-		var toMark = false;
-		var arrayLength = homeworkList.length;
-		for (var i=0; i < arrayLength; i++) {
-			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
-		}
-		if (toMark) {
-			//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
-			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
-		}
-	});
-}
-
-//var sheet = document.createElement('style')
-//sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
-//document.body.appendChild(sheet);
-
-function stringToList(string) {
-	var thelist = string.split(",");
-	for (var i=0; i<thelist.length; i++) {
-		thelist[i] = thelist[i].replace(/\s/g, "");
-		if (thelist[i] == "") thelist.splice(i,1);
-	}
-	if (thelist === [""]) thelist.splice(0,1);
-	return thelist;
-
-}
-
 //We need to use this function to load all the settings
 function loadSettings() {
 	//Load custom theme
 	getStorage('customTheme', function (obj) {
 		if (!chrome.runtime.error) {
 			customTheme = obj.customTheme;
-		}
-	});
-
-	//Keywords for checking homework
-	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
-		if (!chrome.runtime.error) {
-			homeworkList = stringToList(obj.homeworkWords);
-		}
-	});
-
-	//Get the homework setting
-	var homeworkCheckerInterval;
-	getStorage('homework', function (obj) {
-		if (!chrome.runtime.error) {
-			//If the schedule object exists and the homework setting is true, setup interval to mark
-			if (window.location.href.indexOf("skema")) {
-				if(obj.homework){
-					//Interval to mark homework, they will be marked when they load in
-					clearInterval(homeworkCheckerInterval);
-					homeworkCheckerInterval = setInterval(function() {
-						markHomework();
-					}, 250);
-				}
-			}
-		}
-	});
-
-	getStorage({toHide: ""}, function(obj) {
-		if (!chrome.runtime.error) {
-			toHideList = stringToList(obj.toHide);
-			$(".hiddenLesson").removeClass("hiddenLesson");
-			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
-				}
-			}, 250);
 		}
 	});
 
