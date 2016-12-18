@@ -54,6 +54,15 @@ function loadSettings() {
 		}
 	});
 
+	$("#sidebar-collapse").show();
+	getStorage('hideSidebarCollapse', function (obj) {
+		if (!chrome.runtime.error) {
+			if(obj.hideSidebarCollapse){
+				$("#sidebar-collapse").hide();
+			}
+		}
+	});
+
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
 			curtheme = obj.theme;
@@ -89,17 +98,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 	loadSettings();
 });
 
-//When the document is ready remove the sidebar collapse button, which is broken
-$(document).ready(function(){
-	$("#sidebar-collapse").show();
-	getStorage('hideSidebarCollapse', function (obj) {
-		if (!chrome.runtime.error) {
-			if(obj.hideSidebarCollapse){
-				$("#sidebar-collapse").hide();
-			}
-		}
-	});
-});
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
