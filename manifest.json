@@ -22,10 +22,12 @@
 	},
 	"permissions": [
 		"activeTab",
+		"http://admsys.stil.dk/",
+		"notifications",
 		"storage"
 	],
 	"background":{
-		"scripts":["storageHandler.js","background.js"]
+		"scripts":["storageHandler.js", "resources/jquery-3.1.0.min.js", "background.js"]
 	},
 	"content_scripts": [
 		{
@@ -79,5 +81,5 @@
 			"run_at": "document_end"
 		}
 	],
-	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css"]
+	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css", "resources/icons/icon48.png"]
 }
