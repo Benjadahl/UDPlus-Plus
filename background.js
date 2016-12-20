@@ -132,7 +132,7 @@ function checkEasyADowntime() {
 }
 
 function sendDownMessage(message, href) {
-	var link = "<a href='" + href + "'>" + message + "</a>";
+	var link = "<a href='" + href + "' class='warning'><b>" + message + "</b></a>";
 
 	getStorage('message', function(obj) {
 		if (!chrome.runtime.error) {
