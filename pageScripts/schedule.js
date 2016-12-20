@@ -7,8 +7,6 @@
 curPage = "schedule";
 var homeworkList = ["lektie"];
 
-console.log("test" + curtheme);
-
 //On the download links in class notes, set the title attribute to the file name, so we can see the full filename on hover.
 function setTitleToDownload() {
 	$("a[download]").each(function() {
@@ -85,27 +83,30 @@ function markHomework(){
 
 //We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
 function cacheSchedule() {
-	var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
-	//TODO: Make it more readable.
+	var today = new Date();
+	var isoDate = today.getDate() + "-" + (today.getMonth()+1) + "-" + (today.getYear()+1900);
+	var isoDate = (today.getYear()+1900) + "-" + (today.getMonth()+1) + "-" + today.getDate();
+	var checkDate = new RegExp(isoDate + '$');
+	if (window.location.href.match(checkDate)) {
+		var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
 
-	scheduleHTML.find(".actionMenu").remove();
-	scheduleHTML.find(".skemaLinieGruppe").parent().remove();
-	scheduleHTML.find("line").remove();
-	scheduleHTML.find(".skemaBrikGruppe:empty").remove();
-	scheduleHTML.find(".DagMedBrikker:empty").remove();
-	var minHeight = 10000;
-	scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
-		var height = $(this)[0].transform.baseVal[0].matrix.f;
-		if (height < minHeight) minHeight = height;
-	});
-	scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
-		$(this)[0].transform.baseVal[0].matrix.f = $(this)[0].transform.baseVal[0].matrix.f - minHeight;
-	});
+		scheduleHTML.find(".actionMenu").remove();
+		scheduleHTML.find(".skemaLinieGruppe").parent().remove();
+		scheduleHTML.find("line").remove();
+		scheduleHTML.find(".skemaBrikGruppe:empty").remove();
+		scheduleHTML.find(".DagMedBrikker:empty").remove();
+		var minHeight = 10000;
+		scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
+			var height = $(this)[0].transform.baseVal[0].matrix.f;
+			if (height < minHeight) minHeight = height;
+		});
+		scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
+			$(this)[0].transform.baseVal[0].matrix.f = $(this)[0].transform.baseVal[0].matrix.f - minHeight;
+		});
 
-
-
-	scheduleHTML = scheduleHTML[0].outerHTML;
-	setStorage({"cachedSchedule": scheduleHTML }, true);
+		scheduleHTML = scheduleHTML[0].outerHTML;
+		setStorage({"cachedSchedule": scheduleHTML }, true);
+	}
 }
 
 window.setTimeout(cacheSchedule, 2000);
