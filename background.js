@@ -15,9 +15,21 @@ chrome.runtime.onInstalled.addListener(function(details){
 //A regular expression which parses a title from the RSS feed, and extracts the good info.
 var downRegex = /EASY-A lukker ned (.*) den (\d\d)\/(\d\d) kl\. ((\d\d:\d\d) - (\d\d:\d\d)|(\d\d)-(\d\d))/;
 
+var weekDays = {
+	"mandag" : "Monday",
+	"tirsdag" : "Tuesday",
+	"onsdag" : "Wednesday",
+	"torsdag" : "Thursday",
+	"fredag" : "Friday",
+	"lørdag" : "Saturday",
+	"søndag" : "Sunday"
+};
+
 //This function will check EASY-A for downtime
 function checkEasyADowntime() {
 	var currentDate = new Date();
+
+	currentDate = new Date("1482048000" * 1000);
 	//EASY-A's update site
 	var url = 'http://admsys.stil.dk/Service/RSS/RSS/EASY-A-Nyhedsliste.rss';
 
@@ -71,26 +83,46 @@ function checkEasyADowntime() {
 					downStartTime = new Date(downStartTime);
 					downEndTime = new Date(downEndTime);
 
-					//Let's create a notification! This is mostly copy-pasted, so change it as much as you'd like.
-					chrome.notifications.create({
-						iconUrl: chrome.runtime.getURL('resources/icons/icon48.png'),
-						title: 'Uddata going down',
-						type: 'basic',
-						message: 'UDDATA is going to be down from ' + downStartTime + " to " + downEndTime + ".",
-						buttons: [{ title: 'Learn More' }],
-						isClickable: true,
-						priority: 2,
-					}, function() { });
 
-					chrome.notifications.onButtonClicked.addListener(function() {
-						chrome.tabs.create({
-							url: url
-						});
+
+					getStorage('lang', function(obj) {
+						if (!chrome.runtime.error) {
+							if (obj.lang === "dansk") {
+								var message = "UDDATA går ned " + regexMatch[1] + " den " + regexMatch[2] + "/" + regexMatch[3] + " " + regexMatch[4];
+							} else {
+								var message = "UDDATA is going to be down " + weekDays[regexMatch[1]] + " the " + regexMatch[2] + "/" + regexMatch[3] + " " + regexMatch[4];
+							}
+							sendDownMessage(message);
+						}
 					});
+
 				}
 			}
 		})
 	});
+}
+
+function sendDownMessage(message) {
+	//Let's create a notification! This is mostly copy-pasted, so change it as much as you'd like.
+	chrome.notifications.create({
+		iconUrl: chrome.runtime.getURL('resources/icons/icon48.png'),
+		title: 'Uddata going down',
+		type: 'basic',
+		message: message,
+		buttons: [{ title: 'Learn More' }],
+		isClickable: true,
+		priority: 2,
+	}, function() { });
+
+	chrome.notifications.onButtonClicked.addListener(function() {
+		chrome.tabs.create({
+			url: url
+		});
+	});
+
+	setStorage({"message": "<a href='" + $(this).find("link").html() + "'>" + message + "</a>" });
+
+
 }
 
 checkEasyADowntime();

@@ -131,6 +131,12 @@ getStorage('showNews', function (obj) {
 	}
 });
 
+getStorage('message', function (obj) {
+	if (!chrome.runtime.error) {
+			$(".brand").append('<small class="smaller-50">' + obj.message + '</small>');
+	}
+});
+
 function setTrans(){
 	var array = ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
 	for (var i = 0; i < array.length; i++) {
