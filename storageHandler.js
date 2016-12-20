@@ -12,7 +12,7 @@ function getStorage(name, forceLocal, callback) {
 		}
 	}
 	//Check if chrome sync is enabled
-	if (navigator.userAgent.includes("Chrome") || !forceLocal) {
+	if (navigator.userAgent.includes("Chrome") && !forceLocal) {
 		//Chrome sync is enabled
 		//Therefore use the API
 		chrome.storage.sync.get(name, callback);
@@ -26,11 +26,13 @@ function getStorage(name, forceLocal, callback) {
 function setStorage(value, forceLocal) {
 	if (arguments.length == 1) forceLocal = false;
 
-	if (navigator.userAgent.includes("Chrome") || !forceLocal) {
+	console.log(forceLocal);
+	if (navigator.userAgent.includes("Chrome") && !forceLocal) {
 		//Chrome sync is enabled
 		//Therefore use the API
 		chrome.storage.sync.set(value);
 	} else {
+		console.log("Set is local");
 		//Chrome sync is disabled
 		//Use the local storage instead
 		chrome.storage.local.set(value);
