@@ -1,0 +1,42 @@
+<body>
+	<h1>Uddata++ Settings</h1>
+	<p style="color:#ff2020"><i>Beware you may need to reload the Uddata+ page for some of these settings to take effect</i></p>
+	<h3>Theme</h3>
+	<p style="display:inline">Theme selected</p>
+	<select id="theme"> </select>
+	<br><br/>
+	<form action="customTheme/custom.html">
+		<input type="submit" value="Custom Theme [BETA]"/>
+	</form>
+	<h3>Homework Marking</h3>
+	<input type="checkbox" name="homeworkCheck" id="homework">Check for homework</input> <input type="text" id="homeworkWords"></input>
+	<p><i>This function marks lessons which have the word in the checkbox in the note red. This function is not case-sensitive. Individual words are seperated by commas.</i></p>
+	<h3>Schedule tweak</h3>
+	Lesson keywords: <input type="text" id="lessonWords"></input>
+	<p><i>This function hides lessons from the schedule that contain the keywords in the box. This function is case sensitive.</i></p>
+
+	<h3>Menu Tweaks</h3>
+	<input type="checkbox" id="hideSidebarCollapse">Hide the minimize button in the menu</input>
+	<br></br>
+
+	<h3>Assignments</h3>
+	<p style="display:inline">Sort assignments by</p>
+	<select id="sortTaskBy">
+		<option value="-1">Nothing</option>
+		<option value="0">Name</option>
+		<option value="1">Team</option>
+		<option value="2">Subject</option>
+		<option value="3">Deadline</option>
+	</select>
+	<br><br/>
+
+	<input type="checkbox" name="hideTask" id="hideTask">Auto hide done assignments, this will also hide assignment grades</input></br>
+	<h3 class="SnowOn">December</h3>
+	<input type="checkbox" name="SnowOn" id="SnowOn" class="SnowOn"></input><p class="SnowOn" style="display:inline;">Snow</p>
+	<input type="checkbox" name="xmashat" id="xmashat" class="xmashat"></input><p class="xmashat" style="display:inline;">ChristmasHat</p>
+
+	<script src="../themes.js"></script>
+	<script src="../resources/jquery-3.1.0.min.js"></script>
+	<script src="../storageHandler.js"></script>
+	<script src="options.js"></script>
+</body>
