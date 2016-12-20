@@ -1,0 +1,83 @@
+{
+	"manifest_version": 2,
+
+	"name": "UD++",
+	"description": "An extension that makes the experience of using uddata+ better",
+	"version": "1.6.1",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"options_ui":{
+		"page": "options/options.html",
+		"chrome_style": true
+	},
+	"applications": {
+		"gecko": {
+			"id": "ud-plus-plus@benjadahl.xyz"
+		}
+	},
+	"icons":{
+		"16":"resources/icons/icon16.png",
+		"19":"resources/icons/icon19.png",
+		"48":"resources/icons/icon48.png",
+		"128":"resources/icons/icon128.png"
+	},
+	"permissions": [
+		"activeTab",
+		"storage"
+	],
+	"background":{
+		"scripts":["storageHandler.js","background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches":[
+				"*://www.uddataplus.dk/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js", "resources/jquery.snow.min.1.0.js","storageHandler.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js","theming/runTheme.js","main.js","themes.js"],
+			"css": ["resources/customclasses.css"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/skema/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/schedule.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/opgave/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/assignmentPage.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/ressourcer/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/resources.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/besked/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/message.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/?id=id_start*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/start.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/bevis/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		}
+	],
+	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css"]
+}
