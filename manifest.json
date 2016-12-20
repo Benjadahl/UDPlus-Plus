@@ -84,7 +84,7 @@
 			"matches":[
 				"*://www.uddata.dk/uddataplus-lukket/"
 			],
-			"js": ["resources/jquery-3.1.0.min.js", "storageHandler.js", "pageScripts/uddata-down.js"],
+			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
 			"run_at": "document_end"
 		}
 	],
