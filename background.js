@@ -29,6 +29,8 @@ var weekDays = {
 function checkEasyADowntime() {
 	var currentDate = new Date();
 
+	var isGoingDown = false;
+
 	//Uncomment this for testing. This is a timestamp where the downtime would be relevant.
 	//currentDate = new Date("1482048000" * 1000);
 
@@ -88,7 +90,7 @@ function checkEasyADowntime() {
 					downEndTime = new Date(downEndTime);
 
 
-
+					var link = $(this).find("link").html();
 					getStorage('lang', function(obj) {
 						if (!chrome.runtime.error) {
 							if (obj.lang === "dansk") {
@@ -96,24 +98,28 @@ function checkEasyADowntime() {
 							} else {
 								var message = "UDDATA is going to be down " + weekDays[regexMatch[1]] + " the " + regexMatch[2] + "/" + regexMatch[3] + " " + regexMatch[4];
 							}
-							sendDownMessage(message);
+							console.log($(this));
+							sendDownMessage(message, link);
+							isGoingDown = true;
 						}
 					});
-
-				} else {
-					setStorage({"message": "" });
 				}
 			}
-		})
+		});
+		window.setTimeout(function() {
+			if (!isGoingDown) setStorage({"message": '' });
+		}, 100);
 	});
 }
 
-function sendDownMessage(message) {
-	var link = "<a href='" + $(this).find("link").html() + "'>" + message + "</a>";
+function sendDownMessage(message, href) {
+	var link = "<a href='" + href + "'>" + message + "</a>";
 
 	getStorage('message', function(obj) {
 		if (!chrome.runtime.error) {
 			if (link !== obj.message) {
+				console.log(link);
+				console.log(obj.message);
 				//Let's create a notification! This is mostly copy-pasted, so change it as much as you'd like.
 				chrome.notifications.create({
 					iconUrl: chrome.runtime.getURL('resources/icons/icon48.png'),
