@@ -29,7 +29,10 @@ var weekDays = {
 function checkEasyADowntime() {
 	var currentDate = new Date();
 
+	//Uncomment this for testing. This is a timestamp where the downtime would be relevant.
 	currentDate = new Date("1482048000" * 1000);
+
+
 	//EASY-A's update site
 	var url = 'http://admsys.stil.dk/Service/RSS/RSS/EASY-A-Nyhedsliste.rss';
 
@@ -76,6 +79,7 @@ function checkEasyADowntime() {
 				//After that huge mess, we now got the start and end times
 				var url = $(this).find("link").html();
 
+				//If it's not already done going down.
 				if (downEndTime > currentDate) {
 					console.log("Going down");
 
@@ -96,6 +100,8 @@ function checkEasyADowntime() {
 						}
 					});
 
+				} else {
+					setStorage({"message": "" });
 				}
 			}
 		})
@@ -103,26 +109,32 @@ function checkEasyADowntime() {
 }
 
 function sendDownMessage(message) {
-	//Let's create a notification! This is mostly copy-pasted, so change it as much as you'd like.
-	chrome.notifications.create({
-		iconUrl: chrome.runtime.getURL('resources/icons/icon48.png'),
-		title: 'Uddata going down',
-		type: 'basic',
-		message: message,
-		buttons: [{ title: 'Learn More' }],
-		isClickable: true,
-		priority: 2,
-	}, function() { });
+	var link = "<a href='" + $(this).find("link").html() + "'>" + message + "</a>";
 
-	chrome.notifications.onButtonClicked.addListener(function() {
-		chrome.tabs.create({
-			url: url
-		});
+	getStorage('message', function(obj) {
+		if (!chrome.runtime.error) {
+			if (link !== obj.message) {
+				//Let's create a notification! This is mostly copy-pasted, so change it as much as you'd like.
+				chrome.notifications.create({
+					iconUrl: chrome.runtime.getURL('resources/icons/icon48.png'),
+					title: 'Uddata going down',
+					type: 'basic',
+					message: message,
+					buttons: [{ title: 'Learn More' }],
+					isClickable: true,
+					priority: 2,
+				}, function() { });
+
+				chrome.notifications.onButtonClicked.addListener(function() {
+					chrome.tabs.create({
+						url: url
+					});
+				});
+
+				setStorage({"message": link });
+			}
+		}
 	});
-
-	setStorage({"message": "<a href='" + $(this).find("link").html() + "'>" + message + "</a>" });
-
-
 }
 
 checkEasyADowntime();
