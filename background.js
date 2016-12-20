@@ -30,7 +30,7 @@ function checkEasyADowntime() {
 	var currentDate = new Date();
 
 	//Uncomment this for testing. This is a timestamp where the downtime would be relevant.
-	currentDate = new Date("1482048000" * 1000);
+	//currentDate = new Date("1482048000" * 1000);
 
 
 	//EASY-A's update site
