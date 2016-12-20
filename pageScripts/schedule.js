@@ -18,7 +18,7 @@ function setTitleToDownload() {
 setInterval(setTitleToDownload, 250);
 
 //Function to be called every time settings are changed
-function loadSettings() {
+function loadScheduleSettings() {
 
 	//Keywords for checking homework
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
@@ -60,10 +60,10 @@ function loadSettings() {
 
 }
 
-loadSettings();
+loadScheduleSettings();
 chrome.storage.onChanged.addListener(function(changes, namespace) {
 	//Try to import the theme from the settings storage
-	loadSettings();
+	loadScheduleSettings();
 });
 
 // <---- HOMEWORK MARKING
