@@ -13,67 +13,31 @@ function runTheme(theme, page){
 	if(typeof themes[theme] != "undefined") {
 		for (var T in themes[theme]) {
 
-			//Check if the selector is and image or a homework color.
-			switch(T){
-			case "navbarImg":
-				changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
-				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-				break;
-			case "mainBackImg":
-				setTrans();
-				changeColor(colorElements[T], "url(" + themes[theme][T] + ")");
-				break;
-			default:
-				if(typeof PlusPlusList.general[T] !== "undefined") {
-					PlusPlusList.general[T].value = themes[theme][T];
-					PlusPlusList.general[T].apply();
-				}
-				if(typeof PlusPlusList[page][T] !== "undefined") {
-					PlusPlusList[page][T].value = themes[theme][T];
-					PlusPlusList[page][T].apply();
-				}
-				break;
-			}
+      applySelector(T, themes[theme][T], page);
+
 		}
 	} else {
 		//This will run if a custom theme is on
-
-		//For getting static theme format out of customtheme. Comment this line on release
-		var convertstring = "";
-
 
 		//This is the same as our themes just with a few extra steps involving the customTemplate
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
 
 
-				//Check if the selector is and image or a homework color.
-        switch(customTemplate[T][X]){
-				case "navbarImg":
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[theme][T] + ")");
-					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-					break;
-				case "mainBackImg":
-					setTrans();
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[theme][T] + ")");
-					break;
-				default:
-					if(typeof PlusPlusList.general[customTemplate[T][X]] !== "undefined") {
-						PlusPlusList.general[customTemplate[T][X]].value = customTheme[theme][T];
-						PlusPlusList.general[customTemplate[T][X]].apply();
-					}
-					if(typeof PlusPlusList[page][customTemplate[T][X]] !== "undefined") {
-						PlusPlusList[page][customTemplate[T][X]].value = customTheme[theme][T];
-						PlusPlusList[page][customTemplate[T][X]].apply();
-					}
+        applySelector(customTemplate[T][X], customTheme[theme][T], page);
 
-					break;
-				}
 			}
 		}
+	}
+}
+
+function applySelector(selector, value, page){
+  if(typeof PlusPlusList.general[selector] !== "undefined") {
+		PlusPlusList.general[selector].value = value;
+		PlusPlusList.general[selector].apply();
+	}
+	if(typeof PlusPlusList[page][selector] !== "undefined") {
+		PlusPlusList[page][selector].value = value;
+		PlusPlusList[page][selector].apply();
 	}
 }
