@@ -1,7 +1,7 @@
 /*      schedule.js
 
-  THIS IS THE PAGESCRIPT FOR THE SCHEDULE PAGE
-*/
+				THIS IS THE PAGESCRIPT FOR THE SCHEDULE PAGE
+				*/
 
 //Set the current page variable
 curPage = "schedule";
@@ -82,5 +82,32 @@ function markHomework(){
 	});
 }
 
+
+//We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
+function cacheSchedule() {
+	var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
+	//TODO: Make it more readable.
+
+	scheduleHTML.find(".actionMenu").remove();
+	scheduleHTML.find(".skemaLinieGruppe").parent().remove();
+	scheduleHTML.find("line").remove();
+	scheduleHTML.find(".skemaBrikGruppe:empty").remove();
+	scheduleHTML.find(".DagMedBrikker:empty").remove();
+	var minHeight = 10000;
+	scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
+		var height = $(this)[0].transform.baseVal[0].matrix.f;
+		if (height < minHeight) minHeight = height;
+	});
+	scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
+		$(this)[0].transform.baseVal[0].matrix.f = $(this)[0].transform.baseVal[0].matrix.f - minHeight;
+	});
+
+
+
+	scheduleHTML = scheduleHTML[0].outerHTML;
+	setStorage({"cachedSchedule": scheduleHTML }, true);
+}
+
+window.setTimeout(cacheSchedule, 2000);
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
