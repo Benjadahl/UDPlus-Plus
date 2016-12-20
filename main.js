@@ -130,3 +130,9 @@ getStorage('showNews', function (obj) {
 		}
 	}
 });
+
+getStorage('message', function (obj) {
+	if (!chrome.runtime.error) {
+			$(".brand").append('<small class="smaller-50">' + obj.message + '</small>');
+	}
+});
