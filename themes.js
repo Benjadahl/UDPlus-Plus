@@ -2,7 +2,7 @@
 var themes = {
 	"default" :{
 		"name": "Default",
-		"mainBackground" : "rgba(0,0,0,0)"
+		"warning" : "white"
 	},
 	"blue": {"name": "Blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
 	"black" : {
@@ -31,7 +31,8 @@ var themes = {
 		"lessonOpacity":"0.7",
 		"noteHeader":"rgb(43, 43, 43)",
 		"filesHeader":"rgb(43, 43, 43)",
-		"assignmentsTableActive":"#080707"
+		"assignmentsTableActive":"#080707",
+		"warning" : "white"
 	},
 	"green" : {
 		"name": "Green",
@@ -58,7 +59,8 @@ var themes = {
 		"lessonOpacity":"0.7",
 		"homeworkMark": "#ED2939",
 		"noteHeader":"#539e24",
-		"filesHeader":"#539e24"
+		"filesHeader":"#539e24",
+		"warning" : "white"
 	},
 	"red" : {
 		"name": "Red",
@@ -86,7 +88,8 @@ var themes = {
 		"homeworkMark": "#e74c3c",
 		"noteHeader":"#B22222",
 		"filesHeader":"#B22222",
-		"assignmentsTableActive":"#e74c3c"
+		"assignmentsTableActive":"#e74c3c",
+		"warning" : "white"
 	},
 	"dark" : {
 		"name": "Dark",
@@ -143,7 +146,8 @@ var themes = {
 		"mainContainer" : "#393939",
 		"messageBackground": "#393939",
 		//"commentWritingBackground": "#393939",
-		"noteBackTextColour":"rgba(0, 0, 0, 0)"
+		"noteBackTextColour":"rgba(0, 0, 0, 0)",
+		"warning" : "#757575"
 	},
 	"rendark" : {
 		"name": "RenDark",
@@ -195,6 +199,7 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"assignmentsTableActive":"#064f7f",
 		"mainContainer" : "#393939",
+		"warning" : "#757575"
 		//"commentWritingBackground": "#393939"
 	},
 	"wallDemo" : {
@@ -215,12 +220,13 @@ var themes = {
 		"absence" : "#89042F",
 		"copyrightTop" : "#FFFFFF",
 		"linkLanguage":"#FFFFFF",
-		"leftMenuLIborderBottom" : "#B0053C",
+		"leftMenuLIborderBottom" : "rgba(0,0,0,0)",
 		"leftMenuBorder" : "#B0053C",
-		"leftMenuLI" : "#B0053C",
+		"leftMenuLI" : "rgba(0,0,0,0)",
+		"sidebarColor" : "rgba(0,0,0,0)",
 		"leftMenuBottom" : "#B0053C",
-		"sidebarCollapse" : "#B0053C",
-		"leftMenuLIborderTop" : "#B0053C",
+		"sidebarCollapse" : "rgba(0,0,0,0)",
+		"leftMenuLIborderTop" : "rgba(0,0,0,0)",
 		"assignmentSetting" : "#B0053C",
 		//License site: http://www.uhdwallpapers.org/2014/09/summer-2014-grand-canyon.html?m=1
 		"mainBackImg" : "https://4.bp.blogspot.com/-Y63PB8ns7G0/VCTwQuLhZfI/AAAAAAABOmA/2ULXhjuWGMY/s0/Summer%2B2014%2BGrand%2BCanyon.jpg",
@@ -238,8 +244,10 @@ var themes = {
 		"tableLeftSide":"rgba(176, 5, 60, 0.3)",
 		"scheduleTopAnnouncements":"rgba(176, 5, 60, 0.5)",
 		"assignmentsTableActive" : "#690223",
+	"lessonDropdownText": "#363636",
 		//"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
-		"commentMessageText":"#FFFFFF"
+		"commentMessageText":"#FFFFFF",
+		"warning" : "white"
 	},
 	"base16" : {
 		"name": "Base16 dark",
@@ -292,28 +300,29 @@ var themes = {
 		"mainContainer" : "#373B41",
 		"noteHeader":"#A54242",
 		"filesHeader":"#A54242",
-		"homeworkMark": "#A54242"
+		"homeworkMark": "#A54242",
+		"warning" : "#C5C8C6"
 	}
 };
 
 //These are the options that the client can change
 var customTemplate = {"Navigationbar" : ["navbar", "rightDropdown", "navbarEdge"],
-				   "Background1" : ["mainBackground", "outerBackground", "backEdge", "mainContainer"],
-				   "Background2" : ["copyrightTop", "leftMenuLIborderBottom","89042F" ,"leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
-				   "Background3" : [ "tableBackground"],
-				   "Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
-				   "Text" : ["mainText", "assignmentText", "commentText", "tableButtonsText"],
-					 "Menu_button_text" : ["menuText"],
-					 "Lesson_Transparent" : ["lessonOpacity"],
-				   "Lesson_Color" : ["lessonFill"],
-				   "Lesson_Border_Color" : ["lessonStroke"],
-					 "Schedule_Rows" : ["tableLeftSide"],
-					 "Schedule_Columns" : ["tableTop"],
-					 "Schedule_Bottom" : ["tableBottom"],
-					 "Homework_color" : ["homeworkMark"],
-					 "Navigationbar_image" : ["navbarImg"],
-					 "BackgroundImg_BETA" : ["mainBackImg"]
-			};
+											"Background1" : ["mainBackground", "outerBackground", "backEdge", "mainContainer"],
+											"Background2" : ["copyrightTop", "leftMenuLIborderBottom","89042F" ,"leftMenuBorder", "leftMenuLI", "leftMenuBottom", "sidebarCollapse", "leftMenuLIborderTop", "assignmentSetting"] ,
+											"Background3" : [ "tableBackground"],
+											"Accent" : ["leftMenuArrowBorder", "tableButtons", "header", "menuButtons","sidebarArrow", "absenceSlider", "profileRing",  "arrows", "tableTopActive", "loginBtn", "leftMenuTextActive", "absence"],
+											"Text" : ["warning", "mainText", "assignmentText", "commentText", "tableButtonsText"],
+											"Menu_button_text" : ["menuText"],
+											"Lesson_Transparent" : ["lessonOpacity"],
+											"Lesson_Color" : ["lessonFill"],
+											"Lesson_Border_Color" : ["lessonStroke"],
+											"Schedule_Rows" : ["tableLeftSide"],
+											"Schedule_Columns" : ["tableTop"],
+											"Schedule_Bottom" : ["tableBottom"],
+											"Homework_color" : ["homeworkMark"],
+											"Navigationbar_image" : ["navbarImg"],
+											"BackgroundImg_BETA" : ["mainBackImg"]
+										 };
 
 var customTheme = {}
 

@@ -6,78 +6,14 @@ $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataL
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";
 
-var homeworkList = ["lektie"];
-
-var homeworkColour = "#ED2939";
-
-// <---- HOMEWORK MARKING
-//Function for marking the homework
-function markHomework(){
-	$(".homeworkLesson").removeClass("homeworkLesson");
-	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
-		var toMark = false;
-		var arrayLength = homeworkList.length;
-		for (var i=0; i < arrayLength; i++) {
-			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
-		}
-		if (toMark) {
-			//$(this).parent().parent().parent().find('rect').each(function () { this.style.setProperty("fill", homeworkColour, 'important' ); });
-			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
-		}
-	});
-}
-
-var sheet = document.createElement('style')
-sheet.innerHTML = ".homeworkLesson {fill: " + homeworkColour + " !important}";
-document.body.appendChild(sheet);
-
-function stringToList(string) {
-	var thelist = string.split(",");
-	for (var i=0; i<thelist.length; i++) {
-		thelist[i] = thelist[i].replace(/\s/g, "");
-		if (thelist[i] == "") thelist.splice(i,1);
-	}
-	if (thelist === [""]) thelist.splice(0,1);
-	return thelist;
-
-}
-
+//Define the current page variable, which is used with runTheme
+var curPage = "start";
 //We need to use this function to load all the settings
 function loadSettings() {
-
-	//Keywords for checking homework
-	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
+	//Load custom theme
+	getStorage('customTheme', function (obj) {
 		if (!chrome.runtime.error) {
-			homeworkList = stringToList(obj.homeworkWords);
-		}
-	});
-
-	//Get the homework setting
-	var homeworkCheckerInterval;
-	getStorage('homework', function (obj) {
-		if (!chrome.runtime.error) {
-			//If the schedule object exists and the homework setting is true, setup interval to mark
-			if (window.location.href.indexOf("skema")) {
-				if(obj.homework){
-					//Interval to mark homework, they will be marked when they load in
-					clearInterval(homeworkCheckerInterval);
-					homeworkCheckerInterval = setInterval(function() {
-						markHomework();
-					}, 250);
-				}
-			}
-		}
-	});
-
-	getStorage({toHide: ""}, function(obj) {
-		if (!chrome.runtime.error) {
-			toHideList = stringToList(obj.toHide);
-			$(".hiddenLesson").removeClass("hiddenLesson");
-			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
-				}
-			}, 250);
+			customTheme = obj.customTheme;
 		}
 	});
 
@@ -118,10 +54,20 @@ function loadSettings() {
 		}
 	});
 
+	$("#sidebar-collapse").show();
+	getStorage('hideSidebarCollapse', function (obj) {
+		if (!chrome.runtime.error) {
+			if(obj.hideSidebarCollapse){
+				$("#sidebar-collapse").hide();
+			}
+		}
+	});
+
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
 			curtheme = obj.theme;
-			runTheme();
+			console.log("loaded curtheme");
+			runTheme(curtheme, curPage);
 		}
 	});
 
@@ -131,10 +77,11 @@ function loadSettings() {
 function allowSelect() {
 	if (window.location.href.indexOf("skema") === -1 ) $(".no-select").removeClass("no-select");
 }
-//Define the variable curtheme to contain the current theme
-var curtheme = "";
-
 setInterval(allowSelect, 250);
+
+//Define the variable curtheme to contain the current theme
+//var curtheme = "";
+
 
 //Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
@@ -144,14 +91,6 @@ if($("#language > a").html() == "English"){
 }
 
 
-//On the download on class notes, we set the title attribute to the download attribute. Then, if the full title ends up in the overflow, you can mouse over it to see it anyway.
-function setTitleToDownload() {
-	$( "a[download]" ).each(function( index ) {
-		$(this).attr("title", $(this).attr("download"));
-	});
-}
-setInterval(setTitleToDownload, 250);
-
 loadSettings();
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
@@ -159,88 +98,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 	loadSettings();
 });
 
-
-
-getStorage('customTheme', function (obj) {
-	if (!chrome.runtime.error) {
-		customTheme = obj.customTheme;
-		runTheme();
-	}
-});
-
-
-//Changes color off each element in the current theme
-function runTheme(){
-	$('.UDPPCustom').remove();
-	if(typeof themes[curtheme] != "undefined"){
-		for (var T in themes[curtheme]) {
-			if(T == "navbarImg"){
-				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-				changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-				changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-				//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-			}else if(T == "mainBackImg"){
-				setTrans();
-				changeColor(colorElements[T], "url(" + themes[curtheme][T] + ")");
-			}else{
-				if(T != "homeworkMark"){
-					changeColor(colorElements[T], themes[curtheme][T]);
-				}else{
-					homeworkColour = themes[curtheme][T];
-				}
-
-			}
-		}
-	}else{
-		//This will run if a custom theme is on
-
-		//For getting static theme format out of customtheme. Comment this line on release
-		var convertstring = "";
-
-		//This is the same as our themes just with a few extra steps involving the customTemplate
-		for(var T in customTheme[curtheme]){
-			for(var X in customTemplate[T]){
-				//For converting custom into a static theme. Comment this line on release
-				convertstring += ('"' + customTemplate[T][X]  + '" : "' + customTheme[curtheme][T] + '",\n');
-
-				//Handling background images.
-				if(T == "Navigationbar_image"){
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
-					changeColor(colorElements["rightDropdown"], "rgba(0,0,0,0)")
-					changeColor(colorElements["navbarIcon"], "rgba(0,0,0,0)")
-					//changeColor(colorElements["profileRing"], "rgba(0,0,0,0)")
-				}else if(T == "BackgroundImg_BETA"){
-					setTrans();
-					changeColor(colorElements[customTemplate[T][X]], "url(" + customTheme[curtheme][T] + ")");
-				}else{
-					if(T != "Homework_color"){
-						changeColor(colorElements[customTemplate[T][X]], customTheme[curtheme][T]);
-					}else{
-						homeworkColour = customTheme[curtheme][T];
-					}
-
-				}
-			}
-		}
-
-
-
-	}
-
-
-}
-
-//When the document is ready remove the sidebar collapse button, which is broken
-$(document).ready(function(){
-	$("#sidebar-collapse").show();
-	getStorage('hideSidebarCollapse', function (obj) {
-		if (!chrome.runtime.error) {
-			if(obj.hideSidebarCollapse){
-				$("#sidebar-collapse").hide();
-			}
-		}
-	});
-});
 
 //Wait for change in theme from popup
 chrome.runtime.onMessage.addListener(
@@ -251,7 +108,6 @@ chrome.runtime.onMessage.addListener(
 		}
 	}
 );
-
 
 
 //The ++Settings menu button
@@ -275,15 +131,8 @@ getStorage('showNews', function (obj) {
 	}
 });
 
-
-function setTrans(){
-	var array = ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]
-	for (var i = 0; i < array.length; i++) {
-		changeColor(colorElements[array[i]], "rgba(0,0,0,0)")
+getStorage('message', function (obj) {
+	if (!chrome.runtime.error) {
+			$(".brand").append('<small class="smaller-50">' + obj.message + '</small>');
 	}
-	changeColor(colorElements["mainContainerH"], (window.innerHeight-45) + "px");
-	changeColor(colorElements["mainBackImgFill"], "cover");
-}
-
-
-$(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
+});
