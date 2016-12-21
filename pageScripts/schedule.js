@@ -86,7 +86,7 @@ function cacheSchedule() {
 	var today = new Date();
 	var isoDate = today.getDate() + "-" + (today.getMonth()+1) + "-" + (today.getYear()+1900);
 	var isoDate = (today.getYear()+1900) + "-" + (today.getMonth()+1) + "-" + today.getDate();
-	var checkDate = new RegExp(isoDate + '$');
+	var checkDate = new RegExp("(" + isoDate + "|id_skema#|id_skema)" + '$');
 	if (window.location.href.match(checkDate)) {
 		var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
 
