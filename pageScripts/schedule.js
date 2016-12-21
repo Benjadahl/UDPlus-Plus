@@ -109,6 +109,6 @@ function cacheSchedule() {
 	}
 }
 
-window.setTimeout(cacheSchedule, 2000);
+window.setTimeout(cacheSchedule, 5000);
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
