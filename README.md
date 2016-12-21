@@ -1,4 +1,6 @@
+
 # UD++
+![UD++ logo](./resources/icons/icon48.png)
 
 A Chrome extension for the web platform [Uddata+](https://www.uddataplus.dk).
 
