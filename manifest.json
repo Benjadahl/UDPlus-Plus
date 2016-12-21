@@ -79,6 +79,20 @@
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddata.dk/uddataplus-lukket/"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddata.dk/uddataplus-nede/"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
+			"run_at": "document_end"
 		}
 	],
 	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css", "resources/icons/icon48.png"]
