@@ -32,7 +32,7 @@
 			"matches":[
 				"*://www.uddataplus.dk/*"
 			],
-			"js": ["resources/jquery-3.1.0.min.js", "resources/jquery.snow.min.1.0.js","storageHandler.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js","theming/runTheme.js","main.js","themes.js"],
+			"js": ["resources/jquery-3.1.0.min.js", "resources/jquery.snow.min.1.0.js","storageHandler.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js","theming/runTheme.js","options/oldOptionConverter.js" , "main.js","themes.js"],
 			"css": ["resources/customclasses.css"],
 			"run_at": "document_end"
 		},
