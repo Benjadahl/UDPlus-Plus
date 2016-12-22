@@ -2,8 +2,9 @@
 var average_string = "<b>Weighted Average (UD++ estimate)</b>";
 
 //Just to figure out what language we are printing in. If we're in Danish, we change average_string to a Danish one. Then we call the checkTableIsThere when we're ready to go.
-getStorage('lang', function(obj) {
+getStorage('options', function(object) {
 	if (!chrome.runtime.error) {
+		var obj = object.options;
 		if (obj.lang === "dansk") average_string = "<b>Vægtet gennemsnit (UD++ estimeret)</b>";
 		checkTableIsThere();
 	}

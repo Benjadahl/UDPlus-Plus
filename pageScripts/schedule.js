@@ -29,8 +29,9 @@ function loadScheduleSettings() {
 
 	//Get the homework setting
 	var homeworkCheckerInterval;
-	getStorage('homework', function (obj) {
+	getStorage('options', function (object) {
 		if (!chrome.runtime.error) {
+			var obj = object.options;
 			//If the schedule object exists and the homework setting is true, setup interval to mark
 			if (window.location.href.indexOf("skema")) {
 				if(obj.homework){

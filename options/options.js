@@ -119,7 +119,18 @@ getStorage("options", function (object) {
 	}
 });
 
+//Old options i dont know how to convert
+getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
+	if (!chrome.runtime.error) {
+		$('#homeworkWords').val(obj.homeworkWords);
+	}
+});
 
+getStorage({toHide: ""}, function (obj) {
+	if (!chrome.runtime.error) {
+		$('#lessonWords').val(obj.toHide);
+	}
+});
 
 
 

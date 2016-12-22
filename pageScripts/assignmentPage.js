@@ -72,13 +72,14 @@ function sortTasks(){
   }
 }
 
-getStorage('sortTaskBy', function (obj) {
+getStorage('options', function (object) {
   if (!chrome.runtime.error) {
-      if(typeof obj.sortTaskBy != "undefined"){
-        sortBy = obj.sortTaskBy;
-      }else{
-        sortBy = 3;
-      }
+		var obj = object.options;
+    if(typeof obj.sortTaskBy != "undefined"){
+      sortBy = obj.sortTaskBy;
+    }else{
+      sortBy = 3;
+    }
   }
 });
 

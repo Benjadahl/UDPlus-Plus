@@ -16,7 +16,7 @@ function loadSettings() {
 			
 			ops = obj.options
 
-			console.log(ops);
+			
 			
 			//Custom theme
 			if(typeof ops.customTheme !== "undefined"){
@@ -83,26 +83,6 @@ function loadSettings() {
 		
 	});
 
-	//Options i need help with converting
-	getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
-		if (!chrome.runtime.error) {
-			if(typeof obj.lang !== "undefined"){
-				console.log("Found old version of lang option. Converting...");
-				tempObj.lang = obj.lang;
-				delStorage("lang");
-			}
-		}
-	});
-
-	getStorage({toHide: ""}, function (obj) {
-		if (!chrome.runtime.error) {
-			if(typeof obj.lang !== "undefined"){
-				console.log("Found old version of lang option. Converting...");
-				tempObj.lang = obj.lang;
-				delStorage("lang");
-			}
-		}
-	});
 
 }
 

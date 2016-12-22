@@ -1,7 +1,7 @@
 //This is a temp file
 
 
-//Old settings loaders, will just delete variable
+//Old settings loaders, will just //delete variable
 
 //Temp object
 
@@ -12,7 +12,9 @@ getStorage("isOptionsObdated", function (obj){
 		if(!obj.isOptionsObdated){
 			
 			getStorage("options", function(obj){
-				tempObj = obj.options;
+				if(typeof obj.options !== "undefined"){
+					tempObj = obj.options;
+				}
 			});
 
 			getStorage('lang', function (obj) {
@@ -89,9 +91,20 @@ getStorage("isOptionsObdated", function (obj){
 				}
 			});
 
+			getStorage('hideSidebarCollapse', function(obj) {
+				if (!chrome.runtime.error) {
+					if(typeof obj.hideSidebarCollapse !== "undefined"){
+						console.log("Found old version of hideSidebarCollapse option. Converting...");
+						tempObj.hideSidebarCollapse = obj.hideSidebarCollapse;
+						delStorage("snowState");
+						//For some stupid javascript reason, these getStorage are run as a new thread. This means that i need to save the tempObj in here.
+						setStorage({"options" : tempObj});
+					}
+				}
+			});
 
 
-			setStorage({"options" : tempObj});
+			
 			setStorage({"isOptionsObdated" : true});
 		}
 	}
