@@ -56,8 +56,6 @@ function saveElement(objName, element, value){
 		saveVar[objName] = tempVar;
 		setStorage(saveVar);
 
-		console.log("Saved the value " + value + " to " + element + " in the object " + objName);
-		console.log(tempVar);
 		
 		
 	});
