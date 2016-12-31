@@ -3,9 +3,17 @@
 	THIS MAKES THE PLUGIN COMPATIBLE FOR FIREFOX
 */
 
-function getStorage(name, callback) {
+
+function getStorage(name, forceLocal, callback) {
+
+	if (arguments.length == 2) {
+		if (Object.prototype.toString.call(forceLocal) == "[object Function]") {
+			callback = forceLocal;
+			forceLocal = false;
+		}
+	}
 	//Check if chrome sync is enabled
-	if (navigator.userAgent.includes("Chrome")) {
+	if (navigator.userAgent.includes("Chrome") && !forceLocal) {
 		//Chrome sync is enabled
 		//Therefore use the API
 		chrome.storage.sync.get(name, callback);
@@ -16,12 +24,16 @@ function getStorage(name, callback) {
 	}
 }
 
-function setStorage(value) {
-	if (navigator.userAgent.includes("Chrome")) {
+function setStorage(value, forceLocal) {
+	if (arguments.length == 1) forceLocal = false;
+
+	console.log(forceLocal);
+	if (navigator.userAgent.includes("Chrome") && !forceLocal) {
 		//Chrome sync is enabled
 		//Therefore use the API
 		chrome.storage.sync.set(value);
 	} else {
+		console.log("Set is local");
 		//Chrome sync is disabled
 		//Use the local storage instead
 		chrome.storage.local.set(value);

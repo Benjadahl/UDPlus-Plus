@@ -3,7 +3,7 @@
 
 	"name": "UD++",
 	"description": "An extension that makes the experience of using uddata+ better",
-	"version": "1.6.1",
+	"version": "1.7.0",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"options_ui":{
 		"page": "options/options.html",
@@ -22,10 +22,12 @@
 	},
 	"permissions": [
 		"activeTab",
+		"http://admsys.stil.dk/",
+		"notifications",
 		"storage"
 	],
 	"background":{
-		"scripts":["storageHandler.js","background.js"]
+		"scripts":["storageHandler.js", "resources/jquery-3.1.0.min.js", "background.js"]
 	},
 	"content_scripts": [
 		{
@@ -77,7 +79,21 @@
 			],
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddata.dk/uddataplus-lukket/"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches":[
+				"*://www.uddata.dk/uddataplus-nede/"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
+			"run_at": "document_end"
 		}
 	],
-	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css"]
+	"web_accessible_resources": ["resources/UddataLogo.png", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css", "resources/icons/icon48.png"]
 }
