@@ -57,7 +57,7 @@ var PlusPlusList = {
     tableLeftSide:new PlusPlusObject(".GEVWOMLA0 table", applyCssRule, ["background"]),
     tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
     noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
-    noteBottom:new PlusPlusObject(".GNK2GVDDCGB", applyCssRule, ["background-color"]),
+    noteBottom:new PlusPlusObject(".GEVWOMLKGB", applyCssRule, ["background-color"]),
     filesHeader:new PlusPlusObject(".label-info, .badge-info", applyCssRule, ["background-color"]),
     lessonOpacity:new PlusPlusObject("svg rect", applyCssRule, ["fill-opacity"]),
     lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
@@ -80,7 +80,7 @@ var PlusPlusList = {
   plan:{},
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentSetting:new PlusPlusObject(".GI4UTTLBF", applyCssRule, ["background-color"])
+    assignmentSetting:new PlusPlusObject(".GDKSQ-NBF", applyCssRule, ["background-color"])
   },
   resources:{},
   grades:{}
