@@ -48,7 +48,7 @@ var PlusPlusList = {
   },
   start:{},
   schedule:{
-    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
+    scheduleTopAnnouncements: new PlusPlusObject(".fc-widget-header", applyThreeClassRule, ["background-color"]),
     tableTopActive:new PlusPlusObject(".GEVWOMLP- th.GEVWOMLG-", applyCssRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),

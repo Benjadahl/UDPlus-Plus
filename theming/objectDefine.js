@@ -10,7 +10,7 @@ class PlusPlusObject {
     this.value = value;
     this.flags = flags;
   }
-  apply(){
+  apply() {
     this.applyFunction(this.flags);
   }
 }
@@ -21,6 +21,23 @@ function applyCssRule(flags) {
   if(flags.important) cssEnd = "!important";
   for(i = 0; i < this.properties.length; i++){
     $("head").append("<style class='UDPPCustom'>" + this.selector + "{" + this.properties[i] + ":" + this.value + cssEnd + ";}</style>");
+  }
+}
+
+function applyThreeClassRule(flags) {
+  if(typeof flags.important === "undefined") flags.important = true;
+  var cssEnd = "";
+  if(flags.important) cssEnd = "!important";
+	var ActualSelector = this.selector;
+	$(".fc-widget-header").each(function() {
+		if ($(this).attr("class").split(" ").length === 3) {
+			ActualSelector = $(this).attr("class");
+			ActualSelector = "." + ActualSelector.replace(/ /g, " .");
+		}
+	});
+
+  for(i = 0; i < this.properties.length; i++){
+    $("head").append("<style class='UDPPCustom'>" + ActualSelector + "{" + this.properties[i] + ":" + this.value + cssEnd + ";}</style>");
   }
 }
 
@@ -40,10 +57,10 @@ function applyImgRule(flags){
 	if(typeof flags.important === "undefined") flags.important = true;
   var cssEnd = "";
   if(flags.important) cssEnd = "!important";
-	
+
   //This argument should be given as an array
   elements = flags.elements;
-  
+
   //Check if there are elements that should be transparent
   if(typeof elements !== "undefined"){
     for (var i = 0; i < elements.length; i++) {
@@ -61,5 +78,5 @@ function applyImgRule(flags){
 
 	//Apply the actual image
 	$("head").append("<style class='UDPPCustom'>" + this.selector + "{" + this.properties[0] + ": url(" + this.value + ")" + cssEnd + ";}</style>");
-  
+
 }
