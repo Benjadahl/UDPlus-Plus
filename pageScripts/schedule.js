@@ -119,6 +119,9 @@ function cacheSchedule() {
 		//Convert the scheduleHTML object into a string, and save it
 		scheduleHTML = scheduleHTML[0].outerHTML;
 		setStorage({"cachedSchedule": scheduleHTML }, true);
+		//Save the date the schedule was cached.
+		console.log(isoDate);
+		setStorage({"cachedScheduleDate": isoDate }, true);
 	}
 }
 
