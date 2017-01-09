@@ -84,12 +84,11 @@ function markHomework(){
 //We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
 function cacheSchedule() {
 	//Generates day in ISO format. This is the format they use in their URLs
-	var today = new Date();
-	var isoDate = today.getDate() + "-" + (today.getMonth()+1) + "-" + (today.getYear()+1900);
-	var isoDate = (today.getYear()+1900) + "-" + (today.getMonth()+1) + "-" + today.getDate();
+	var isoDate = new Date().toISOString().substring(0, 10);
 	//Creates a regular expression that matches an URL that ends with either the ISO date, id_skema#, or id_skema.
 	var checkDate = new RegExp("(" + isoDate + "|id_skema#|id_skema)" + '$');
 	if (window.location.href.match(checkDate)) {
+		console.log("Caching schedule");
 		//Gets the schedule object
 		var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
 
