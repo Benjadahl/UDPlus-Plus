@@ -12,10 +12,10 @@ window.onload = function() {
 						$("body").append('<script src="https://use.fontawesome.com/5b06aadc00.js"></script>');
 						if (lang == "dansk") {
 							$("body").append("<center><h2>UDDATA+ er nede, men UD++ har cached dit skema for dig. (Hentet: " + date + ")</h2></center>");
-							$("body").append("<center>Hover over <p style='font-family: FontAwesome; display: inline;'></p> ikonet for at vise noten.</center>");
+							$("body").append("<center>Hover over <p style='font-family: FontAwesome; display: inline;'></p> ikonet for at vise noter på lektionerne.</center>");
 						} else {
 							$("body").append("<center><h2>UDDATA+ is down, but UD++ has cached your schedule for you. (Retrieved: " + date + ")</h2></center>");
-							$("body").append("<center>Hover over the <p style='font-family: FontAwesome; display: inline;'></p> icon to show the note.</center>");
+							$("body").append("<center>Hover over the <p style='font-family: FontAwesome; display: inline;'></p> icon to show the notes on the lessons.</center>");
 						}
 						$("body").append("<center>" + schedule + "</center>");
 
