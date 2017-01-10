@@ -12,6 +12,14 @@ chrome.runtime.onInstalled.addListener(function(details){
 	}
 });
 
+function openPage() {
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('dashboard/dashboard.html')
+  });
+}
+
+chrome.browserAction.onClicked.addListener(openPage);
+
 //A regular expression which parses a title from the RSS feed, and extracts the good info.
 var downRegex = /EASY-A lukker ned (.*) den (\d\d)\/(\d\d) kl\. ((\d\d:\d\d) - (\d\d:\d\d)|(\d\d)-(\d\d))/;
 
@@ -24,6 +32,11 @@ var weekDays = {
 	"lørdag" : "Saturday",
 	"søndag" : "Sunday"
 };
+
+$(body).append("test");
+document.onload = function() {
+	$("body").append("Ayy lmao");
+}
 
 //This function will check EASY-A for downtime
 function checkEasyADowntime() {

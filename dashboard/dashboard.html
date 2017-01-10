@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>UD++ Dashboard</title>
+	</head>
+	<body style="overflow: hidden;">
+		<h1 class="text-center">UD++ Dashboard</h1>
+
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+
+			<div id="scheduleCol" class="col-md-6">
+			</div>
+
+			<div class="col-md-2">
+				<h2>To-do</h2>
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-danger"><input type="checkbox">En lektie til i dag du ikke har lavet.</li>
+					<li class="list-group-item list-group-item-warning"><input type="checkbox">En lektie til i morgen du ikke har lavet</li>
+					<li class="list-group-item list-group-item-success"><input type="checkbox" checked>En lektie til i morgen du har lavet</li>
+					<li class="list-group-item list-group-item-warning"><input type="checkbox">En lektie til i morgen du ikke har lavet</li>
+					<li class="list-group-item list-group-item-success"><input type="checkbox" checked>En lektie du har lavet</li>
+					<li class="list-group-item"><input type="checkbox">En lektie til langt ud i fremtiden.</li>
+				</ul>
+			</div>
+
+		</div>
+
+
+		<div id="horribleHack" style="display: none;">
+			Kill me.
+		</div>
+
+
+
+
+
+		<!-- A whole lot of references and scripts we are using. -->
+		<link rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<script src="../resources/jquery-3.1.0.min.js"></script>
+		<script src="../resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../UD++Functions.js"></script>
+		<script src="../storageHandler.js"></script>
+		<script src="../themes.js"></script>
+		<script src="../theming/objectDefine.js"></script>
+		<script src="../theming/objects.js"></script>
+		<script src="../theming/runTheme.js"></script>
+		<script src="../main.js"></script>
+		<script src="dashboard.js"></script>
+	</body>
+</html>
