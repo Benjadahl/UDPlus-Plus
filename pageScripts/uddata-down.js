@@ -26,7 +26,7 @@ window.onload = function() {
 								$("body").append("<center>Hold musen over <p style='font-family: FontAwesome; display: inline;'></p> ikonet for at vise noter på lektionerne.</center>");
 							} else {
 								$("body").append("<center><h2>UDDATA+ is down, but UD++ has cached your schedule for you. (Retrieved: " + date + ")</h2></center>");
-								$("body").append("<center>Hover the cursor above the <p style='font-family: FontAwesome; display: inline;'></p> icon to show the notes on the lessons.</center>");
+								$("body").append("<center>Hover your cursor above the <p style='font-family: FontAwesome; display: inline;'></p> icon to show the notes on the lessons.</center>");
 							}
 							$("body").append("<center>" + schedule + "</center>");
 						}
