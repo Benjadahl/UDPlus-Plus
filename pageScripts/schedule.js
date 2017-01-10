@@ -80,6 +80,15 @@ function markHomework(){
 	});
 }
 
+//This is just a copy of checkTableIsThere from grades.js. Read the comments by that if you're interested in how this works.
+function checkScheduleIsLoaded() {
+	//If no schedule blocks are there, we just assume the schedule isn't loaded.
+	if ($(".skemaBrikGruppe > g").length > 0) {
+		cacheSchedule();
+	} else {
+		window.setTimeout(checkScheduleIsLoaded, 100);
+	}
+}
 
 //We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
 function cacheSchedule() {
@@ -125,6 +134,6 @@ function cacheSchedule() {
 	}
 }
 
-window.setTimeout(cacheSchedule, 5000);
+checkScheduleIsLoaded();
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
