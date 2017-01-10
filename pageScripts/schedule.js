@@ -68,16 +68,24 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 //Function for marking the homework
 function markHomework(){
 	$(".homeworkLesson").removeClass("homeworkLesson");
-	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
+	var homeworkTodoList = [];
+	$('.skemaBrikGruppe>g').each(function(index) {
+		var homeworkText = $(this).find("g>text>title");
 		var toMark = false;
 		var arrayLength = homeworkList.length;
 		for (var i=0; i < arrayLength; i++) {
-			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
+			if ($(homeworkText).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
+			$(this).find('rect').each(function () { $(this).addClass("homeworkLesson"); });
+			var subject = $(this).find("g > text")[1].innerHTML;
+			var time = $(this).find("g > text")[0].innerHTML;
+			var homeworkText = $(this).find("g > text")[5].innerHTML;
+			var day = $(this).parent().parent().attr("transform").match(/-?[\d\.]+/g);
+			homeworkTodoList.push([subject, time, homeworkText, day]);
 		}
 	});
+	console.log(homeworkTodoList);
 }
 
 //This is just a copy of checkTableIsThere from grades.js. Read the comments by that if you're interested in how this works.
