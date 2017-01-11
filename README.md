@@ -8,6 +8,6 @@ UD++ is a Chrome extension adding a suite of very needed features to [Uddata+](h
 * Calculate your weighted grade average
 * Automatically sort assignments on the assignments page
 * Hide lessons by keywords (If you're not the sort of person whose interested in studying cafés)
-* Notify the user when EASY-A is about to go down, taking down Udata with it
+* Notify the user when EASY-A is about to go down, taking down Uddata with it
 
 If you have any suggestions, or bugs to report, don't be afraid to get in touch. You can find our GitHub page rather easily from here I think.
