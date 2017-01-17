@@ -136,3 +136,5 @@ getStorage('message', function (obj) {
 			$(".brand").append('<small class="smaller-50">' + obj.message + '</small>');
 	}
 });
+
+$("#id_ressourcer > span").html("Resources");
