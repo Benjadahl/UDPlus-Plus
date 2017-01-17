@@ -137,4 +137,4 @@ getStorage('message', function (obj) {
 	}
 });
 
-$("#id_ressourcer > span").html("Resources");
+$("#id_ressourcer > span:contains('Ressources')").html("Resources");
