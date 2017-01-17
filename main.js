@@ -10,66 +10,79 @@ var curtheme = "Default";
 var curPage = "start";
 //We need to use this function to load all the settings
 function loadSettings() {
-	//Load custom theme
-	getStorage('customTheme', function (obj) {
-		if (!chrome.runtime.error) {
-			customTheme = obj.customTheme;
-		}
-	});
+	getStorage("options", function(obj){
+		if(typeof obj.options !== "undefined"){
+			//New options
+			
+			ops = obj.options
 
-	getStorage('snowState', function(obj) {
-		if (!chrome.runtime.error) {
-			if (obj.snowState) {
-				$(document).ready( function(){
-					if (new Date().getMonth() === 11){
-						$(".xmasHat").remove();
-						if(obj.snowState[0]){$.fn.snow();}
-						if(obj.snowState[1]){
-							//URL for xmas-hat https://pixabay.com/p-1087651/?no_redirect
+			
+			
+			//Custom theme
+			if(typeof ops.customTheme !== "undefined"){
+				customTheme = ops.customTheme;
+			}
 
-							//The dropdown-toggle is the div that includes the dropdown menu and profile picture
-							$(".dropdown-toggle").eq(0).append("<img width=39px class='xmasHat' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
-							//The position needs to be absolute, so that other elements do not get moved around by it
-							$(".xmasHat").css("position", "absolute");
-							//Adjust positioning of hat
-							$(".xmasHat").css("top", "-11px");
+			//Xmas settings
+			if(typeof ops.snowState !== "undefined"){
+				if (ops.snowState) {
+					$(document).ready( function(){
+						if (new Date().getMonth() === 11){
+							$(".xmasHat").remove();
+							if(ops.snowState[0]){$.fn.snow();}
+							if(ops.snowState[1]){
+								//URL for xmas-hat https://pixabay.com/p-1087651/?no_redirect
 
-							//The hat will have a different position for each language
-							getStorage('lang', function(obj) {
-								//Variable for storing the right attribute for the hat
-								var xHatRight = "100px";
+								//The dropdown-toggle is the div that includes the dropdown menu and profile picture
+								$(".dropdown-toggle").eq(0).append("<img width=39px class='xmasHat' src=" + chrome.extension.getURL("resources/xmasHat.png") + ">");
+								//The position needs to be absolute, so that other elements do not get moved around by it
+								$(".xmasHat").css("position", "absolute");
+								//Adjust positioning of hat
+								$(".xmasHat").css("top", "-11px");
 
-								if (!chrome.runtime.error) {
-									//If the language is danish add slightly more to the margin
-									if (obj.lang === "dansk") xHatRight = "104px";
-								}
+								//The hat will have a different position for each language
+								getStorage('lang', function(ops) {
+									//Variable for storing the right attribute for the hat
+									var xHatRight = "100px";
 
-								//Apply the margin
-								$(".xmasHat").css("right", xHatRight);
-							});
+									if (!chrome.runtime.error) {
+										//If the language is danish add slightly more to the margin
+										if (ops.lang === "dansk") xHatRight = "104px";
+									}
+
+									//Apply the margin
+									$(".xmasHat").css("right", xHatRight);
+								});
+							}
 						}
-					}
-				});
+					});
+				}
 			}
+
+
+			//Sidebar Hiding
+			if(typeof ops.hideSidebarCollapse !== "undefined"){
+				if(ops.hideSidebarCollapse){
+					$("#sidebar-collapse").hide();
+				}else{
+					$("#sidebar-collapse").show();
+				}
+			}
+
+
+			//Current theme
+			if(typeof ops.theme !== "undefined"){
+				curtheme = ops.theme;
+				console.log("loaded curtheme");
+				runTheme(curtheme, curPage);
+			}
+			
 		}
+		
+		
+		
 	});
 
-	$("#sidebar-collapse").show();
-	getStorage('hideSidebarCollapse', function (obj) {
-		if (!chrome.runtime.error) {
-			if(obj.hideSidebarCollapse){
-				$("#sidebar-collapse").hide();
-			}
-		}
-	});
-
-	getStorage('theme', function (obj) {
-		if (!chrome.runtime.error) {
-			curtheme = obj.theme;
-			console.log("loaded curtheme");
-			runTheme(curtheme, curPage);
-		}
-	});
 
 }
 
@@ -85,9 +98,9 @@ setInterval(allowSelect, 250);
 
 //Save the language selected on Uddata+
 if($("#language > a").html() == "English"){
-	setStorage({"lang": "dansk"});
+	saveElement("options", "lang", "dansk");
 }else{
-	setStorage({"lang": "engelsk"});
+	saveElement("options", "lang", "engelsk")
 }
 
 
