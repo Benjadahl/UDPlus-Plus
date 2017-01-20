@@ -68,7 +68,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 //Function for marking the homework
 function markHomework(){
 	$(".homeworkLesson").removeClass("homeworkLesson");
-	var homeworkTodoList = [];
 	$('.skemaBrikGruppe>g').each(function(index) {
 		var homeworkText = $(this).find("g>text>title");
 		var toMark = false;
@@ -78,14 +77,8 @@ function markHomework(){
 		}
 		if (toMark) {
 			$(this).find('rect').each(function () { $(this).addClass("homeworkLesson"); });
-			var subject = $(this).find("g > text")[1].innerHTML;
-			var time = $(this).find("g > text")[0].innerHTML;
-			var homeworkText = $(this).find("g > text")[5].innerHTML;
-			var day = $(this).parent().parent().attr("transform").match(/-?[\d\.]+/g);
-			homeworkTodoList.push([subject, time, homeworkText, day]);
 		}
 	});
-	console.log(homeworkTodoList);
 }
 
 //This is just a copy of checkTableIsThere from grades.js. Read the comments by that if you're interested in how this works.

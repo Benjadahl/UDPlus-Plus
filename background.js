@@ -33,11 +33,6 @@ var weekDays = {
 	"søndag" : "Sunday"
 };
 
-$(body).append("test");
-document.onload = function() {
-	$("body").append("Ayy lmao");
-}
-
 //This function will check EASY-A for downtime
 function checkEasyADowntime() {
 	var currentDate = new Date();
