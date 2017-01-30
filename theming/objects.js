@@ -75,7 +75,7 @@ var PlusPlusList = {
     commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
     activeMessage:new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
     messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"]),
-    commentText:new PlusPlusObject(".APEQTY-r-f", applyCssRule, ["color"])
+    commentText:new PlusPlusObject(".PJHMN3D-v-f", applyCssRule, ["color"])
   },
   plan:{},
   assignments:{
