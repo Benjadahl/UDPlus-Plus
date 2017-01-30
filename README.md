@@ -1,4 +1,6 @@
 
+[![Stable release chrome](https://img.shields.io/badge/Chrome-1.7.5-brightgreen.svg)](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin) [![Outdated release firefox](https://img.shields.io/badge/Firefox-1.0-red.svg)](https://addons.mozilla.org/da/firefox/addon/ud/?src=cb-dl-created)
+
 # UD++
 ![UD++ logo](./resources/icons/icon48.png)
 
