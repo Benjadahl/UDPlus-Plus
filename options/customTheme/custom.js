@@ -118,9 +118,6 @@ $("#btnSave").click(function (){
         //Saving the whole customtheme object again
         setStorage({"customTheme": obj});
 
-        //Notify user that they need to activate the theme
-        alert("");
-
         //Reloading the page to load everything again
         location.reload();
     }else{
