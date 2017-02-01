@@ -156,7 +156,7 @@ $("#btnExport").click(function() {
 
 		console.log(obj);
 		console.log(JSON.stringify(obj));
-		$("#textIO").val(JSON.stringify(obj));
+		$("#textIO").val(JSON.stringify(obj[name]));
 
 	}else{
 		$("#error").show();
@@ -168,19 +168,7 @@ $("#btnExport").click(function() {
 $("#btnImport").click(function() {
 
 	try {
-		var obj = JSON.parse($("#textIO").val()); // this is how you parse a string into JSON
-
-		var firstProp;
-		for(var key in obj) {
-			if(obj.hasOwnProperty(key)) {
-				firstProp = key;
-				break;
-			}
-		}
-
-		console.log(obj);
-		var curTheme = firstProp;
-		console.log("Importing " + curTheme);
+		var importTheme = JSON.parse($("#textIO").val()); // this is how you parse a string into JSON
 
 		//Then cleans all the textboxes
 		for(var T in customTemplate){
@@ -190,15 +178,15 @@ $("#btnImport").click(function() {
 
 		//And then it fills them in with the colors from the current theme
 
-		if(typeof obj[curTheme] != "undefined"){
+		if(typeof importTheme != "undefined"){
 			for(var T in themeConvert){
-				$("#" + themeConvert[T]).val(obj[curTheme][themeConvert[T]]);
-				$("#" + themeConvert[T]).css("background-color", obj[curTheme][themeConvert[T]]);
+				$("#" + themeConvert[T]).val(importTheme[themeConvert[T]]);
+				$("#" + themeConvert[T]).css("background-color", importTheme[themeConvert[T]]);
 			}
 		}
 
 		//And it sets the button textbox to the current theme name for easy saving and deleting
-		$("#saveName").val(curTheme);
+		//$("#saveName").val(curTheme);
 
 
 
