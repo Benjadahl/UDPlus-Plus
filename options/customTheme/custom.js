@@ -129,39 +129,33 @@ $("#btnSave").click(function (){
 
 $("#btnExport").click(function() {
 
-	if(typeof themes[$("#saveName").val()] == "undefined" && $("#saveName").val() != ""){
-		//Making new var for themes so you dont overwrite evertime you change something
-		console.log("Clicked");
-		var themeObj = {};
+	//Making new var for themes so you dont overwrite evertime you change something
+	console.log("Clicked");
+	var themeObj = {};
 
-		//Loading the theme name
-		var name = $("#saveName").val();
+	//Loading the theme name
+	var name = $("#saveName").val();
 
-		//Adding the different colors to the theme object
-		for(var T in customTemplate){
-			if($("#" + T).val() != ""){
-				themeObj[T] = $("#" + T).val();
-				console.log("#" + T + "   " + $("#" + T).val())
-			}else{
-				delete themeObj[T];
-			}
-
+	//Adding the different colors to the theme object
+	for(var T in customTemplate){
+		if($("#" + T).val() != ""){
+			themeObj[T] = $("#" + T).val();
+			console.log("#" + T + "   " + $("#" + T).val())
+		}else{
+			delete themeObj[T];
 		}
 
-		//Copying the custom themes object for editing
-		var obj = customTheme;
-
-		//Adds or changes the new custom theme
-		obj[name] = themeObj;
-
-		console.log(obj);
-		console.log(JSON.stringify(obj));
-		$("#textIO").val(JSON.stringify(obj[name]));
-
-	}else{
-		$("#error").show();
-		$("#errorNoTheme").hide();
 	}
+
+	//Copying the custom themes object for editing
+	var obj = customTheme;
+
+	//Adds or changes the new custom theme
+	obj[name] = themeObj;
+
+	console.log(obj);
+	console.log(JSON.stringify(obj));
+	$("#textIO").val(JSON.stringify(obj[name]));
 
 });
 
