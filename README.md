@@ -1,5 +1,8 @@
 [![Get it on the Chrome store](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png)](https://chrome.google.com/webstore/detail/ud%2B%2B/pmlnbmnelhhofakfihcfjiemklhncdin)
 
+[![Get it for firefox](https://www.mozilla.org/media/img/styleguide/identity/firefox/guidelines-logo.7ea045a4e288.png)](link)
+
+
 UD++ is a Chrome extension adding a suite of very needed features to [Uddata+](https://www.uddataplus.dk). The extension is under heavy development, and currently we have the following available features:
 
 * Custom themes changing the look of the website
