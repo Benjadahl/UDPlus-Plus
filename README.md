@@ -1,5 +1,4 @@
 
-[![Stable release chrome](https://img.shields.io/badge/Chrome-1.8-brightgreen.svg)](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin) [![Stable release firefox](https://img.shields.io/badge/Firefox-1.8-brightgreen.svg)](https://github.com/Benjadahl/UDPlus-Plus/raw/gh-pages/releases/UDPlus-Plus-1.8.0-Firefox.xpi)
 
 # UD++
 ![UD++ logo](./resources/icons/icon48.png)
@@ -7,6 +6,13 @@
 A Chrome extension for the web platform [Uddata+](https://www.uddataplus.dk).
 
 It aims to enhance the experience of using the platform. By enabling community requested features.
+
+### Download
+
+Link to the chrome plugin page for the Chrome Webstore [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
+
+Link to download firefox addon file [here](https://github.com/Benjadahl/UDPlus-Plus/raw/gh-pages/releases/UDPlus-Plus-1.8.0-Firefox.xpi)
+
 
 ### Features
  - Colour theming
@@ -25,8 +31,3 @@ An installation guide for the plugin can be found at the [Github Wiki Page](http
 ### Roadmap
 A Roadmap can be found at the [Github Wiki Page](https://github.com/Benjadahl/UDPlus-Plus/wiki/Roadmap)
 
-### Chrome Webstore
-
-Link to the chrome plugin page for the Chrome Webstore [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
-
-Link to download firefox addon file [here](https://github.com/Benjadahl/UDPlus-Plus/raw/gh-pages/releases/UDPlus-Plus-1.8.0-Firefox.xpi)
