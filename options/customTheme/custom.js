@@ -161,32 +161,45 @@ $("#btnExport").click(function() {
 
 $("#btnImport").click(function() {
 
-	try {
-		var importTheme = JSON.parse($("#textIO").val()); // this is how you parse a string into JSON
+	var themeString = $("#textIO").val();
 
-		//Then cleans all the textboxes
-		for(var T in customTemplate){
-			$("#" + T).val("");
-			$("#" + T).css("background-color", "#FFFFFF");
-		}
+	console.log(themeString);
 
-		//And then it fills them in with the colors from the current theme
+	if (!themeString.includes("</style>")) {
 
-		if(typeof importTheme != "undefined"){
-			for(var T in themeConvert){
-				$("#" + themeConvert[T]).val(importTheme[themeConvert[T]]);
-				$("#" + themeConvert[T]).css("background-color", importTheme[themeConvert[T]]);
+
+
+		try {
+			var importTheme = JSON.parse(themeString); // this is how you parse a string into JSON
+			console.log(importTheme);
+
+			//Then cleans all the textboxes
+			for(var T in customTemplate){
+				$("#" + T).val("");
+				$("#" + T).css("background-color", "#FFFFFF");
 			}
+
+			//And then it fills them in with the colors from the current theme
+
+			if(typeof importTheme != "undefined"){
+				for(var T in themeConvert){
+					$("#" + themeConvert[T]).val(importTheme[themeConvert[T]]);
+					$("#" + themeConvert[T]).css("background-color", importTheme[themeConvert[T]]);
+				}
+			}
+
+			//And it sets the button textbox to the current theme name for easy saving and deleting
+			//$("#saveName").val(curTheme);
+
+
+
+
+		} catch (ex) {
+			console.error(ex);
 		}
 
-		//And it sets the button textbox to the current theme name for easy saving and deleting
-		//$("#saveName").val(curTheme);
-
-
-
-
-	} catch (ex) {
-		console.error(ex);
+	} else {
+		$("#textIO").val("This theme is actually someone trying to do some sketchy hack-thing. Sorry, you can't import this.");
 	}
 
 });
