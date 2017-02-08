@@ -142,19 +142,21 @@ $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
 
 var homeworkArray = [];
 
+//Wait for the page to load
 setTimeout(function() {
 	let subject = "";
+	//Loop through all the elements on the schedule bricks
   $('.skemaBrikGruppe>g>g>text').each(function(index) {
 		if($(this).css("fontWeight") === "bold" && $(this).css("fontSize") === "13px"){
-			console.log($(this).text());
+			//Save the subject if it is found using the css details
 			subject = $(this).text();
 		}
 		if($(this).attr("y") == 32 && $(this).css("fontSize") === "11px" && $(this).css("fill") !== "rgb(67, 142, 185)"){
 			if ($(this).find("title").text() !== "") {
+				//Search for note using the css details, if one is found push it with the latest subject
       	homeworkArray.push({subject: subject, note: $(this).find("title").text()});
 			}
 		}
-});
-	console.log(homeworkArray);
+	});
 	setStorage({"homework" : homeworkArray});
 }, 5000);
