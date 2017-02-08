@@ -139,3 +139,17 @@ function cacheSchedule() {
 checkScheduleIsLoaded();
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");
+
+var homeworkArray = [];
+
+setTimeout(function() {
+  $('.skemaBrikGruppe>g>g>text').each(function(index) {
+		if($(this).attr("y") == 32 && $(this).css("fontSize") === "11px" && $(this).css("fill") !== "rgb(67, 142, 185)"){
+			if ($(this).find("title").text() !== "") {
+      	homeworkArray.push($(this).find("title").text());
+			}
+		}
+});
+	console.log(homeworkArray);
+	setStorage({"homework" : homeworkArray});
+}, 5000);
