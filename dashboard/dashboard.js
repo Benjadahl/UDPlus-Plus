@@ -49,23 +49,35 @@ function getXTranspose() {
 
 function indexHomework(scheduleObject) {
 	getStorage({homeworkWords: "lektie,ferbered"}, function(obj) {
+		let showAllNotes = true;
+
 		var homeworkTodoList = [];
-		var homeworkList = stringToList(obj.homeworkWords);
-		scheduleObject.find('.skemaBrikGruppe>g').each(function(index) {
-			var homeworkText = $(this).find("g>text>title");
-			var toMark = false;
-			var arrayLength = homeworkList.length;
-			for (var i=0; i < arrayLength; i++) {
-				if ($(homeworkText).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
-			}
-			if (toMark) {
-				var subject = $(this).find("g > text")[1].innerHTML;
-				var time = $(this).find("g > text")[0].innerHTML;
-				var homeworkText = $(this).find("g > text")[5].innerHTML;
-				//The XTranspose is how much every day is moved to the right. If we divide the x position with xTranspose, we get the weekday.
-				var xTranspose = getXTranspose();
-				var day = $(this).parent().parent().attr("transform").match(/-?[\d\.]+/g)[0]/xTranspose;
-				homeworkTodoList.push([subject, time, homeworkText, day]);
+		var homeworkKeywords = stringToList(obj.homeworkWords);
+
+		scheduleObject.find('.skemaBrikGruppe > g > g > text').each(function(index) {
+			if($(this).attr("y") == 32 && $(this).css("fontSize") === "11px" && $(this).css("fill") !== "rgb(67, 142, 185)"){
+				let scheduleText = $(this).find("title").text();
+				let containsHomework = false;
+
+				if(!showAllNotes){
+					for (var i = 0; i < homeworkKeywords.length; i++) {
+						if(scheduleText.toUpperCase().includes(homeworkKeywords[i].toUpperCase())){
+							containsHomework = true;
+						}
+					}
+				}
+
+				if(scheduleText !== "" && (containsHomework || showAllNotes)){
+					let brick = $(this).parent().parent();
+
+					let subject = $(brick).find(" g > text")[1].innerHTML;
+					let time = $(brick).find("g > text")[0].innerHTML;
+					//The XTranspose is how much every day is moved to the right. If we divide the x position with xTranspose, we get the weekday.
+					let xTranspose = getXTranspose();
+					let day = $(brick).parent().parent().attr("transform").match(/-?[\d\.]+/g)[0]/xTranspose;
+
+					homeworkTodoList.push([subject, time, scheduleText, day]);
+				}
 			}
 		});
 		setStorage({"homeworkTodoList": homeworkTodoList});
