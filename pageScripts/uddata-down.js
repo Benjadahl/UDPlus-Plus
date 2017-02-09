@@ -48,4 +48,5 @@ window.onload = function() {
 	});
 	var curPage = "schedule";
 	runTheme();
+	$("body").append("<style>text { font-size: 14px; }</style>");
 }

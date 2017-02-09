@@ -130,6 +130,8 @@ function cacheSchedule() {
 		scheduleHTML = scheduleHTML[0].outerHTML;
 		setStorage({"cachedSchedule": scheduleHTML }, true);
 		//Save the date the schedule was cached.
+		var date = new Date();
+		isoDate = isoDate + " " + (date.getHours()<10?'0':'') + date.getHours() + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes();
 		console.log(isoDate);
 		setStorage({"cachedScheduleDate": isoDate }, true);
 	}
