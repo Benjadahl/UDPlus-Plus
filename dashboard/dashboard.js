@@ -43,6 +43,10 @@ function updateHomeworkList() {
 	})
 }
 
+function getXTranspose() {
+	return $("svg > .dagMedBrikker:nth-child(3)").attr("transform").match(/-?[\d\.]+/g)[0];
+}
+
 function indexHomework(scheduleObject) {
 	getStorage({homeworkWords: "lektie,ferbered"}, function(obj) {
 		var homeworkTodoList = [];
@@ -58,8 +62,9 @@ function indexHomework(scheduleObject) {
 				var subject = $(this).find("g > text")[1].innerHTML;
 				var time = $(this).find("g > text")[0].innerHTML;
 				var homeworkText = $(this).find("g > text")[5].innerHTML;
-				//So the x position of a class on Monday is 0. Tuesday is 150. Wednesday is 300. So if we find the transform object, and then find the x position with a regex, and divide it by 150, we get the weekday! (With Monday being 0, Tuesday being 1, etc.)
-				var day = $(this).parent().parent().attr("transform").match(/-?[\d\.]+/g)[0]/150;
+				//The XTranspose is how much every day is moved to the right. If we divide the x position with xTranspose, we get the weekday.
+				var xTranspose = getXTranspose();
+				var day = $(this).parent().parent().attr("transform").match(/-?[\d\.]+/g)[0]/xTranspose;
 				homeworkTodoList.push([subject, time, homeworkText, day]);
 			}
 		});
