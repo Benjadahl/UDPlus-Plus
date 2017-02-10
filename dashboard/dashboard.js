@@ -34,10 +34,25 @@ window.onload = function() {
 function updateHomeworkList() {
 	getStorage('homeworkTodoList', function(obj) {
 		if (!chrome.runtime.error) {
-			var homeworkTodoList = obj.homeworkTodoList;
-			for (var i=0; i<homeworkTodoList.length; i++) {
-				$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + "</b> den " + homeworkTodoList[i].day +  "<br />" + homeworkTodoList[i].scheduleText + "</li>");
-			}
+			let homeworkTodoList = obj.homeworkTodoList;
+			let days = [
+				"Monday", "Tuesday", "Wednesday", "Thursday",
+				"Friday", "Saturday", "Sunday"
+			];
+			getStorage('lang', function (obj) {
+				if (!chrome.runtime.error) {
+					console.log(obj.lang);
+					if(obj.lang === "dansk"){
+						days = [
+							"mandag", "tirsdag", "onsdag", "torsdag",
+							"fredag", "lørdag", "søndag"
+						];
+					}
+				}
+				for (var i=0; i<homeworkTodoList.length; i++) {
+					$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + " - " + days[homeworkTodoList[i].day] +  "</b><br />" + homeworkTodoList[i].scheduleText + "</li>");
+				}
+			});
 		}
 	})
 }
