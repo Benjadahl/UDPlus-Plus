@@ -36,8 +36,7 @@ function updateHomeworkList() {
 		if (!chrome.runtime.error) {
 			var homeworkTodoList = obj.homeworkTodoList;
 			for (var i=0; i<homeworkTodoList.length; i++) {
-				console.log(homeworkTodoList[i][0]);
-				$("#todoList").append("<li class=\"list-group-item\">" + homeworkTodoList[i][0] + " den " + homeworkTodoList[i][3] +  "</li>");
+				$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + "</b> den " + homeworkTodoList[i].day +  " " + homeworkTodoList[i].scheduleText + "</li>");
 			}
 		}
 	})
@@ -76,7 +75,7 @@ function indexHomework(scheduleObject) {
 					let xTranspose = getXTranspose();
 					let day = $(brick).parent().parent().attr("transform").match(/-?[\d\.]+/g)[0]/xTranspose;
 
-					homeworkTodoList.push([subject, time, scheduleText, day]);
+					homeworkTodoList.push({subject: subject, time: time, scheduleText: scheduleText, day: day});
 				}
 			}
 		});
