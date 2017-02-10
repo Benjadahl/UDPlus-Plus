@@ -71,7 +71,8 @@ function indexHomework(scheduleObject, showAllNotes) {
 
 		scheduleObject.find('.skemaBrikGruppe > g > g > text').each(function(index) {
 			if($(this).attr("y") == 32 && $(this).css("fontSize") === "11px" && $(this).css("fill") !== "rgb(67, 142, 185)"){
-				let scheduleText = $(this).find("title").text();
+				//Regex preservers the line breaks
+				let scheduleText = $(this).find("title").text().replace(/\n/g, "<br/>");;
 				let containsHomework = false;
 
 				if(!showAllNotes){
