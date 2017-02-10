@@ -8,7 +8,7 @@ window.onload = function() {
 					var lang = obj.lang;
 					getStorage("cachedScheduleDate", true, function(obj) {
 						var date = obj.cachedScheduleDate;
-						indexHomework($(schedule));
+						indexHomework($(schedule), true);
 						$("#scheduleCol").html(schedule);
 						updateHomeworkList();
 
@@ -46,9 +46,8 @@ function getXTranspose() {
 	return $("svg > .dagMedBrikker:nth-child(3)").attr("transform").match(/-?[\d\.]+/g)[0];
 }
 
-function indexHomework(scheduleObject) {
+function indexHomework(scheduleObject, showAllNotes) {
 	getStorage({homeworkWords: "lektie,ferbered"}, function(obj) {
-		let showAllNotes = true;
 
 		var homeworkTodoList = [];
 		var homeworkKeywords = stringToList(obj.homeworkWords);
