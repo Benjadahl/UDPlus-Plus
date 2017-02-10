@@ -47,7 +47,7 @@ function getXTranspose() {
 }
 
 function indexHomework(scheduleObject, showAllNotes) {
-	getStorage({homeworkWords: "lektie,ferbered"}, function(obj) {
+	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 
 		var homeworkTodoList = [];
 		var homeworkKeywords = stringToList(obj.homeworkWords);
