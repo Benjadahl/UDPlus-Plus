@@ -36,7 +36,7 @@ function updateHomeworkList() {
 		if (!chrome.runtime.error) {
 			var homeworkTodoList = obj.homeworkTodoList;
 			for (var i=0; i<homeworkTodoList.length; i++) {
-				$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + "</b> den " + homeworkTodoList[i].day +  " " + homeworkTodoList[i].scheduleText + "</li>");
+				$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + "</b> den " + homeworkTodoList[i].day +  "<br />" + homeworkTodoList[i].scheduleText + "</li>");
 			}
 		}
 	})
