@@ -50,7 +50,9 @@ function updateHomeworkList() {
 					}
 				}
 				for (var i=0; i<homeworkTodoList.length; i++) {
-					$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + " - " + days[homeworkTodoList[i].day] +  "</b><br />" + homeworkTodoList[i].scheduleText + "</li>");
+					$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + " - " + days[homeworkTodoList[i].day] + "</b><br /><i>"
+					+ homeworkTodoList[i].time + "</i><br />"
+					+ homeworkTodoList[i].scheduleText + "</li>");
 				}
 			});
 		}
