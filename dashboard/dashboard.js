@@ -11,7 +11,6 @@ window.onload = function() {
 					getStorage("cachedScheduleDate", true, function(obj) {
 						var date = obj.cachedScheduleDate;
 						getStorage("dashboardOnlyHomework", false, function(obj){
-							console.log(obj.dashboardOnlyHomework);
 							$("#onlyHomeworkBox").prop("checked", obj.dashboardOnlyHomework);
 							$("#scheduleCol").html(schedule);
 							indexHomework($(schedule), !obj.dashboardOnlyHomework, function(){
@@ -29,7 +28,6 @@ window.onload = function() {
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
 			curtheme = obj.theme;
-			console.log("loaded curtheme");
 			runTheme(curtheme, curPage);
 		}
 	});
@@ -71,7 +69,6 @@ function getXTranspose() {
 }
 
 function indexHomework(scheduleObject, showAllNotes, callback) {
-	console.log(showAllNotes);
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 
 		var homeworkTodoList = [];
@@ -109,7 +106,6 @@ function indexHomework(scheduleObject, showAllNotes, callback) {
 }
 
 $("#onlyHomeworkBox").on("change", function () {
-	console.log("CHANGED");
 	setStorage({"dashboardOnlyHomework": this.checked});
 	indexHomework($(schedule), !this.checked, function () {
 		updateHomeworkList();
