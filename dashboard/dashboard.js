@@ -1,17 +1,22 @@
+var schedule;
+
 window.onload = function() {
 	getStorage("cachedSchedule", true, function(obj) {
 		if (!chrome.runtime.error) {
 			if (typeof obj.cachedSchedule !== "undefined") {
 				//Font awesome, because the schedule depends on that.
-				var schedule = obj.cachedSchedule;
+				schedule = obj.cachedSchedule;
 				getStorage('lang', function(obj) {
 					var lang = obj.lang;
 					getStorage("cachedScheduleDate", true, function(obj) {
 						var date = obj.cachedScheduleDate;
-						indexHomework($(schedule), true);
-						$("#scheduleCol").html(schedule);
-						updateHomeworkList();
-
+						getStorage("dashboardOnlyHomework", false, function(obj){
+							console.log(obj.dashboardOnlyHomework);
+							$("#onlyHomeworkBox").prop("checked", obj.dashboardOnlyHomework);
+							indexHomework($(schedule), obj.dashboardOnlyHomework);
+							$("#scheduleCol").html(schedule);
+							updateHomeworkList();
+						});
 					});
 				});
 			}
@@ -49,6 +54,7 @@ function updateHomeworkList() {
 						];
 					}
 				}
+				$("#todoList").empty();
 				for (var i=0; i<homeworkTodoList.length; i++) {
 					$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + " - " + days[homeworkTodoList[i].day] + "</b><br /><i>"
 					+ homeworkTodoList[i].time + "</i><br />"
@@ -99,3 +105,10 @@ function indexHomework(scheduleObject, showAllNotes) {
 		setStorage({"homeworkTodoList": homeworkTodoList});
 	});
 }
+
+$("#onlyHomeworkBox").on("change", function () {
+	setStorage({"dashboardOnlyHomework": this.checked});
+	indexHomework($(schedule), this.checked);
+	$("#scheduleCol").html(schedule);
+	updateHomeworkList();
+});
