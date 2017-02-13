@@ -13,9 +13,10 @@ window.onload = function() {
 						getStorage("dashboardOnlyHomework", false, function(obj){
 							console.log(obj.dashboardOnlyHomework);
 							$("#onlyHomeworkBox").prop("checked", obj.dashboardOnlyHomework);
-							indexHomework($(schedule), obj.dashboardOnlyHomework);
 							$("#scheduleCol").html(schedule);
-							updateHomeworkList();
+							indexHomework($(schedule), !obj.dashboardOnlyHomework, function(){
+								updateHomeworkList();
+							});
 						});
 					});
 				});
@@ -69,7 +70,8 @@ function getXTranspose() {
 	return $("svg > .dagMedBrikker:nth-child(3)").attr("transform").match(/-?[\d\.]+/g)[0];
 }
 
-function indexHomework(scheduleObject, showAllNotes) {
+function indexHomework(scheduleObject, showAllNotes, callback) {
+	console.log(showAllNotes);
 	getStorage({homeworkWords: "lektie,forbered"}, function(obj) {
 
 		var homeworkTodoList = [];
@@ -102,13 +104,14 @@ function indexHomework(scheduleObject, showAllNotes) {
 				}
 			}
 		});
-		setStorage({"homeworkTodoList": homeworkTodoList});
+		setStorage({"homeworkTodoList": homeworkTodoList}, false, callback);
 	});
 }
 
 $("#onlyHomeworkBox").on("change", function () {
+	console.log("CHANGED");
 	setStorage({"dashboardOnlyHomework": this.checked});
-	indexHomework($(schedule), this.checked);
-	$("#scheduleCol").html(schedule);
-	updateHomeworkList();
+	indexHomework($(schedule), !this.checked, function () {
+		updateHomeworkList();
+	});
 });
