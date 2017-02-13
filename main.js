@@ -84,9 +84,9 @@ setInterval(allowSelect, 250);
 
 
 //Save the language selected on Uddata+
-if($("#language > a").html() == "English"){
+if($("#language > a").html() === "English"){
 	setStorage({"lang": "dansk"});
-}else{
+}else if($("#language > a").html() === "Dansk"){
 	setStorage({"lang": "engelsk"});
 }
 
