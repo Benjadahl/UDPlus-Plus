@@ -14,6 +14,10 @@ function fixTimezone(date) {
 	return new Date(date);
 }
 
+function ToShortISODate(date) {
+	return new Date(date).toISOString().split("T")[0];
+}
+
 /* This function is how we get the schedule from UDDATA's RESTful API. The dates are in ISO 8601, so it's YYY-MM-DD
  * The callback is a function which takes the output and does whatever.
  */
@@ -64,7 +68,7 @@ function getSchedule(startDate, endDate, callback) {
 
 
 			}
-			scheduleReturn[dayKey] = returnDay;
+			scheduleReturn[ToShortISODate(dayKey)] = returnDay;
 		}
 		callback(scheduleReturn);
 	});
