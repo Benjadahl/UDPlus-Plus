@@ -60,7 +60,7 @@ window.onload = function() {
 		header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'month,agendaWeek,agendaDay,listWeek',
+			right: '',
 		},
 		defaultDate: '2017-02-14',
 		navLinks: true, // can click day/week names to navigate views
@@ -68,9 +68,11 @@ window.onload = function() {
 		weekNumbers: true,
 		weekNumbersWithinDays: true,
 		weekNumberCalculation: 'ISO',
+		minTime: "08:00:00",
+		maxTime: "20:00:00",
+		weekends: false,
+		height: "auto",
 
-		slotLabelFormat: "hh:mm",
-		slotLabelInterval: "60",
 
 		editable: false,
 		eventRender: function(event, element) {
@@ -81,21 +83,43 @@ window.onload = function() {
 		eventLimit: true, // allow "more" link when too many events
 	});
 	var year = 2017;
-	console.log($('#calendar').fullCalendar('events'));
 	var startDate = getDateOfISOWeek(week, year);
 	var startDay = toCompIsoString(startDate);
-	console.log(startDay);
 	var endDay = toCompIsoString(startDate.addDays(5));
-	console.log(endDay);
 	getSchedule(startDay, endDay, function(schedule) {
+		var minTime = 24 * 60;
+		var maxTime = 0;
+		var hiddenDays = [1, 2, 3, 4, 5, 6, 7];
 		for (day in schedule) {
+			for (var i = 0; i < hiddenDays.length; i++) {
+				if (new Date(day).getDay() == hiddenDays[i]) hiddenDays.splice(i);
+			}
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
 				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
 				$("#calendar").fullCalendar('renderEvent', classObj);
+				var start = theClass['Start'];
+				start = start.getHours() * 60 + start.getMinutes();
+				if (start < minTime) minTime = start;
+				var end = theClass['End'];
+				end = end.getHours() * 60 + end.getMinutes();
+				if (end > maxTime) maxTime = end;
 			}
 		}
+
+		$("#calendar").fullCalendar("option", "hiddenDays", hiddenDays);
+		var h = Math.floor(minTime / 60);
+		var s = minTime % 60;
+		minTime = h + ":" + s + ":00";
+		$("#calendar").fullCalendar("option", "minTime", minTime);
+
+		h = Math.floor(maxTime / 60);
+		s = maxTime % 60;
+		maxTime = h + ":" + s + ":00";
+		$("#calendar").fullCalendar("option", "maxTime", maxTime);
+
+
 	});
 }
 
