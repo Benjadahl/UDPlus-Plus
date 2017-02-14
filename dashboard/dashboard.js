@@ -1,10 +1,11 @@
 var schedule;
 
 window.onload = function() {
+	/*
 	getStorage("cachedSchedule", true, function(obj) {
 		if (!chrome.runtime.error) {
 			if (typeof obj.cachedSchedule !== "undefined") {
-				//Font awesome, because the schedule depends on that.
+	//Font awesome, because the schedule depends on that.
 				schedule = obj.cachedSchedule;
 				getStorage('lang', function(obj) {
 					var lang = obj.lang;
@@ -23,6 +24,7 @@ window.onload = function() {
 		}
 
 	});
+	*/
 
 	var curtheme = "Default";
 	getStorage('theme', function (obj) {
@@ -33,6 +35,32 @@ window.onload = function() {
 	});
 	var curPage = "schedule";
 	runTheme();
+	loadSchedule("2017-02-13", "2017-02-18");
+}
+
+function loadSchedule(startDay, endDay) {
+
+	getSchedule(startDay, endDay, function(schedule) {
+		console.log(schedule);
+		var times = [];
+		for (day in schedule) {
+			for (classes in schedule[day]) {
+				var time = schedule[day][classes]["Start"].getHours() + ":" + schedule[day][classes]["Start"].getMinutes();
+				times.push(time);
+			}
+		}
+		var scheduleHTML = "";
+		var times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15"];
+		for (time in times) {
+			var monday = "";
+			if (typeof schedule["2017-02-13T00:00:00"][time] !== "undefined") {
+				monday = schedule["2017-02-13T00:00:00"][time]["Name"];
+			}
+scheduleHTML += "<tr><td>" + times[time] + "</td><tdrowspan='1'></td><td rowspan='1'>" + monday + "</td><td rowspan='1'></td><td rowspan='1'></td><td rowspan='1'></td><td rowspan='1'></td></tr>";
+		}
+		$("tbody").html(scheduleHTML);
+	});
+
 }
 
 function updateHomeworkList() {
@@ -56,8 +84,8 @@ function updateHomeworkList() {
 				$("#todoList").empty();
 				for (var i=0; i<homeworkTodoList.length; i++) {
 					$("#todoList").append("<li class=\"list-group-item\"><b>" + homeworkTodoList[i].subject + " - " + days[homeworkTodoList[i].day] + "</b><br /><i>"
-					+ homeworkTodoList[i].time + "</i><br />"
-					+ homeworkTodoList[i].scheduleText + "</li>");
+						+ homeworkTodoList[i].time + "</i><br />"
+							+ homeworkTodoList[i].scheduleText + "</li>");
 				}
 			});
 		}
@@ -105,9 +133,11 @@ function indexHomework(scheduleObject, showAllNotes, callback) {
 	});
 }
 
+/*
 $("#onlyHomeworkBox").on("change", function () {
 	setStorage({"dashboardOnlyHomework": this.checked});
 	indexHomework($(schedule), !this.checked, function () {
 		updateHomeworkList();
 	});
 });
+*/
