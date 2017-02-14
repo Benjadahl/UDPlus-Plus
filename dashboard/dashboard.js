@@ -69,64 +69,16 @@ window.onload = function() {
 		weekNumbersWithinDays: true,
 		weekNumberCalculation: 'ISO',
 
-		editable: true,
+		slotLabelFormat: "hh:mm",
+		slotLabelInterval: "60",
+
+		editable: false,
+		eventRender: function(event, element) {
+        element.qtip({
+            content: event.description
+        });
+    },
 		eventLimit: true, // allow "more" link when too many events
-		/*events: [
-			{
-				title: 'All Day Event',
-				start: '2016-12-01'
-			},
-			{
-				title: 'Long Event',
-				start: '2016-12-07',
-				end: '2016-12-10'
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: '2016-12-09T16:00:00'
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: '2016-12-16T16:00:00'
-			},
-			{
-				title: 'Conference',
-				start: '2016-12-11',
-				end: '2016-12-13'
-			},
-			{
-				title: 'Meeting',
-				start: '2016-12-12T10:30:00',
-				end: '2016-12-12T12:30:00'
-			},
-			{
-				title: 'Lunch',
-				start: '2016-12-12T12:00:00'
-			},
-			{
-				title: 'Meeting',
-				start: '2016-12-12T14:30:00'
-			},
-			{
-				title: 'Happy Hour',
-				start: '2016-12-12T17:30:00'
-			},
-			{
-				title: 'Dinner',
-				start: '2016-12-12T20:00:00'
-			},
-			{
-				title: 'Birthday Party',
-				start: '2016-12-13T07:00:00'
-			},
-			{
-				title: 'Click for Google',
-				url: 'http://google.com/',
-				start: '2016-12-28'
-			}
-		]*/
 	});
 	var year = 2017;
 	console.log($('#calendar').fullCalendar('events'));
@@ -140,7 +92,7 @@ window.onload = function() {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name']};
+				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
 				$("#calendar").fullCalendar('renderEvent', classObj);
 			}
 		}
