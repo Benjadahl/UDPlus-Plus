@@ -52,7 +52,22 @@ window.onload = function() {
 	});
 	var curPage = "schedule";
 	runTheme();
-	loadSchedule(week, 2017);
+	//loadSchedule(week, 2017);
+
+
+	$('#calendar').fullCalendar({
+		selectable: false,
+		defaultView: "agendaWeek",
+		editable: false,
+		events: [
+			{
+				title: "Test",
+				start: new Date(2017, 02, 15, 15, 0, 0, 0),
+				end: new Date(2017, 02, 15, 16, 0, 0, 0)
+			}
+		]
+		//Callbacks?
+	});
 }
 
 Date.prototype.addDays = function(days) {
