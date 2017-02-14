@@ -111,7 +111,7 @@ function loadSchedule(week, year) {
 				if (!test) times.push(time);
 			}
 		}
-		times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15", "15:20"];
+		times = ["08:15-09:15", "09:20-10:20", "10:30-11:30", "12:00-13:00", "13:10-14:10", "14:15-15:15", "15:20-16:20"];
 		var scheduleHTML = "";
 		for (time in times) {
 			var weekdays = ["", "", "", "", ""];
@@ -119,13 +119,20 @@ function loadSchedule(week, year) {
 				var todayString = toCompIsoString(startDate.addDays(i));
 				if (typeof schedule[todayString] !== "undefined") {
 					for (ii= 0; ii< Object.keys(schedule[todayString]).length; ii++) {
-						if (times[time] === dateToTime(schedule[todayString][ii]["Start"])) {
+						if (times[time] === dateToTime(schedule[todayString][ii]["Start"]) + "-" + dateToTime(schedule[todayString][ii]["End"])) {
 							weekdays[i] = schedule[todayString][ii]["Name"];
 						}
 					}
 				}
 			}
-			scheduleHTML += "<tr><td>" + times[time] + "</td><tdrowspan='1'></td><td rowspan='1'>" + weekdays[0] + "</td><td rowspan='1'>" + weekdays[1] + "</td><td rowspan='1'>" + weekdays[2] + "</td><td rowspan='1'>" + weekdays[3] + "</td><td rowspan='1'>" + weekdays[4] + "</td></tr>";
+			scheduleHTML += "<tr>";
+			scheduleHTML += "<td>" + times[time] + "</td>";
+			scheduleHTML += "<td rowspan='1'>" + weekdays[0] + "</td>";
+			scheduleHTML += "<td rowspan='1'>" + weekdays[1] + "</td>";
+			scheduleHTML += "<td rowspan='1'>" + weekdays[2] + "</td>";
+			scheduleHTML += "<td rowspan='1'>" + weekdays[3] + "</td>";
+			scheduleHTML += "<td rowspan='1'>" + weekdays[4] + "</td>";
+			scheduleHTML += "</tr>";
 		}
 		$("tbody").html(scheduleHTML);
 	});
