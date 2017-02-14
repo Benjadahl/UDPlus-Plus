@@ -130,6 +130,8 @@ function loadSchedule(week, year) {
 		$("tbody").html(scheduleHTML);
 	});
 
+	$("#weekNo").html(week);
+
 }
 
 function updateHomeworkList() {
