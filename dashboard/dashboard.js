@@ -1,5 +1,22 @@
 var schedule;
 
+function getWeekNumber(d) {
+    // Copy date so don't modify original
+    d = new Date(+d);
+    d.setHours(0,0,0,0);
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setDate(d.getDate() + 4 - (d.getDay()||7));
+    // Get first day of year
+    var yearStart = new Date(d.getFullYear(),0,1);
+    // Calculate full weeks to nearest Thursday
+    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    // Return array of year and week number
+    return [d.getFullYear(), weekNo];
+}
+
+var week = getWeekNumber(new Date())[1];
+
 window.onload = function() {
 	/*
 	getStorage("cachedSchedule", true, function(obj) {
@@ -35,10 +52,48 @@ window.onload = function() {
 	});
 	var curPage = "schedule";
 	runTheme();
-	loadSchedule("2017-02-13", "2017-02-18");
+	loadSchedule(week, 2017);
 }
 
-function loadSchedule(startDay, endDay) {
+Date.prototype.addDays = function(days) {
+	var dat = new Date(this.valueOf());
+	dat.setDate(dat.getDate() + days);
+	return dat;
+}
+
+function getDateOfISOWeek(weekNumber,year){
+	//Create a date object starting january first of chosen year, plus the number of days in a week multiplied by the week number to get the right date.
+	return new Date(year, 0, 1+((weekNumber-1)*7));
+}
+
+function getDateOfISOWeek(week, year) {
+	var d = new Date("Jan 01, "+year+" 01:00:00");
+	var w = d.getTime() + 604800000 * (week-1);
+	var n1 = new Date(w);
+	return n1.addDays(1);
+
+}
+
+
+function toCompIsoString(date) {
+	return date.toISOString().split("T")[0];
+}
+
+//Takes a date and returns HH:MM
+function dateToTime(date) {
+	var hours = String(date.getHours());
+	if (hours.length == 1) hours = "0" + hours;
+	var minutes = String(date.getMinutes());
+	if (minutes.length == 1) minutes = "0" + minutes;
+	return (hours + ":" + minutes);
+}
+
+function loadSchedule(week, year) {
+	var startDate = getDateOfISOWeek(week, year);
+	var startDay = toCompIsoString(startDate);
+	console.log(startDay);
+	var endDay = toCompIsoString(startDate.addDays(5));
+	console.log(endDay);
 
 	getSchedule(startDay, endDay, function(schedule) {
 		console.log(schedule);
@@ -46,20 +101,36 @@ function loadSchedule(startDay, endDay) {
 		for (day in schedule) {
 			for (classes in schedule[day]) {
 				var time = schedule[day][classes]["Start"].getHours() + ":" + schedule[day][classes]["Start"].getMinutes();
-				times.push(time);
+				var test = false;
+				for (i = 0; i < times.length; i++) {
+					if (time === times[i]) {
+						test = true;
+					}
+				}
+
+				if (!test) times.push(time);
 			}
 		}
+		times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15"];
 		var scheduleHTML = "";
-		var times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15"];
 		for (time in times) {
-			var monday = "";
-			if (typeof schedule["2017-02-13T00:00:00"][time] !== "undefined") {
-				monday = schedule["2017-02-13T00:00:00"][time]["Name"];
+			var weekdays = ["", "", "", "", ""];
+			for (i = 0; i < 5; i++) {
+				var todayString = toCompIsoString(startDate.addDays(i));
+				if (typeof schedule[todayString] !== "undefined") {
+					for (ii= 0; ii< Object.keys(schedule[todayString]).length; ii++) {
+						if (times[time] === dateToTime(schedule[todayString][ii]["Start"])) {
+							weekdays[i] = schedule[todayString][ii]["Name"];
+						}
+					}
+				}
 			}
-scheduleHTML += "<tr><td>" + times[time] + "</td><tdrowspan='1'></td><td rowspan='1'>" + monday + "</td><td rowspan='1'></td><td rowspan='1'></td><td rowspan='1'></td><td rowspan='1'></td></tr>";
+			scheduleHTML += "<tr><td>" + times[time] + "</td><tdrowspan='1'></td><td rowspan='1'>" + weekdays[0] + "</td><td rowspan='1'>" + weekdays[1] + "</td><td rowspan='1'>" + weekdays[2] + "</td><td rowspan='1'>" + weekdays[3] + "</td><td rowspan='1'>" + weekdays[4] + "</td></tr>";
 		}
 		$("tbody").html(scheduleHTML);
 	});
+
+	$("#weekNo").html(week);
 
 }
 
@@ -132,6 +203,16 @@ function indexHomework(scheduleObject, showAllNotes, callback) {
 		setStorage({"homeworkTodoList": homeworkTodoList}, false, callback);
 	});
 }
+
+$("#backButton").click(function() {
+	week-=1;
+	loadSchedule(week, 2017);
+});
+
+$("#forwardButton").click(function() {
+	week+=1;
+	loadSchedule(week, 2017);
+});
 
 /*
 $("#onlyHomeworkBox").on("change", function () {
