@@ -62,7 +62,7 @@ window.onload = function() {
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay,listWeek',
 		},
-		defaultDate: '2016-12-12',
+		defaultDate: '2017-02-14',
 		navLinks: true, // can click day/week names to navigate views
 
 		weekNumbers: true,
@@ -71,7 +71,7 @@ window.onload = function() {
 
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
-		events: [
+		/*events: [
 			{
 				title: 'All Day Event',
 				start: '2016-12-01'
@@ -126,7 +126,24 @@ window.onload = function() {
 				url: 'http://google.com/',
 				start: '2016-12-28'
 			}
-		]
+		]*/
+	});
+	var year = 2017;
+	console.log($('#calendar').fullCalendar('events'));
+	var startDate = getDateOfISOWeek(week, year);
+	var startDay = toCompIsoString(startDate);
+	console.log(startDay);
+	var endDay = toCompIsoString(startDate.addDays(5));
+	console.log(endDay);
+	getSchedule(startDay, endDay, function(schedule) {
+		for (day in schedule) {
+			var theDay = schedule[day];
+			for (classes in theDay) {
+				var theClass = theDay[classes];
+				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name']};
+				$("#calendar").fullCalendar('renderEvent', classObj);
+			}
+		}
 	});
 }
 

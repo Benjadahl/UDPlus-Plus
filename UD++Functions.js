@@ -9,6 +9,7 @@ function stringToList(string) {
 }
 
 function fixTimezone(date) {
+	return date;
 	var timeZoneOffset = new Date().getTimezoneOffset() / 60;
 	date.setHours(date.getHours() + timeZoneOffset);
 	return new Date(date);
