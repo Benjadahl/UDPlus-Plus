@@ -111,7 +111,7 @@ function loadSchedule(week, year) {
 				if (!test) times.push(time);
 			}
 		}
-		times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15"];
+		times = ["08:15", "09:20", "10:30", "12:00", "13:10", "14:15", "15:20"];
 		var scheduleHTML = "";
 		for (time in times) {
 			var weekdays = ["", "", "", "", ""];
