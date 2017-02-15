@@ -126,13 +126,17 @@ function addNoteToList (text, subject, time) {
 													+ days[day] + "</b><br /><i>"
 													+ hour + ":" + minute + "</i><br />"
 													+ htmlText + "</li>");
+		setShowOnlyHomework();
 	});
 }
 
-$("#onlyHomeworkBox").click(function() {
+$("#onlyHomeworkBox").click(setShowOnlyHomework);
+
+function setShowOnlyHomework() {
 	if ($("#onlyHomeworkBox").is(":checked")) {
 		$(".homeworkLI").hide();
 	} else {
 		$(".homeworkLI").show();
 	}
-});
+
+}
