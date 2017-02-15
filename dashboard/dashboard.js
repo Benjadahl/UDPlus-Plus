@@ -66,7 +66,7 @@ window.onload = function() {
 									classObj['color'] = "red";
 								}
 							}
-							addNoteToList(classObj.description, classObj.title, classObj.start);
+							addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
 						}
 
 						var hide = false;
@@ -91,13 +91,27 @@ function toCompIsoString(date) {
 	return date.toISOString().split("T")[0];
 }
 
-function addNoteToList (text, subject, time) {
+function leadingZeroes (x, digits=2) {
+	x = "0" + x;
+	x = x.slice(-digits);
+	return x;
+}
+
+function addNoteToList (text, subject, start, end) {
 	$("#todoList").html("");
-	let date = new Date(time);
-	let day = date.getDay() - 1;
+	let startDate = new Date(start);
+	let day = startDate.getDay() - 1;
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
-	let hour = ("0" + (date.getHours() - 1).toString()).slice(-2);
-	let minute = ("0" + date.getMinutes().toString()).slice(-2);
+	let startTime = {
+		hour: leadingZeroes(startDate.getHours() - 1),
+		minute: leadingZeroes(startDate.getMinutes())
+	};
+
+	let endDate = new Date(end);
+	let endTime = {
+		hour: leadingZeroes(endDate.getHours() - 1),
+		minute: leadingZeroes("0" + endDate.getMinutes())
+	};
 
 	//Preserve the linebreaks for the html representation
 	let htmlText = text.replace(/\n/g, "<br/>");
@@ -124,7 +138,8 @@ function addNoteToList (text, subject, time) {
 
 		$("#todoList").append("<li class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
 													+ days[day] + "</b><br /><i>"
-													+ hour + ":" + minute + "</i><br />"
+													+ startTime.hour + ":" + startTime.minute + " - "
+													+ endTime.hour + ":" + endTime.minute + "</i><br />"
 													+ htmlText + "</li>");
 		setShowOnlyHomework();
 	});
