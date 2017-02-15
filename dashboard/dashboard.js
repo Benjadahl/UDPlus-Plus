@@ -95,8 +95,9 @@ function addNoteToList (text, subject, time) {
 	$("#todoList").html("");
 	let date = new Date(time);
 	let day = date.getDay() - 1;
-	let hour = date.getHours() - 1;
-	let minute = date.getMinutes();
+	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
+	let hour = ("0" + (date.getHours() - 1).toString()).slice(-2);
+	let minute = ("0" + date.getMinutes().toString()).slice(-2);
 
 	//Preserve the linebreaks for the html representation
 	let htmlText = text.replace(/\n/g, "<br/>");
