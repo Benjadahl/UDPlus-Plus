@@ -134,9 +134,9 @@ $("#onlyHomeworkBox").click(setShowOnlyHomework);
 
 function setShowOnlyHomework() {
 	if ($("#onlyHomeworkBox").is(":checked")) {
-		$(".homeworkLI").hide();
+		$("#todoList > li:not(.homeworkLI)").hide();
 	} else {
-		$(".homeworkLI").show();
+		$("#todoList > li:not(.homeworkLI)").show();
 	}
 
 }
