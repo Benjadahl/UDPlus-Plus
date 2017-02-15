@@ -95,7 +95,7 @@ function toCompIsoString(date) {
 function addNoteToList (text, subject, time) {
 	$("#todoList").html("");
   let date = new Date(time);
-  let day = date.getDay();
+  let day = date.getDay() - 1;
   let hour = date.getHours() - 1;
   let minute = date.getMinutes();
 
