@@ -51,7 +51,6 @@ window.onload = function() {
 			var endDay = toCompIsoString(end);
 
 			getSchedule(startDay, endDay, function(schedule) {
-
 				var events = [];
 				for (day in schedule) {
 					var theDay = schedule[day];
@@ -59,7 +58,7 @@ window.onload = function() {
 						var theClass = theDay[classes];
 						var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
 
-						if (typeof theClass['Note'] !== 'undefined') {
+						if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 							for (var i=0; i < homeworkList.length; i++) {
 								if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
 									classObj['className'] = "homeworkLesson";
@@ -79,10 +78,7 @@ window.onload = function() {
 					}
 				}
 				callback(events);
-
-
 			});
-
 		}
 	});
 }
@@ -153,5 +149,4 @@ function setShowOnlyHomework() {
 	} else {
 		$("#todoList > li:not(.homeworkLI)").show();
 	}
-
 }
