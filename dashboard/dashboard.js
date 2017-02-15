@@ -46,12 +46,7 @@ window.onload = function() {
 			getSchedule(startDay, endDay, function(schedule) {
 
 				var events = [];
-				var maxTime = 0;
-				var hiddenDays = [1, 2, 3, 4, 5, 6, 7];
 				for (day in schedule) {
-					for (var i = 0; i < hiddenDays.length; i++) {
-						if (new Date(day).getDay() == hiddenDays[i]) hiddenDays.splice(i);
-					}
 					var theDay = schedule[day];
 					for (classes in theDay) {
 						var theClass = theDay[classes];
@@ -66,19 +61,9 @@ window.onload = function() {
 							}
 						}
 
-						var end = theClass['End'];
-						end = end.getHours() * 60 + end.getMinutes();
-						if (end > maxTime) maxTime = end;
 						events.push(classObj);
 					}
 				}
-
-				//$("#calendar").fullCalendar("option", "hiddenDays", hiddenDays);
-
-				var h = Math.floor(maxTime / 60);
-				var s = maxTime % 60;
-				maxTime = h + ":" + s + ":00";
-				//$("#calendar").fullCalendar("option", "maxTime", maxTime);
 				callback(events);
 
 
