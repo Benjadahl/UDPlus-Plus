@@ -65,9 +65,9 @@ window.onload = function() {
 								if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
 									classObj['className'] = "homeworkLesson";
 									classObj['color'] = "red";
-                  addNoteToList(classObj.description, classObj.title, classObj.start);
 								}
 							}
+							addNoteToList(classObj.description, classObj.title, classObj.start);
 						}
 
 						var hide = false;
@@ -94,41 +94,45 @@ function toCompIsoString(date) {
 
 function addNoteToList (text, subject, time) {
 	$("#todoList").html("");
-  let date = new Date(time);
-  let day = date.getDay() - 1;
-  let hour = date.getHours() - 1;
-  let minute = date.getMinutes();
+	let date = new Date(time);
+	let day = date.getDay() - 1;
+	let hour = date.getHours() - 1;
+	let minute = date.getMinutes();
 
-  //Preserve the linebreaks for the html representation
-  let htmlText = text.replace(/\n/g, "<br/>");
+	//Preserve the linebreaks for the html representation
+	let htmlText = text.replace(/\n/g, "<br/>");
 
-  let days = [
-    "Monday", "Tuesday", "Wednesday", "Thursday",
-    "Friday", "Saturday", "Sunday"
-  ];
+	let days = [
+		"Monday", "Tuesday", "Wednesday", "Thursday",
+		"Friday", "Saturday", "Sunday"
+	];
 
-  //Convert the days to danish if selected by user
-  getStorage('lang', function(obj) {
-    let lang = obj.lang;
-    if (lang === "dansk") {
-      days = [
-        "mandag", "tirsdag", "onsdag", "torsdag",
-        "fredag", "lørdag", "søndag"
-      ];
-    }
+	var homeworkClass = "";
+	for (var i=0; i < homeworkList.length; i++) {
+		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) homeworkClass = " homeworkLI";
+	}
 
-    $("#todoList").append("<li class=\"list-group-item\"><b>" + subject + " - "
-    + days[day] + "</b><br /><i>"
-    + hour + ":" + minute + "</i><br />"
-    + htmlText + "</li>");
-  });
+	//Convert the days to danish if selected by user
+	getStorage('lang', function(obj) {
+		let lang = obj.lang;
+		if (lang === "dansk") {
+			days = [
+				"mandag", "tirsdag", "onsdag", "torsdag",
+				"fredag", "lørdag", "søndag"
+			];
+		}
+
+		$("#todoList").append("<li class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+													+ days[day] + "</b><br /><i>"
+													+ hour + ":" + minute + "</i><br />"
+													+ htmlText + "</li>");
+	});
 }
 
-/*
-	 $("#onlyHomeworkBox").on("change", function () {
-	 setStorage({"dashboardOnlyHomework": this.checked});
-	 indexHomework($(schedule), !this.checked, function () {
-	 updateHomeworkList();
-	 });
-	 });
-	 */
+$("#onlyHomeworkBox").click(function() {
+	if ($("#onlyHomeworkBox").is(":checked")) {
+		$(".homeworkLI").hide();
+	} else {
+		$(".homeworkLI").show();
+	}
+});
