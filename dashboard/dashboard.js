@@ -99,7 +99,7 @@ function addNoteToList (text, subject, time) {
   let minute = date.getMinutes();
 
   //Preserve the linebreaks for the html representation
-  let htmlText = text.replace(/\n/g, "<br/>")
+  let htmlText = text.replace(/\n/g, "<br/>");
 
   let days = [
     "Monday", "Tuesday", "Wednesday", "Thursday",
