@@ -110,7 +110,7 @@ function addNoteToList (text, subject, start, end) {
 	let endDate = new Date(end);
 	let endTime = {
 		hour: leadingZeroes(endDate.getHours() - 1),
-		minute: leadingZeroes("0" + endDate.getMinutes())
+		minute: leadingZeroes(endDate.getMinutes())
 	};
 
 	//Preserve the linebreaks for the html representation
