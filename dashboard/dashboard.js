@@ -36,7 +36,6 @@ window.onload = function() {
 		weekNumberCalculation: 'ISO',
 		minTime: "08:00:00",
 		maxTime: "20:00:00",
-		weekends: false,
 		height: "auto",
 		locale: "da",
 
