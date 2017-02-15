@@ -1,5 +1,13 @@
 var schedule;
 
+var toHide = [];
+
+getStorage({toHide: ""}, function(obj) {
+	if (!chrome.runtime.error) {
+		toHide = stringToList(obj.toHide);
+	}
+})
+
 window.onload = function() {
 
 	var curtheme = "Default";
@@ -61,7 +69,13 @@ window.onload = function() {
 							}
 						}
 
-						events.push(classObj);
+						var hide = false;
+						for (var i=0; i < toHide.length; i++) {
+							if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
+								hide = true;
+							}
+						}
+						if (!hide) events.push(classObj);
 					}
 				}
 				callback(events);
