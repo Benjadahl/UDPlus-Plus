@@ -62,7 +62,7 @@ window.onload = function() {
 						if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 							for (var i=0; i < homeworkList.length; i++) {
 								if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
-									classObj['className'] = "homeworkLesson";
+									classObj.className = "homeworkLesson";
 									classObj['color'] = "red";
 								}
 							}
@@ -154,3 +154,11 @@ function setShowOnlyHomework() {
 		$("#todoList > li:not(.homeworkLI)").show();
 	}
 }
+
+$(document).keydown(function(e) {
+	if (e.which == 37) {
+		$("#calendar").fullCalendar("prev");
+	} else if (e.which == 39) {
+		$("#calendar").fullCalendar("next");
+	}
+});
