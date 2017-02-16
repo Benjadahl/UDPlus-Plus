@@ -26,7 +26,7 @@ window.onload = function() {
 		header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: '',
+			right: 'agendaWeek,agendaDay,listWeek',
 		},
 		defaultDate: '2017-02-14',
 		navLinks: true, // can click day/week names to navigate views
