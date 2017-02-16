@@ -33,6 +33,18 @@ var weekDays = {
 	"søndag" : "Sunday"
 };
 
+function doNothing(input) {
+	console.log("Doing nothing succeded");
+}
+
+function cacheYearSchedule() {
+	var year = new Date().getYear();
+	var start = year + "-01-01";
+	var end = year + "12-30";
+	getSchedule(start, end, doNothing);
+}
+cacheYearSchedule();
+
 //This function will check EASY-A for downtime
 function checkEasyADowntime() {
 	var currentDate = new Date();
