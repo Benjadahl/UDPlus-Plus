@@ -22,7 +22,8 @@ function ToShortISODate(date) {
 function cacheScheduleFetch(startDate, endDate, schedule) {
 	getStorage({'scheduleCaches': {}}, true, function(obj) {
 		if (!chrome.runtime.error) {
-			var scheduleCaches = obj.scheduleCaches;
+			console.log(obj);
+			var scheduleCaches = Object.assign({}, obj.scheduleCaches);
 			scheduleCaches[startDate + "-" + endDate] = Object.assign({}, schedule);
 			console.log(scheduleCaches);
 			setStorage({"scheduleCaches": scheduleCaches}, true);
@@ -88,8 +89,8 @@ function getSchedule(startDate, endDate, callback) {
 		XMLHttpRequest.StatusCode = '200';
 		getStorage('scheduleCaches', true, function(obj) {
 			if (!chrome.runtime.error) {
-				var scheduleCaches = obj.scheduleCaches;
-				var toReturn = scheduleCaches[startDate + "-" + endDate];
+				console.log(obj);
+				var toReturn = Object.assign({}, obj.scheduleCaches[startDate + "-" + endDate]);
 				console.log(toReturn);
 				if (typeof toReturn !== 'undefined') {
 					callback(toReturn);
