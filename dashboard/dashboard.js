@@ -28,7 +28,6 @@ window.onload = function() {
 			center: 'title',
 			right: 'agendaWeek,agendaDay,listWeek',
 		},
-		defaultDate: '2017-02-14',
 		navLinks: true, // can click day/week names to navigate views
 
 		weekNumbers: true,
