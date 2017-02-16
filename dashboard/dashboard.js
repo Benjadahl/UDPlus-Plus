@@ -51,7 +51,7 @@ window.onload = function() {
 			var endDay = toCompIsoString(end);
 			var weekends = false;
 
-			getSchedule(startDay, endDay, function(schedule) {
+			getSchedule(startDay, endDay, function(schedule, message) {
 				var events = [];
 				for (day in schedule) {
 					var theDay = schedule[day];
@@ -82,6 +82,7 @@ window.onload = function() {
 				}
 				callback(events);
 				$("#calendar").fullCalendar("option", "weekends", weekends);
+				$('#message').html(message);
 			});
 		}
 	});

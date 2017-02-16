@@ -36,6 +36,7 @@ function cacheScheduleFetch(startDate, endDate, schedule) {
  * The callback is a function which takes the output and does whatever.
  */
 function getSchedule(startDate, endDate, callback) {
+	var message = '';
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
 	}).then(function(data) {
@@ -84,8 +85,13 @@ function getSchedule(startDate, endDate, callback) {
 			scheduleReturn[ToShortISODate(dayKey)] = returnDay;
 		}
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
-		callback(scheduleReturn);
+		callback(scheduleReturn, message);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+		message = 'Not connected to the internet';
+		if (XMLHttpRequest.status === 401) {
+			//TODO: Oversæt
+			message = 'Not logged in to UDDATA+';
+		}
 		getStorage('scheduleCaches', true, function(obj) {
 			if (!chrome.runtime.error) {
 				console.log(endDate);
@@ -108,7 +114,7 @@ function getSchedule(startDate, endDate, callback) {
 					curDate.add(1, 'days');
 					i++;
 				}
-				callback(toReturn);
+				callback(toReturn, message);
 
 			}
 		});
