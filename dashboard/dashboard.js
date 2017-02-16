@@ -60,6 +60,7 @@ window.onload = function() {
 						var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
 
 						if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
+							classObj['color'] = "orange";
 							for (var i=0; i < homeworkList.length; i++) {
 								if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
 									classObj.className = "homeworkLesson";
