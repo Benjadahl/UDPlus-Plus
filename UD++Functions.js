@@ -22,10 +22,11 @@ function ToShortISODate(date) {
 function cacheScheduleFetch(startDate, endDate, schedule) {
 	getStorage({'scheduleCaches': {}}, true, function(obj) {
 		if (!chrome.runtime.error) {
-			console.log(obj);
-			var scheduleCaches = Object.assign({}, obj.scheduleCaches);
-			scheduleCaches[startDate + "-" + endDate] = Object.assign({}, schedule);
-			console.log(scheduleCaches);
+			var scheduleCaches = {};
+			Object.assign(scheduleCaches, obj.scheduleCaches);
+			for (day in schedule) {
+				scheduleCaches[day] = JSON.stringify(schedule[day]);
+			}
 			setStorage({"scheduleCaches": scheduleCaches}, true);
 		}
 	});
@@ -82,22 +83,33 @@ function getSchedule(startDate, endDate, callback) {
 			}
 			scheduleReturn[ToShortISODate(dayKey)] = returnDay;
 		}
-		callback(scheduleReturn);
-		console.log(scheduleReturn);
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
+		callback(scheduleReturn);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-		XMLHttpRequest.StatusCode = '200';
 		getStorage('scheduleCaches', true, function(obj) {
 			if (!chrome.runtime.error) {
-				console.log(obj);
-				var toReturn = Object.assign({}, obj.scheduleCaches[startDate + "-" + endDate]);
-				console.log(toReturn);
-				if (typeof toReturn !== 'undefined') {
-					callback(toReturn);
-					alert("Cached schedule");
-				} else {
-					alert("Please connect to the internet");
+				console.log(endDate);
+				var scheduleCaches = obj.scheduleCaches;
+				var curDate = moment(startDate);
+				var endDate = moment("2050-11-11");
+				var toReturn = {};
+				var i = 0;
+				while (!curDate.isAfter(endDate) && i < 50) {
+					var shortISO = ToShortISODate(curDate);
+					//console.log(shortISO);
+					if (typeof obj.scheduleCaches[shortISO] !== 'undefined') {
+						toReturn[shortISO] = JSON.parse(obj.scheduleCaches[shortISO]);
+
+						for (classes in toReturn[shortISO]) {
+							toReturn[shortISO][classes]['Start'] = new Date(toReturn[shortISO][classes]['Start']);
+							toReturn[shortISO][classes]['End'] = new Date(toReturn[shortISO][classes]['End']);
+						}
+					}
+					curDate.add(1, 'days');
+					i++;
 				}
+				callback(toReturn);
+
 			}
 		});
 	}
