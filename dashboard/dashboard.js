@@ -37,6 +37,7 @@ window.onload = function() {
 		maxTime: "20:00:00",
 		height: "auto",
 		locale: "da",
+		nowIndicator: true,
 
 		editable: false,
 		eventRender: function(event, element) {
