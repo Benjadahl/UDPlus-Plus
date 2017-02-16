@@ -19,6 +19,17 @@ function ToShortISODate(date) {
 	return new Date(date).toISOString().split("T")[0];
 }
 
+function cacheScheduleFetch(startDate, endDate, schedule) {
+	getStorage({'scheduleCaches': {}}, true, function(obj) {
+		if (!chrome.runtime.error) {
+			var scheduleCaches = obj.scheduleCaches;
+			scheduleCaches[startDate + "-" + endDate] = Object.assign({}, schedule);
+			console.log(scheduleCaches);
+			setStorage({"scheduleCaches": scheduleCaches}, true);
+		}
+	});
+}
+
 /* This function is how we get the schedule from UDDATA's RESTful API. The dates are in ISO 8601, so it's YYY-MM-DD
  * The callback is a function which takes the output and does whatever.
  */
@@ -26,7 +37,6 @@ function getSchedule(startDate, endDate, callback) {
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
 	}).then(function(data) {
-		console.log(data);
 		var scheduleReturn = {};
 		for (dayKey in data["begivenhedMap"]) {
 			var day = data["begivenhedMap"][dayKey];
@@ -72,5 +82,23 @@ function getSchedule(startDate, endDate, callback) {
 			scheduleReturn[ToShortISODate(dayKey)] = returnDay;
 		}
 		callback(scheduleReturn);
-	});
+		console.log(scheduleReturn);
+		cacheScheduleFetch(startDate, endDate, scheduleReturn);
+	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+		XMLHttpRequest.StatusCode = '200';
+		getStorage('scheduleCaches', true, function(obj) {
+			if (!chrome.runtime.error) {
+				var scheduleCaches = obj.scheduleCaches;
+				var toReturn = scheduleCaches[startDate + "-" + endDate];
+				console.log(toReturn);
+				if (typeof toReturn !== 'undefined') {
+					callback(toReturn);
+					alert("Cached schedule");
+				} else {
+					alert("Please connect to the internet");
+				}
+			}
+		});
+	}
+	);
 }

@@ -78,7 +78,6 @@ window.onload = function() {
 						if (!hide) events.push(classObj);
 					}
 					var Sunday = moment(endDay);
-					console.log(Sunday);
 					if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
 				}
 				callback(events);

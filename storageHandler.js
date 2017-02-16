@@ -26,13 +26,11 @@ function getStorage(name, forceLocal, callback) {
 function setStorage(value, forceLocal, callback) {
 	if (arguments.length == 1) forceLocal = false;
 
-	console.log(forceLocal);
 	if (navigator.userAgent.includes("Chrome") && !forceLocal) {
 		//Chrome sync is enabled
 		//Therefore use the API
 		chrome.storage.sync.set(value, callback);
 	} else {
-		console.log("Set is local");
 		//Chrome sync is disabled
 		//Use the local storage instead
 		chrome.storage.local.set(value, callback);
