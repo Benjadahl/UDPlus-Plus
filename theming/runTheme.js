@@ -23,8 +23,9 @@ function runTheme(theme, page){
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
 
-
-        applySelector(customTemplate[T][X], customTheme[theme][T], page);
+        if(! /<[a-z][\s\S]*>/.test(customTheme[theme][T])){
+          applySelector(customTemplate[T][X], customTheme[theme][T], page);
+        }
 
 			}
 		}

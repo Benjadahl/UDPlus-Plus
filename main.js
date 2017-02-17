@@ -133,7 +133,9 @@ getStorage('showNews', function (obj) {
 
 getStorage('message', function (obj) {
 	if (!chrome.runtime.error) {
+    if(typeof obj.message != "undefined"){
 			$(".brand").append('<small class="smaller-50">' + obj.message + '</small>');
+    }
 	}
 });
 

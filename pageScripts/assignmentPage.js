@@ -5,19 +5,28 @@ var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 5;
 
+console.log("Loading assignment page");
+
 function onAssignmentPageLoad(){
   //When the button is clicked start a new interval, which looks for the title of the page being right
   var checkTitle = setInterval(function() {
-     //If it is right, it will run the function for hiding the tasks acording to user settings
-    if($("title").html() === "Assignment Overview" || $("title").html() === "Opgaveoversigt"){
-      hideTasks();
-      sortTasks();
+    //If it is right, it will run the function for hiding the tasks acording to user settings
+    console.log("AwesomeTest");
+    //If this is abose 0 the page is loaded
+    tableNumbers = $(table + " > tr > td > div > button").length;
+    if(($("title").html() === "Assignment Overview" || $("title").html() === "Opgaveoversigt") && tableNumbers > 0){
+
       //Clear the interval and run the function again
       clearInterval(checkTitle);
+
+      hideTasks();
+      sortTasks();
       fixOverviewButton();
     }
   }, 100);
 }
+
+
 
 //Assign the hidedTasks and sortTasks functions to the asignments button in the menu
 var menuButtonInterval = setInterval(function() {
@@ -50,7 +59,9 @@ fixOverviewButton();
 
 //Function to hiding already delivered tasks
 function hideTasks(){
+ 
   if(hideTask){
+
     $(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
     $(".page-content").children().eq(1).find("div>div").children().eq(2).find("input").trigger("click");
   }
@@ -58,36 +69,34 @@ function hideTasks(){
 
 getStorage('hideTask', function (obj) {
   if (!chrome.runtime.error) {
-      if(typeof obj.hideTask != "undefined"){
-        hideTask = obj.hideTask;
-      }else{
-        hideTask = false;
-      }
+    if(typeof obj.hideTask != "undefined"){
+      hideTask = obj.hideTask;
+    }else{
+      hideTask = false;
+    }
   }
 });
 
 function sortTasks(){
   if(sortBy != -1){
-    $("thead > tr").children().eq(sortBy).trigger("click");
+    var element = $("thead > tr").children().eq(sortBy).get(0);
+    console.log(typeof element);
+    element.click();
+
   }
 }
 
 getStorage('sortTaskBy', function (obj) {
   if (!chrome.runtime.error) {
-      if(typeof obj.sortTaskBy != "undefined"){
-        sortBy = obj.sortTaskBy;
-      }else{
-        sortBy = 3;
-      }
+    if(typeof obj.sortTaskBy != "undefined"){
+      sortBy = obj.sortTaskBy;
+    }else{
+      sortBy = 3;
+    }
   }
 });
 
-var checkExist = setInterval(function() {
-   if ($(table + " > tr > td > div > button").length) {
-     sortTasks();
-     var tasks = $(table).children();
 
-     hideTasks();
-     clearInterval(checkExist);
-   }
-}, 200);
+onAssignmentPageLoad();
+
+
