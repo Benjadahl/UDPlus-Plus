@@ -6,7 +6,54 @@ getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
 		toHide = stringToList(obj.toHide);
 	}
-})
+});
+
+var lang = 'english';
+
+
+//The function FullCalendar uses to fetch calendar evests
+function getCalendarEvents(start, end, timezone, callback) {
+
+	var startDay = toCompIsoString(start);
+	var endDay = toCompIsoString(end);
+	var weekends = false;
+
+	getSchedule(startDay, endDay, function(schedule, message) {
+		var events = [];
+		for (day in schedule) {
+			var theDay = schedule[day];
+			for (classes in theDay) {
+				var theClass = theDay[classes];
+				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
+
+				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
+					classObj['color'] = "orange";
+					for (var i=0; i < homeworkList.length; i++) {
+						if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
+							classObj.className = "homeworkLesson";
+							classObj['color'] = "red";
+						}
+					}
+					addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
+				}
+
+				var hide = false;
+				for (var i=0; i < toHide.length; i++) {
+					if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
+						hide = true;
+					}
+				}
+				if (!hide) events.push(classObj);
+			}
+			var Sunday = moment(endDay);
+			if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
+		}
+		callback(events);
+		$("#calendar").fullCalendar("option", "weekends", weekends);
+		$('#message').html(message);
+	});
+}
+
 
 window.onload = function() {
 
@@ -33,10 +80,13 @@ window.onload = function() {
 		weekNumbers: true,
 		weekNumbersWithinDays: true,
 		weekNumberCalculation: 'ISO',
+		timeFormat: 'H:mm',
+		columnFormat: 'ddd D/M',
+		slotLabelFormat: 'H:mm',
 		minTime: "08:00:00",
 		maxTime: "20:00:00",
 		height: "auto",
-		locale: "da",
+		locale: "en",
 		nowIndicator: true,
 
 		editable: false,
@@ -47,46 +97,20 @@ window.onload = function() {
 		},
 		eventLimit: true, // allow "more" link when too many events
 		events: function(start, end, timezone, callback) {
-			var startDay = toCompIsoString(start);
-			var endDay = toCompIsoString(end);
-			var weekends = false;
-
-			getSchedule(startDay, endDay, function(schedule, message) {
-				var events = [];
-				for (day in schedule) {
-					var theDay = schedule[day];
-					for (classes in theDay) {
-						var theClass = theDay[classes];
-						var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
-
-						if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
-							classObj['color'] = "orange";
-							for (var i=0; i < homeworkList.length; i++) {
-								if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
-									classObj.className = "homeworkLesson";
-									classObj['color'] = "red";
-								}
-							}
-							addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
-						}
-
-						var hide = false;
-						for (var i=0; i < toHide.length; i++) {
-							if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
-								hide = true;
-							}
-						}
-						if (!hide) events.push(classObj);
-					}
-					var Sunday = moment(endDay);
-					if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
-				}
-				callback(events);
-				$("#calendar").fullCalendar("option", "weekends", weekends);
-				$('#message').html(message);
-			});
+			return getCalendarEvents(start, end, timezone, callback);
 		}
 	});
+
+	getStorage('lang', function(obj) {
+		if (!chrome.runtime.error) {
+			if (obj.lang == 'dansk') {
+				lang = obj.lang
+				$('#calendar').fullCalendar('option', 'locale', 'da');
+			}
+		}
+	});
+
+
 }
 
 function toCompIsoString(date) {
@@ -143,7 +167,7 @@ function addNoteToList (text, subject, start, end) {
 													+ startTime.hour + ":" + startTime.minute + " - "
 													+ endTime.hour + ":" + endTime.minute + "</i><br />"
 													+ htmlText + "</li>");
-		setShowOnlyHomework();
+													setShowOnlyHomework();
 	});
 }
 
