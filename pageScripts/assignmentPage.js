@@ -31,7 +31,6 @@ function onAssignmentPageLoad(){
 function markEarlyAssignments() {
 	$("table>tbody>tr>td:nth-child(4)>div").each(function() {
 		if (this.innerHTML.split(" ")[1].split(":")[0] < filterTime) {
-			console.log(this);
 			$(this).addClass("TooEarly");
 		} else {
 			$(this).removeClass("TooEarly");
