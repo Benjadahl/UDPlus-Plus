@@ -39,13 +39,9 @@ function markEarlyAssignments() {
 
 		if (!$(this).hasClass("dowAdded")) {
 			var dateText = $(this).html().split(" ")[0].split(".");
-			console.log(dateText);
 			var formattedDateText = "20" + dateText[2] + "-" + dateText[1] + "-" + dateText[0];
-			console.log(formattedDateText);
 			var date = new Date(formattedDateText);
-			console.log(date);
 			var dow = date.getDay();
-			console.log(dow);
 			$(this).html(weekDays[dow] + ", " + $(this).html());
 			$(this).addClass("dowAdded");
 		}
