@@ -30,10 +30,24 @@ function onAssignmentPageLoad(){
 //We find out which assignments have a due date before filterTime, and append them a nice little class to identify them.
 function markEarlyAssignments() {
 	$("table>tbody>tr>td:nth-child(4)>div").each(function() {
-		if (this.innerHTML.split(" ")[1].split(":")[0] < filterTime) {
+		var spaceSplit = this.innerHTML.split(" ");
+		if (spaceSplit[spaceSplit.length-1].split(":")[0] < filterTime) {
 			$(this).addClass("TooEarly");
 		} else {
 			$(this).removeClass("TooEarly");
+		}
+
+		if (!$(this).hasClass("dowAdded")) {
+			var dateText = $(this).html().split(" ")[0].split(".");
+			console.log(dateText);
+			var formattedDateText = "20" + dateText[2] + "-" + dateText[1] + "-" + dateText[0];
+			console.log(formattedDateText);
+			var date = new Date(formattedDateText);
+			console.log(date);
+			var dow = date.getDay();
+			console.log(dow);
+			$(this).html(weekDays[dow] + ", " + $(this).html());
+			$(this).addClass("dowAdded");
 		}
 	});
 }
@@ -89,7 +103,7 @@ getStorage('hideTask', function (obj) {
 
 getStorage('TooEarly', function (obj) {
 	if (!chrome.runtime.error) {
-			console.log(obj.TooEarly);
+		console.log(obj.TooEarly);
 		if (typeof obj.TooEarly != "undefined") {
 			filterTime = obj.TooEarly;
 		}
