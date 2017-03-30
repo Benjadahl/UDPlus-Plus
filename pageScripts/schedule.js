@@ -67,7 +67,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
-	$(".homeworkLesson").removeClass("homeworkLesson");
+	//$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
@@ -75,7 +75,17 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
+			if (!$(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).addClass("homeworkLesson");
+				});
+			}
+		} else {
+			if ($(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).removeClass("homeworkLesson");
+				});
+			}
 		}
 	});
 }
