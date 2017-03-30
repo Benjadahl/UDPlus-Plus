@@ -46,11 +46,29 @@ function loadScheduleSettings() {
 	getStorage({toHide: ""}, function(obj) {
 		if (!chrome.runtime.error) {
 			toHideList = stringToList(obj.toHide);
-			$(".hiddenLesson").removeClass("hiddenLesson");
+			//$(".hiddenLesson").removeClass("hiddenLesson");
 			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
-				}
+				$(".DagMedBrikker>g>g>g:nth-child(2)>text:nth-child(3)").each(function() {
+					var toMark = false;
+					for (var i=0; i < toHideList.length; i++) {
+						if (this.innerHTML.includes(toHideList[i])) toMark = true;
+					}
+					//$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
+
+					var adde = $(this).parent().parent();
+					if (toMark) {
+						if (!adde.hasClass("hiddenLesson")) {
+							adde.addClass("hiddenLesson");
+						}
+					} else {
+						if (adde.hasClass("hiddenLesson")) {
+							adde.removeClass("hiddenLesson");
+						}
+					}
+
+				});
+
+
 			}, 250);
 		}
 	});
