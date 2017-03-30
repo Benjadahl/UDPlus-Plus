@@ -46,11 +46,27 @@ function loadScheduleSettings() {
 	getStorage({toHide: ""}, function(obj) {
 		if (!chrome.runtime.error) {
 			toHideList = stringToList(obj.toHide);
-			$(".hiddenLesson").removeClass("hiddenLesson");
 			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
-				}
+				$(".DagMedBrikker>g>g>g:nth-child(2)>text:nth-child(3)").each(function() {
+					var toMark = false;
+					for (var i=0; i < toHideList.length; i++) {
+						if (this.innerHTML.includes(toHideList[i])) toMark = true;
+					}
+
+					var adde = $(this).parent().parent();
+					if (toMark) {
+						if (!adde.hasClass("hiddenLesson")) {
+							adde.addClass("hiddenLesson");
+						}
+					} else {
+						if (adde.hasClass("hiddenLesson")) {
+							adde.removeClass("hiddenLesson");
+						}
+					}
+
+				});
+
+
 			}, 250);
 		}
 	});
@@ -67,16 +83,26 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
-	$(".homeworkLesson").removeClass("homeworkLesson");
-	$('.skemaBrikGruppe>g').each(function(index) {
-		var homeworkText = $(this).find("g>text>title");
+	var homeworkText = $(this).find("g>text>title");
+	//$(".homeworkLesson").removeClass("homeworkLesson");
+	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
 		for (var i=0; i < arrayLength; i++) {
 			if ($(homeworkText).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			$(this).find('rect').each(function () { $(this).addClass("homeworkLesson"); });
+			if (!$(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).addClass("homeworkLesson");
+				});
+			}
+		} else {
+			if ($(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).removeClass("homeworkLesson");
+				});
+			}
 		}
 	});
 }
