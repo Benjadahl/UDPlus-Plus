@@ -49,12 +49,12 @@ var PlusPlusList = {
   start:{},
   schedule:{
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
-    tableTopActive:new PlusPlusObject(".GMCVBHIDB0 th.GMCVBHIDI-", applyCssRule, ["background-color", "border-top-color"]),
+    tableTopActive:new PlusPlusObject(".GK14FIEDD0 th.GK14FIEDK-", applyCssRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
     tableTopTextActive: new PlusPlusObject(".GC0H5P4BK- th.GC0H5P4BB-", applyCssRule, ["color"], flags={"important":false}),
     tableTop: new PlusPlusObject("html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", applyCssRule, ["background"]),
-    tableLeftSide:new PlusPlusObject(".GMCVBHIDC0 table", applyCssRule, ["background"]),
+    tableLeftSide:new PlusPlusObject(".GK14FIEDE0 table", applyCssRule, ["background"]),
     tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
     noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
     noteBottom:new PlusPlusObject(".GEVWOMLKGB", applyCssRule, ["background-color"]),
@@ -64,7 +64,7 @@ var PlusPlusList = {
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
     noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]),
-		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"])
+		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]),
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
@@ -80,7 +80,8 @@ var PlusPlusList = {
   plan:{},
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentSetting:new PlusPlusObject(".GDSGMNCBF", applyCssRule, ["background-color"])
+    assignmentSetting:new PlusPlusObject(".GDSGMNCBF", applyCssRule, ["background-color"]),
+		TooEarly:new PlusPlusObject(".TooEarly", applyCssRule, ["color"])
   },
   resources:{},
   grades:{}
