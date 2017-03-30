@@ -76,7 +76,9 @@ function getSchedule(startDate, endDate, callback) {
 				//The note
 				if (typeof data["note2Map"][skemabeg_id] !== "undefined") {
 					returnClass["Note"] = data["note2Map"][skemabeg_id]["tekst"];
+					returnClass["GoogleFiles"] = data["note2Map"][skemabeg_id]["googleFileCount"];
 				}
+
 
 				returnDay[classKey] = returnClass;
 

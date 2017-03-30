@@ -27,7 +27,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note']};
+				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -37,7 +37,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 							classObj['color'] = "red";
 						}
 					}
-					lessonNotes.push([classObj.description, classObj.title, classObj.start, classObj.end]);
+					lessonNotes.push([classObj.description, classObj.title, classObj.start, classObj.end, classObj.googleFiles]);
 					//addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
 				}
 
@@ -60,7 +60,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 		});
 
 		lessonNotes.forEach(function(item) {
-			addNoteToList(item[0], item[1], item[2], item[3]);
+			addNoteToList(item[0], item[1], item[2], item[3], item[4]);
 		});
 	});
 }
@@ -134,7 +134,7 @@ function leadingZeroes (x, digits=2) {
 	return x;
 }
 
-function addNoteToList (text, subject, start, end) {
+function addNoteToList (text, subject, start, end, googleFiles) {
 	$("#todoList").html("");
 	let startDate = new Date(start);
 	let day = startDate.getDay() - 1;
@@ -158,6 +158,8 @@ function addNoteToList (text, subject, start, end) {
 		"Friday", "Saturday", "Sunday"
 	];
 
+	let attachedFiles = "<br>Attached Files: ";
+
 	var homeworkClass = "";
 	for (var i=0; i < homeworkList.length; i++) {
 		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) homeworkClass = " homeworkLI";
@@ -171,13 +173,14 @@ function addNoteToList (text, subject, start, end) {
 				"mandag", "tirsdag", "onsdag", "torsdag",
 				"fredag", "lørdag", "søndag"
 			];
+			attachedFiles = "<br>Tilknyttede filer: ";
 		}
 
 		$("#todoList").append("<li class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
 			+ days[day] + "</b><br /><i>"
 				+ startTime.hour + ":" + startTime.minute + " - "
 				+ endTime.hour + ":" + endTime.minute + "</i><br />"
-				+ htmlText + "</li>");
+				+ htmlText + attachedFiles + googleFiles + "</li>");
 		setShowOnlyHomework();
 	});
 }
