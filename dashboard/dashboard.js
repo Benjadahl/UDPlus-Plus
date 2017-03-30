@@ -2,6 +2,8 @@ var schedule;
 
 var toHide = [];
 
+var lessonNotes = [];
+
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
 		toHide = stringToList(obj.toHide);
@@ -20,6 +22,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 
 	getSchedule(startDay, endDay, function(schedule, message) {
 		var events = [];
+		lessonNotes = [];
 		for (day in schedule) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
@@ -34,7 +37,8 @@ function getCalendarEvents(start, end, timezone, callback) {
 							classObj['color'] = "red";
 						}
 					}
-					addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
+					lessonNotes.push([classObj.description, classObj.title, classObj.start, classObj.end]);
+					//addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
 				}
 
 				var hide = false;
@@ -51,6 +55,13 @@ function getCalendarEvents(start, end, timezone, callback) {
 		callback(events);
 		$("#calendar").fullCalendar("option", "weekends", weekends);
 		$('#message').html(message);
+		lessonNotes.sort(function(a, b) {
+			return new Date(a[2]) - new Date(b[2]);
+		});
+
+		lessonNotes.forEach(function(item) {
+			addNoteToList(item[0], item[1], item[2], item[3]);
+		});
 	});
 }
 
@@ -163,11 +174,11 @@ function addNoteToList (text, subject, start, end) {
 		}
 
 		$("#todoList").append("<li class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-													+ days[day] + "</b><br /><i>"
-													+ startTime.hour + ":" + startTime.minute + " - "
-													+ endTime.hour + ":" + endTime.minute + "</i><br />"
-													+ htmlText + "</li>");
-													setShowOnlyHomework();
+			+ days[day] + "</b><br /><i>"
+				+ startTime.hour + ":" + startTime.minute + " - "
+				+ endTime.hour + ":" + endTime.minute + "</i><br />"
+				+ htmlText + "</li>");
+		setShowOnlyHomework();
 	});
 }
 
