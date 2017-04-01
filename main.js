@@ -1,5 +1,9 @@
 console.log("UD++ starting");
 
+//News string in this version. Leave empty for off.
+newsString = "";
+
+
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
 $("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
 
@@ -125,8 +129,8 @@ $('#id_settings').click(function(){
 
 getStorage('showNews', function (obj) {
 	if (!chrome.runtime.error) {
-		if(obj.showNews){
-			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><b>UD++:</b> Christmas decorations available in the settings menu (December)</p>");
+		if(obj.showNews && newsString != ""){
+			$('#sidebar').append("<p style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'><b>UD++:</b> " + newsString + "</p>");
 		}
 	}
 });
