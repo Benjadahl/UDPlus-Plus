@@ -165,6 +165,11 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) homeworkClass = " homeworkLI";
 	}
 
+	if (googleFiles === 0) {
+		googleFiles = "";
+		attachedFiles = "";
+	}
+
 	//Convert the days to danish if selected by user
 	getStorage('lang', function(obj) {
 		let lang = obj.lang;
@@ -180,7 +185,7 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 			+ days[day] + "</b><br /><i>"
 				+ startTime.hour + ":" + startTime.minute + " - "
 				+ endTime.hour + ":" + endTime.minute + "</i><br />"
-				+ htmlText + attachedFiles + googleFiles + "</li>");
+				+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b></li>");
 		setShowOnlyHomework();
 	});
 }
