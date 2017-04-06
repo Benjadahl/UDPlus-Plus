@@ -1,8 +1,150 @@
+navigator.requestFileSystem  = navigator.requestFileSystem || navigator.webkitRequestFileSystem;
+
+function errorHandler(e) {
+  var msg = '';
+
+  switch (e.code) {
+    case FileError.QUOTA_EXCEEDED_ERR:
+      msg = 'We are out of room for our FS thing';
+      break;
+    case FileError.NOT_FOUND_ERR:
+      msg = 'Some thing was 404';
+      break;
+    case FileError.SECURITY_ERR:
+      msg = 'We screwed up security';
+      break;
+    case FileError.INVALID_MODIFICATION_ERR:
+      msg = 'Honestly don\'t know what this error means, but you have it';
+      break;
+    case FileError.INVALID_STATE_ERR:
+      msg = 'Something has an invalid state?';
+      break;
+    default:
+      msg = 'Unknown Error Happened. Good luck fixing this one.';
+      break;
+  };
+
+  alert(msg);
+}
+
+var INITIAL_QUOTA = 1024*1024*1024*5; //5GiB
+
+//This is the filesystem object we want to use to save our precious lesson files
+var fs = null;
+
+//When we finally get access to the filesystem.
+function successCallback(newfs) {
+	console.log("I honestly didn't expect to get this far");
+	fs = newfs;
+}
+
+function saveLessonFile(date, time, subject, teacher, filename, url) {
+	if (fs !== null) {
+
+		//Fingers crossed this is unique enough. Otherwise, that's a problem.
+		let saveName = date + time + filename;
+
+		console.log(saveName);
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200){
+				//this.response is what you're looking for
+				//handler(this.response);
+				let blob = this.response;
+
+				fs.root.getFile(saveName, {create: true}, function(fileEntry) {
+
+					// Create a FileWriter object for our FileEntry (log.txt).
+					fileEntry.createWriter(function(fileWriter) {
+
+						fileWriter.onwriteend = function(e) {
+							console.log('Write completed.');
+						};
+
+						fileWriter.onerror = function(e) {
+							console.log('Write failed: ' + e.toString());
+						};
+
+						fileWriter.write(blob);
+						console.log(fileEntry.toURL());
+
+					}, errorHandler);
+
+				}, errorHandler);
+
+			}
+		}
+		xhr.open('GET', url);
+		xhr.responseType = 'blob';
+		xhr.send();
+
+
+
+	} else {
+		console.log("Can't save files; user said no");
+	}
+}
+
+function storeFiles() {
+	navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
+		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, successCallback, errorHandler);
+	}, function(e) {
+		alert("Hey. UD++ vil gerne lagre filer, så vi kan gemme filerne på lektionerne. Pls sig ja næste gang den her irritirende ting popper up. Vi bruger max 5 GB i øjeblikket anyway.");
+		console.log('Error', e);
+	});
+
+}
+
+function toArray(list) {
+	  return Array.prototype.slice.call(list || [], 0);
+
+}
+
+function listResults(entries) {
+	// Document fragments can improve performance since they're only appended
+	//   // to the DOM once. Only one browser reflow occurs.
+	var fragment = document.createDocumentFragment();
+//
+//	entries.forEach(function(entry, i) {
+//		var img = entry.isDirectory ? '<img src="folder-icon.gif">' :
+//			'<img src="file-icon.gif">';
+//		var li = document.createElement('li');
+//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
+//		console.log(i);
+//	});
+	console.log(entries);
+}
+
+storeFiles();
+
+
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
-	if(message.optionsClick){
+	if(message.action == "options"){
 		chrome.runtime.openOptionsPage();
+	} else if (message.action == "downloadScheduleFile") {
+		saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url);
+	} else if (message.action == "requestFile") {
+		var dirReader = fs.root.createReader();
+		var entries = [];
+
+		// Call the reader.readEntries() until no more results are returned.
+		var readEntries = function() {
+			dirReader.readEntries (function(results) {
+				if (!results.length) {
+					listResults(entries.sort());
+				} else {
+					entries = entries.concat(toArray(results));
+					readEntries();
+				}
+			}, errorHandler);
+		};
+
+		readEntries(); // Start reading dirs.<Paste>
 	}
 });
+
+
 
 chrome.runtime.onInstalled.addListener(function(details){
 	if(details.reason === "update"){
@@ -13,9 +155,9 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 function openPage() {
-  chrome.tabs.create({
-    url: chrome.runtime.getURL('dashboard/dashboard.html')
-  });
+	chrome.tabs.create({
+		url: chrome.runtime.getURL('dashboard/dashboard.html')
+	});
 }
 
 chrome.browserAction.onClicked.addListener(openPage);
@@ -80,8 +222,6 @@ function checkEasyADowntime() {
 			 * 7: In the case of time without minutes, this is the start time
 			 * 9: In the case of time without minutes, this is the end time.
 			 */
-
-			console.log(regexMatch);
 
 			if (regexMatch !== null) {
 				console.log(regexMatch);

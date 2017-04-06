@@ -120,7 +120,7 @@ $(menuSelector).append(extraMenu);
 
 //Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
-	chrome.runtime.sendMessage({optionsClick: true});
+	chrome.runtime.sendMessage({action: "options"});
 });
 
 getStorage('showNews', function (obj) {

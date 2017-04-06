@@ -207,3 +207,5 @@ $(document).keydown(function(e) {
 		$("#calendar").fullCalendar("next");
 	}
 });
+
+chrome.runtime.sendMessage({action: "requestFile"});
