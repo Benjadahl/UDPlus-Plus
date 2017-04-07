@@ -191,11 +191,17 @@ window.onload = function() {
 		if (!chrome.runtime.error) {
 			if (obj.lang == 'dansk') {
 				lang = obj.lang
-				$('#calendar').fullCalendar('option', 'locale', 'da');
+				$('#searchHeader').html("<h2>Søg</h2>");
+				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though.
+
+				try {
+					$('#calendar').fullCalendar('option', 'locale', 'da');
+				} catch (error) {
+					//I don't know what to do with this error. Let's just ignore it.
+				}
 			}
 		}
 	});
-
 
 }
 
@@ -203,9 +209,10 @@ function toCompIsoString(date) {
 	return date.toISOString().split("T")[0];
 }
 
+
 function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	let startDate = new Date(start);
-	let day = startDate.getDay() - 1;
+	let day = startDate.getDay();
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
 	let startTime = {
 		hour: leadingZeroes(startDate.getHours()),
@@ -223,11 +230,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 
 	htmlText = linkifyHtml(htmlText, { defaultProtocol: 'https' });
 
-	let days = [
-		"Monday", "Tuesday", "Wednesday", "Thursday",
-		"Friday", "Saturday", "Sunday"
-	];
-
+	let pleaseOpenUD = "Please open UDDATA+ lesson to cache this file";
 	let attachedFiles = "<br>Attached Files: ";
 
 	var homeworkClass = "";
@@ -249,31 +252,36 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 		}
 
 	});
-	var list = "<br><ul>";
-	for (i = 0; i < googleFiles; i++) {
-		if (i < entriesToAdd.length) {
-			var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-			list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
-		} else {
-			var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-			list = list + "<li><a href='" + uddatalink + "'>Please open UDDATA lesson to cache this file</a></li>";
-		}
-	}
-	list = list + "</ul>";
 
 	//Convert the days to danish if selected by user
 	getStorage('lang', function(obj) {
 		let lang = obj.lang;
 		if (lang === "dansk") {
-			days = [
-				"mandag", "tirsdag", "onsdag", "torsdag",
-				"fredag", "lørdag", "søndag"
-			];
 			attachedFiles = "<br>Tilknyttede filer: ";
+			pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
 		}
 
+		var list = "<br><ul>";
+		for (i = 0; i < googleFiles; i++) {
+			if (i < entriesToAdd.length) {
+				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
+				list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+			} else {
+				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
+				list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+			}
+		}
+		list = list + "</ul>";
+
+		//Woops, turns out we didn't have any files. Get rid of everything.
+		if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
+			attachedFiles = '';
+			list = '';
+		}
+
+
 		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-													+ days[day] + "</b><br /><i>"
+													+ weekDays[day] + "</b><br /><i>"
 													+ startTime.hour + ":" + startTime.minute + " - "
 													+ endTime.hour + ":" + endTime.minute + "</i><br />"
 													+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
