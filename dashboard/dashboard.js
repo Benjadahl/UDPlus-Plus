@@ -36,7 +36,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 		rerenderEvents();
 		searchUpdate();
 	} else if (message.action == "NewFileSaved") {
-		console.log("New file");
 		chrome.runtime.sendMessage({action: "requestFile"});
 	}
 });
@@ -103,14 +102,12 @@ function onDestroyEvent(event, element) {
 	lessonNotes.forEach(function(item, i) {
 		if (item['description'] == event['description']) {
 			lessonNotes.splice(i, 1);
-			console.log("Removed", event);
 		}
 	});
 }
 
 function onRenderEvent(event, element) {
 	if (typeof event['description'] !== 'undefined' && event['description'] !== '') {
-		console.log("Added", event);
 		var toInsert = true;
 		lessonNotes.forEach(function(item, i) {
 			if (item[0] == event['description']) {
@@ -159,7 +156,6 @@ window.onload = function() {
 		nowIndicator: true,
 		eventClick: function(calEvent, jsEvent, view) {
 			if (typeof $(calEvent.scrollTo).html() !== 'undefined') {
-				console.log(calEvent.scrollTo);
 				$(".list-group-item-success").removeClass("list-group-item-success");
 				$(calEvent.scrollTo).addClass("list-group-item-success");
 				$('html, body').animate({
