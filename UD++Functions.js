@@ -46,7 +46,6 @@ function getSchedule(startDate, endDate, callback) {
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
 	}).then(function(data) {
-		console.log(data);
 		var scheduleReturn = {};
 		for (dayKey in data["begivenhedMap"]) {
 			var day = data["begivenhedMap"][dayKey];
@@ -63,7 +62,6 @@ function getSchedule(startDate, endDate, callback) {
 
 				//Start and end times
 				returnClass["Start"] = fixTimezone(new Date(theClass["start"] + timezoneOffset));
-				console.log(returnClass["Start"]);
 				returnClass["End"] = fixTimezone(new Date(theClass["slut"] + timezoneOffset));
 
 				//Niveau, as in A, B, and C.
