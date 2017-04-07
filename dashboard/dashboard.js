@@ -178,6 +178,9 @@ window.onload = function() {
 		eventDestroy: function(event, element, view) {
 			onDestroyEvent(event, element);
 		},
+		eventAfterAllRender: function(view, element) {
+			rerenderEvents();
+		},
 		eventLimit: true, // allow "more" link when too many events
 		events: function(start, end, timezone, callback) {
 			return getCalendarEvents(start, end, timezone, callback);
