@@ -221,6 +221,8 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 	//Preserve the linebreaks for the html representation
 	let htmlText = text.replace(/\n/g, "<br/>");
 
+	htmlText = linkifyHtml(htmlText, { defaultProtocol: 'https' });
+
 	let days = [
 		"Monday", "Tuesday", "Wednesday", "Thursday",
 		"Friday", "Saturday", "Sunday"
