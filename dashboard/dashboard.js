@@ -17,7 +17,6 @@ var lang = 'english';
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
-		console.log(entries);
 	}
 });
 
@@ -175,14 +174,23 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 	var startFileName = leadingZeroes(startDate.getUTCDate()) + "." + leadingZeroes(startDate.getUTCMonth() + 1) + "." + startDate.getUTCFullYear() + leadingZeroes(startDate.getHours()) + ":" + leadingZeroes(startDate.getMinutes());
 
 	var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
-	console.log(startFileName);
+	var entriesToAdd = [];
 	entries.forEach(function(entry, i) {
-		var fileName = entry.name.replace(fileMatch, "");
 		if (entry.name.includes(startFileName)) {
-			googleFiles = googleFiles + "</br><a href=" + entry.url + ">" + fileName + "</a>";
+			entriesToAdd.push(entry);
 		}
 
 	});
+	var list = "<br><ul>";
+	for (i = 0; i < googleFiles; i++) {
+		if (i < entriesToAdd.length) {
+			var fileName = entries[i].name.replace(fileMatch, "");
+			list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+		} else {
+			list = list + "<li>Please open UDDATA lesson to cache this file</li>";
+		}
+	}
+	list = list + "</ul>";
 
 	//Convert the days to danish if selected by user
 	getStorage('lang', function(obj) {
@@ -199,7 +207,7 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 			+ days[day] + "</b><br /><i>"
 				+ startTime.hour + ":" + startTime.minute + " - "
 				+ endTime.hour + ":" + endTime.minute + "</i><br />"
-				+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b></li>");
+				+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 		setShowOnlyHomework();
 	});
 }
