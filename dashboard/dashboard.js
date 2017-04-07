@@ -35,7 +35,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'], end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
+				var classObj = {start: theClass['Start'], scrollTo: "#" + theClass['Start'].toString().replace(/\W/g, ""), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -106,6 +106,14 @@ window.onload = function() {
 		height: "auto",
 		locale: "en",
 		nowIndicator: true,
+		eventClick: function(calEvent, jsEvent, view) {
+			if (calEvent.scrollTo) {
+				$('html, body').animate({
+					scrollTop: $(calEvent.scrollTo).offset().top
+				}, 200);
+			}
+		},
+
 
 		editable: false,
 		eventRender: function(event, element) {
@@ -203,7 +211,7 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 			attachedFiles = "<br>Tilknyttede filer: ";
 		}
 
-		$("#todoList").append("<li class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+		$("#todoList").append("<li id=\"" + start.toString().replace(/\W/g, "") + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
 			+ days[day] + "</b><br /><i>"
 				+ startTime.hour + ":" + startTime.minute + " - "
 				+ endTime.hour + ":" + endTime.minute + "</i><br />"
