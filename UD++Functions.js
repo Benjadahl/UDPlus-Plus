@@ -46,8 +46,8 @@ function getSchedule(startDate, endDate, callback) {
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
 	}).then(function(data) {
+		console.log(data);
 		var scheduleReturn = {};
-		var timezoneOffset = "+" + leadingZeroes(-(new Date().getTimezoneOffset()/60)) + ":00";
 		for (dayKey in data["begivenhedMap"]) {
 			var day = data["begivenhedMap"][dayKey];
 			var returnDay = {};
@@ -56,11 +56,14 @@ function getSchedule(startDate, endDate, callback) {
 				var theClass = day[classKey];
 				var skemabeg_id = theClass["skemabeg_id"];
 
+				var timezoneOffset = "+" + leadingZeroes(-(new Date(theClass["start"]).getTimezoneOffset()/60)) + ":00";
+
 				//The class name
 				returnClass["Name"] = theClass["kortBetegnelse"];
 
 				//Start and end times
 				returnClass["Start"] = fixTimezone(new Date(theClass["start"] + timezoneOffset));
+				console.log(returnClass["Start"]);
 				returnClass["End"] = fixTimezone(new Date(theClass["slut"] + timezoneOffset));
 
 				//Niveau, as in A, B, and C.
