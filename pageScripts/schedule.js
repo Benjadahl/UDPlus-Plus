@@ -83,13 +83,12 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
-	var homeworkText = $(this).find("g>text>title");
 	//$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
 		for (var i=0; i < arrayLength; i++) {
-			if ($(homeworkText).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
+			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
 			if (!$(this).hasClass("homeworkLesson")) {
