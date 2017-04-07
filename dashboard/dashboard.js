@@ -149,13 +149,13 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 	let day = startDate.getDay() - 1;
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
 	let startTime = {
-		hour: leadingZeroes(startDate.getHours() - 1),
+		hour: leadingZeroes(startDate.getHours()),
 		minute: leadingZeroes(startDate.getMinutes())
 	};
 
 	let endDate = new Date(end);
 	let endTime = {
-		hour: leadingZeroes(endDate.getHours() - 1),
+		hour: leadingZeroes(endDate.getHours()),
 		minute: leadingZeroes(endDate.getMinutes())
 	};
 
