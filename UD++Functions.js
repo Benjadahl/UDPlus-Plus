@@ -32,6 +32,12 @@ function cacheScheduleFetch(startDate, endDate, schedule) {
 	});
 }
 
+function leadingZeroes(x, digits=2) {
+	x = "0" + x;
+	x = x.slice(-digits);
+	return x;
+}
+
 /* This function is how we get the schedule from UDDATA's RESTful API. The dates are in ISO 8601, so it's YYY-MM-DD
  * The callback is a function which takes the output and does whatever.
  */
@@ -41,6 +47,7 @@ function getSchedule(startDate, endDate, callback) {
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
 	}).then(function(data) {
 		var scheduleReturn = {};
+		var timezoneOffset = "+" + leadingZeroes(-(new Date().getTimezoneOffset()/60)) + ":00";
 		for (dayKey in data["begivenhedMap"]) {
 			var day = data["begivenhedMap"][dayKey];
 			var returnDay = {};
@@ -53,8 +60,8 @@ function getSchedule(startDate, endDate, callback) {
 				returnClass["Name"] = theClass["kortBetegnelse"];
 
 				//Start and end times
-				returnClass["Start"] = fixTimezone(new Date(theClass["start"]));
-				returnClass["End"] = fixTimezone(new Date(theClass["slut"]));
+				returnClass["Start"] = fixTimezone(new Date(theClass["start"] + timezoneOffset));
+				returnClass["End"] = fixTimezone(new Date(theClass["slut"] + timezoneOffset));
 
 				//Niveau, as in A, B, and C.
 				returnClass["Level"] = theClass["niveau"];
@@ -96,7 +103,6 @@ function getSchedule(startDate, endDate, callback) {
 		}
 		getStorage('scheduleCaches', true, function(obj) {
 			if (!chrome.runtime.error) {
-				console.log(endDate);
 				var scheduleCaches = obj.scheduleCaches;
 				var curDate = moment(startDate);
 				var endDate = moment("2050-11-11");
@@ -104,7 +110,6 @@ function getSchedule(startDate, endDate, callback) {
 				var i = 0;
 				while (!curDate.isAfter(endDate) && i < 50) {
 					var shortISO = ToShortISODate(curDate);
-					//console.log(shortISO);
 					if (typeof obj.scheduleCaches[shortISO] !== 'undefined') {
 						toReturn[shortISO] = JSON.parse(obj.scheduleCaches[shortISO]);
 

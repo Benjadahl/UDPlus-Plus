@@ -4,6 +4,8 @@ var toHide = [];
 
 var lessonNotes = [];
 
+var entries = null;
+
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
 		toHide = stringToList(obj.toHide);
@@ -11,6 +13,13 @@ getStorage({toHide: ""}, function(obj) {
 });
 
 var lang = 'english';
+
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+	if (message.action == "returnFilesInfo") {
+		entries = message.entries;
+		console.log(entries);
+	}
+});
 
 
 //The function FullCalendar uses to fetch calendar evests
@@ -27,7 +36,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'].toISOString(), end: theClass['End'].toISOString(), title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
+				var classObj = {start: theClass['Start'], end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -38,7 +47,6 @@ function getCalendarEvents(start, end, timezone, callback) {
 						}
 					}
 					lessonNotes.push([classObj.description, classObj.title, classObj.start, classObj.end, classObj.googleFiles]);
-					//addNoteToList(classObj.description, classObj.title, classObj.start, classObj.end);
 				}
 
 				var hide = false;
@@ -128,12 +136,6 @@ function toCompIsoString(date) {
 	return date.toISOString().split("T")[0];
 }
 
-function leadingZeroes (x, digits=2) {
-	x = "0" + x;
-	x = x.slice(-digits);
-	return x;
-}
-
 function addNoteToList (text, subject, start, end, googleFiles) {
 	$("#todoList").html("");
 	let startDate = new Date(start);
@@ -169,6 +171,18 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 		googleFiles = "";
 		attachedFiles = "";
 	}
+
+	var startFileName = leadingZeroes(startDate.getUTCDate()) + "." + leadingZeroes(startDate.getUTCMonth() + 1) + "." + startDate.getUTCFullYear() + leadingZeroes(startDate.getHours()) + ":" + leadingZeroes(startDate.getMinutes());
+
+	var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
+	console.log(startFileName);
+	entries.forEach(function(entry, i) {
+		var fileName = entry.name.replace(fileMatch, "");
+		if (entry.name.includes(startFileName)) {
+			googleFiles = googleFiles + "</br><a href=" + entry.url + ">" + fileName + "</a>";
+		}
+
+	});
 
 	//Convert the days to danish if selected by user
 	getStorage('lang', function(obj) {

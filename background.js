@@ -1,30 +1,10 @@
+//Most of this code is copy-pasted from https://www.html5rocks.com/en/tutorials/file/filesystem/
+//The filesystem API is only still in Chrome by coincidence basically, and might disappear at any time. But I don't know a better one.
+
 navigator.requestFileSystem  = navigator.requestFileSystem || navigator.webkitRequestFileSystem;
 
 function errorHandler(e) {
-  var msg = '';
-
-  switch (e.code) {
-    case FileError.QUOTA_EXCEEDED_ERR:
-      msg = 'We are out of room for our FS thing';
-      break;
-    case FileError.NOT_FOUND_ERR:
-      msg = 'Some thing was 404';
-      break;
-    case FileError.SECURITY_ERR:
-      msg = 'We screwed up security';
-      break;
-    case FileError.INVALID_MODIFICATION_ERR:
-      msg = 'Honestly don\'t know what this error means, but you have it';
-      break;
-    case FileError.INVALID_STATE_ERR:
-      msg = 'Something has an invalid state?';
-      break;
-    default:
-      msg = 'Unknown Error Happened. Good luck fixing this one.';
-      break;
-  };
-
-  alert(msg);
+	console.log(e);
 }
 
 var INITIAL_QUOTA = 1024*1024*1024*5; //5GiB
@@ -97,23 +77,30 @@ function storeFiles() {
 }
 
 function toArray(list) {
-	  return Array.prototype.slice.call(list || [], 0);
+	return Array.prototype.slice.call(list || [], 0);
 
 }
+
+var lastEntries = null;
 
 function listResults(entries) {
 	// Document fragments can improve performance since they're only appended
 	//   // to the DOM once. Only one browser reflow occurs.
 	var fragment = document.createDocumentFragment();
-//
-//	entries.forEach(function(entry, i) {
-//		var img = entry.isDirectory ? '<img src="folder-icon.gif">' :
-//			'<img src="file-icon.gif">';
-//		var li = document.createElement('li');
-//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
-//		console.log(i);
-//	});
-	console.log(entries);
+	//
+	//	entries.forEach(function(entry, i) {
+	//		var img = entry.isDirectory ? '<img src="folder-icon.gif">' :
+	//			'<img src="file-icon.gif">';
+	//		var li = document.createElement('li');
+	//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
+	//		console.log(i);
+	//	});
+	toSendEntries = [];
+	entries.forEach(function(entry, i) {
+		toSendEntries.push({name: entry.name, url: entry.toURL()});
+	});
+	chrome.runtime.sendMessage({action: "returnFilesInfo", entries: toSendEntries});
+	lastEntries = entries;
 }
 
 storeFiles();
