@@ -160,11 +160,10 @@ window.onload = function() {
 				$(calEvent.scrollTo).addClass("list-group-item-success");
 				$('html, body').animate({
 					scrollTop: $(calEvent.scrollTo).offset().top
-				}, 200, function() {
-					//On complete
-					$(calEvent.scrollTo).addClass("list-group-item-success");
+				}, 200);
+				setTimeout(function() {
 					noteSelected = true;
-				});
+				}, 500);
 			}
 		},
 
