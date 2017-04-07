@@ -47,7 +47,7 @@ function saveLessonFile(date, time, subject, teacher, filename, url) {
 						};
 
 						fileWriter.write(blob);
-						console.log(fileEntry.toURL());
+						chrome.runtime.sendMessage({action: "NewFileSaved"});
 
 					}, errorHandler);
 

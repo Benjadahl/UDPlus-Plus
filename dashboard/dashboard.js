@@ -6,6 +6,15 @@ var lessonNotes = [];
 
 var entries = null;
 
+var noteSelected = false;
+
+window.onscroll = function() {
+	if (noteSelected) {
+		$(".list-group-item-success").removeClass("list-group-item-success");
+		noteSelected = false;
+	}
+}
+
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
 		toHide = stringToList(obj.toHide);
@@ -14,11 +23,16 @@ getStorage({toHide: ""}, function(obj) {
 
 var lang = 'english';
 
+function dateToID(date) {
+	return moment(date).toString().replace(/\W/g, "");
+}
+
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
-		$("#calendar").fullCalendar("refetchEvents");
-	} else if (message.action == "downloadScheduleFile") {
+		rerenderEvents();
+	} else if (message.action == "NewFileSaved") {
+		console.log("New file");
 		chrome.runtime.sendMessage({action: "requestFile"});
 	}
 });
@@ -33,12 +47,11 @@ function getCalendarEvents(start, end, timezone, callback) {
 
 	getSchedule(startDay, endDay, function(schedule, message) {
 		var events = [];
-		lessonNotes = [];
 		for (day in schedule) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'], scrollTo: "#" + theClass['Start'].toString().replace(/\W/g, ""), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
+				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -48,7 +61,6 @@ function getCalendarEvents(start, end, timezone, callback) {
 							classObj['color'] = "red";
 						}
 					}
-					lessonNotes.push([classObj.description, classObj.title, classObj.start, classObj.end, classObj.googleFiles]);
 				}
 
 				var hide = false;
@@ -65,14 +77,46 @@ function getCalendarEvents(start, end, timezone, callback) {
 		callback(events);
 		$("#calendar").fullCalendar("option", "weekends", weekends);
 		$('#message').html(message);
-		lessonNotes.sort(function(a, b) {
-			return new Date(a[2]) - new Date(b[2]);
+		rerenderEvents();
+
+	});
+}
+
+function rerenderEvents() {
+	$("#todoList").html("");
+
+	lessonNotes = lessonNotes.sort(function(a, b) {
+		return a.start - b.start;
+	});
+
+	lessonNotes.forEach(function(item) {
+		addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles']);
+	});
+
+}
+
+function onDestroyEvent(event, element) {
+	lessonNotes.forEach(function(item, i) {
+		if (item['description'] == event['description']) {
+			lessonNotes.splice(i, 1);
+			console.log("Removed", event);
+		}
+	});
+}
+
+function onRenderEvent(event, element) {
+	if (typeof event['description'] !== 'undefined' && event['description'] !== '') {
+		console.log("Added", event);
+		var toInsert = true;
+		lessonNotes.forEach(function(item, i) {
+			if (item[0] == event['description']) {
+				toInsert = false;
+			}
 		});
 
-		lessonNotes.forEach(function(item) {
-			addNoteToList(item[0], item[1], item[2], item[3], item[4]);
-		});
-	});
+		if (toInsert) lessonNotes.push(event);
+
+	}
 }
 
 
@@ -110,10 +154,17 @@ window.onload = function() {
 		locale: "en",
 		nowIndicator: true,
 		eventClick: function(calEvent, jsEvent, view) {
-			if (calEvent.scrollTo) {
+			if (typeof $(calEvent.scrollTo).html() !== 'undefined') {
+				console.log(calEvent.scrollTo);
+				$(".list-group-item-success").removeClass("list-group-item-success");
+				$(calEvent.scrollTo).addClass("list-group-item-success");
 				$('html, body').animate({
 					scrollTop: $(calEvent.scrollTo).offset().top
-				}, 200);
+				}, 200, function() {
+					//On complete
+					$(calEvent.scrollTo).addClass("list-group-item-success");
+					noteSelected = true;
+				});
 			}
 		},
 
@@ -123,6 +174,10 @@ window.onload = function() {
 			element.qtip({
 				content: event.description
 			});
+			onRenderEvent(event, element);
+		},
+		eventDestroy: function(event, element, view) {
+			onDestroyEvent(event, element);
 		},
 		eventLimit: true, // allow "more" link when too many events
 		events: function(start, end, timezone, callback) {
@@ -147,7 +202,6 @@ function toCompIsoString(date) {
 }
 
 function addNoteToList (text, subject, start, end, googleFiles) {
-	$("#todoList").html("");
 	let startDate = new Date(start);
 	let day = startDate.getDay() - 1;
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
@@ -214,12 +268,12 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 			attachedFiles = "<br>Tilknyttede filer: ";
 		}
 
-		$("#todoList").append("<li id=\"" + start.toString().replace(/\W/g, "") + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-			+ days[day] + "</b><br /><i>"
-				+ startTime.hour + ":" + startTime.minute + " - "
-				+ endTime.hour + ":" + endTime.minute + "</i><br />"
-				+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
-		setShowOnlyHomework();
+		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+													+ days[day] + "</b><br /><i>"
+													+ startTime.hour + ":" + startTime.minute + " - "
+													+ endTime.hour + ":" + endTime.minute + "</i><br />"
+													+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+													setShowOnlyHomework();
 	});
 }
 
