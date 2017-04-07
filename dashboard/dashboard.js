@@ -17,6 +17,8 @@ var lang = 'english';
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
+	} else if (message.action == "downloadScheduleFile") {
+		chrome.runtime.sendMessage({action: "requestFile"});
 	}
 });
 
