@@ -17,6 +17,7 @@ var lang = 'english';
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
+		$("#calendar").fullCalendar("refetchEvents");
 	} else if (message.action == "downloadScheduleFile") {
 		chrome.runtime.sendMessage({action: "requestFile"});
 	}
@@ -194,7 +195,7 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 	var list = "<br><ul>";
 	for (i = 0; i < googleFiles; i++) {
 		if (i < entriesToAdd.length) {
-			var fileName = entries[i].name.replace(fileMatch, "");
+			var fileName = entriesToAdd[i].name.replace(fileMatch, "");
 			list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
 		} else {
 			list = list + "<li>Please open UDDATA lesson to cache this file</li>";
