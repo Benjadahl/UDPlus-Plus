@@ -307,8 +307,9 @@ function searchUpdate() {
 		});
 	} else {
 		entries.forEach(function(entry, i) {
-			if (entry.name.toUpperCase().includes(searchQuery.toUpperCase())) {
-				var fileName = entry.name.replace(fileMatch, "");
+			var fileName = entry.name.replace(fileMatch, "");
+			if (fileName.toUpperCase().includes(searchQuery.toUpperCase())) {
+				fileName = fileName.replace(new RegExp("(" + searchQuery + ")", 'ig'), '<b>$1</b>');
 				list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
 			}
 		});
