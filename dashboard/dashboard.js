@@ -8,6 +8,9 @@ var entries = null;
 
 var noteSelected = false;
 
+//An extraordinarily stupid match we use to get the filename out of files. But it works...
+var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
+
 window.onscroll = function() {
 	if (noteSelected) {
 		$(".list-group-item-success").removeClass("list-group-item-success");
@@ -31,6 +34,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
 		rerenderEvents();
+		searchUpdate();
 	} else if (message.action == "NewFileSaved") {
 		console.log("New file");
 		chrome.runtime.sendMessage({action: "requestFile"});
@@ -237,7 +241,6 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 
 	var startFileName = leadingZeroes(startDate.getUTCDate()) + "." + leadingZeroes(startDate.getUTCMonth() + 1) + "." + startDate.getUTCFullYear() + leadingZeroes(startDate.getHours()) + ":" + leadingZeroes(startDate.getMinutes());
 
-	var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 	var entriesToAdd = [];
 	entries.forEach(function(entry, i) {
 		if (entry.name.includes(startFileName)) {
@@ -293,5 +296,29 @@ $(document).keydown(function(e) {
 		$("#calendar").fullCalendar("next");
 	}
 });
+
+function searchUpdate() {
+	var searchQuery = $("#searchBox").val();
+
+	var list = "";
+	if (searchQuery == "") {
+		entries.forEach(function(entry, i) {
+			var fileName = entry.name.replace(fileMatch, "");
+			list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+		});
+	} else {
+		entries.forEach(function(entry, i) {
+			if (entry.name.toUpperCase().includes(searchQuery.toUpperCase())) {
+				var fileName = entry.name.replace(fileMatch, "");
+				list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+			}
+		});
+
+	}
+
+	document.getElementById("searchResults").innerHTML = list;
+}
+
+$("#searchBox").bind('input', searchUpdate);
 
 chrome.runtime.sendMessage({action: "requestFile"});
