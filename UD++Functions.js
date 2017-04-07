@@ -63,6 +63,7 @@ function getSchedule(startDate, endDate, callback) {
 				//Start and end times
 				returnClass["Start"] = fixTimezone(new Date(theClass["start"] + timezoneOffset));
 				returnClass["End"] = fixTimezone(new Date(theClass["slut"] + timezoneOffset));
+				returnClass["objekt_id"] = theClass["objekt_id"];
 
 				//Niveau, as in A, B, and C.
 				returnClass["Level"] = theClass["niveau"];

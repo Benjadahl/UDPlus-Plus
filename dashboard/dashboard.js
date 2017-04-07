@@ -54,7 +54,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"]};
+				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"], objekt_id: theClass['objekt_id']};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -93,7 +93,7 @@ function rerenderEvents() {
 	});
 
 	lessonNotes.forEach(function(item) {
-		addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles']);
+		addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id']);
 	});
 
 }
@@ -203,7 +203,7 @@ function toCompIsoString(date) {
 	return date.toISOString().split("T")[0];
 }
 
-function addNoteToList (text, subject, start, end, googleFiles) {
+function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	let startDate = new Date(start);
 	let day = startDate.getDay() - 1;
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
@@ -255,7 +255,8 @@ function addNoteToList (text, subject, start, end, googleFiles) {
 			var fileName = entriesToAdd[i].name.replace(fileMatch, "");
 			list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
 		} else {
-			list = list + "<li>Please open UDDATA lesson to cache this file</li>";
+			var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
+			list = list + "<li><a href='" + uddatalink + "'>Please open UDDATA lesson to cache this file</a></li>";
 		}
 	}
 	list = list + "</ul>";
