@@ -292,8 +292,6 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 
 
 				var doneHomework = obj.doneHomework;
-				console.log(doneHomework);
-				console.log(testHomeworkString);
 				if (typeof doneHomework === 'undefined') {
 					doneHomework = [];
 				}
