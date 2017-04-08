@@ -2,11 +2,11 @@ var schedule;
 
 var toHide = [];
 
+//The lesson notes we are rendering on the right side
 var lessonNotes = [];
 
+//All files we have in Chrome storage
 var entries = null;
-
-var noteSelected = false;
 
 //An extraordinarily stupid match we use to get the filename out of files. But it works...
 var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
@@ -14,6 +14,8 @@ var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 //Homework gotta be uniform for storing yo
 var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
+//When we scroll, we want to stop marking the note we might have scrolled to previously
+var noteSelected = false;
 window.onscroll = function() {
 	if (noteSelected) {
 		$(".list-group-item-success").removeClass("list-group-item-success");
@@ -29,10 +31,12 @@ getStorage({toHide: ""}, function(obj) {
 
 var lang = 'english';
 
+//Give it a date, and it'll return an unique string for that date, which can also work for a CSS ID
 function dateToID(date) {
 	return moment(date).toString().replace(/\W/g, "");
 }
 
+//To communicate with file storage in background.js
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	if (message.action == "returnFilesInfo") {
 		entries = message.entries;
@@ -87,6 +91,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 	});
 }
 
+//Rerender all the notes on the right side. We use lessonNotes to keep track of what we are rendering.
 function rerenderEvents() {
 	$("#todoList").html("");
 
@@ -100,6 +105,7 @@ function rerenderEvents() {
 
 }
 
+//When an event is removed from the calendar, we remove it from the lessonNotes list.
 function onDestroyEvent(event, element) {
 	lessonNotes.forEach(function(item, i) {
 		if (item['description'] == event['description']) {
@@ -108,6 +114,7 @@ function onDestroyEvent(event, element) {
 	});
 }
 
+//When we add an event to the calendar, we want to add the note to the lessonNotes list
 function onRenderEvent(event, element) {
 	if (typeof event['description'] !== 'undefined' && event['description'] !== '') {
 		var toInsert = true;
@@ -122,7 +129,7 @@ function onRenderEvent(event, element) {
 	}
 }
 
-
+//Init when we load the window
 window.onload = function() {
 
 	var curtheme = "Default";
@@ -143,6 +150,7 @@ window.onload = function() {
 	runTheme();
 
 
+	//Initialize our fullCalendar thing
 	$('#calendar').fullCalendar({
 		defaultView: "agendaWeek",
 		header: {
@@ -154,7 +162,7 @@ window.onload = function() {
 
 		weekNumbers: true,
 		weekNumbersWithinDays: true,
-		weekNumberCalculation: 'ISO',
+		weekNumberCalculation: 'ISO', //ISO standard best standard
 		timeFormat: 'H:mm',
 		columnFormat: 'ddd D/M',
 		slotLabelFormat: 'H:mm',
@@ -162,8 +170,9 @@ window.onload = function() {
 		maxTime: "20:00:00",
 		height: "auto",
 		locale: "en",
-		nowIndicator: true,
+		nowIndicator: true, //Red line at current time
 		eventClick: function(calEvent, jsEvent, view) {
+			//Scroll to event on click
 			if (typeof $(calEvent.scrollTo).html() !== 'undefined') {
 				$(".list-group-item-success").removeClass("list-group-item-success");
 				noteSelected = false;
@@ -178,7 +187,7 @@ window.onload = function() {
 		},
 
 
-		editable: false,
+		editable: false, //Of course we don't want people editing the calendar
 		eventRender: function(event, element) {
 			element.qtip({
 				content: event.description
@@ -193,10 +202,12 @@ window.onload = function() {
 		},
 		eventLimit: true, // allow "more" link when too many events
 		events: function(start, end, timezone, callback) {
+			//Register our event getter we defined earlier
 			return getCalendarEvents(start, end, timezone, callback);
 		}
 	});
 
+	//Language stuff
 	getStorage('lang', function(obj) {
 		if (!chrome.runtime.error) {
 			if (obj.lang == 'dansk') {
@@ -250,6 +261,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	let attachedFiles = "<br>Attached Files: ";
 	var homework = false;
 
+	//Check if the lesson matches our homework thing
 	var homeworkClass = "";
 	for (var i=0; i < homeworkList.length; i++) {
 		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) {
@@ -291,6 +303,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 				var testHomeworkString = text.replace(homeworkNoteRegex, "");
 
 
+				//If the lesson is homework, check if it is already marked as done
 				var doneHomework = obj.doneHomework;
 				if (typeof doneHomework === 'undefined') {
 					doneHomework = [];
@@ -304,8 +317,6 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 					homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
 				}
 			}
-
-
 
 			var list = "<br><ul>";
 			for (i = 0; i < googleFiles; i++) {
@@ -325,26 +336,25 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 				list = '';
 			}
 
+			if (!homework) homeworkCheckbox = "";
 
-
-			if (!homework) {
-				homeworkCheckbox = "";
-			}
-
-
+			//Append a beautiful object to our list
 			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
 														+ weekDays[day] + "</b><br /><i>"
 														+ startTime.hour + ":" + startTime.minute + " - "
 														+ endTime.hour + ":" + endTime.minute + "</i><br />"
 														+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
-														setShowOnlyHomework();
-														$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
-		})
 
+			//Reload homework marking stuff, and add listener
+			setShowOnlyHomework();
+			$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+
+		});
 	});
 }
 
+//The function to be called when a lesson is clicked.
 function markDoneHomework() {
 	var note = $(this).parent().parent().find(".note").text();
 	note = note.replace(homeworkNoteRegex, "");
@@ -363,10 +373,10 @@ function markDoneHomework() {
 		var alreadyAdded = false;
 		for (i = 0; i < doneHomework.length; i++) {
 			if (doneHomework[i] === note) {
-				 alreadyAdded = true;
-				 if (!checked) {
-					 doneHomework.splice(i, 1)
-				 }
+				alreadyAdded = true;
+				if (!checked) {
+					doneHomework.splice(i, 1)
+				}
 			}
 		}
 		if (!alreadyAdded && checked) doneHomework.push(note);
@@ -385,6 +395,7 @@ function setShowOnlyHomework() {
 	}
 }
 
+//On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
 	if (e.which == 37) {
 		$("#calendar").fullCalendar("prev");
@@ -393,6 +404,7 @@ $(document).keydown(function(e) {
 	}
 });
 
+//Updating the search box on the left
 function searchUpdate() {
 	var searchQuery = $("#searchBox").val();
 
@@ -423,4 +435,5 @@ $("#disclaimer").click(function() {
 	setStorage({'hideFileDisclaimer': true});
 });
 
+//Ask the background.js script to fetch us the until now stored files
 chrome.runtime.sendMessage({action: "requestFile"});
