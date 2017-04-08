@@ -80,7 +80,6 @@ function getCalendarEvents(start, end, timezone, callback) {
 		callback(events);
 		$("#calendar").fullCalendar("option", "weekends", weekends);
 		$('#message').html(message);
-		rerenderEvents();
 
 	});
 }
@@ -203,7 +202,7 @@ window.onload = function() {
 				//$('#searchBox').attr("placeholder", "Søg filer");
 				$('#disclaimer').text("Læg venligst mærke til at dette kun er de filer som vi har gemt. Filer bliver kun gemt når du går ind på en lektion i uddata's skema. Tryk for at skjule den her besked.");
 				$('#todo').text("Lektionsnoter");
-				$('#onlyHomeworkText').text("Vis kun lektier");
+				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
 				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 
 				try {
@@ -242,12 +241,18 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 
 	htmlText = linkifyHtml(htmlText, { defaultProtocol: 'https' });
 
+	htmlText = "<div class='note'>" + htmlText + "</div>";
+
 	let pleaseOpenUD = "Please open UDDATA+ lesson to cache this file";
 	let attachedFiles = "<br>Attached Files: ";
+	var homework = false;
 
 	var homeworkClass = "";
 	for (var i=0; i < homeworkList.length; i++) {
-		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) homeworkClass = " homeworkLI";
+		if (text.toUpperCase().includes(homeworkList[i].toUpperCase())) {
+			homeworkClass = " homeworkLI";
+			homework = true;
+		}
 	}
 
 	if (googleFiles === 0) {
@@ -273,32 +278,94 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 			pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
 		}
 
-		var list = "<br><ul>";
-		for (i = 0; i < googleFiles; i++) {
-			if (i < entriesToAdd.length) {
-				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-				list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
-			} else {
-				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-				list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+		getStorage('doneHomework', function(obj) {
+
+			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> Homework done </label>";
+
+			if (homework) {
+				var newLineRegex = new RegExp(/\n/g);
+				var testHomeworkString = text.replace(newLineRegex, "");
+
+				var doneHomework = obj.doneHomework;
+				if (typeof doneHomework === 'undefined') {
+					doneHomework = [];
+				}
+				var homeworkDone = false;
+				for (i = 0; i < doneHomework.length; i++) {
+					if (doneHomework[i] === testHomeworkString) homeworkDone = true;
+				}
+				if (homeworkDone) {
+					homeworkClass = "";
+					homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> Homework done </label>";
+				}
+			}
+
+
+
+			var list = "<br><ul>";
+			for (i = 0; i < googleFiles; i++) {
+				if (i < entriesToAdd.length) {
+					var fileName = entriesToAdd[i].name.replace(fileMatch, "");
+					list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+				} else {
+					var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
+					list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+				}
+			}
+			list = list + "</ul>";
+
+			//Woops, turns out we didn't have any files. Get rid of everything.
+			if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
+				attachedFiles = '';
+				list = '';
+			}
+
+
+
+			if (!homework) {
+				homeworkCheckbox = "";
+			}
+
+
+			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+														+ weekDays[day] + "</b><br /><i>"
+														+ startTime.hour + ":" + startTime.minute + " - "
+														+ endTime.hour + ":" + endTime.minute + "</i><br />"
+														+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+														setShowOnlyHomework();
+														$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+
+		})
+
+	});
+}
+
+function markDoneHomework() {
+	var note = $(this).parent().parent().find(".note").text();
+	var checked = ($(this).is(":checked"));
+	if (!checked) {
+		$(this).parent().parent().addClass("homeworkLI");
+	} else {
+		$(this).parent().parent().removeClass("homeworkLI");
+	}
+
+	getStorage("doneHomework", function(object) {
+		var doneHomework = object.doneHomework;
+		if (typeof doneHomework === 'undefined') {
+			doneHomework = [];
+		}
+		var alreadyAdded = false;
+		for (i = 0; i < doneHomework.length; i++) {
+			if (doneHomework[i] === note) {
+				 alreadyAdded = true;
+				 if (!checked) {
+					 doneHomework.splice(i, 1)
+				 }
 			}
 		}
-		list = list + "</ul>";
-
-		//Woops, turns out we didn't have any files. Get rid of everything.
-		if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
-			attachedFiles = '';
-			list = '';
-		}
-
-
-		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-													+ weekDays[day] + "</b><br /><i>"
-													+ startTime.hour + ":" + startTime.minute + " - "
-													+ endTime.hour + ":" + endTime.minute + "</i><br />"
-													+ htmlText + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
-													setShowOnlyHomework();
-	});
+		if (!alreadyAdded && checked) doneHomework.push(note);
+		setStorage({"doneHomework": doneHomework});
+	})
 }
 
 $("#onlyHomeworkBox").click(setShowOnlyHomework);
