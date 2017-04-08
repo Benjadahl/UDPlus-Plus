@@ -164,18 +164,34 @@ function cacheSchedule() {
 
 checkScheduleIsLoaded();
 
-//TODO: Find this automatically
-markedLessonSelector = "GEHOBKPDNY";
-
 var lasttime = "";
 var lastdate = "";
+
+//https://j11y.io/javascript/regex-selector-for-jquery/
+//Holy shit, I don't know what to think about this. But it works.
+//Regex support for jQuery selectors
+jQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
 
 function cacheFiles() {
 	//If the popup is up
 	if ($(".control-label").length > 3) {
 
+		//Basically a overly complicated jQuery selector to get the currently selected lesson.
+		var markedLesson = $('.skemaBrikGruppe > g:nth-child(1) > rect:regex(class,^(?!(homeworkLesson|lostfocus-svg)))[class]');
+
 		//jQuery selector hell. I am so sorry.
-		let time = $("." + markedLessonSelector).parent().find("g>text:nth-child(2)").html();
+		let time = markedLesson.parent().find("g>text:nth-child(2)").html();
 		let teacher = $(".control-group:nth-child(1)").find("input").val();
 		let subject = $(".control-group:nth-child(2)").find("input").val();
 		let date = $(".control-group:nth-child(3)").find("input").val();

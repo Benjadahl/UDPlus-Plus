@@ -16,12 +16,12 @@ var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
 //When we scroll, we want to stop marking the note we might have scrolled to previously
 var noteSelected = false;
-window.onscroll = function() {
+$('#todoList').on('scroll', function() {
 	if (noteSelected) {
 		$(".list-group-item-success").removeClass("list-group-item-success");
 		noteSelected = false;
 	}
-}
+});
 
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {

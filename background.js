@@ -12,12 +12,13 @@ var INITIAL_QUOTA = 1024*1024*1024*20; //20GiB
 //This is the filesystem object we want to use to save our precious lesson files
 var fs = null;
 
-//When we finally get access to the filesystem.
+//Success callback for a filesystem access function
 function successCallback(newfs) {
 	console.log("I honestly didn't expect to get this far");
 	fs = newfs;
 }
 
+//Save a file by URL to disk
 function saveLessonFile(date, time, subject, teacher, filename, url) {
 	if (fs !== null) {
 
@@ -66,11 +67,12 @@ function saveLessonFile(date, time, subject, teacher, filename, url) {
 	}
 }
 
+//We ask for access to the filesystem API in HTML5. It's only supported in Chrome, and it's largely undocumented, and only exists by coincidence. But it works, so what the heck.
 function storeFiles() {
 	navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
 		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, successCallback, errorHandler);
 	}, function(e) {
-		alert("Hey. UD++ vil gerne lagre filer, så vi kan gemme filerne på lektionerne. Pls sig ja næste gang den her irritirende ting popper up. Vi bruger max 5 GB i øjeblikket anyway.");
+		alert("UD++ prøver at gemme filer, men noget gik galt. Det her burde ikke ske.");
 		console.log('Error', e);
 	});
 
@@ -83,6 +85,7 @@ function toArray(list) {
 
 var lastEntries = null;
 
+//This is just a copied function from up top. It returns all the FileEntry objects we can find.
 function listResults(entries) {
 	// Document fragments can improve performance since they're only appended
 	//   // to the DOM once. Only one browser reflow occurs.
@@ -106,6 +109,7 @@ function listResults(entries) {
 storeFiles();
 
 
+//A bunch of listeners so we can interact with this script from other scripts.
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	if(message.action == "options"){
 		chrome.runtime.openOptionsPage();
