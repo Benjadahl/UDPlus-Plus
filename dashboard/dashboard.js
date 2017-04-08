@@ -273,14 +273,16 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	//Convert the days to danish if selected by user
 	getStorage('lang', function(obj) {
 		let lang = obj.lang;
+		var homeworkDoneText = "Homework done";
 		if (lang === "dansk") {
 			attachedFiles = "<br>Tilknyttede filer: ";
 			pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
+			homeworkDoneText = "Lektie lavet";
 		}
 
 		getStorage('doneHomework', function(obj) {
 
-			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> Homework done </label>";
+			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
 
 			if (homework) {
 				var newLineRegex = new RegExp(/\n/g);
@@ -296,7 +298,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 				}
 				if (homeworkDone) {
 					homeworkClass = "";
-					homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> Homework done </label>";
+					homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
 				}
 			}
 
