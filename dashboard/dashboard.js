@@ -11,6 +11,9 @@ var noteSelected = false;
 //An extraordinarily stupid match we use to get the filename out of files. But it works...
 var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 
+//Homework gotta be uniform for storing yo
+var homeworkNoteRegex = new RegExp(/(\n|\W|quot)/g);
+
 window.onscroll = function() {
 	if (noteSelected) {
 		$(".list-group-item-success").removeClass("list-group-item-success");
@@ -285,10 +288,12 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
 
 			if (homework) {
-				var newLineRegex = new RegExp(/\n/g);
-				var testHomeworkString = text.replace(newLineRegex, "");
+				var testHomeworkString = text.replace(homeworkNoteRegex, "");
+
 
 				var doneHomework = obj.doneHomework;
+				console.log(doneHomework);
+				console.log(testHomeworkString);
 				if (typeof doneHomework === 'undefined') {
 					doneHomework = [];
 				}
@@ -344,6 +349,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 
 function markDoneHomework() {
 	var note = $(this).parent().parent().find(".note").text();
+	note = note.replace(homeworkNoteRegex, "");
 	var checked = ($(this).is(":checked"));
 	if (!checked) {
 		$(this).parent().parent().addClass("homeworkLI");
