@@ -93,6 +93,14 @@
 		},
 		{
 			"matches":[
+				"*://www.uddataplus.dk/besked/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/conversations.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+
+		{
+			"matches":[
 				"*://www.uddata.dk/uddataplus-lukket/"
 			],
 			"js": ["resources/jquery-3.1.0.min.js","theming/objectDefine.js","theming/objects.js","UD++Functions.js", "themes.js", "theming/runTheme.js", "storageHandler.js", "pageScripts/uddata-down.js"],
