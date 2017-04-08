@@ -157,6 +157,7 @@ window.onload = function() {
 		eventClick: function(calEvent, jsEvent, view) {
 			if (typeof $(calEvent.scrollTo).html() !== 'undefined') {
 				$(".list-group-item-success").removeClass("list-group-item-success");
+				noteSelected = false;
 				$(calEvent.scrollTo).addClass("list-group-item-success");
 				$('html, body').animate({
 					scrollTop: $(calEvent.scrollTo).offset().top
