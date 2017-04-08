@@ -366,6 +366,7 @@ function markDoneHomework() {
 		if (!alreadyAdded && checked) doneHomework.push(note);
 		setStorage({"doneHomework": doneHomework});
 	})
+	setShowOnlyHomework();
 }
 
 $("#onlyHomeworkBox").click(setShowOnlyHomework);
