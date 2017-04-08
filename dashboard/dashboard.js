@@ -12,7 +12,7 @@ var noteSelected = false;
 var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 
 //Homework gotta be uniform for storing yo
-var homeworkNoteRegex = new RegExp(/(\n|\W|quot)/g);
+var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
 window.onscroll = function() {
 	if (noteSelected) {
@@ -283,7 +283,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 			homeworkDoneText = "Lektie lavet";
 		}
 
-		getStorage('doneHomework', function(obj) {
+		getStorage('doneHomework', true, function(obj) {
 
 			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
 
@@ -357,7 +357,7 @@ function markDoneHomework() {
 		$(this).parent().parent().removeClass("homeworkLI");
 	}
 
-	getStorage("doneHomework", function(object) {
+	getStorage("doneHomework", true, function(object) {
 		var doneHomework = object.doneHomework;
 		if (typeof doneHomework === 'undefined') {
 			doneHomework = [];
@@ -372,7 +372,7 @@ function markDoneHomework() {
 			}
 		}
 		if (!alreadyAdded && checked) doneHomework.push(note);
-		setStorage({"doneHomework": doneHomework});
+		setStorage({"doneHomework": doneHomework}, true);
 	})
 	setShowOnlyHomework();
 }
