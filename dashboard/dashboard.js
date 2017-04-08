@@ -168,8 +168,8 @@ window.onload = function() {
 				$(".list-group-item-success").removeClass("list-group-item-success");
 				noteSelected = false;
 				$(calEvent.scrollTo).addClass("list-group-item-success");
-				$('html, body').animate({
-					scrollTop: $(calEvent.scrollTo).offset().top
+				$('#todoList').animate({
+					scrollTop: $('#todoList').scrollTop() + $(calEvent.scrollTo).position().top - $("#todoList").height()/2
 				}, 200);
 				setTimeout(function() {
 					noteSelected = true;
