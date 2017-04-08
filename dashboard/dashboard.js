@@ -191,8 +191,12 @@ window.onload = function() {
 		if (!chrome.runtime.error) {
 			if (obj.lang == 'dansk') {
 				lang = obj.lang
-				$('#searchHeader').html("<h2>Søg</h2>");
-				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though.
+				$('#searchHeader').text("Cachede filer fra lektioner");
+				$('#searchBox').attr("placeholder", "Søg filer");
+				$('#disclaimer').text("Læg venligst mærke til at dette kun er de filer som vi har gemt. Filer bliver kun gemt når du går ind på en lektion i uddata's skema. Tip: Hold control nede og tryk for at åbne i en ny fane");
+				$('#todo').text("Denne uges noter");
+				$('#onlyHomeworkText').text("Vis kun lektier");
+				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 
 				try {
 					$('#calendar').fullCalendar('option', 'locale', 'da');

@@ -10,8 +10,9 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div style="margin: 5px">
-				<h2 id='searchHeader'>Search</h2>
-				<input type="text" class="form-control" id='searchBox' placeholder="If you can't read this, blame a teacher">
+				<h2 id='searchHeader'>Cached files from lessons</h2>
+				<p id='disclaimer'>Please note that this is only the files from lessons that are cached. More files will automatically be added then you open a lesson note in uddataplus. Tip: Hold control to open in new tab.</p>
+				<input type="text" class="form-control" id='searchBox' placeholder="Search files">
 				<ul class="list-group" id='searchResults'>
 					<li class="list-group-item">Loading...</li>
 				</ul>
@@ -23,8 +24,8 @@
 			</div>
 
 			<div class="col-md-3">
-				<h2>To-do</h2>
-				<input type="checkbox" id="onlyHomeworkBox"> Only show homework
+				<h2 id="todo">To-do</h2>
+				<input type="checkbox" id="onlyHomeworkBox"> <label id="onlyHomeworkText">Only show homework</label>
 				<ul class="list-group" id="todoList" style="margin: 5px;">
 				</ul>
 			</div>
