@@ -186,6 +186,8 @@ jQuery.expr[':'].regex = function(elem, index, match) {
     return regex.test(jQuery(elem)[attr.method](attr.property));
 }
 
+var toCacheFiles = 0;
+
 function cacheFiles() {
 	//If the popup is up
 	if ($(".control-label").length > 3) {
@@ -201,6 +203,9 @@ function cacheFiles() {
 		let files = $(".controls > div > div > div > a[download]");
 		if (typeof time === 'undefined') time = timeToTrigger;
 
+		console.assert(time != null);
+		console.assert(typeof time !== 'undefined');
+
 		//This is good enough, right?
 		if (lasttime !== time || lastdate !== date) {
 			lasttime = time;
@@ -208,14 +213,9 @@ function cacheFiles() {
 			files.each(function() {
 				let file = $(this).attr("download");
 				let url = $(this).attr("href");
-				chrome.runtime.sendMessage({action: "downloadScheduleFile", date: date, time: time, subject: subject, teacher: teacher, filename: file, url: url});
+				toCacheFiles++;
+				chrome.runtime.sendMessage({action: "downloadScheduleFile", date: date, time: time, subject: subject, teacher: teacher, filename: file, url: url}, removeElement);
 			});
-			if (dowToTrigger !== null) {
-				//Might as well give it a bit of time, just in case.
-				window.setTimeout(function() {
-					window.close();
-				}, 1000);
-			}
 		}
 	}
 
@@ -223,14 +223,23 @@ function cacheFiles() {
 	window.setTimeout(cacheFiles, 2000);
 }
 
+function removeElement() {
+	toCacheFiles--;
+	if (toCacheFiles == 0 && dowToTrigger !== null) {
+		window.close();
+	}
+
+}
+
+
 cacheFiles();
 
 var dispatchMouseEvent = function(target, var_args) {
-  var e = document.createEvent("MouseEvents");
-  // If you need clientX, clientY, etc., you can call
-  // initMouseEvent instead of initEvent
-  e.initEvent.apply(e, Array.prototype.slice.call(arguments, 1));
-  target.dispatchEvent(e);
+	var e = document.createEvent("MouseEvents");
+	// If you need clientX, clientY, etc., you can call
+	// initMouseEvent instead of initEvent
+	e.initEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+	target.dispatchEvent(e);
 };
 
 function clickOnElement(element) {

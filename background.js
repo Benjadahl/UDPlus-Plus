@@ -19,7 +19,7 @@ function successCallback(newfs) {
 }
 
 //Save a file by URL to disk
-function saveLessonFile(date, time, subject, teacher, filename, url) {
+function saveLessonFile(date, time, subject, teacher, filename, url, sendResponse) {
 	if (fs !== null) {
 
 		//Fingers crossed this is unique enough. Otherwise, that's a problem.
@@ -48,7 +48,8 @@ function saveLessonFile(date, time, subject, teacher, filename, url) {
 						};
 
 						fileWriter.write(blob);
-						chrome.runtime.sendMessage({action: "NewFileSaved"});
+						chrome.runtime.sendMessage({action: "NewFileSaved", filename: filename});
+						return(filename);
 
 					}, errorHandler);
 
@@ -114,7 +115,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	if(message.action == "options"){
 		chrome.runtime.openOptionsPage();
 	} else if (message.action == "downloadScheduleFile") {
-		saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url);
+		sendResponse({filename: saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url) });
 	} else if (message.action == "requestFile") {
 		var dirReader = fs.root.createReader();
 		var entries = [];
