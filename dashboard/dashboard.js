@@ -80,7 +80,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"], objekt_id: theClass['objekt_id']};
+				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"], objekt_id: theClass['objekt_id'], rooms: theClass['Rooms'], teachers: theClass['Teachers']};
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
@@ -120,7 +120,7 @@ function rerenderEvents() {
 
 	try {
 		lessonNotes.forEach(function(item) {
-			addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id']);
+			addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id'], item['rooms'], item['teachers']);
 		});
 
 	} catch (error) {
@@ -268,7 +268,7 @@ function contains(array, element) {
 	return false;
 }
 
-function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
+function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms, teachers) {
 	let startDate = new Date(start);
 	let day = startDate.getDay();
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
@@ -293,6 +293,8 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	let pleaseOpenUD = "Please open UDDATA+ lesson to cache this file";
 	let attachedFiles = "<br>Attached Files: ";
 	var homework = false;
+	let roomsString = 'Rooms: ';
+	let teachersString = 'Teachers: ';
 
 	//Check if the lesson matches our homework thing
 	var homeworkClass = "";
@@ -326,6 +328,8 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 			attachedFiles = "<br>Tilknyttede filer: ";
 			pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
 			homeworkDoneText = "Lektie lavet";
+			roomsString = "Lokaler: ";
+			teachersString = "Lærere: ";
 		}
 
 		getStorage('doneHomework', true, function(obj) {
@@ -382,12 +386,15 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 			}
 
 			if (!homework) homeworkCheckbox = "";
+			console.log(rooms);
 
 			//Append a beautiful object to our list
 			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
 														+ weekDays[day] + "</b><br /><i>"
 														+ startTime.hour + ":" + startTime.minute + " - "
 														+ endTime.hour + ":" + endTime.minute + "</i><br />"
+														+ roomsString + rooms.toString() + "<br>"
+														+ teachersString + teachers.toString() + "<br>"
 														+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 
 

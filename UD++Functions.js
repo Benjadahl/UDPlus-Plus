@@ -69,17 +69,17 @@ function getSchedule(startDate, endDate, callback) {
 				returnClass["Level"] = theClass["niveau"];
 
 				//Location
-				returnClass["Rooms"] = {};
+				returnClass["Rooms"] = [];
 				for (room in theClass["lokaleList"]) {
-					returnClass["Rooms"][room] = theClass["lokaleList"][room]["lokalenr"];
+					returnClass["Rooms"].push(theClass["lokaleList"][room]["lokalenr"]);
 				}
 
 
 
 				//Teachers
-				returnClass["Teachers"] = {};
+				returnClass["Teachers"] = [];
 				for (worker in theClass["medarbejderList"]) {
-					returnClass["Teachers"][worker] = theClass["medarbejderList"][worker]["initialer"];
+					returnClass["Teachers"].push(theClass["medarbejderList"][worker]["initialer"]);
 				}
 
 				//The note
