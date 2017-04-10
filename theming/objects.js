@@ -27,6 +27,7 @@ var PlusPlusList = {
     profileRing:new PlusPlusObject(".round", applyBorderRule, ["border"], flags={pixels: 2}),
     menuText:new PlusPlusObject(".nav-list>li>a", applyCssRule, ["color"]),
     mainText:new PlusPlusObject("body", applyCssRule, ["color"]),
+    languageBackground:new PlusPlusObject("#language", applyCssRule, ["background-color"]),
     linkLanguage:new PlusPlusObject("#language>a", applyCssRule, ["color"]),
     studentInfo:new PlusPlusObject(".page-header h1 small", applyCssRule, ["color"]),  //The name studentInfo refers to the schedule page, however this applies to all pages
     outerBackground:new PlusPlusObject("#wrapper", applyCssRule, ["background-color"]),
@@ -49,12 +50,12 @@ var PlusPlusList = {
   start:{},
   schedule:{
     scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
-    tableTopActive:new PlusPlusObject(".GK14FIEDD0 th.GK14FIEDK-", applyCssRule, ["background-color", "border-top-color"]),
+    tableTopActive:new PlusPlusObject(".GEHOBKPDJ0 th.GEHOBKPDA0", applyCssRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
     tableTopTextActive: new PlusPlusObject(".GC0H5P4BK- th.GC0H5P4BB-", applyCssRule, ["color"], flags={"important":false}),
     tableTop: new PlusPlusObject("html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", applyCssRule, ["background"]),
-    tableLeftSide:new PlusPlusObject(".GK14FIEDE0 table", applyCssRule, ["background"]),
+    tableLeftSide:new PlusPlusObject(".GEHOBKPDK0 table", applyCssRule, ["background"]),
     tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
     noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
     noteBottom:new PlusPlusObject(".GEVWOMLKGB", applyCssRule, ["background-color"]),
