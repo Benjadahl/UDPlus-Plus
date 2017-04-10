@@ -151,6 +151,11 @@ function onRenderEvent(event, element) {
 		if (toInsert) lessonNotes.push(event);
 
 	}
+	console.log(element);
+	element.append("<section>");
+	element.append("<div class='fc-teacher'>" + event['teachers'].toString() + "</div>");
+	element.append("<div class='fc-room'>" + event['rooms'].toString() + "</div>");
+	element.append("</section>");
 }
 
 //Init when we load the window
@@ -386,7 +391,6 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 			}
 
 			if (!homework) homeworkCheckbox = "";
-			console.log(rooms);
 
 			//Append a beautiful object to our list
 			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
