@@ -14,6 +14,25 @@ var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 //Homework gotta be uniform for storing yo
 var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
+//Whetever we want to fetch files automatically
+var fetchFilesAutomatically = false;
+getStorage('autoFetchFiles', function(obj) {
+	if (!chrome.runtime.error && obj.autoFetchFiles == true) {
+		fetchFilesAutomatically = obj.autoFetchFiles;
+		$("#autofetchbox").prop('checked', fetchFilesAutomatically);
+	}
+});
+
+function setAutoFetch() {
+	var checked = $("#autofetchbox").is(":checked");
+	setStorage({'autoFetchFiles': checked});
+	fetchFilesAutomatically = checked;
+	rerenderEvents();
+}
+
+$("#autofetchbox").on("click", setAutoFetch);
+
+
 //When we scroll, we want to stop marking the note we might have scrolled to previously
 var noteSelected = false;
 $('#todoList').on('scroll', function() {
@@ -222,6 +241,7 @@ window.onload = function() {
 				$('#disclaimer').text("Læg venligst mærke til at dette kun er de filer som vi har gemt. Filer bliver kun gemt når du går ind på en lektion i uddata's skema. Tryk for at skjule den her besked.");
 				$('#todo').text("Lektionsnoter");
 				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
+				$('#autofetchtext').text("Hent automatisk lektionsfiler");
 				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 
 				try {
@@ -341,7 +361,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 					var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
 					list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
 
-					if (!contains(lessonsCaching, dateToID(start))) {
+					if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
 						chrome.tabs.create({
 							url: uddatalink,
 							active: false,
