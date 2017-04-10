@@ -170,7 +170,7 @@ window.onload = function() {
 			customTheme = obj.customTheme;
 		}
 	});
-	
+
 	var curtheme = "Default";
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
@@ -227,9 +227,6 @@ window.onload = function() {
 
 		editable: false, //Of course we don't want people editing the calendar
 		eventRender: function(event, element) {
-			element.qtip({
-				content: event.description
-			});
 			onRenderEvent(event, element);
 		},
 		eventDestroy: function(event, element, view) {
