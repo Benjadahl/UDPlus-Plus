@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>UD++ Dashboard</title>
+		<meta charset="UTF-8">
+	</head>
+	<body style="overflow-x: hidden">
+		<h1 class="text-center">UD++ Dashboard</h1>
+		<p class='text-center' id='message'></p>
+
+		<div class="row">
+			<div class="col-md-3">
+				<div style="margin: 5px">
+				<h2 id='searchHeader'>Lesson files</h2>
+				<p id='disclaimer'>Please note that this is only the files from lessons that are cached. More files will automatically be added then you open a lesson note in uddataplus. Click to hide this message.</p>
+				<input type="text" class="form-control" id='searchBox' placeholder="If you can't read this, blame a teacher">
+				<ul style="height: 80%; overflow: auto;" class="list-group" id='searchResults'>
+					<li class="list-group-item">Loading...</li>
+				</ul>
+				</div>
+			</div>
+
+			<div id="scheduleCol" class="col-md-6">
+				<div id='calendar'></div>
+			</div>
+
+			<div class="col-md-3">
+				<h2 id="todo">Lesson notes</h2>
+				<input type="checkbox" id="onlyHomeworkBox" name="onlyHomeworkBox"> <label id="onlyHomeworkText" for="onlyHomeworkBox">Only show undone homework</label>
+				<ul style="height: 80%; overflow: auto;" class="list-group" id="todoList" style="margin: 5px;">
+				</ul>
+			</div>
+
+		</div>
+
+
+		<!-- A whole lot of references and scripts we are using. -->
+		<link rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../resources/fullcalendar-3.1.0/fullcalendar.min.css">
+		<link rel="stylesheet" href="../resources/qtip/jquery.qtip.min.css">
+		<script src="../resources/jquery-3.1.0.min.js"></script>
+		<script src="../resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src='../resources/fullcalendar-3.1.0/lib/moment.min.js'></script>
+		<script src="../resources/fullcalendar-3.1.0/fullcalendar.min.js"></script>
+		<script src="../resources/fullcalendar-3.1.0/locale/da.js"></script>
+		<script src="../storageHandler.js"></script>
+		<script src="../UD++Functions.js"></script>
+		<script src="../themes.js"></script>
+		<script src="../theming/objectDefine.js"></script>
+		<script src="../theming/objects.js"></script>
+		<script src="../theming/runTheme.js"></script>
+		<!--<script src="../main.js"></script>-->
+		<script src="../resources/qtip/jquery.qtip.min.js"></script>
+		<script src="../pageScripts/schedule.js"></script>
+		<script src="../resources/linkify.min.js"></script>
+		<script src="../resources/linkify-html.min.js"></script>
+		<script src="dashboard.js"></script>
+	</body>
+</html>

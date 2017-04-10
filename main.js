@@ -84,9 +84,9 @@ setInterval(allowSelect, 250);
 
 
 //Save the language selected on Uddata+
-if($("#language > a").html() == "English"){
+if($("#language > a").html() === "English"){
 	setStorage({"lang": "dansk"});
-}else{
+}else if($("#language > a").html() === "Dansk"){
 	setStorage({"lang": "engelsk"});
 }
 
@@ -120,7 +120,7 @@ $(menuSelector).append(extraMenu);
 
 //Adds the function of sending a message to the background script, to the ++settings button
 $('#id_settings').click(function(){
-	chrome.runtime.sendMessage({optionsClick: true});
+	chrome.runtime.sendMessage({action: "options"});
 });
 
 getStorage('showNews', function (obj) {

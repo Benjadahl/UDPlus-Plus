@@ -1,8 +1,141 @@
+//Most of this code is copy-pasted from https://www.html5rocks.com/en/tutorials/file/filesystem/
+//The filesystem API is only still in Chrome by coincidence basically, and might disappear at any time. But I don't know a better one.
+
+navigator.requestFileSystem  = navigator.requestFileSystem || navigator.webkitRequestFileSystem;
+
+function errorHandler(e) {
+	console.log(e);
+}
+
+var INITIAL_QUOTA = 1024*1024*1024*20; //20GiB
+
+//This is the filesystem object we want to use to save our precious lesson files
+var fs = null;
+
+//Success callback for a filesystem access function
+function successCallback(newfs) {
+	console.log("I honestly didn't expect to get this far");
+	fs = newfs;
+}
+
+//Save a file by URL to disk
+function saveLessonFile(date, time, subject, teacher, filename, url) {
+	if (fs !== null) {
+
+		//Fingers crossed this is unique enough. Otherwise, that's a problem.
+		let saveName = date + time + filename;
+
+		console.log(saveName);
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200){
+				//this.response is what you're looking for
+				//handler(this.response);
+				let blob = this.response;
+
+				fs.root.getFile(saveName, {create: true}, function(fileEntry) {
+
+					// Create a FileWriter object for our FileEntry (log.txt).
+					fileEntry.createWriter(function(fileWriter) {
+
+						fileWriter.onwriteend = function(e) {
+							console.log('Write completed.');
+						};
+
+						fileWriter.onerror = function(e) {
+							console.log('Write failed: ' + e.toString());
+						};
+
+						fileWriter.write(blob);
+						chrome.runtime.sendMessage({action: "NewFileSaved"});
+
+					}, errorHandler);
+
+				}, errorHandler);
+
+			}
+		}
+		xhr.open('GET', url);
+		xhr.responseType = 'blob';
+		xhr.send();
+
+
+
+	} else {
+		console.log("Can't save files; user said no");
+	}
+}
+
+//We ask for access to the filesystem API in HTML5. It's only supported in Chrome, and it's largely undocumented, and only exists by coincidence. But it works, so what the heck.
+function storeFiles() {
+	navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
+		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, successCallback, errorHandler);
+	}, function(e) {
+		alert("UD++ prøver at gemme filer, men noget gik galt. Det her burde ikke ske.");
+		console.log('Error', e);
+	});
+
+}
+
+function toArray(list) {
+	return Array.prototype.slice.call(list || [], 0);
+
+}
+
+var lastEntries = null;
+
+//This is just a copied function from up top. It returns all the FileEntry objects we can find.
+function listResults(entries) {
+	// Document fragments can improve performance since they're only appended
+	//   // to the DOM once. Only one browser reflow occurs.
+	var fragment = document.createDocumentFragment();
+	//
+	//	entries.forEach(function(entry, i) {
+	//		var img = entry.isDirectory ? '<img src="folder-icon.gif">' :
+	//			'<img src="file-icon.gif">';
+	//		var li = document.createElement('li');
+	//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
+	//		console.log(i);
+	//	});
+	toSendEntries = [];
+	entries.forEach(function(entry, i) {
+		toSendEntries.push({name: entry.name, url: entry.toURL()});
+	});
+	chrome.runtime.sendMessage({action: "returnFilesInfo", entries: toSendEntries});
+	lastEntries = entries;
+}
+
+storeFiles();
+
+
+//A bunch of listeners so we can interact with this script from other scripts.
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
-	if(message.optionsClick){
+	if(message.action == "options"){
 		chrome.runtime.openOptionsPage();
+	} else if (message.action == "downloadScheduleFile") {
+		saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url);
+	} else if (message.action == "requestFile") {
+		var dirReader = fs.root.createReader();
+		var entries = [];
+
+		// Call the reader.readEntries() until no more results are returned.
+		var readEntries = function() {
+			dirReader.readEntries (function(results) {
+				if (!results.length) {
+					listResults(entries.sort());
+				} else {
+					entries = entries.concat(toArray(results));
+					readEntries();
+				}
+			}, errorHandler);
+		};
+
+		readEntries(); // Start reading dirs.<Paste>
 	}
 });
+
+
 
 chrome.runtime.onInstalled.addListener(function(details){
 	if(details.reason === "update"){
@@ -11,6 +144,14 @@ chrome.runtime.onInstalled.addListener(function(details){
 		setStorage({'showNews' : true});
 	}
 });
+
+function openPage() {
+	chrome.tabs.create({
+		url: chrome.runtime.getURL('dashboard/dashboard.html')
+	});
+}
+
+chrome.browserAction.onClicked.addListener(openPage);
 
 //A regular expression which parses a title from the RSS feed, and extracts the good info.
 var downRegex = /EASY-A lukker ned (.*) den (\d\d)\/(\d\d) kl\. ((\d\d:\d\d) - (\d\d:\d\d)|(\d\d)-(\d\d))/;
@@ -24,6 +165,18 @@ var weekDays = {
 	"lørdag" : "Saturday",
 	"søndag" : "Sunday"
 };
+
+function doNothing(input) {
+	console.log("Doing nothing succeded");
+}
+
+function cacheYearSchedule() {
+	var year = new Date().getYear();
+	var start = year + "-01-01";
+	var end = year + "12-30";
+	getSchedule(start, end, doNothing);
+}
+cacheYearSchedule();
 
 //This function will check EASY-A for downtime
 function checkEasyADowntime() {
@@ -60,8 +213,6 @@ function checkEasyADowntime() {
 			 * 7: In the case of time without minutes, this is the start time
 			 * 9: In the case of time without minutes, this is the end time.
 			 */
-
-			console.log(regexMatch);
 
 			if (regexMatch !== null) {
 				console.log(regexMatch);

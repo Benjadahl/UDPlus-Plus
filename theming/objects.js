@@ -64,7 +64,7 @@ var PlusPlusList = {
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
     noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]),
-		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"])
+		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]),
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
@@ -80,7 +80,8 @@ var PlusPlusList = {
   plan:{},
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentSetting:new PlusPlusObject(".GDSGMNCBF", applyCssRule, ["background-color"])
+    assignmentSetting:new PlusPlusObject(".GDSGMNCBF", applyCssRule, ["background-color"]),
+		TooEarly:new PlusPlusObject(".TooEarly", applyCssRule, ["color"])
   },
   resources:{},
   grades:{}

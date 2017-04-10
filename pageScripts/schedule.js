@@ -46,11 +46,27 @@ function loadScheduleSettings() {
 	getStorage({toHide: ""}, function(obj) {
 		if (!chrome.runtime.error) {
 			toHideList = stringToList(obj.toHide);
-			$(".hiddenLesson").removeClass("hiddenLesson");
 			setInterval(function() {
-				for (var i=0; i < toHideList.length; i++) {
-					$(".DagMedBrikker").find("g").find("text:contains('" + toHideList[i] + "')").parent().parent().addClass("hiddenLesson");
-				}
+				$(".DagMedBrikker>g>g>g:nth-child(2)>text:nth-child(3)").each(function() {
+					var toMark = false;
+					for (var i=0; i < toHideList.length; i++) {
+						if (this.innerHTML.includes(toHideList[i])) toMark = true;
+					}
+
+					var adde = $(this).parent().parent();
+					if (toMark) {
+						if (!adde.hasClass("hiddenLesson")) {
+							adde.addClass("hiddenLesson");
+						}
+					} else {
+						if (adde.hasClass("hiddenLesson")) {
+							adde.removeClass("hiddenLesson");
+						}
+					}
+
+				});
+
+
 			}, 250);
 		}
 	});
@@ -67,7 +83,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 // <---- HOMEWORK MARKING
 //Function for marking the homework
 function markHomework(){
-	$(".homeworkLesson").removeClass("homeworkLesson");
+	//$(".homeworkLesson").removeClass("homeworkLesson");
 	$('.skemaBrikGruppe>g>g>text>title').each(function(index) {
 		var toMark = false;
 		var arrayLength = homeworkList.length;
@@ -75,7 +91,17 @@ function markHomework(){
 			if ($(this).text().toUpperCase().includes(homeworkList[i].toUpperCase())) toMark = true;
 		}
 		if (toMark) {
-			$(this).parent().parent().parent().find('rect').each(function () { $(this).addClass("homeworkLesson"); });
+			if (!$(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).addClass("homeworkLesson");
+				});
+			}
+		} else {
+			if ($(this).hasClass("homeworkLesson")) {
+				$(this).parent().parent().parent().find('rect').each(function () {
+					$(this).removeClass("homeworkLesson");
+				});
+			}
 		}
 	});
 }
@@ -137,5 +163,57 @@ function cacheSchedule() {
 }
 
 checkScheduleIsLoaded();
+
+var lasttime = "";
+var lastdate = "";
+
+//https://j11y.io/javascript/regex-selector-for-jquery/
+//Holy shit, I don't know what to think about this. But it works.
+//Regex support for jQuery selectors
+jQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
+
+function cacheFiles() {
+	//If the popup is up
+	if ($(".control-label").length > 3) {
+
+		//Basically a overly complicated jQuery selector to get the currently selected lesson.
+		var markedLesson = $('.skemaBrikGruppe > g:nth-child(1) > rect:regex(class,^(?!(homeworkLesson|lostfocus-svg)))[class]');
+
+		//jQuery selector hell. I am so sorry.
+		let time = markedLesson.parent().find("g>text:nth-child(2)").html();
+		let teacher = $(".control-group:nth-child(1)").find("input").val();
+		let subject = $(".control-group:nth-child(2)").find("input").val();
+		let date = $(".control-group:nth-child(3)").find("input").val();
+		let files = $(".controls > div > div > div > a[download]");
+
+		//This is good enough, right?
+		if (lasttime !== time || lastdate !== date) {
+			lasttime = time;
+			lastdate = date;
+			files.each(function() {
+				let file = $(this).attr("download");
+				let url = $(this).attr("href");
+				chrome.runtime.sendMessage({action: "downloadScheduleFile", date: date, time: time, subject: subject, teacher: teacher, filename: file, url: url});
+				//saveLessonFile(date, time, subject, teacher, file, url);
+			});
+		}
+	}
+
+	//Wait a little bit, try to cache files again.
+	window.setTimeout(cacheFiles, 2000);
+}
+
+cacheFiles();
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");

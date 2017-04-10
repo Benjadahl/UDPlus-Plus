@@ -3,7 +3,8 @@ var themes = {
 	"default":{
 		"name": "Default",
 		"homeworkMark": "#c0392b",
-		"warning" : "white"
+		"warning" : "white",
+		"TooEarly" : "red"
 	},
 	"blue": {"name": "Blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
 	"black" : {
@@ -33,7 +34,8 @@ var themes = {
 		"noteHeader":"rgb(43, 43, 43)",
 		"filesHeader":"rgb(43, 43, 43)",
 		"assignmentsTableActive":"#080707",
-		"warning" : "white"
+		"warning" : "white",
+		"TooEarly" : "red"
 	},
 	"green" : {
 		"name": "Green",
@@ -61,6 +63,7 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"noteHeader":"#539e24",
 		"filesHeader":"#539e24",
+		"TooEarly" : "red",
 		"warning" : "white"
 	},
 	"red" : {
@@ -90,6 +93,7 @@ var themes = {
 		"noteHeader":"#B22222",
 		"filesHeader":"#B22222",
 		"assignmentsTableActive":"#e74c3c",
+		"TooEarly" : "red",
 		"warning" : "white"
 	},
 	"dark" : {
@@ -148,6 +152,7 @@ var themes = {
 		"messageBackground": "#393939",
 		//"commentWritingBackground": "#393939",
 		"noteBackTextColour":"rgba(0, 0, 0, 0)",
+		"TooEarly" : "red",
 		"warning" : "#757575"
 	},
 	"rendark" : {
@@ -200,6 +205,7 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"assignmentsTableActive":"#064f7f",
 		"mainContainer" : "#393939",
+		"TooEarly" : "red",
 		"warning" : "#757575"
 		//"commentWritingBackground": "#393939"
 	},
@@ -248,6 +254,7 @@ var themes = {
 	"lessonDropdownText": "#363636",
 		//"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
 		"commentMessageText":"#FFFFFF",
+		"TooEarly" : "red",
 		"warning" : "white"
 	},
 	"base16" : {
@@ -302,6 +309,7 @@ var themes = {
 		"noteHeader":"#A54242",
 		"filesHeader":"#A54242",
 		"homeworkMark": "#A54242",
+		"TooEarly" : "red",
 		"warning" : "#C5C8C6"
 	}
 };
