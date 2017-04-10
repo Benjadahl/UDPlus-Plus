@@ -132,6 +132,7 @@ var themes = {
 		"leftMenuLIborderTop":"#414141",
 		"leftMenuLIborderBottom":"#414141",
 		"copyrightTop":"#414141",
+		"languageBackground":"#2a2a2a",
 		"linkLanguage":"#8e8e8e",
 		"mainText":"#757575",
 		"menuText": "#FFFFFF",
