@@ -8,12 +8,13 @@
 
 //Changes color off each element in the current theme
 function runTheme(theme, page){
-	console.log("Loading theme: " + theme);
+	console.log("Loading theme: " + theme + "on page " + page);
 	$('.UDPPCustom').remove();
 	if(typeof themes[theme] != "undefined") {
 		for (var T in themes[theme]) {
 
       applySelector(T, themes[theme][T], page);
+	  
 
 		}
 	} else {
@@ -23,9 +24,11 @@ function runTheme(theme, page){
 		for(var T in customTheme[theme]){
 			for(var X in customTemplate[T]){
 
-        if(! /<[a-z][\s\S]*>/.test(customTheme[theme][T])){
-          applySelector(customTemplate[T][X], customTheme[theme][T], page);
-        }
+			if(! /<[a-z][\s\S]*>/.test(customTheme[theme][T])){
+				applySelector(customTemplate[T][X], customTheme[theme][T], page);
+			}
+
+			console.log(customTemplate[T][X]);
 
 			}
 		}

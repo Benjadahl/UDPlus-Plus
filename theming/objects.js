@@ -85,5 +85,10 @@ var PlusPlusList = {
 		TooEarly:new PlusPlusObject(".TooEarly", applyCssRule, ["color"])
   },
   resources:{},
-  grades:{}
+  grades:{},
+  dashboard:{
+    mainBackImg:new PlusPlusObject("body", applyImgRule, ["background-image"], flags={backImg: true, elements : ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]}),
+    mainBackImgFill:new PlusPlusObject("body", applyCssRule, ["background-size"]),
+    mainBackImgNoRepeat:new PlusPlusObject("body", applyCssRule, ["background-repeat"])
+  }
 };

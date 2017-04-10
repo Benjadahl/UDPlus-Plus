@@ -5,6 +5,9 @@ var toHide = [];
 //The lesson notes we are rendering on the right side
 var lessonNotes = [];
 
+//Set the current page for theming
+curPage = "dashboard";
+
 //All files we have in Chrome storage
 var entries = null;
 
@@ -162,6 +165,12 @@ function onRenderEvent(event, element) {
 //Init when we load the window
 window.onload = function() {
 
+	getStorage('customTheme', function (obj) {
+		if (!chrome.runtime.error) {
+			customTheme = obj.customTheme;
+		}
+	});
+	
 	var curtheme = "Default";
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
@@ -176,7 +185,6 @@ window.onload = function() {
 			}
 		}
 	});
-	var curPage = "schedule";
 	runTheme();
 
 
