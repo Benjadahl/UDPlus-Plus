@@ -151,11 +151,12 @@ function onRenderEvent(event, element) {
 		if (toInsert) lessonNotes.push(event);
 
 	}
-	console.log(element);
-	element.append("<section>");
-	element.append("<div class='fc-teacher'>" + event['teachers'].toString() + "</div>");
-	element.append("<div class='fc-room'>" + event['rooms'].toString() + "</div>");
-	element.append("</section>");
+	if ($("#calendar").fullCalendar('getView').type === "agendaWeek") {
+		element.append("<section>");
+		element.append("<div class='fc-teacher'>" + event['teachers'].toString() + "</div>");
+		element.append("<div class='fc-room'>" + event['rooms'].toString() + "</div>");
+		element.append("</section>");
+	}
 }
 
 //Init when we load the window
