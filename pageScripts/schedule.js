@@ -111,6 +111,9 @@ function checkScheduleIsLoaded() {
 	//If no schedule blocks are there, we just assume the schedule isn't loaded.
 	if ($(".skemaBrikGruppe > g").length > 0) {
 		cacheSchedule();
+		if (dowToTrigger !== null) {
+			openLessonNote(dowToTrigger, timeToTrigger);
+		}
 	} else {
 		window.setTimeout(checkScheduleIsLoaded, 100);
 	}
@@ -196,6 +199,7 @@ function cacheFiles() {
 		let subject = $(".control-group:nth-child(2)").find("input").val();
 		let date = $(".control-group:nth-child(3)").find("input").val();
 		let files = $(".controls > div > div > div > a[download]");
+		if (typeof time === 'undefined') time = timeToTrigger;
 
 		//This is good enough, right?
 		if (lasttime !== time || lastdate !== date) {
@@ -205,8 +209,13 @@ function cacheFiles() {
 				let file = $(this).attr("download");
 				let url = $(this).attr("href");
 				chrome.runtime.sendMessage({action: "downloadScheduleFile", date: date, time: time, subject: subject, teacher: teacher, filename: file, url: url});
-				//saveLessonFile(date, time, subject, teacher, file, url);
 			});
+			if (dowToTrigger !== null) {
+				//Might as well give it a bit of time, just in case.
+				window.setTimeout(function() {
+					window.close();
+				}, 1000);
+			}
 		}
 	}
 
@@ -215,5 +224,32 @@ function cacheFiles() {
 }
 
 cacheFiles();
+
+var dispatchMouseEvent = function(target, var_args) {
+  var e = document.createEvent("MouseEvents");
+  // If you need clientX, clientY, etc., you can call
+  // initMouseEvent instead of initEvent
+  e.initEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+  target.dispatchEvent(e);
+};
+
+function clickOnElement(element) {
+	dispatchMouseEvent(element, 'mouseover', true, true);
+	dispatchMouseEvent(element, 'mousedown', true, true);
+	dispatchMouseEvent(element, 'click', true, true);
+	dispatchMouseEvent(element, 'mouseup', true, true);
+}
+
+function openLessonNote(dayOfWeek, timeString) {
+	var lesson = $(".DagMedBrikker").eq(dayOfWeek).find("text:contains(" + timeString + ")").parent().parent();
+	var options = lesson.find(".actionMenu > g > rect");
+	var option = options[options.length - 1];
+	clickOnElement(option);
+	var showNote = $(".icon-file-text-alt");
+	clickOnElement(showNote.parent()[0]);
+}
+
+dowToTrigger = null;
+timeToTrigger = null;
 
 $(document.body).append("<style>.hideLesson { visibility: hidden; }</style>");

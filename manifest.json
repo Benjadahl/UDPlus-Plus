@@ -34,7 +34,9 @@
 		"http://admsys.stil.dk/",
 		"notifications",
 		"https://storage.googleapis.com/",
+		"*://*.uddataplus.dk/*",
 		"storage",
+		"tabs",
 		"unlimitedStorage"
 	],
 	"background":{

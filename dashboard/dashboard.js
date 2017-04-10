@@ -99,9 +99,14 @@ function rerenderEvents() {
 		return a.start - b.start;
 	});
 
-	lessonNotes.forEach(function(item) {
-		addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id']);
-	});
+	try {
+		lessonNotes.forEach(function(item) {
+			addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id']);
+		});
+
+	} catch (error) {
+		//Oh well.
+	}
 
 }
 
@@ -234,6 +239,14 @@ function toCompIsoString(date) {
 	return date.toISOString().split("T")[0];
 }
 
+var lessonsCaching = [];
+
+function contains(array, element) {
+	for (i=0;i<array.length; i++) {
+		if (array[i] == element) return true;
+	}
+	return false;
+}
 
 function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 	let startDate = new Date(start);
@@ -318,6 +331,7 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 				}
 			}
 
+			var times = startTime.hour + ":" + startTime.minute + "-" + endTime.hour + ":" + endTime.minute;
 			var list = "<br><ul>";
 			for (i = 0; i < googleFiles; i++) {
 				if (i < entriesToAdd.length) {
@@ -326,6 +340,17 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 				} else {
 					var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
 					list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+
+					if (!contains(lessonsCaching, dateToID(start))) {
+						chrome.tabs.create({
+							url: uddatalink,
+							active: false,
+						}, function(tab) {
+							chrome.tabs.executeScript(tab.id, {code: "dowToTrigger = " + (day-1) + "; timeToTrigger = '" + times + "';"});
+						});
+						lessonsCaching.push(dateToID(start));
+					}
+
 				}
 			}
 			list = list + "</ul>";
@@ -346,9 +371,9 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id) {
 														+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 
 
-			//Reload homework marking stuff, and add listener
-			setShowOnlyHomework();
-			$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+														//Reload homework marking stuff, and add listener
+														setShowOnlyHomework();
+														$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
 		});
 	});
