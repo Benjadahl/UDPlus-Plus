@@ -20,14 +20,25 @@
 		"48":"resources/icons/icon48.png",
 		"128":"resources/icons/icon128.png"
 	},
+	"browser_action": {
+		"default_icon": {
+			"16":"resources/icons/icon16.png",
+			"19":"resources/icons/icon19.png",
+			"48":"resources/icons/icon48.png",
+			"128":"resources/icons/icon128.png"
+		},
+		"default_title": "UD++ Dashboard"
+	},
 	"permissions": [
 		"activeTab",
 		"http://admsys.stil.dk/",
 		"notifications",
-		"storage"
+		"https://storage.googleapis.com/",
+		"storage",
+		"unlimitedStorage"
 	],
 	"background":{
-		"scripts":["storageHandler.js", "resources/jquery-3.1.0.min.js", "background.js"]
+		"scripts":["storageHandler.js", "resources/jquery-3.1.0.min.js", "resources/fullcalendar-3.1.0/lib/moment.min.js", "UD++Functions.js", "background.js"]
 	},
 	"content_scripts": [
 		{
@@ -80,6 +91,14 @@
 			"js": ["resources/jquery-3.1.0.min.js","pageScripts/grades.js","resources/jquery.snow.min.1.0.js"],
 			"run_at": "document_end"
 		},
+		{
+			"matches":[
+				"*://www.uddataplus.dk/besked/*"
+			],
+			"js": ["resources/jquery-3.1.0.min.js","pageScripts/conversations.js","resources/jquery.snow.min.1.0.js"],
+			"run_at": "document_end"
+		},
+
 		{
 			"matches":[
 				"*://www.uddata.dk/uddataplus-lukket/"
