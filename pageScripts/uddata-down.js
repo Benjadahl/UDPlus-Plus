@@ -8,8 +8,8 @@ window.onload = function() {
 					var lang = obj.lang;
 					getStorage("cachedScheduleDate", true, function(obj) {
 						var date = obj.cachedScheduleDate;
-						var currentWeekNumber = new Date().getWeekNumber();
-						var scheduleWeekNumber = new Date(date).getWeekNumber();
+						var currentWeekNumber = getWeekNumber(new Date());
+						var scheduleWeekNumber = getWeekNumber(new Date(date));
 						if (scheduleWeekNumber === currentWeekNumber) {
 							console.log(obj);
 							$("body").append('<script src="https://use.fontawesome.com/5b06aadc00.js"></script>');
