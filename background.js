@@ -133,6 +133,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		};
 
 		readEntries(); // Start reading dirs.<Paste>
+	} else if(message.action == "deleteFilesystem"){
+		//Clear out storage here
 	}
 });
 
