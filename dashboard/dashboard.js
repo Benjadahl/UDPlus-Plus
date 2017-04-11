@@ -87,6 +87,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 
 				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
 					classObj['color'] = "orange";
+					classObj.className = "noteLesson";
 					for (var i=0; i < homeworkList.length; i++) {
 						if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
 							classObj.className = "homeworkLesson";
