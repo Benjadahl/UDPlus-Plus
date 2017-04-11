@@ -149,8 +149,19 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 function openPage() {
-	chrome.tabs.create({
-		url: chrome.runtime.getURL('dashboard/dashboard.html')
+
+	var dashboardURL = chrome.runtime.getURL('dashboard/dashboard.html')
+	//Get all tabs with the same URL as dashboard
+	chrome.tabs.query({url: dashboardURL}, function(tabs) {
+		//If we have a dashboard tab already open, switch to that instead of opening a new one
+		if (tabs.length > 0) {
+			chrome.tabs.update(tabs[0].id, {active: true});
+		} else {
+			//Create new dashboard tab
+			chrome.tabs.create({
+				url: dashboardURL
+			});
+		}
 	});
 }
 
