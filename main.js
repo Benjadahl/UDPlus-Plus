@@ -1,7 +1,7 @@
 console.log("UD++ starting");
 
 //News string in this version. Leave empty for off.
-newsString = "";
+newsString = "UD++ Dashboard available! Press the UD++ bottom in the top right corner of your browser.";
 
 
 //Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
