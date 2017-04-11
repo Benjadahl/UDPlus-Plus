@@ -7,7 +7,7 @@ function errorHandler(e) {
 	console.log(e);
 }
 
-var INITIAL_QUOTA = 1024*1024*1024*20; //20GiB
+var INITIAL_QUOTA = 1024*1024*1024*5; //5GiB
 
 //This is the filesystem object we want to use to save our precious lesson files
 var fs = null;
