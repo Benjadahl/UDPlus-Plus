@@ -65,6 +65,7 @@ function saveLessonFile(date, time, subject, teacher, filename, url, sendRespons
 
 	} else {
 		console.log("Can't save files; user said no");
+		return(filename);
 	}
 }
 
