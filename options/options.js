@@ -182,5 +182,16 @@ navigator.webkitPersistentStorage.queryUsageAndQuota (
     function(e) { console.log('Error', e);  }
 );
 
-
-
+//Konami code
+var code = [38,38,40,40,37,39,37,39,66,65];
+var currentPos = 0;
+document.addEventListener('keydown', function(e) {
+	if (e.keyCode == code[currentPos]) {
+		currentPos++;
+		if (currentPos == code.length) {
+			chrome.tabs.create({url: chrome.runtime.getURL('jasmine/SpecRunner.html')});
+			currentPos = 0;
+		}
+	} else
+		currentPos = 0;
+});
