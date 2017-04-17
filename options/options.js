@@ -182,16 +182,34 @@ navigator.webkitPersistentStorage.queryUsageAndQuota (
     function(e) { console.log('Error', e);  }
 );
 
-//Konami code
-var code = [38,38,40,40,37,39,37,39,66,65];
-var currentPos = 0;
+//Codes
+var konamiCode = [38,38,40,40,37,39,37,39,66,65]; // Up Up Down Down Left Right Left Right b a
+var konamiPos = 0;
+var easterCode = [38, 38, 40, 40, 73, 78, 68]; //Up Up Down Down i n d
+var easterPos = 0;
 document.addEventListener('keydown', function(e) {
-	if (e.keyCode == code[currentPos]) {
-		currentPos++;
-		if (currentPos == code.length) {
+	if (e.keyCode == konamiCode[konamiPos]) {
+		konamiPos++;
+		if (konamiPos == konamiCode.length) {
 			chrome.tabs.create({url: chrome.runtime.getURL('jasmine/SpecRunner.html')});
-			currentPos = 0;
+			konamiPos = 0;
 		}
-	} else
-		currentPos = 0;
+	} else {
+		konamiPos = 0;
+	}
+	
+	if (e.keyCode == easterCode[easterPos]) {
+		easterPos++;
+		if (easterPos == easterCode.length) {
+             easterPos = 0;
+			 getStorage('easter', function (obj) {
+					if (!chrome.runtime.error) {
+						setStorage({'easter' : !obj.easter});
+						console.log("Contrats easter is now set to " + !obj.easter);
+					}
+			});
+		}
+	}else{
+		easterPos = 0;
+	}
 });
