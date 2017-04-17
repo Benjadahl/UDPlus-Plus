@@ -126,7 +126,6 @@ function cacheSchedule() {
 	//Creates a regular expression that matches an URL that ends with either the ISO date, id_skema#, or id_skema.
 	var checkDate = new RegExp("(" + isoDate + "|id_skema#|id_skema)" + '$');
 	if (window.location.href.match(checkDate)) {
-		console.log("Caching schedule");
 		//Gets the schedule object
 		var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
 
@@ -160,7 +159,6 @@ function cacheSchedule() {
 		//Save the date the schedule was cached.
 		var date = new Date();
 		isoDate = isoDate + " " + (date.getHours()<10?'0':'') + date.getHours() + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes();
-		console.log(isoDate);
 		setStorage({"cachedScheduleDate": isoDate }, true);
 	}
 }
@@ -186,7 +184,7 @@ jQuery.expr[':'].regex = function(elem, index, match) {
     return regex.test(jQuery(elem)[attr.method](attr.property));
 }
 
-var toCacheFiles = 0;
+var toCacheFiles = null;
 
 function cacheFiles() {
 	//If the popup is up
@@ -203,17 +201,20 @@ function cacheFiles() {
 		let files = $(".controls > div > div > div > a[download]");
 		if (typeof time === 'undefined') time = timeToTrigger;
 
+		//If we were sent to cache files, but there are no files, let's GTFO
+		if (files.length == 0 && dowToTrigger !== null) window.close();
+
 		console.assert(time != null);
 		console.assert(typeof time !== 'undefined');
 
 		//This is good enough, right?
-		if (lasttime !== time || lastdate !== date) {
+		if (lasttime !== time || lastdate !== date || toCacheFiles == null) {
 			lasttime = time;
 			lastdate = date;
 			files.each(function() {
 				let file = $(this).attr("download");
 				let url = $(this).attr("href");
-				toCacheFiles++;
+				toCacheFiles = toCacheFiles + 1;
 				chrome.runtime.sendMessage({action: "downloadScheduleFile", date: date, time: time, subject: subject, teacher: teacher, filename: file, url: url}, removeElement);
 			});
 		}
@@ -228,8 +229,8 @@ function removeElement() {
 	if (toCacheFiles == 0 && dowToTrigger !== null) {
 		window.close();
 	}
-
 }
+
 
 
 cacheFiles();
