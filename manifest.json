@@ -116,5 +116,5 @@
 			"run_at": "document_end"
 		}
 	],
-	"web_accessible_resources": ["resources/UddataLogo.png", "storageHandler.js", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css", "resources/icons/icon48.png"]
+	"web_accessible_resources": ["resources/UddataLogo.png", "storageHandler.js", "UD++Functions.js", "resources/xmasHat.png", "resources/customclasses.css", "resources/icons/icon48.png", "resources/Easter.png"]
 }
