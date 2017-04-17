@@ -140,7 +140,7 @@ getStorage('easter', function (obj) {
         if (!chrome.runtime.error) {
 			console.log(obj.easter)
                 if(obj.easter){
-                        $('.brand').find("img").attr("src", "chrome-extension://bpfdnaaefbdeemjnofijaineklmeknib/resources/Easter.png")
+									$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/Easter.png"));
                 }
         }
 });
