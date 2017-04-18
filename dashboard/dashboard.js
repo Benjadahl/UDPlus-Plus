@@ -258,6 +258,13 @@ window.onload = function() {
 		}
 	});
 
+	getStorage('hideNotHomework', function(obj) {
+		if (!chrome.runtime.error) {
+			$("#onlyHomeworkBox").prop('checked', obj.hideNotHomework);
+			setShowOnlyHomework();
+		}
+	});
+
 	//Language stuff
 	getStorage('lang', function(obj) {
 		if (!chrome.runtime.error) {
@@ -469,8 +476,10 @@ $("#onlyHomeworkBox").click(setShowOnlyHomework);
 function setShowOnlyHomework() {
 	if ($("#onlyHomeworkBox").is(":checked")) {
 		$("#todoList > li:not(.homeworkLI)").hide();
+		setStorage({hideNotHomework: true});
 	} else {
 		$("#todoList > li:not(.homeworkLI)").show();
+		setStorage({hideNotHomework: false});
 	}
 }
 
