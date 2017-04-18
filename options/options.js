@@ -182,34 +182,36 @@ navigator.webkitPersistentStorage.queryUsageAndQuota (
     function(e) { console.log('Error', e);  }
 );
 
+function setDevVisible(vis) {
+	if (vis) {
+		$("#devOptions").css("visibility", "visible");
+	} else {
+		$("#devOptions").css("visibility", "hidden");
+	}
+}
+
+getStorage('devMode', function(obj) {
+	if (!chrome.runtime.error) setDevVisible(obj.devMode);
+});
+
 //Codes
 var konamiCode = [38,38,40,40,37,39,37,39,66,65]; // Up Up Down Down Left Right Left Right b a
 var konamiPos = 0;
-var easterCode = [38, 38, 40, 40, 73, 78, 68]; //Up Up Down Down i n d
-var easterPos = 0;
 document.addEventListener('keydown', function(e) {
 	if (e.keyCode == konamiCode[konamiPos]) {
 		konamiPos++;
 		if (konamiPos == konamiCode.length) {
-			chrome.tabs.create({url: chrome.runtime.getURL('jasmine/SpecRunner.html')});
+			getStorage('devMode', function (obj) {
+				if (!chrome.runtime.error) {
+					setStorage({'devMode' : !obj.devMode});
+					setDevVisible(!obj.devMode);
+				}
+			});
 			konamiPos = 0;
 		}
 	} else {
 		konamiPos = 0;
 	}
-	
-	if (e.keyCode == easterCode[easterPos]) {
-		easterPos++;
-		if (easterPos == easterCode.length) {
-             easterPos = 0;
-			 getStorage('easter', function (obj) {
-					if (!chrome.runtime.error) {
-						setStorage({'easter' : !obj.easter});
-						console.log("Contrats easter is now set to " + !obj.easter);
-					}
-			});
-		}
-	}else{
-		easterPos = 0;
-	}
 });
+
+$("#openUnitTest").attr("href", chrome.runtime.getURL('jasmine/SpecRunner.html'));
