@@ -19,7 +19,6 @@ function applyStorageRule(ppobject, flags) {
 	getStorage(this.selector, function(obj) {
 		if (!chrome.runtime.error) {
 			ppobject.selector = obj[ppobject.selector];
-			console.log(ppobject);
 			applyCssRule(ppobject, flags);
 		}
 	});

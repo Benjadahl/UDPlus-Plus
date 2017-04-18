@@ -17,7 +17,6 @@ function checkForSelectors() {
 	if (typeof classes !== 'undefined') {
 		var selector = classes.split(" ")[1];
 		setStorage({'commentTextSelector': "." + selector});
-		console.log(selector);
 	} else {
 		window.setTimeout(checkForSelectors, 1000);
 	}
