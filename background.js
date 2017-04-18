@@ -14,7 +14,6 @@ var fs = null;
 
 //Success callback for a filesystem access function
 function successCallback(newfs) {
-	console.log("I honestly didn't expect to get this far");
 	fs = newfs;
 }
 
@@ -40,11 +39,11 @@ function saveLessonFile(date, time, subject, teacher, filename, url, sendRespons
 					fileEntry.createWriter(function(fileWriter) {
 
 						fileWriter.onwriteend = function(e) {
-							console.log('Write completed.');
+							debugLog('Write completed.');
 						};
 
 						fileWriter.onerror = function(e) {
-							console.log('Write failed: ' + e.toString());
+							debugLog('Write failed: ' + e.toString());
 						};
 
 						fileWriter.write(blob);
@@ -230,7 +229,7 @@ function checkEasyADowntime() {
 			 */
 
 			if (regexMatch !== null) {
-				console.log(regexMatch);
+				debugLog(regexMatch);
 
 				//A date object is easier to work with
 				var pubDate = new Date(Date.parse(pubDate));
@@ -267,7 +266,7 @@ function checkEasyADowntime() {
 
 				//If it's not already done going down.
 				if (downEndTime > currentDate) {
-					console.log("Going down");
+					debugLog("EASY-A going down");
 
 					//Proper date elements format nicer than a big ol' timestamp
 					downStartTime = new Date(downStartTime);

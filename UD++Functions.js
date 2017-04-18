@@ -163,3 +163,13 @@ function getWeekNumber(d) {
 	d.setDate(d.getDate()+4-(d.getDay()||7));
 	return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
 };
+
+var debugMode = false;
+
+getStorage('devMode', function(obj) {
+	if (!chrome.runtime.error) debugMode = obj.devMode;
+});
+
+function debugLog(statement) {
+	if (debugMode) console.log(statement);
+}
