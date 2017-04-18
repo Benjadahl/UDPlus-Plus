@@ -201,9 +201,6 @@ function cacheFiles() {
 		let files = $(".controls > div > div > div > a[download]");
 		if (typeof time === 'undefined') time = timeToTrigger;
 
-		//If we were sent to cache files, but there are no files, let's GTFO
-		if (files.length == 0 && dowToTrigger !== null) window.close();
-
 		console.assert(time != null);
 		console.assert(typeof time !== 'undefined');
 
