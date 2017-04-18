@@ -133,6 +133,12 @@ function rerenderEvents() {
 
 }
 
+var baseURL = chrome.runtime.getURL('dashboard/dashboard.html');
+function onViewRender(view, element) {
+	var viewedDate = $("#calendar").fullCalendar('getDate');
+	location.href = baseURL + "#" + toCompIsoString(viewedDate);
+}
+
 //When an event is removed from the calendar, we remove it from the lessonNotes list.
 function onDestroyEvent(event, element) {
 	lessonNotes.forEach(function(item, i) {
@@ -188,6 +194,11 @@ window.onload = function() {
 	});
 	runTheme();
 
+	var currentURL = location.href.split("#");
+	var defaultDate = moment();
+	if (typeof currentURL[1] !== 'undefined') {
+		defaultDate = moment((currentURL[1]));
+	}
 
 	//Initialize our fullCalendar thing
 	$('#calendar').fullCalendar({
@@ -200,6 +211,7 @@ window.onload = function() {
 		navLinks: true, // can click day/week names to navigate views
 
 		weekNumbers: true,
+		defaultDate: defaultDate,
 		weekNumbersWithinDays: true,
 		weekNumberCalculation: 'ISO', //ISO standard best standard
 		timeFormat: 'H:mm',
@@ -227,6 +239,9 @@ window.onload = function() {
 
 
 		editable: false, //Of course we don't want people editing the calendar
+		viewRender: function(view, element) {
+			onViewRender(view, element);
+		},
 		eventRender: function(event, element) {
 			onRenderEvent(event, element);
 		},
@@ -264,6 +279,7 @@ window.onload = function() {
 			}
 		}
 	});
+
 
 }
 
@@ -401,17 +417,17 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 
 			//Append a beautiful object to our list
 			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-														+ weekDays[day] + "</b><br /><i>"
-														+ startTime.hour + ":" + startTime.minute + " - "
-														+ endTime.hour + ":" + endTime.minute + "</i><br />"
-														+ roomsString + rooms.toString() + "<br>"
-														+ teachersString + teachers.toString() + "<br>"
-														+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+				+ weekDays[day] + "</b><br /><i>"
+					+ startTime.hour + ":" + startTime.minute + " - "
+					+ endTime.hour + ":" + endTime.minute + "</i><br />"
+					+ roomsString + rooms.toString() + "<br>"
+					+ teachersString + teachers.toString() + "<br>"
+					+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 
 
-														//Reload homework marking stuff, and add listener
-														setShowOnlyHomework();
-														$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+			//Reload homework marking stuff, and add listener
+			setShowOnlyHomework();
+			$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
 		});
 	});
