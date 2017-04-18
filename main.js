@@ -139,7 +139,7 @@ getStorage('showNews', function (obj) {
 getStorage('devMode', function (obj) {
 	if (!chrome.runtime.error) {
 		if(obj.devMode){
-			$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/Easter.png"));
+			$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/Inddata.png"));
 		}
 	}
 });
