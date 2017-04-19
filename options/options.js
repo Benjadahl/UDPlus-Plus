@@ -66,6 +66,14 @@ getStorage("TooEarly", function (obj) {
 	}
 });
 
+getStorage("cacheFiles", function (obj) {
+	if (!chrome.runtime.error) {
+		if (typeof obj.cacheFiles !== 'undefined')
+			$('#cacheFiles').prop("checked", obj.cacheFiles);
+	}
+});
+
+
 getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
 	if (!chrome.runtime.error) {
 		$('#homeworkWords').val(obj.homeworkWords);
@@ -132,6 +140,10 @@ $('#theme').on("change", function() {
 
 $('#homework').change(function() {
 	setStorage({'homework' : $('#homework').prop("checked")});
+});
+
+$('#cacheFiles').change(function() {
+	setStorage({'cacheFiles' : $('#cacheFiles').prop("checked")});
 });
 
 $('#TooEarly').change(function() {
