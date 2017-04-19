@@ -31,6 +31,7 @@ getStorage('autoFetchFiles', function(obj) {
 function setAutoFetch() {
 	var checked = $("#autofetchbox").is(":checked");
 	setStorage({'autoFetchFiles': checked});
+	if (checked) setStorage({'cacheFiles': true});
 	fetchFilesAutomatically = checked;
 	rerenderEvents();
 }
