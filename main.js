@@ -74,7 +74,7 @@ function loadSettings() {
 			} else {
 				curtheme = 'default';
 			}
-			console.log("loaded curtheme");
+			debugLog("loaded curtheme");
 			runTheme(curtheme, curPage);
 		}
 	});
