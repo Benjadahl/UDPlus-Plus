@@ -201,14 +201,11 @@ function cacheFiles() {
 		let files = $(".controls > div > div > div > a[download]");
 		if (typeof time === 'undefined') time = timeToTrigger;
 
-		//If we were sent to cache files, but there are no files, let's GTFO
-		if (files.length == 0 && dowToTrigger !== null) window.close();
-
 		console.assert(time != null);
 		console.assert(typeof time !== 'undefined');
 
 		//This is good enough, right?
-		if (lasttime !== time || lastdate !== date || toCacheFiles == null) {
+		if ((lasttime !== time || lastdate !== date || toCacheFiles == null) && time !== null) {
 			lasttime = time;
 			lastdate = date;
 			files.each(function() {
@@ -232,8 +229,9 @@ function removeElement() {
 }
 
 
-
-cacheFiles();
+getStorage("cacheFiles", function (obj) {
+	if (obj.cacheFiles) cacheFiles();
+});
 
 var dispatchMouseEvent = function(target, var_args) {
 	var e = document.createEvent("MouseEvents");

@@ -17,6 +17,8 @@ var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 //Homework gotta be uniform for storing yo
 var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
+var hideNotHomework = false;
+
 //Whetever we want to fetch files automatically
 var fetchFilesAutomatically = false;
 getStorage('autoFetchFiles', function(obj) {
@@ -29,6 +31,7 @@ getStorage('autoFetchFiles', function(obj) {
 function setAutoFetch() {
 	var checked = $("#autofetchbox").is(":checked");
 	setStorage({'autoFetchFiles': checked});
+	if (checked) setStorage({'cacheFiles': true});
 	fetchFilesAutomatically = checked;
 	rerenderEvents();
 }
@@ -262,6 +265,7 @@ window.onload = function() {
 		if (!chrome.runtime.error) {
 			$("#onlyHomeworkBox").prop('checked', obj.hideNotHomework);
 			setShowOnlyHomework();
+			hideNotHomework = obj.hideNotHomework;
 		}
 	});
 
@@ -367,83 +371,94 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 			teachersString = "Lærere: ";
 		}
 
-		getStorage('doneHomework', true, function(obj) {
 
-			var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
+		var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
 
-			if (homework) {
-				var testHomeworkString = text.replace(homeworkNoteRegex, "");
+		if (homework) {
+			var testHomeworkString = text.replace(homeworkNoteRegex, "").hashCode();
 
-
-				//If the lesson is homework, check if it is already marked as done
-				var doneHomework = obj.doneHomework;
-				if (typeof doneHomework === 'undefined') {
-					doneHomework = [];
-				}
-				var homeworkDone = false;
-				for (i = 0; i < doneHomework.length; i++) {
-					if (doneHomework[i] === testHomeworkString) homeworkDone = true;
-				}
-				if (homeworkDone) {
-					homeworkClass = "";
-					homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
-				}
+			var homeworkDone = false;
+			for (i = 0; i < doneHomework.length; i++) {
+				if (doneHomework[i] === testHomeworkString) homeworkDone = true;
 			}
+			if (homeworkDone) {
+				homeworkClass = "";
+				homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
+			}
+		}
 
-			var times = startTime.hour + ":" + startTime.minute + "-" + endTime.hour + ":" + endTime.minute;
-			var list = "<br><ul>";
-			for (i = 0; i < googleFiles; i++) {
-				if (i < entriesToAdd.length) {
-					var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-					list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
-				} else {
-					var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-					list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+		var times = startTime.hour + ":" + startTime.minute + "-" + endTime.hour + ":" + endTime.minute;
+		var list = "<br><ul>";
+		for (i = 0; i < googleFiles; i++) {
+			if (i < entriesToAdd.length) {
+				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
+				list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+			} else {
+				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
+				list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
 
-					if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
-						chrome.tabs.create({
-							url: uddatalink,
-							active: false,
-						}, function(tab) {
-							chrome.tabs.executeScript(tab.id, {code: "dowToTrigger = " + (day-1) + "; timeToTrigger = '" + times + "';"});
-						});
-						lessonsCaching.push(dateToID(start));
-					}
-
+				if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
+					chrome.tabs.create({
+						url: uddatalink,
+						active: false,
+					}, function(tab) {
+						chrome.tabs.executeScript(tab.id, {code: "dowToTrigger = " + (day-1) + "; timeToTrigger = '" + times + "';"});
+					});
+					lessonsCaching.push(dateToID(start));
 				}
+
 			}
-			list = list + "</ul>";
+		}
+		list = list + "</ul>";
 
-			//Woops, turns out we didn't have any files. Get rid of everything.
-			if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
-				attachedFiles = '';
-				list = '';
-			}
+		//Woops, turns out we didn't have any files. Get rid of everything.
+		if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
+			attachedFiles = '';
+			list = '';
+		}
 
-			if (!homework) homeworkCheckbox = "";
+		if (!homework) homeworkCheckbox = "";
 
-			//Append a beautiful object to our list
-			$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-				+ weekDays[day] + "</b><br /><i>"
-					+ startTime.hour + ":" + startTime.minute + " - "
-					+ endTime.hour + ":" + endTime.minute + "</i><br />"
-					+ roomsString + rooms.toString() + "<br>"
-					+ teachersString + teachers.toString() + "<br>"
-					+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+		//Append a beautiful object to our list
+		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+													+ weekDays[day] + "</b><br /><i>"
+													+ startTime.hour + ":" + startTime.minute + " - "
+													+ endTime.hour + ":" + endTime.minute + "</i><br />"
+													+ roomsString + rooms.toString() + "<br>"
+													+ teachersString + teachers.toString() + "<br>"
+													+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 
 
-			//Reload homework marking stuff, and add listener
-			setShowOnlyHomework();
-			$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+													//Reload homework marking stuff, and add listener
+													setShowOnlyHomework();
+													$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
-		});
 	});
 }
+
+var doneHomework = null;
+getStorage("doneHomework", function(obj) {
+	if (!chrome.runtime.error) {
+		doneHomework = obj.doneHomework;
+		if (typeof doneHomework === 'undefined') doneHomework = [];
+		window.setInterval(saveDoneHomework, 10000);
+	}
+});
+
+function saveDoneHomework() {
+	setStorage({"doneHomework": doneHomework});
+	debugLog("Homework saved");
+}
+
+window.addEventListener("beforeunload", function(e) {
+	saveDoneHomework();
+});
+
 
 //The function to be called when a lesson is clicked.
 function markDoneHomework() {
 	var note = $(this).parent().parent().find(".note").text();
-	note = note.replace(homeworkNoteRegex, "");
+	note = note.replace(homeworkNoteRegex, "").hashCode();
 	var checked = ($(this).is(":checked"));
 	if (!checked) {
 		$(this).parent().parent().addClass("homeworkLI");
@@ -451,23 +466,16 @@ function markDoneHomework() {
 		$(this).parent().parent().removeClass("homeworkLI");
 	}
 
-	getStorage("doneHomework", true, function(object) {
-		var doneHomework = object.doneHomework;
-		if (typeof doneHomework === 'undefined') {
-			doneHomework = [];
-		}
-		var alreadyAdded = false;
-		for (i = 0; i < doneHomework.length; i++) {
-			if (doneHomework[i] === note) {
-				alreadyAdded = true;
-				if (!checked) {
-					doneHomework.splice(i, 1)
-				}
+	var alreadyAdded = false;
+	for (i = 0; i < doneHomework.length; i++) {
+		if (doneHomework[i] === note) {
+			alreadyAdded = true;
+			if (!checked) {
+				doneHomework.splice(i, 1)
 			}
 		}
-		if (!alreadyAdded && checked) doneHomework.push(note);
-		setStorage({"doneHomework": doneHomework}, true);
-	})
+	}
+	if (!alreadyAdded && checked) doneHomework.push(note);
 	setShowOnlyHomework();
 }
 
@@ -476,10 +484,10 @@ $("#onlyHomeworkBox").click(setShowOnlyHomework);
 function setShowOnlyHomework() {
 	if ($("#onlyHomeworkBox").is(":checked")) {
 		$("#todoList > li:not(.homeworkLI)").hide();
-		setStorage({hideNotHomework: true});
+		if (!hideNotHomework) setStorage({hideNotHomework: true}); hideNotHomework = true;
 	} else {
 		$("#todoList > li:not(.homeworkLI)").show();
-		setStorage({hideNotHomework: false});
+		if (hideNotHomework) setStorage({hideNotHomework: false}); hideNotHomework = false;
 	}
 }
 
