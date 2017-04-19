@@ -16,6 +16,7 @@ describe("UD++functions", function() {
 	});
 
 	it("Leading zeroes test", function() {
+		expect(leadingZeroes("05")).toBe("05");
 		expect(leadingZeroes("5")).toBe("05");
 	});
 
