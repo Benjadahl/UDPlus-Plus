@@ -136,7 +136,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	} else if(message.action == "deleteFilesystem"){
 		//Clear out storage here
 		debugLog("Got del message");
-		
+
 		var dirReader = fs.root.createReader();
 
 		// Call the reader.readEntries() until no more results are returned.
@@ -154,7 +154,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 						}, errorHandler);
 					}
 					readEntries();
-					
+
 				}
 			}, errorHandler);
 		};
@@ -206,7 +206,7 @@ var weekDays = {
 };
 
 function doNothing(input) {
-	console.log("Doing nothing succeded");
+	debugLog("Doing nothing succeded");
 }
 
 function cacheYearSchedule() {

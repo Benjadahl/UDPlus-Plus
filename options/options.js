@@ -66,12 +66,15 @@ getStorage("TooEarly", function (obj) {
 	}
 });
 
-getStorage("cacheFiles", function (obj) {
-	if (!chrome.runtime.error) {
-		if (typeof obj.cacheFiles !== 'undefined')
-			$('#cacheFiles').prop("checked", obj.cacheFiles);
-	}
-});
+function getOptions() {
+	getStorage("cacheFiles", function (obj) {
+		if (!chrome.runtime.error) {
+			if (typeof obj.cacheFiles !== 'undefined')
+				$('#cacheFiles').prop("checked", obj.cacheFiles);
+		}
+	});
+}
+getOptions();
 
 
 getStorage({homeworkWords: "lektie,forbered"}, function (obj) {
@@ -167,6 +170,10 @@ $('#hideTask').change(function() {
 	setStorage({'hideTask' : $('#hideTask').prop("checked")});
 });
 
+getStorage('hideSidebarCollapse', function(obj) {
+	if (obj.hideSidebarCollapse) $("#hideSidebarCollapse").prop('checked', true);
+})
+
 $('#hideSidebarCollapse').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideSidebarCollapse' : $('#hideSidebarCollapse').prop("checked")});
@@ -177,21 +184,21 @@ $('#hideSidebarCollapse').change(function() {
 
 //Make i more human friendly. Found here http://stackoverflow.com/questions/35623493/how-to-convert-kilobytes-to-megabytes-in-javascript
 function formatSizeUnits(bytes){
-      if      (bytes>=1073741824) {bytes=(bytes/1073741824).toFixed(2)+' GiB';}
-      else if (bytes>=1048576)    {bytes=(bytes/1048576).toFixed(2)+' MiB';}
-      else if (bytes>=1024)       {bytes=(bytes/1024).toFixed(2)+' KiB';}
-      else if (bytes>1)           {bytes=bytes+' bytes';}
-      else if (bytes==1)          {bytes=bytes+' byte';}
-      else                        {bytes='0 bytes';}
-      return bytes;
+	if      (bytes>=1073741824) {bytes=(bytes/1073741824).toFixed(2)+' GiB';}
+	else if (bytes>=1048576)    {bytes=(bytes/1048576).toFixed(2)+' MiB';}
+	else if (bytes>=1024)       {bytes=(bytes/1024).toFixed(2)+' KiB';}
+	else if (bytes>1)           {bytes=bytes+' bytes';}
+	else if (bytes==1)          {bytes=bytes+' byte';}
+	else                        {bytes='0 bytes';}
+	return bytes;
 }
 
 navigator.webkitPersistentStorage.queryUsageAndQuota (
-    function(usedBytes, grantedBytes) {
-        $("#usedStorage").text(formatSizeUnits(usedBytes));
+	function(usedBytes, grantedBytes) {
+		$("#usedStorage").text(formatSizeUnits(usedBytes));
 		$("#availableStorage").text(formatSizeUnits(grantedBytes));
-    },
-    function(e) { console.log('Error', e);  }
+	},
+	function(e) { console.log('Error', e);  }
 );
 
 function setDevVisible(vis) {
@@ -232,4 +239,9 @@ $("#openUnitTest").attr("href", chrome.runtime.getURL('jasmine/SpecRunner.html')
 
 $("#del").click(function() {
 	chrome.runtime.sendMessage({action: "deleteFilesystem"});
+	location.reload();
+});
+
+chrome.storage.onChanged.addListener(function () {
+	loadOptions();
 });

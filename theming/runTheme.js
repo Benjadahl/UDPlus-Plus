@@ -8,13 +8,13 @@
 
 //Changes color off each element in the current theme
 function runTheme(theme, page){
-	console.log("Loading theme: " + theme + "on page " + page);
+	debugLog("Loading theme: " + theme + "on page " + page);
 	$('.UDPPCustom').remove();
 	if(typeof themes[theme] != "undefined") {
 		for (var T in themes[theme]) {
 
       applySelector(T, themes[theme][T], page);
-	  
+
 
 		}
 	} else {

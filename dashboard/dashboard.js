@@ -19,22 +19,28 @@ var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
 
 var hideNotHomework = false;
 
-//Whetever we want to fetch files automatically
 var fetchFilesAutomatically = false;
-getStorage('autoFetchFiles', function(obj) {
-	if (!chrome.runtime.error && obj.autoFetchFiles == true) {
-		fetchFilesAutomatically = obj.autoFetchFiles;
-		$("#autofetchbox").prop('checked', fetchFilesAutomatically);
-	}
-});
-
 function setAutoFetch() {
 	var checked = $("#autofetchbox").is(":checked");
-	setStorage({'autoFetchFiles': checked});
-	if (checked) setStorage({'cacheFiles': true});
+	setStorage({'cacheFiles': checked});
 	fetchFilesAutomatically = checked;
 	rerenderEvents();
 }
+
+function loadOptions() {
+
+	//Whetever we want to fetch files automatically
+	getStorage('cacheFiles', function(obj) {
+		if (!chrome.runtime.error && obj.cacheFiles == true) {
+			fetchFilesAutomatically = obj.cacheFiles;
+			$("#autofetchbox").prop('checked', fetchFilesAutomatically);
+		}
+	});
+
+}
+
+loadOptions();
+chrome.storage.onChanged.addListener(loadOptions);
 
 $("#autofetchbox").on("click", setAutoFetch);
 

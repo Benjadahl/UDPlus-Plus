@@ -33,7 +33,7 @@ function applyCssRule(ppobject, flags) {
 	}
 }
 
-function applyBorderRule(flags){
+function applyBorderRule(ppobject, flags) {
 	if(typeof flags.pixels === "undefined") flags.pixels = 1;
 	if(typeof flags.important === "undefined") flags.important = true;
 	var cssEnd = "";
@@ -43,7 +43,7 @@ function applyBorderRule(flags){
 
 
 
-function applyImgRule(flags){
+function applyImgRule(ppobject, flags){
 
 	//Adding important option
 	if(typeof flags.important === "undefined") flags.important = true;

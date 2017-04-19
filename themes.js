@@ -238,6 +238,13 @@ var themes = {
 		"assignmentSetting" : "#B0053C",
 		//License site: http://www.uhdwallpapers.org/2014/09/summer-2014-grand-canyon.html?m=1
 		"mainBackImg" : "https://4.bp.blogspot.com/-Y63PB8ns7G0/VCTwQuLhZfI/AAAAAAABOmA/2ULXhjuWGMY/s0/Summer%2B2014%2BGrand%2BCanyon.jpg",
+		"bodyBGAttachment": "fixed",
+		"bodyBGPos": "center",
+		"bodyBGRepeat": "no-repeat",
+		"bogyBGSize" : "cover",
+		"bottomBorder": "none",
+		"rightBorder": "none",
+		"leftBorder": "none",
 		"homeworkMark" : "#FFB406",
 		"lessonStroke" : "#89042F",
 		"lessonOpacity" : "0.5",
