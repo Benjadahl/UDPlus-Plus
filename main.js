@@ -69,7 +69,11 @@ function loadSettings() {
 
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
-			curtheme = obj.theme;
+			if (typeof obj.theme !== 'undefined') {
+				curtheme = obj.theme;
+			} else {
+				curtheme = 'default';
+			}
 			console.log("loaded curtheme");
 			runTheme(curtheme, curPage);
 		}
