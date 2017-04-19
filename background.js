@@ -135,6 +135,31 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		readEntries(); // Start reading dirs.<Paste>
 	} else if(message.action == "deleteFilesystem"){
 		//Clear out storage here
+		debugLog("Got del message");
+		
+		var dirReader = fs.root.createReader();
+
+		// Call the reader.readEntries() until no more results are returned.
+		var readEntries = function() {
+			dirReader.readEntries (function(results) {
+				if (results.length) {
+					for(var i = 0; i < results.length; i++){
+						console.log(results[i].fullPath);
+						fs.root.getFile(results[i].fullPath, {create: false}, function(fileEntry) {
+
+							fileEntry.remove(function() {
+							console.log('File removed.');
+							}, errorHandler);
+
+						}, errorHandler);
+					}
+					readEntries();
+					
+				}
+			}, errorHandler);
+		};
+
+		readEntries(); // Start reading dirs.<Paste>
 	}
 });
 

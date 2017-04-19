@@ -215,3 +215,9 @@ document.addEventListener('keydown', function(e) {
 });
 
 $("#openUnitTest").attr("href", chrome.runtime.getURL('jasmine/SpecRunner.html'));
+
+
+
+$("#del").click(function() {
+	chrome.runtime.sendMessage({action: "deleteFilesystem"});
+});
