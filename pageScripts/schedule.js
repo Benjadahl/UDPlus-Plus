@@ -205,7 +205,7 @@ function cacheFiles() {
 		console.assert(typeof time !== 'undefined');
 
 		//This is good enough, right?
-		if (lasttime !== time || lastdate !== date || toCacheFiles == null) {
+		if ((lasttime !== time || lastdate !== date || toCacheFiles == null) && time !== null) {
 			lasttime = time;
 			lastdate = date;
 			files.each(function() {
@@ -229,8 +229,9 @@ function removeElement() {
 }
 
 
-
-cacheFiles();
+getStorage("cacheFiles", function (obj) {
+	if (obj.cacheFiles) cacheFiles();
+});
 
 var dispatchMouseEvent = function(target, var_args) {
 	var e = document.createEvent("MouseEvents");
