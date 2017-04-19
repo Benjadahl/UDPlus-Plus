@@ -41,7 +41,7 @@ var PlusPlusList = {
     tableButtonsText:new PlusPlusObject(".btn", applyCssRule, ["color"]),
     navbarText:new PlusPlusObject(".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", applyCssRule, ["color"]),
     copyRightNotice:new PlusPlusObject(".copyright>a", applyCssRule, ["color"]),
-    mainBackImg:new PlusPlusObject("body", applyImgRule, ["background-image"], flags={backImg: true, elements : ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom"]}),
+    mainBackImg:new PlusPlusObject("body", applyImgRule, ["background-image"], flags={backImg: true, elements : ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom", "outerBackground", "wrapContent"]}),
     mainBackImgFill:new PlusPlusObject(".container-fluid", applyCssRule, ["background-size"]),
     bodyBGAttachment:new PlusPlusObject("body", applyCssRule, ["background-attachment"]),
     bodyBGPos:new PlusPlusObject("body", applyCssRule, ["background-position"]),
