@@ -50,7 +50,10 @@ var PlusPlusList = {
     mainBackImgNoRepeat:new PlusPlusObject(".container-fluid", applyCssRule, ["background-repeat"]),
 		sideBarCollpaseIcon:new PlusPlusObject('.sidebar-collapse>[class*="icon-"]', applyCssRule, ["background-color"]),
 		messageCounter:new PlusPlusObject('.badge', applyCssRule, ["background-color"]),
-		warning:new PlusPlusObject(".warning", applyCssRule, ["color"])
+		warning:new PlusPlusObject(".warning", applyCssRule, ["color"]),
+		leftBorder:new PlusPlusObject('#wrapper', applyCssRule, ["border-left"]),
+		rightBorder:new PlusPlusObject('#wrapper', applyCssRule, ["border-right"]),
+		bottomBorder:new PlusPlusObject('.sidebar-collapse', applyCssRule, ["border-bottom"])
   },
   start:{},
   schedule:{
