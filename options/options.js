@@ -234,3 +234,7 @@ $("#del").click(function() {
 	chrome.runtime.sendMessage({action: "deleteFilesystem"});
 	location.reload();
 });
+
+chrome.storage.onChanged.addListener(function () {
+	location.reload();
+});
