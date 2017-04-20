@@ -8,10 +8,35 @@ function stringToList(string) {
 	return thelist;
 }
 
+
+// http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32000L0084:DA:HTML
+var currentTimeZone = null;
+function getDanishTimezone(currentTime) {
+	if (currentTimeZone == null || new Date().setHours(0,0,0,0) != currentTime.setHours(0,0,0,0)) {
+		var currentYear = currentTime.getUTCFullYear();
+		var startSummerTimeDay = 31;
+		var endSummerTimeDay = 31;
+		while (new Date(currentYear + "-03-" + startSummerTimeDay).getDay() != 0 && startSummerTimeDay > 15) startSummerTimeDay--;
+		while (new Date(currentYear + "-10-" + endSummerTimeDay).getDay() != 0 && endSummerTimeDay > 15) endSummerTimeDay--;
+		var startSummerTime = new Date(currentYear + "-03-" + startSummerTimeDay);
+		var endSummerTime = new Date(currentYear + "-10-" + endSummerTimeDay);
+		console.log(startSummerTime);
+		console.log(endSummerTime);
+		if (startSummerTime < currentTime && currentTime < endSummerTime) {
+			if (currentTime.setHours(0,0,0,0) == new Date()) currentTimeZone = 2;
+			return 2;
+		} else {
+			if (currentTime.setHours(0,0,0,0) == new Date()) currentTimeZone = 1;
+			return 1;
+		}
+	}
+	return currentTimeZone;
+}
+
 function fixTimezone(date) {
 	return date;
-	var timeZoneOffset = new Date().getTimezoneOffset() / 60;
-	date.setHours(date.getHours() + timeZoneOffset);
+	var timeZoneOffset = getDanishTimezone();
+	date.setHours(date.getHours() + getDanishTimezone(new Date()));
 	return new Date(date);
 }
 
@@ -128,7 +153,7 @@ function getSchedule(startDate, endDate, callback) {
 			}
 		});
 	}
-	);
+				 );
 }
 
 var weekDays = {
