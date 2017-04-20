@@ -196,7 +196,6 @@ function formatSizeUnits(bytes){
 navigator.webkitPersistentStorage.queryUsageAndQuota (
 	function(usedBytes, grantedBytes) {
 		$("#usedStorage").text(formatSizeUnits(usedBytes));
-		$("#availableStorage").text(formatSizeUnits(grantedBytes));
 	},
 	function(e) { console.log('Error', e);  }
 );

@@ -16,6 +16,7 @@ describe("UD++functions", function() {
 	});
 
 	it("Leading zeroes test", function() {
+		expect(leadingZeroes("05")).toBe("05");
 		expect(leadingZeroes("5")).toBe("05");
 	});
 
@@ -23,6 +24,17 @@ describe("UD++functions", function() {
 		expect(ToShortISODate("2017-04-22")).toBe("2017-04-22");
 		expect(ToShortISODate("2016-02-17")).toBe("2016-02-17");
 	});
+
+	it("arraysSame", function() {
+		expect(arraysSame([], [])).toBe(true);
+		expect(arraysSame(["a"], [])).toBe(false);
+		expect(arraysSame(["a"], ["b"])).toBe(false);
+	});
+
+	it("Contains", function() {
+		expect(contains(["a", "b", "c"], "c")).toBe(true);
+	});
+
 
 	it("Fix timezone", function() {
 		expect(fixTimezone(new Date("2017-01-23T08:15:00")).toString()).toBe(new Date(2017, 0, 23, 09, 15).toString());

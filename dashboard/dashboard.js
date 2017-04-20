@@ -105,6 +105,17 @@ function getCalendarEvents(start, end, timezone, callback) {
 					}
 				}
 
+				for (i=0; i<theClass['Rooms'].length; i++) {
+					if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
+						classObj.className = classObj.className + " virtualLesson";
+						if (classObj.className.includes("homeworkLesson") || classObj.className.includes("noteLesson")) {
+							classObj['color'] = "brown";
+						} else {
+							classObj['color'] = "green";
+						}
+					}
+				}
+
 				var hide = false;
 				for (var i=0; i < toHide.length; i++) {
 					if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
@@ -306,13 +317,6 @@ function toCompIsoString(date) {
 
 var lessonsCaching = [];
 
-function contains(array, element) {
-	for (i=0;i<array.length; i++) {
-		if (array[i] == element) return true;
-	}
-	return false;
-}
-
 function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms, teachers) {
 	let startDate = new Date(start);
 	let day = startDate.getDay();
@@ -398,10 +402,10 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 		for (i = 0; i < googleFiles; i++) {
 			if (i < entriesToAdd.length) {
 				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-				list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+				list = list + "<li><a target='_blank' href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
 			} else {
 				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-				list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+				list = list + "<li><a target='_blank' href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
 
 				if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
 					chrome.tabs.create({
@@ -499,10 +503,15 @@ function setShowOnlyHomework() {
 
 //On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
-	if (e.which == 37) {
-		$("#calendar").fullCalendar("prev");
-	} else if (e.which == 39) {
-		$("#calendar").fullCalendar("next");
+	if (!$("#searchBox").is(":focus")) {
+		if (e.which == 37) {
+			$("#calendar").fullCalendar("prev");
+		} else if (e.which == 39) {
+			$("#calendar").fullCalendar("next");
+		} else if (e.which == 76) {
+			$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
+			setShowOnlyHomework();
+		}
 	}
 });
 
@@ -514,14 +523,14 @@ function searchUpdate() {
 	if (searchQuery == "") {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
-			list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+			list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
 		});
 	} else {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
 			if (fileName.toUpperCase().includes(searchQuery.toUpperCase())) {
 				fileName = fileName.replace(new RegExp("(" + searchQuery + ")", 'ig'), '<b>$1</b>');
-				list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+				list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
 			}
 		});
 

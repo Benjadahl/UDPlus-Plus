@@ -41,7 +41,7 @@ var PlusPlusList = {
     tableButtonsText:new PlusPlusObject(".btn", applyCssRule, ["color"]),
     navbarText:new PlusPlusObject(".navbar .nav>li>a, .navbar .nav>li>a:hover, .navbar .nav>li>a:focus", applyCssRule, ["color"]),
     copyRightNotice:new PlusPlusObject(".copyright>a", applyCssRule, ["color"]),
-    mainBackImg:new PlusPlusObject("body", applyImgRule, ["background-image"], flags={backImg: true, elements : ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom", "outerBackground", "wrapContent", "languageBackground"]}),
+    mainBackImg:new PlusPlusObject("body", applyImgRule, ["background-image"], flags={backImg: true, elements : ["sidebarColor", "navbarIcon", "mainBackground", "mainContainer", "copyrightTop", "leftMenuLIborderBottom", "leftMenuBorder","tableBackground", "leftMenuBottom", "assignmentSetting", "tableBottom", "outerBackground", "wrapContent", "messageBackground", "messageBackgroundText"]}),
     mainBackImgFill:new PlusPlusObject(".container-fluid", applyCssRule, ["background-size"]),
     bodyBGAttachment:new PlusPlusObject("body", applyCssRule, ["background-attachment"]),
     bodyBGPos:new PlusPlusObject("body", applyCssRule, ["background-position"]),
@@ -57,39 +57,39 @@ var PlusPlusList = {
   },
   start:{},
   schedule:{
-    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
-    tableTopActive:new PlusPlusObject(".GEHOBKPDJ0 th.GEHOBKPDA0", applyCssRule, ["background-color", "border-top-color"]),
+    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]), //Doesn't seem to be used either
+    tableTopActive:new PlusPlusObject("tableTopActiveSelector", applyStorageRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
-    tableTopTextActive: new PlusPlusObject(".GC0H5P4BK- th.GC0H5P4BB-", applyCssRule, ["color"], flags={"important":false}),
+    tableTopTextActive: new PlusPlusObject("tableTopActive >div.gwt-Label", applyStorageRule, ["color"], flags={"important":false}), // Not used by any theme
     tableTop: new PlusPlusObject("html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#main-content.main-content div div.no-select div.page-content div div div div div div table>tbody>tr:first-child", applyCssRule, ["background"]),
-    tableLeftSide:new PlusPlusObject(".GEHOBKPDK0 table", applyCssRule, ["background"]),
+    tableLeftSide:new PlusPlusObject("div> table:not(.border-box):not([class])", applyCssRule, ["background"]),
     tableBottom:new PlusPlusObject(".well", applyCssRule, ["background-color"]),
     noteHeader:new PlusPlusObject(".modal-header", applyCssRule, ["background-color"]),
-    noteBottom:new PlusPlusObject(".GEVWOMLKGB", applyCssRule, ["background-color"]),
+    noteBottom:new PlusPlusObject(".GEVWOMLKGB", applyCssRule, ["background-color"]), // Notes are no longer used
     filesHeader:new PlusPlusObject(".label-info, .badge-info", applyCssRule, ["background-color"]),
     lessonOpacity:new PlusPlusObject("svg rect", applyCssRule, ["fill-opacity"]),
     lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
-    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]),
-		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]),
+    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]), //Notes no longer used
+		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]), //Notes are no longer used
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
   },
   calendar:{},
   conversations:{
-    commentMessageText:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["color"]),
     commentWritingBackground:new PlusPlusObject(".gwt-TextArea", applyCssRule, ["background-color"]),
-    activeMessage:new PlusPlusObject(".K1CYATD-j-e", applyCssRule, ["background-color"]),
-    messageBackground:new PlusPlusObject(".K1CYATD-u-f", applyCssRule, ["background-color"]),
+    messageBackgroundText:new PlusPlusObject("div[style*=margin] > textarea.input-block-level", applyCssRule, ["color"]),
+    messageBackground:new PlusPlusObject("div[style*=margin] > textarea.input-block-level", applyCssRule, ["background-color"]),
     commentText:new PlusPlusObject("commentTextSelector", applyStorageRule, ["color"])
   },
   plan:{},
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
-    assignmentSetting:new PlusPlusObject(".GDSGMNCBF", applyCssRule, ["background-color"]),
+    assignmentSetting:new PlusPlusObject("div[style*=margin-bottom] > div", applyCssRule, ["background-color"]),
+		unreadAssignment:new PlusPlusObject(".unreadAssignment", applyCssRule, ["color"]),
 		TooEarly:new PlusPlusObject(".TooEarly", applyCssRule, ["color"])
   },
   resources:{},

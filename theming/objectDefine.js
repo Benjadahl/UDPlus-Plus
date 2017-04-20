@@ -8,6 +8,7 @@ class PlusPlusObject {
     this.applyFunction = applyFunction;
     this.properties = properties;
     this.value = value;
+		this.storageSelector;
     this.flags = flags;
   }
   apply(){
@@ -18,8 +19,19 @@ class PlusPlusObject {
 function applyStorageRule(ppobject, flags) {
 	getStorage(this.selector, function(obj) {
 		if (!chrome.runtime.error) {
-			ppobject.selector = obj[ppobject.selector];
-			applyCssRule(ppobject, flags);
+			var selector = ppobject.selector.split(" ");
+			if (typeof obj[selector[0]] !== 'undefined') {
+				var rest = "";
+				if (selector.length > 1) {
+					for (i=1; i<selector.length; i++) {
+						rest = rest + selector[i];
+					}
+				}
+				ppobject.storageSelector = obj[selector[0]] + rest;
+				applyCssRule(ppobject, flags);
+			} else {
+				debugLog("Undefined selector" + selector.toString());
+			}
 		}
 	});
 }
@@ -28,8 +40,10 @@ function applyCssRule(ppobject, flags) {
 	if(typeof flags.important === "undefined") flags.important = true;
 	var cssEnd = "";
 	if(flags.important) cssEnd = "!important";
+	var selector = ppobject.selector;
+	if (typeof ppobject.storageSelector !== 'undefined') selector = ppobject.storageSelector;
 	for (i = 0; i < ppobject.properties.length; i++){
-		$("head").append("<style class='UDPPCustom'>" + ppobject.selector + "{" + ppobject.properties[i] + ":" + ppobject.value + cssEnd + ";}</style>");
+		$("head").append("<style class='UDPPCustom'>" + selector + "{" + ppobject.properties[i] + ":" + ppobject.value + cssEnd + ";}</style>");
 	}
 }
 
