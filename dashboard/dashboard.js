@@ -107,8 +107,8 @@ function getCalendarEvents(start, end, timezone, callback) {
 
 				for (i=0; i<theClass['Rooms'].length; i++) {
 					if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
-						classObj.classname = classObj.classname + "virtualLesson";
-						if (classObj.classname == "homeworkLesson") {
+						classObj.className = classObj.className + " virtualLesson";
+						if (classObj.className.includes("homeworkLesson") || classObj.className.includes("noteLesson")) {
 							classObj['color'] = "brown";
 						} else {
 							classObj['color'] = "green";
