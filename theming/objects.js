@@ -57,7 +57,7 @@ var PlusPlusList = {
   },
   start:{},
   schedule:{
-    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]),
+    scheduleTopAnnouncements: new PlusPlusObject(".GNK2GVDDPHB", applyCssRule, ["background-color"]), //Doesn't seem to be used either
     tableTopActive:new PlusPlusObject("tableTopActiveSelector", applyStorageRule, ["background-color", "border-top-color"]),
     homeworkMark:new PlusPlusObject(".homeworkLesson", applyCssRule, ["fill"]),
     tableTopText:new PlusPlusObject(".fc-widget-header", applyCssRule, ["color"], flags={"important":false}),
@@ -72,8 +72,8 @@ var PlusPlusList = {
     lessonDropdownText:new PlusPlusObject("body.hoverable", applyCssRule, ["color"]),
     lessonFill:new PlusPlusObject("svg rect", applyCssRule, ["fill"]),
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
-    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]),
-		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]),
+    noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]), //Notes no longer used
+		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]), //Notes are no longer used
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
