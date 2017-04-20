@@ -183,7 +183,10 @@ getStorage('lang', function(obj) {
 function getWeekNumber(d) {
 	d.setHours(0,0,0,0);
 	d.setDate(d.getDate()+4-(d.getDay()||7));
-	return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+	var yearStart = new Date(d.getFullYear(),0,1);
+	var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+	return weekNo;
+
 };
 
 var debugMode = false;
