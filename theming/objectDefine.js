@@ -17,7 +17,6 @@ class PlusPlusObject {
 }
 
 function applyStorageRule(ppobject, flags) {
-	console.log(ppobject);
 	getStorage(this.selector, function(obj) {
 		if (!chrome.runtime.error) {
 			var selector = ppobject.selector.split(" ");
@@ -29,10 +28,9 @@ function applyStorageRule(ppobject, flags) {
 					}
 				}
 				ppobject.storageSelector = obj[selector[0]] + rest;
-				console.log(ppobject.storageSelector);
 				applyCssRule(ppobject, flags);
 			} else {
-				console.log("Undefined selector", selector);
+				debugLog("Undefined selector" + selector.toString());
 			}
 		}
 	});
