@@ -125,4 +125,50 @@ getStorage('sortTaskBy', function (obj) {
 	}
 });
 
+var readAssignments = [];
+
+getStorage('readAssignments', function(obj) {
+	if (typeof obj.readAssignments !== 'undefined') readAssignments = obj.readAssignments;
+	console.log(readAssignments);
+});
+
+function saveRead() {
+	console.log("Saving");
+	setStorage({'readAssignments': readAssignments});
+}
+
+function getAssignmentTitle() {
+	var title = $("h1 > small").html();
+	if (title !== "") {
+		return [$("h1 > small").html().split(",")[0].substring(2), $("h1 > small").html().split(",")[1].substring(1)];
+	} else {
+		return "";
+	}
+}
+
+function saveOpenAssignment() {
+	var curAssignment = getAssignmentTitle();
+	if (!contains(readAssignments, curAssignment) && curAssignment !== '') {
+		readAssignments.push(curAssignment);
+		saveRead();
+	}
+}
+
+function markUnreadAssignments() {
+	var assignments =  $("tbody > tr[class]");
+	assignments.removeClass("unread");
+	assignments.each(function(index) {
+		var children = $(this).children();
+		var subject = $(children[0]).find("div>div").html()
+		var assignmentName = $(children[1]).find("div>div").html()
+		var lock = !$(children[5]).find("div>button>i").hasClass("icon-unlock");
+		if (!contains(readAssignments, [assignmentName, subject]) && !lock) {
+			$(this).addClass("unreadAssignment");
+		}
+	});
+}
+
+window.setInterval(saveOpenAssignment, 2000);
+window.setInterval(markUnreadAssignments, 2000);
+
 onAssignmentPageLoad();

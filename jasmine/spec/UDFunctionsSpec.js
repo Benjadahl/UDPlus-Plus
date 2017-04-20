@@ -25,6 +25,17 @@ describe("UD++functions", function() {
 		expect(ToShortISODate("2016-02-17")).toBe("2016-02-17");
 	});
 
+	it("arraysSame", function() {
+		expect(arraysSame([], [])).toBe(true);
+		expect(arraysSame(["a"], [])).toBe(false);
+		expect(arraysSame(["a"], ["b"])).toBe(false);
+	});
+
+	it("Contains", function() {
+		expect(contains(["a", "b", "c"], "c")).toBe(true);
+	});
+
+
 	it("Fix timezone", function() {
 		expect(fixTimezone(new Date("2017-01-23T08:15:00")).toString()).toBe(new Date(2017, 0, 23, 09, 15).toString());
 		expect(fixTimezone(new Date("2017-04-10T16:00:00")).toString()).toBe(new Date(2017, 03, 10, 18).toString());

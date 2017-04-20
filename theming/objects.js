@@ -89,6 +89,7 @@ var PlusPlusList = {
   assignments:{
     assignmentsTableActive:new PlusPlusObject(".dataTable th.sorting_desc, .dataTable th.sorting_asc", applyCssRule, ["background-color"]),
     assignmentSetting:new PlusPlusObject("div[style*=margin-bottom] > div", applyCssRule, ["background-color"]),
+		unreadAssignment:new PlusPlusObject(".unreadAssignment", applyCssRule, ["color"]),
 		TooEarly:new PlusPlusObject(".TooEarly", applyCssRule, ["color"])
   },
   resources:{},

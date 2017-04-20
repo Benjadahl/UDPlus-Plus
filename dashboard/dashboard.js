@@ -317,13 +317,6 @@ function toCompIsoString(date) {
 
 var lessonsCaching = [];
 
-function contains(array, element) {
-	for (i=0;i<array.length; i++) {
-		if (array[i] == element) return true;
-	}
-	return false;
-}
-
 function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms, teachers) {
 	let startDate = new Date(start);
 	let day = startDate.getDay();

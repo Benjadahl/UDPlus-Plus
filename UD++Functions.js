@@ -166,6 +166,28 @@ function getWeekNumber(d) {
 
 var debugMode = false;
 
+function arraysSame(array1, array2) {
+	var same = true;
+	if (array1.length == array2.length) {
+		array1.every(function(element, index) {
+			if (element != array2[index]) same = false;
+		});
+	} else {
+		same = false;
+	}
+	return same;
+}
+
+function contains(array, element) {
+	for (i=0; i<array.length; i++) {
+		if (typeof element === 'object') {
+			if (arraysSame(array[i], element)) return true;
+		}
+		if (array[i] == element) return true;
+	}
+	return false;
+}
+
 getStorage('devMode', function(obj) {
 	if (!chrome.runtime.error) debugMode = obj.devMode;
 });

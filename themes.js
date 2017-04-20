@@ -4,6 +4,7 @@ var themes = {
 		"name": "Default",
 		"homeworkMark": "#c0392b",
 		"warning" : "white",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red"
 	},
 	"blue": {"name": "Blue", "navbar": "#0375B4", "navbarEdge" : "#0375B4", "navbarIcon": "#FFFFFF", "rightDropdown": "rgba(0, 0, 0, 0.2)", "homeworkMark": "#ED2939"},
@@ -35,6 +36,7 @@ var themes = {
 		"filesHeader":"rgb(43, 43, 43)",
 		"assignmentsTableActive":"#080707",
 		"warning" : "white",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red"
 	},
 	"green" : {
@@ -63,6 +65,7 @@ var themes = {
 		"homeworkMark": "#ED2939",
 		"noteHeader":"#539e24",
 		"filesHeader":"#539e24",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red",
 		"warning" : "white"
 	},
@@ -93,6 +96,7 @@ var themes = {
 		"noteHeader":"#B22222",
 		"filesHeader":"#B22222",
 		"assignmentsTableActive":"#e74c3c",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red",
 		"warning" : "white"
 	},
@@ -154,6 +158,7 @@ var themes = {
 		"messageBackgroundText": "rgba(0,0,0,0)",
 		//"commentWritingBackground": "#393939",
 		"noteBackTextColour":"rgba(0, 0, 0, 0)",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red",
 		"warning" : "#757575"
 	},
@@ -209,6 +214,7 @@ var themes = {
 	"lessonDropdownText": "#363636",
 		//"commentWritingBackground": "rgba(176, 5, 60, 0.3)",
 		"commentMessageText":"#FFFFFF",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red",
 		"warning" : "white"
 	},
@@ -264,6 +270,7 @@ var themes = {
 		"noteHeader":"#A54242",
 		"filesHeader":"#A54242",
 		"homeworkMark": "#A54242",
+		"unreadAssignment" : "green",
 		"TooEarly" : "red",
 		"warning" : "#C5C8C6"
 	}
