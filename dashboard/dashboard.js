@@ -503,6 +503,9 @@ $(document).keydown(function(e) {
 		$("#calendar").fullCalendar("prev");
 	} else if (e.which == 39) {
 		$("#calendar").fullCalendar("next");
+	} else if (e.which == 76) {
+		$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
+		setShowOnlyHomework();
 	}
 });
 
