@@ -151,6 +151,7 @@ var themes = {
 		"assignmentsTableActive":"#ada315",
 		"mainContainer" : "#393939",
 		"messageBackground": "#393939",
+		"messageBackgroundText": "rgba(0,0,0,0)",
 		//"commentWritingBackground": "#393939",
 		"noteBackTextColour":"rgba(0, 0, 0, 0)",
 		"TooEarly" : "red",
