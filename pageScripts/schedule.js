@@ -111,12 +111,24 @@ function checkScheduleIsLoaded() {
 	//If no schedule blocks are there, we just assume the schedule isn't loaded.
 	if ($(".skemaBrikGruppe > g").length > 0) {
 		cacheSchedule();
+		getSelectors();
 		if (dowToTrigger !== null) {
 			openLessonNote(dowToTrigger, timeToTrigger);
 		}
 	} else {
 		window.setTimeout(checkScheduleIsLoaded, 100);
 	}
+}
+
+function getSelectors() {
+	getStorage("tableTopActiveSelector", function(obj) {
+		var classes = $("th[class]:not([class$=r]):visible").attr("class");
+		if (typeof classes !== 'undefined') {
+			var selector = classes.split(" ")[1];
+			console.log(selector);
+			if (obj.tableTopActiveSelector != selector && selector !== 'undefined') setStorage({"tableTopActiveSelector": "." + selector});
+		}
+	});
 }
 
 //We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
@@ -172,16 +184,16 @@ var lastdate = "";
 //Holy shit, I don't know what to think about this. But it works.
 //Regex support for jQuery selectors
 jQuery.expr[':'].regex = function(elem, index, match) {
-    var matchParams = match[3].split(','),
-        validLabels = /^(data|css):/,
-        attr = {
-            method: matchParams[0].match(validLabels) ?
-                        matchParams[0].split(':')[0] : 'attr',
-            property: matchParams.shift().replace(validLabels,'')
-        },
-        regexFlags = 'ig',
-        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
-    return regex.test(jQuery(elem)[attr.method](attr.property));
+	var matchParams = match[3].split(','),
+		validLabels = /^(data|css):/,
+		attr = {
+			method: matchParams[0].match(validLabels) ?
+				matchParams[0].split(':')[0] : 'attr',
+			property: matchParams.shift().replace(validLabels,'')
+		},
+		regexFlags = 'ig',
+		regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+	return regex.test(jQuery(elem)[attr.method](attr.property));
 }
 
 var toCacheFiles = null;
