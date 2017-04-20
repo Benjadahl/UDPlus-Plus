@@ -20,8 +20,6 @@ function getDanishTimezone(currentTime) {
 		while (new Date(currentYear + "-10-" + endSummerTimeDay).getDay() != 0 && endSummerTimeDay > 15) endSummerTimeDay--;
 		var startSummerTime = new Date(currentYear + "-03-" + startSummerTimeDay);
 		var endSummerTime = new Date(currentYear + "-10-" + endSummerTimeDay);
-		console.log(startSummerTime);
-		console.log(endSummerTime);
 		if (startSummerTime < currentTime && currentTime < endSummerTime) {
 			if (currentTime.setHours(0,0,0,0) == new Date()) currentTimeZone = 2;
 			return 2;
@@ -35,7 +33,6 @@ function getDanishTimezone(currentTime) {
 
 function fixTimezone(date) {
 	return date;
-	var timeZoneOffset = getDanishTimezone();
 	date.setHours(date.getHours() + getDanishTimezone(new Date()));
 	return new Date(date);
 }
@@ -80,7 +77,7 @@ function getSchedule(startDate, endDate, callback) {
 				var theClass = day[classKey];
 				var skemabeg_id = theClass["skemabeg_id"];
 
-				var timezoneOffset = "+" + leadingZeroes(-(new Date(theClass["start"]).getTimezoneOffset()/60)) + ":00";
+				var timezoneOffset = "+" + leadingZeroes((getDanishTimezone(new Date(theClass["start"])))) + ":00";
 
 				//The class name
 				returnClass["Name"] = theClass["kortBetegnelse"];
