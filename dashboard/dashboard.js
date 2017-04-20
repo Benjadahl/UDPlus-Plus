@@ -105,6 +105,17 @@ function getCalendarEvents(start, end, timezone, callback) {
 					}
 				}
 
+				for (i=0; i<theClass['Rooms'].length; i++) {
+					if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
+						classObj.classname = classObj.classname + "virtualLesson";
+						if (classObj.classname == "homeworkLesson") {
+							classObj['color'] = "brown";
+						} else {
+							classObj['color'] = "green";
+						}
+					}
+				}
+
 				var hide = false;
 				for (var i=0; i < toHide.length; i++) {
 					if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
