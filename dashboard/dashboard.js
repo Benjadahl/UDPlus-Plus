@@ -402,10 +402,10 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 		for (i = 0; i < googleFiles; i++) {
 			if (i < entriesToAdd.length) {
 				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-				list = list + "<li><a href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+				list = list + "<li><a target='_blank' href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
 			} else {
 				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-				list = list + "<li><a href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+				list = list + "<li><a target='_blank' href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
 
 				if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
 					chrome.tabs.create({
@@ -523,14 +523,14 @@ function searchUpdate() {
 	if (searchQuery == "") {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
-			list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+			list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
 		});
 	} else {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
 			if (fileName.toUpperCase().includes(searchQuery.toUpperCase())) {
 				fileName = fileName.replace(new RegExp("(" + searchQuery + ")", 'ig'), '<b>$1</b>');
-				list = list + "<li class='list-group-item'><a href=" + entry.url + ">" + fileName + "</a></li>";
+				list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
 			}
 		});
 
