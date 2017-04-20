@@ -499,13 +499,15 @@ function setShowOnlyHomework() {
 
 //On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
-	if (e.which == 37) {
-		$("#calendar").fullCalendar("prev");
-	} else if (e.which == 39) {
-		$("#calendar").fullCalendar("next");
-	} else if (e.which == 76) {
-		$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
-		setShowOnlyHomework();
+	if (!$("#searchBox").is(":focus")) {
+		if (e.which == 37) {
+			$("#calendar").fullCalendar("prev");
+		} else if (e.which == 39) {
+			$("#calendar").fullCalendar("next");
+		} else if (e.which == 76) {
+			$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
+			setShowOnlyHomework();
+		}
 	}
 });
 
