@@ -1,7 +1,7 @@
 console.log("UD++ starting");
 
 //News string in this version. Leave empty for off.
-newsString = "UD++ Dashboard available! Press the UD++ bottom in the top right corner of your browser.";
+newsString = "UD++ Dashboard available! Press the UD++ button in the top right corner of your browser.";
 
 
 

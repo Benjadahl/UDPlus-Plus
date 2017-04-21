@@ -10,10 +10,12 @@
 function runTheme(theme, page){
 	debugLog("Loading theme: " + theme + "on page " + page);
 	$('.UDPPCustom').remove();
+	PlusPlusList.general.languageBackground.value = "rgba(0,0,0,0)";
+	PlusPlusList.general.languageBackground.apply();
 	if(typeof themes[theme] != "undefined") {
 		for (var T in themes[theme]) {
 
-      applySelector(T, themes[theme][T], page);
+			applySelector(T, themes[theme][T], page);
 
 
 		}

@@ -8,10 +8,32 @@ function stringToList(string) {
 	return thelist;
 }
 
+
+// http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32000L0084:DA:HTML
+var currentTimeZone = null;
+function getDanishTimezone(currentTime) {
+	if (currentTimeZone == null || new Date().setHours(0,0,0,0) != currentTime.setHours(0,0,0,0)) {
+		var currentYear = currentTime.getUTCFullYear();
+		var startSummerTimeDay = 31;
+		var endSummerTimeDay = 31;
+		while (new Date(currentYear + "-03-" + startSummerTimeDay).getDay() != 0 && startSummerTimeDay > 15) startSummerTimeDay--;
+		while (new Date(currentYear + "-10-" + endSummerTimeDay).getDay() != 0 && endSummerTimeDay > 15) endSummerTimeDay--;
+		var startSummerTime = new Date(currentYear + "-03-" + startSummerTimeDay);
+		var endSummerTime = new Date(currentYear + "-10-" + endSummerTimeDay);
+		if (startSummerTime < currentTime && currentTime < endSummerTime) {
+			if (currentTime.setHours(0,0,0,0) == new Date()) currentTimeZone = 2;
+			return 2;
+		} else {
+			if (currentTime.setHours(0,0,0,0) == new Date()) currentTimeZone = 1;
+			return 1;
+		}
+	}
+	return currentTimeZone;
+}
+
 function fixTimezone(date) {
 	return date;
-	var timeZoneOffset = new Date().getTimezoneOffset() / 60;
-	date.setHours(date.getHours() + timeZoneOffset);
+	date.setHours(date.getHours() + getDanishTimezone(new Date()));
 	return new Date(date);
 }
 
@@ -55,7 +77,7 @@ function getSchedule(startDate, endDate, callback) {
 				var theClass = day[classKey];
 				var skemabeg_id = theClass["skemabeg_id"];
 
-				var timezoneOffset = "+" + leadingZeroes(-(new Date(theClass["start"]).getTimezoneOffset()/60)) + ":00";
+				var timezoneOffset = "+" + leadingZeroes((getDanishTimezone(new Date(theClass["start"])))) + ":00";
 
 				//The class name
 				returnClass["Name"] = theClass["kortBetegnelse"];
@@ -128,7 +150,7 @@ function getSchedule(startDate, endDate, callback) {
 			}
 		});
 	}
-	);
+				 );
 }
 
 var weekDays = {
@@ -161,7 +183,10 @@ getStorage('lang', function(obj) {
 function getWeekNumber(d) {
 	d.setHours(0,0,0,0);
 	d.setDate(d.getDate()+4-(d.getDay()||7));
-	return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+	var yearStart = new Date(d.getFullYear(),0,1);
+	var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+	return weekNo;
+
 };
 
 var debugMode = false;
