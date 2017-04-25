@@ -160,6 +160,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		};
 
 		readEntries(); // Start reading dirs.<Paste>
+	} else if (message.action == 'openDashboard') {
+		openPage();
 	}
 });
 
