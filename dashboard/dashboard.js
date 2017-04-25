@@ -186,6 +186,7 @@ function onRenderEvent(event, element) {
 		element.append("<div class='fc-teacher'>" + event['teachers'].toString() + "</div>");
 		element.append("<div class='fc-room'>" + event['rooms'].toString() + "</div>");
 		element.append("</section>");
+		element.attr("title", event['title'] + ", " + event['teachers'].toString() + ", " + event['rooms'].toString());
 	}
 }
 
