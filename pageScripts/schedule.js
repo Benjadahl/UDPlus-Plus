@@ -110,7 +110,6 @@ function markHomework(){
 function checkScheduleIsLoaded() {
 	//If no schedule blocks are there, we just assume the schedule isn't loaded.
 	if ($(".skemaBrikGruppe > g").length > 0) {
-		cacheSchedule();
 		getSelectors();
 		if (dowToTrigger !== null) {
 			openLessonNote(dowToTrigger, timeToTrigger);
@@ -130,52 +129,6 @@ function getSelectors() {
 		}
 	});
 }
-
-//We'll save the schedule HTML so we can serve it to the user when UDDATA is down.
-function cacheSchedule() {
-	//Generates day in ISO format. This is the format they use in their URLs
-	var isoDate = new Date().toISOString().substring(0, 10);
-	//Creates a regular expression that matches an URL that ends with either the ISO date, id_skema#, or id_skema.
-	var checkDate = new RegExp("(" + isoDate + "|id_skema#|id_skema)" + '$');
-	if (window.location.href.match(checkDate)) {
-		//Gets the schedule object
-		var scheduleHTML = $($.parseHTML($("svg")[0].outerHTML));
-
-		//Removes the menu buttons, as you can't interact with the schedule anyway
-		scheduleHTML.find(".actionMenu").remove();
-		//Removes this thing I don't remember what is, but it definitely isn't needed, and storage is expensive
-		scheduleHTML.find(".skemaLinieGruppe").parent().remove();
-		//Removes the red line, as we don't have the code to move it anymore
-		scheduleHTML.find("line").remove();
-		//Removes empty skemaBrikGruppe's
-		scheduleHTML.find(".skemaBrikGruppe:empty").remove();
-		//Removes empty DagMedBrikker's (Makes a lot of sense if the weekends are empty, as they are most of the time, thank God)
-		scheduleHTML.find(".DagMedBrikker:empty").remove();
-
-
-		//Usually, the classes are a third of the way down the schedule, but we don't want that. So first, we find the class with the lowest height
-		var minHeight = 10000;
-		scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
-			var height = $(this)[0].transform.baseVal[0].matrix.f;
-			if (height < minHeight) minHeight = height;
-		});
-
-		//And then we move all the classes up by the smallest height, moving the first classes to 0.
-		scheduleHTML.find(".skemaBrikGruppe > g").each(function() {
-			$(this)[0].transform.baseVal[0].matrix.f = $(this)[0].transform.baseVal[0].matrix.f - minHeight;
-		});
-
-		//Convert the scheduleHTML object into a string, and save it
-		scheduleHTML = scheduleHTML[0].outerHTML;
-		setStorage({"cachedSchedule": scheduleHTML }, true);
-		//Save the date the schedule was cached.
-		var date = new Date();
-		isoDate = isoDate + " " + (date.getHours()<10?'0':'') + date.getHours() + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes();
-		setStorage({"cachedScheduleDate": isoDate }, true);
-	}
-}
-
-checkScheduleIsLoaded();
 
 var lasttime = "";
 var lastdate = "";
