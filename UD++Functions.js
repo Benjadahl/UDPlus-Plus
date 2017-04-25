@@ -132,6 +132,8 @@ function getSchedule(startDate, endDate, callback) {
 			message = "Request to UDDATA+ timed out.";
 		} else if (textStatus == "parsererror") {
 			message = "UDDATA+ didn't return a valid schedule.";
+		} else if (XMLHttpRequest.status == 418) {
+			message = "HTTP error 418: I am a teapot";
 		}
 		message = message + " Showing cached schedule";
 		getStorage('scheduleCaches', true, function(obj) {
