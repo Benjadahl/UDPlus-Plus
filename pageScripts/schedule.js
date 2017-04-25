@@ -118,6 +118,7 @@ function checkScheduleIsLoaded() {
 		window.setTimeout(checkScheduleIsLoaded, 100);
 	}
 }
+checkScheduleIsLoaded();
 
 function getSelectors() {
 	getStorage("tableTopActiveSelector", function(obj) {
