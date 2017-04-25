@@ -66,7 +66,8 @@ function leadingZeroes(x, digits=2) {
 function getSchedule(startDate, endDate, callback) {
 	var message = '';
 	$.ajax({
-		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate
+		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate,
+		timeout: 5000,
 	}).then(function(data) {
 		var scheduleReturn = {};
 		for (dayKey in data["begivenhedMap"]) {
@@ -120,11 +121,14 @@ function getSchedule(startDate, endDate, callback) {
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
 		callback(scheduleReturn, message);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-		message = 'Not connected to the internet';
+		message = 'Something went wrong getting the schedule. Error: ' + textStatus;
 		if (XMLHttpRequest.status === 401) {
 			//TODO: Oversæt
-			message = 'Not logged in to UDDATA+';
+			message = 'Not logged in to UDDATA+.';
+		} else if (textStatus == "timeout") {
+			message = "Request to UDDATA+ timed out.";
 		}
+		message = message + " Showing cached schedule";
 		getStorage('scheduleCaches', true, function(obj) {
 			if (!chrome.runtime.error) {
 				var scheduleCaches = obj.scheduleCaches;
