@@ -68,8 +68,10 @@ function getSchedule(startDate, endDate, callback) {
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate,
 		timeout: 5000,
+		dataType: "json",
 	}).then(function(data) {
 		var scheduleReturn = {};
+		debugLog(data);
 		for (dayKey in data["begivenhedMap"]) {
 			var day = data["begivenhedMap"][dayKey];
 			var returnDay = {};
@@ -121,12 +123,15 @@ function getSchedule(startDate, endDate, callback) {
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
 		callback(scheduleReturn, message);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-		message = 'Something went wrong getting the schedule. Error: ' + textStatus;
+		debugLog("Request failed: " + textStatus);
+		message = 'Something went wrong getting the schedule.';
 		if (XMLHttpRequest.status === 401) {
 			//TODO: Oversæt
 			message = 'Not logged in to UDDATA+.';
 		} else if (textStatus == "timeout") {
 			message = "Request to UDDATA+ timed out.";
+		} else if (textStatus == "parsererror") {
+			message = "UDDATA+ didn't return a valid schedule.";
 		}
 		message = message + " Showing cached schedule";
 		getStorage('scheduleCaches', true, function(obj) {
@@ -150,11 +155,11 @@ function getSchedule(startDate, endDate, callback) {
 					i++;
 				}
 				callback(toReturn, message);
-
+			} else {
+				callback(null, "Storage error");
 			}
 		});
-	}
-				 );
+	});
 }
 
 var weekDays = {
