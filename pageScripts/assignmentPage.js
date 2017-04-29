@@ -4,6 +4,7 @@ curPage = "assignments";
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
 var sortBy = 3;
+var timeFilterTextHide = false;
 var filterTime = "10";
 
 console.log("Loading assignment page");
@@ -22,9 +23,31 @@ function onAssignmentPageLoad(){
 			hideTasks(hideTask);
 			sortTasks(sortBy);
 			fixOverviewButton();
+			
+			getStorage('timeFilterTextHide', function(obj) {
+				timeFilterTextHide = obj.timeFilterTextHide;
+				if(!obj.timeFilterTextHide){
+					
+					getStorage('lang', function(obj) {
+						if(obj.lang == "dansk"){
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Røde opgaver betyder at de skal afleveres før kl " + filterTime + ". Denne tid kan ændres i ud++ indstillinger.</span>");
+						}else{
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Red assignments means that the deadline is before " + filterTime + " o'clock. You can set this in ud++ settings.</span>");
+						}
+						$( "#timeFilter" ).click(function() {
+							$("#timeFilter").remove();
+							setStorage({'timeFilterTextHide': true});
+						});
+						
+					});
+				}
+			});
+			
 		}
 	}, 100);
 }
+
+
 
 
 //We find out which assignments have a due date before filterTime, and append them a nice little class to identify them.
@@ -171,3 +194,6 @@ window.setInterval(saveOpenAssignment, 2000);
 window.setInterval(markUnreadAssignments, 2000);
 
 onAssignmentPageLoad();
+
+
+
