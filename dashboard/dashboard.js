@@ -250,7 +250,7 @@ window.onload = function() {
 				noteSelected = false;
 				$(calEvent.scrollTo).addClass("list-group-item-success");
 				$('#todoList').animate({
-					scrollTop: $('#todoList').scrollTop() + $(calEvent.scrollTo).position().top - $("#todoList").height()/2
+					scrollTop: $(calEvent.scrollTo).offset().top - $("#todoList > li:first").offset().top
 				}, 200);
 				setTimeout(function() {
 					noteSelected = true;
