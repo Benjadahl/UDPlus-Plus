@@ -43,7 +43,7 @@ function UDDateToDate(date) {
 	var split1 = date.split("T");
 	var date = split1[0].split("-");
 	var year = date[0];
-	var month = parseInt(date[1]);
+	var month = parseInt(date[1])-1;
 	var day = parseInt(date[2]);
 
 	var time = split1[1].split(":");

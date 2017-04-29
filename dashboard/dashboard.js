@@ -85,6 +85,8 @@ function getCalendarEvents(start, end, timezone, callback) {
 	var startDay = toCompIsoString(start);
 	var endDay = toCompIsoString(end);
 	var weekends = false;
+	var minTime = 8;
+	var maxTime = 8;
 
 	getSchedule(startDay, endDay, function(schedule, message) {
 		var events = [];
@@ -103,6 +105,12 @@ function getCalendarEvents(start, end, timezone, callback) {
 					rooms: theClass['Rooms'],
 					teachers: theClass['Teachers']
 				};
+
+				if (Math.floor(theClass['Start'].getHours()) < minTime)
+					minTime = Math.floor(theClass['Start'].getHours());
+
+				if (Math.ceil(theClass['End'].getHours())+2 > maxTime)
+					maxTime = Math.ceil(theClass['End'].getHours())+2;
 
 				if (theClass['GoogleFiles'] > 0) {
 					classObj['color'] = "orange";
@@ -145,6 +153,8 @@ function getCalendarEvents(start, end, timezone, callback) {
 		}
 		console.log(events);
 		callback(events);
+		$("#calendar").fullCalendar("option", "minTime", minTime + ":00:00");
+		$("#calendar").fullCalendar("option", "maxTime", maxTime + ":00:00");
 		$("#calendar").fullCalendar("option", "weekends", weekends);
 		$('#message').html(message);
 
