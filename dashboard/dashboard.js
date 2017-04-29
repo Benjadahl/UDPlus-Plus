@@ -314,6 +314,17 @@ window.onload = function() {
 		}
 	});
 
+
+	$("#closeModal").click(function() {
+		setStorage({"dashboardInfoShown": true});
+	});
+
+	getStorage('dashboardInfoShown', function(obj) {
+		if (!obj.dashboardInfoShown) {
+			$("#myModal").modal();
+		}
+	});
+
 	//Language stuff
 	getStorage('lang', function(obj) {
 		if (!chrome.runtime.error) {
@@ -325,6 +336,7 @@ window.onload = function() {
 				$('#todo').text("Lektionsnoter");
 				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
 				$('#autofetchtext').text("Hent automatisk lektionsfiler");
+				$('#modal-body').text("Velkommen til det nye UD++ Dashboard! Den her side lader dig nemt se dit skema, holde styr på dine lektier, og nemt få adgang til filer fra lektioner. Og alt det her virker når UDDATA er nede, eller du er offline, blot du har set den del af skemaet en gang før. Du kan altid få adgang til den her side igen ved at klikke på UD++ ikonet i øverste højre hjørne. Hyg dig!");
 				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 
 				try {
