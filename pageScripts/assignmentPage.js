@@ -3,7 +3,7 @@ curPage = "assignments";
 
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
-var sortBy = 5;
+var sortBy = 3;
 var filterTime = "10";
 
 console.log("Loading assignment page");
@@ -19,8 +19,8 @@ function onAssignmentPageLoad(){
 			//Clear the interval and run the function again
 			clearInterval(checkTitle);
 
-			hideTasks();
-			sortTasks();
+			hideTasks(hideTask);
+			sortTasks(sortBy);
 			fixOverviewButton();
 		}
 	}, 100);
@@ -80,8 +80,8 @@ function fixOverviewButton(){
 fixOverviewButton();
 
 //Function to hiding already delivered tasks
-function hideTasks(){
-	if(hideTask){
+function hideTasks(hide){
+	if(hide){
 		$(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
 		$(".page-content").children().eq(1).find("div>div").children().eq(2).find("input").trigger("click");
 	}
@@ -106,10 +106,9 @@ getStorage('TooEarly', function (obj) {
 	}
 });
 
-function sortTasks(){
-	if(sortBy != -1){
-		var element = $("thead > tr").children().eq(sortBy).get(0);
-		console.log(typeof element);
+function sortTasks(sort){
+	if(sort != -1){
+		var element = $("thead > tr").children().eq(sort).get(0);
 		element.click();
 
 	}
