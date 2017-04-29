@@ -92,9 +92,24 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var theDay = schedule[day];
 			for (classes in theDay) {
 				var theClass = theDay[classes];
-				var classObj = {start: theClass['Start'], scrollTo: "#" + dateToID(theClass['Start']), end: theClass['End'], title: theClass['Name'], description: theClass['Note'], googleFiles: theClass["GoogleFiles"], objekt_id: theClass['objekt_id'], rooms: theClass['Rooms'], teachers: theClass['Teachers']};
+				var classObj = {
+					start: theClass['Start'],
+					scrollTo: "#" + dateToID(theClass['Start']),
+					end: theClass['End'],
+					title: theClass['Name'],
+					description: theClass['Note'],
+					googleFiles: theClass["GoogleFiles"],
+					objekt_id: theClass['objekt_id'],
+					rooms: theClass['Rooms'],
+					teachers: theClass['Teachers']
+				};
 
-				if (typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '') {
+				if (theClass['GoogleFiles'] > 0) {
+					classObj['color'] = "orange";
+					classObj.className = "noteLesson";
+				}
+
+				if ((typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '')) {
 					classObj['color'] = "orange";
 					classObj.className = "noteLesson";
 					for (var i=0; i < homeworkList.length; i++) {
@@ -104,6 +119,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 						}
 					}
 				}
+
 
 				for (i=0; i<theClass['Rooms'].length; i++) {
 					if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
@@ -162,7 +178,7 @@ function onViewRender(view, element) {
 //When an event is removed from the calendar, we remove it from the lessonNotes list.
 function onDestroyEvent(event, element) {
 	lessonNotes.forEach(function(item, i) {
-		if (item['description'] == event['description']) {
+		if (item['description'] == event['description'] && item['start'] == event['start'] && item['name'] == event['name']) {
 			lessonNotes.splice(i, 1);
 		}
 	});
@@ -170,10 +186,10 @@ function onDestroyEvent(event, element) {
 
 //When we add an event to the calendar, we want to add the note to the lessonNotes list
 function onRenderEvent(event, element) {
-	if (typeof event['description'] !== 'undefined' && event['description'] !== '') {
+	if ((typeof event['description'] !== 'undefined' && event['description'] !== '') || event['googleFiles'] > 0) {
 		var toInsert = true;
 		lessonNotes.forEach(function(item, i) {
-			if (item[0] == event['description']) {
+			if (item['description'] == event['description'] && item['start'] == event['start'] && item['title'] == event['title']) {
 				toInsert = false;
 			}
 		});
@@ -326,6 +342,8 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 		hour: leadingZeroes(startDate.getHours()),
 		minute: leadingZeroes(startDate.getMinutes())
 	};
+
+	if (text == null || typeof text === 'undefined' || text == '') text = '';
 
 	let endDate = new Date(end);
 	let endTime = {
