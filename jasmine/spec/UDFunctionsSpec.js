@@ -43,7 +43,7 @@ describe("UD++functions", function() {
 	});
 
 	it("Get danish timezone", function() {
-		expect(getDanishTimezone(new Date("2017-04-20"))).toBe(2);
+		expect(getDanishTimezone(new Date("2017-04-20"))).toBe(8);
 		expect(getDanishTimezone(new Date("2017-03-15"))).toBe(1);
 		expect(getDanishTimezone(new Date("1984-03-15"))).toBe(1);
 	});
