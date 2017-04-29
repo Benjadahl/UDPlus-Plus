@@ -19,7 +19,7 @@ function onAssignmentPageLoad(){
 			//Clear the interval and run the function again
 			clearInterval(checkTitle);
 
-			hideTasks();
+			hideTasks(hideTask);
 			sortTasks();
 			fixOverviewButton();
 		}
@@ -80,8 +80,8 @@ function fixOverviewButton(){
 fixOverviewButton();
 
 //Function to hiding already delivered tasks
-function hideTasks(){
-	if(hideTask){
+function hideTasks(hide){
+	if(hide){
 		$(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
 		$(".page-content").children().eq(1).find("div>div").children().eq(2).find("input").trigger("click");
 	}
