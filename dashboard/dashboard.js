@@ -143,6 +143,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 			var Sunday = moment(endDay);
 			if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
 		}
+		console.log(events);
 		callback(events);
 		$("#calendar").fullCalendar("option", "weekends", weekends);
 		$('#message').html(message);

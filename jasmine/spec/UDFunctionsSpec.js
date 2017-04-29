@@ -36,9 +36,10 @@ describe("UD++functions", function() {
 	});
 
 
-	it("Fix timezone", function() {
-		expect(fixTimezone(new Date("2017-01-23T08:15:00")).toString()).toBe(new Date(2017, 0, 23, 09, 15).toString());
-		expect(fixTimezone(new Date("2017-04-10T16:00:00")).toString()).toBe(new Date(2017, 03, 10, 18).toString());
+	it("Fix UDDATA dates", function() {
+		expect(UDDateToDate("2017-01-23T08:15:00").getUTCHours()).toBe(9);
+		expect(UDDateToDate("2017-05-23T08:15:00").getUTCHours()).toBe(10);
+		//expect(fixTimezone(new Date("2017-04-10T16:00:00")).getHours()).toBe(16);
 	});
 
 	it("Get danish timezone", function() {

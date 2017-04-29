@@ -33,8 +33,35 @@ function getDanishTimezone(currentTime) {
 
 function fixTimezone(date) {
 	return date;
-	date.setHours(date.getHours() + getDanishTimezone(new Date()));
+	date.setHours(date.getHours() - getDanishTimezone(new Date()));
+	var offSet = new Date().getTimezoneOffset()*1000*60;
+	var fixedDate = new Date(date.getTime() + offSet);
 	return new Date(date);
+}
+
+function UDDateToDate(date) {
+	var split1 = date.split("T");
+	var date = split1[0].split("-");
+	var year = date[0];
+	var month = parseInt(date[1]);
+	var day = parseInt(date[2]);
+
+	var time = split1[1].split(":");
+	var hour = parseInt(time[0]);
+	var minute = parseInt(time[1]);
+	var second = parseInt(time[2]);
+
+	var danishTZ = getDanishTimezone(new Date(date));
+	hour = hour - danishTZ;
+	/*
+	if (hour > 24) {
+		hour = hour - 24;
+		date = date + 1;
+	}*/
+
+	//console.log(year, month, day, hour, minute, second);
+	return new Date(Date.UTC(year, month, day, hour, minute, second));
+
 }
 
 function ToShortISODate(date) {
@@ -80,14 +107,12 @@ function getSchedule(startDate, endDate, callback) {
 				var theClass = day[classKey];
 				var skemabeg_id = theClass["skemabeg_id"];
 
-				var timezoneOffset = "+" + leadingZeroes((getDanishTimezone(new Date(theClass["start"])))) + ":00";
-
 				//The class name
 				returnClass["Name"] = theClass["kortBetegnelse"];
 
 				//Start and end times
-				returnClass["Start"] = fixTimezone(new Date(theClass["start"] + timezoneOffset));
-				returnClass["End"] = fixTimezone(new Date(theClass["slut"] + timezoneOffset));
+				returnClass["Start"] = UDDateToDate(theClass["start"]);
+				returnClass["End"] = UDDateToDate(theClass["slut"]);
 				returnClass["objekt_id"] = theClass["objekt_id"];
 
 				//Niveau, as in A, B, and C.
