@@ -190,6 +190,16 @@ function markUnreadAssignments() {
 	});
 }
 
+function addListeners() {
+	$("button.btn.btn-mini:contains(T)").unbind();
+	$("button.btn.btn-mini:contains(T)").click(function() {
+		console.log("Test");
+		window.setTimeout(onAssignmentPageLoad, 1000);
+	});
+}
+
+window.setInterval(addListeners, 2000);
+
 window.setInterval(saveOpenAssignment, 2000);
 window.setInterval(markUnreadAssignments, 2000);
 
