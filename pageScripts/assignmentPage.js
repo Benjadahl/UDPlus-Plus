@@ -3,7 +3,7 @@ curPage = "assignments";
 
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
-var sortBy = 5;
+var sortBy = 3;
 var filterTime = "10";
 
 console.log("Loading assignment page");
@@ -20,7 +20,7 @@ function onAssignmentPageLoad(){
 			clearInterval(checkTitle);
 
 			hideTasks(hideTask);
-			sortTasks();
+			sortTasks(sortBy);
 			fixOverviewButton();
 		}
 	}, 100);
@@ -106,10 +106,9 @@ getStorage('TooEarly', function (obj) {
 	}
 });
 
-function sortTasks(){
-	if(sortBy != -1){
-		var element = $("thead > tr").children().eq(sortBy).get(0);
-		console.log(typeof element);
+function sortTasks(sort){
+	if(sort != -1){
+		var element = $("thead > tr").children().eq(sort).get(0);
 		element.click();
 
 	}
