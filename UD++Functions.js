@@ -31,14 +31,6 @@ function getDanishTimezone(currentTime) {
 	return currentTimeZone;
 }
 
-function fixTimezone(date) {
-	return date;
-	date.setHours(date.getHours() - getDanishTimezone(new Date()));
-	var offSet = new Date().getTimezoneOffset()*1000*60;
-	var fixedDate = new Date(date.getTime() + offSet);
-	return new Date(date);
-}
-
 function UDDateToDate(date) {
 	var split1 = date.split("T");
 	var date = split1[0].split("-");
