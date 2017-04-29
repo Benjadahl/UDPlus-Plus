@@ -12,7 +12,7 @@ describe("UD++functions", function() {
 		//expect(new Date("2017-02-27").getWeekNumber()).toBe(9);
 		expect(getWeekNumber(new Date("2016-02-26"))).toBe(8);
 		expect(getWeekNumber(new Date("2016-02-17"))).toBe(7);
-		expect(getWeekNumber(new Date("2016-12-12"))).toBe(50);
+		expect(getWeekNumber(new Date(Date.UTC(2016, 11, 12, 5, 5, 5)))).toBe(50);
 	});
 
 	it("Leading zeroes test", function() {
