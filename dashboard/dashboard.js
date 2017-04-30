@@ -357,6 +357,11 @@ window.onload = function() {
 	getStorage('lang', function(obj) {
 		if (!chrome.runtime.error) {
 			if (obj.lang == 'dansk') {
+				$(".en").hide();
+			} else {
+				$(".da").hide();
+			}
+			if (obj.lang == 'dansk') {
 				lang = obj.lang
 				$('#searchHeader').text("Lektionsfiler");
 				//$('#searchBox').attr("placeholder", "Søg filer");
@@ -364,7 +369,6 @@ window.onload = function() {
 				$('#todo').text("Lektionsnoter");
 				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
 				$('#autofetchtext').text("Hent automatisk lektionsfiler");
-				$('#modal-body').text("Velkommen til det nye UD++ Dashboard! Den her side lader dig nemt se dit skema, holde styr på dine lektier, og nemt få adgang til filer fra lektioner. Og alt det her virker når UDDATA er nede, eller du er offline, blot du har set den del af skemaet en gang før. Du kan altid få adgang til den her side igen ved at klikke på UD++ ikonet i øverste højre hjørne. Hyg dig!");
 
 				attachedFiles = "<br>Tilknyttede filer: ";
 				pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
@@ -650,7 +654,25 @@ $(document).keydown(function(e) {
 		} else if (e.which == 65) {
 			//A
 			$("#calendar").fullCalendar('changeView', 'listWeek');
+		} else if (e.which == 72) {
+			//H
+			$("#myModal").modal();
+		} else if (e.which == 77) {
+			//M
+			$(".list-group-item-success > label > input")[0].click();
+		} else if (e.which == 79) {
+			chrome.runtime.sendMessage({action: "options"});
+		} else if (e.which == 66) {
+			//B
+			window.open("https://www.uddataplus.dk/opgave");
+		} else if (e.which == 67) {
+			//C
+			window.open("https://www.uddataplus.dk/besked");
+		} else if (e.which == 82) {
+			//R
+			window.open("https://www.uddataplus.dk/ressourcer");
 		}
+
 	}
 });
 
