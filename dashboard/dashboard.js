@@ -674,6 +674,9 @@ $("#searchBox").keydown(function(e) {
 		openSearchResult(4);
 	} else if (e.which == 187) {
 		openSearchResult(6);
+	} else if (e.which == 27) {
+		//Reimplement escape button
+		$("#searchBox").blur();
 	}
 });
 
