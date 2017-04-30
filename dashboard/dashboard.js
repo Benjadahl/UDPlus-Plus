@@ -243,7 +243,9 @@ var homeworkDoneText = "Homework done";
 
 var currentlyScrolling = false;
 function scrollToNote(id) {
-	if (!currentlyScrolling) {
+	if (true) {
+		$('#todoList').stop(true, true);
+		currentlySelectedNote = id;
 		currentlyScrollling = true;
 		$(".list-group-item-success").removeClass("list-group-item-success");
 		$(id).addClass("list-group-item-success");
@@ -251,7 +253,6 @@ function scrollToNote(id) {
 			scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
 		}, 200);
 		setTimeout(function() {
-			currentlySelectedNote = id;
 			currentlyScrollling = false;
 		}, 500);
 	}
@@ -582,22 +583,23 @@ function scrollOffset(offset) {
 			currentlySelectedNote = lessonNotes[lessonNotes.length-1].scrollTo;
 		}
 
+		var done = false;
 		lessonNotes.forEach(function(item, i) {
-			if (item.scrollTo == currentlySelectedNote) {
+			if (item.scrollTo == currentlySelectedNote && !done) {
 				toIndex = i+offset;
 				if (toIndex < 0) toIndex = lessonNotes.length-1;
 				if (toIndex > lessonNotes.length-1) toIndex = 0;
 				var note = $(lessonNotes[toIndex].scrollTo);
 				var attempts = 0;
-				while (note.css('display') == 'none' && attempts < 50) {
+				while ((note.css('display') == 'none' || note.length == 0) && attempts < 50) {
 					toIndex += offset;
 					attempts++;
 					if (toIndex < 0) toIndex = lessonNotes.length-1;
 					if (toIndex > lessonNotes.length-1) toIndex = 0;
 					note = $(lessonNotes[toIndex].scrollTo);
 				}
-				console.log(toIndex);
 				scrollToNote(lessonNotes[toIndex].scrollTo);
+				done = true;
 			}
 		});
 	}
