@@ -83,7 +83,6 @@ function leadingZeroes(x, digits=2) {
  * The callback is a function which takes the output and does whatever.
  */
 function getSchedule(startDate, endDate, callback) {
-	console.log("Test");
 	var message = '';
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate,
