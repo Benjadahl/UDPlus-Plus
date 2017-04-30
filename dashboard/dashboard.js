@@ -637,6 +637,18 @@ $(document).keydown(function(e) {
 				$("#searchBox").val("");
 				searchUpdate();
 			}, 1);
+		} else if (e.which == 84) {
+			//Why integrate with the library when you can just press the button for the user?
+			$(".fc-left > button")[0].click();
+		} else if (e.which == 87) {
+			//W
+			$("#calendar").fullCalendar('changeView', 'agendaWeek');
+		} else if (e.which == 68) {
+			//D
+			$("#calendar").fullCalendar('changeView', 'agendaDay');
+		} else if (e.which == 65) {
+			//A
+			$("#calendar").fullCalendar('changeView', 'listWeek');
 		}
 	}
 });
