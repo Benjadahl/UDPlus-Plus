@@ -644,18 +644,27 @@ $(document).keydown(function(e) {
 			$("#searchBox").focus();
 			window.setTimeout(function() {
 				$("#searchBox").val("");
+				searchUpdate();
 			}, 1);
 		}
 	}
 });
+
+function openSearchResult(number) {
+	$("#searchResults > li:nth-child(" + number + ") > a")[0].click();
+}
 
 $("#searchBox").keydown(function(e) {
 	if (e.which == 13) {
 		console.log("Ayy");
 		var searchResults = $("#searchResults > li");
 		if (searchResults.length === 1) {
-			searchResults.find("a")[0].click();
+			openSearchResult(1);
 		}
+	} else if (e.which > 48 && e.which < 58) {
+		openSearchResult(e.which - 48);
+	} else if (e.which > 96 && e.which < 106) {
+		openSearchResult(e.which - 96);
 	}
 });
 
