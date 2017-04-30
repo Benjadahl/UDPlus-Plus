@@ -107,7 +107,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 						googleFiles: theClass["GoogleFiles"],
 						objekt_id: theClass['objekt_id'],
 						rooms: theClass['Rooms'],
-						teachers: theClass['Teachers']
+						teachers: theClass['Teachers'],
 					};
 
 					if (Math.floor(theClass['Start'].getHours()) < minTime)
@@ -155,7 +155,6 @@ function getCalendarEvents(start, end, timezone, callback) {
 				var Sunday = moment(endDay);
 				if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
 			}
-			console.log(events);
 			callback(events);
 			$("#calendar").fullCalendar("option", "minTime", minTime + ":00:00");
 			$("#calendar").fullCalendar("option", "maxTime", maxTime + ":00:00");
@@ -167,20 +166,30 @@ function getCalendarEvents(start, end, timezone, callback) {
 }
 
 //Rerender all the notes on the right side. We use lessonNotes to keep track of what we are rendering.
+var rendering = false;
 function rerenderEvents() {
-	$("#todoList").html("");
 
-	lessonNotes = lessonNotes.sort(function(a, b) {
-		return a.start - b.start;
-	});
-
-	try {
-		lessonNotes.forEach(function(item) {
-			addNoteToList(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id'], item['rooms'], item['teachers']);
+	if (!rendering) {
+		rendering = true;
+		lessonNotes = lessonNotes.sort(function(a, b) {
+			return a.start - b.start;
 		});
 
-	} catch (error) {
-		//Oh well.
+		try {
+			var toAddHTML = "";
+			lessonNotes.forEach(function(item) {
+				toAddHTML += toListItem(item['description'], item['title'], item['start'], item['end'], item['googleFiles'], item['objekt_id'], item['rooms'], item['teachers']);
+			});
+			$("#todoList").html(toAddHTML);
+
+			//Reload homework marking stuff, and add listener
+			setShowOnlyHomework();
+			$("label > .homeworkCheckbox").click(markDoneHomework);
+
+		} catch (error) {
+			//Oh well.
+		}
+		rendering = false;
 	}
 
 }
@@ -205,12 +214,14 @@ function onRenderEvent(event, element) {
 	if ((typeof event['description'] !== 'undefined' && event['description'] !== '') || event['googleFiles'] > 0) {
 		var toInsert = true;
 		lessonNotes.forEach(function(item, i) {
-			if (item['description'] == event['description'] && item['start'] == event['start'] && item['title'] == event['title']) {
+			if (item._id == event._id) {
 				toInsert = false;
 			}
 		});
 
-		if (toInsert) lessonNotes.push(event);
+		if (toInsert) {
+			lessonNotes.push(event);
+		}
 
 	}
 	if ($("#calendar").fullCalendar('getView').type === "agendaWeek") {
@@ -221,6 +232,13 @@ function onRenderEvent(event, element) {
 		element.attr("title", event['title'] + ", " + event['teachers'].toString() + ", " + event['rooms'].toString());
 	}
 }
+
+var pleaseOpenUD = "Please open UDDATA+ lesson to cache this file";
+var attachedFiles = "<br>Attached Files: ";
+var roomsString = 'Rooms: ';
+var teachersString = 'Teachers: ';
+var homeworkDoneText = "Homework done";
+
 
 //Init when we load the window
 window.onload = function() {
@@ -344,8 +362,14 @@ window.onload = function() {
 				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
 				$('#autofetchtext').text("Hent automatisk lektionsfiler");
 				$('#modal-body').text("Velkommen til det nye UD++ Dashboard! Den her side lader dig nemt se dit skema, holde styr på dine lektier, og nemt få adgang til filer fra lektioner. Og alt det her virker når UDDATA er nede, eller du er offline, blot du har set den del af skemaet en gang før. Du kan altid få adgang til den her side igen ved at klikke på UD++ ikonet i øverste højre hjørne. Hyg dig!");
-				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 
+				attachedFiles = "<br>Tilknyttede filer: ";
+				pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
+				homeworkDoneText = "Lektie lavet";
+				roomsString = "Lokaler: ";
+				teachersString = "Lærere: ";
+
+				//This next line throws an error for some reason, and to be honest, I don't want to figure out why. It still works though. Just like the rest of javascript :-)
 				try {
 					$('#calendar').fullCalendar('option', 'locale', 'da');
 				} catch (error) {
@@ -364,7 +388,7 @@ function toCompIsoString(date) {
 
 var lessonsCaching = [];
 
-function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms, teachers) {
+function toListItem(text, subject, start, end, googleFiles, objekt_id, rooms, teachers) {
 	let startDate = new Date(start);
 	let day = startDate.getDay();
 	//The .slice(-2) gives us the last 2 characters removing leading zeroes if needed
@@ -418,81 +442,71 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 
 	});
 
-	//Convert the days to danish if selected by user
-	getStorage('lang', function(obj) {
-		let lang = obj.lang;
-		var homeworkDoneText = "Homework done";
-		if (lang === "dansk") {
-			attachedFiles = "<br>Tilknyttede filer: ";
-			pleaseOpenUD = "Åben UDDATA+ for at cache den her fil.";
-			homeworkDoneText = "Lektie lavet";
-			roomsString = "Lokaler: ";
-			teachersString = "Lærere: ";
+	var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
+
+	if (homework) {
+		var testHomeworkString = text.replace(homeworkNoteRegex, "").hashCode();
+
+		var homeworkDone = false;
+		for (i = 0; i < doneHomework.length; i++) {
+			if (doneHomework[i] === testHomeworkString) homeworkDone = true;
 		}
+		if (homeworkDone) {
+			homeworkClass = "";
+			homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
+		}
+	}
 
+	var times = startTime.hour + ":" + startTime.minute + "-" + endTime.hour + ":" + endTime.minute;
+	var list = "<br><ul>";
+	for (i = 0; i < googleFiles; i++) {
+		if (i < entriesToAdd.length) {
+			var fileName = entriesToAdd[i].name.replace(fileMatch, "");
+			list = list + "<li><a target='_blank' href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
+		} else {
+			var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
+			list = list + "<li><a target='_blank' href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
 
-		var homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox'> " + homeworkDoneText + " </label>";
-
-		if (homework) {
-			var testHomeworkString = text.replace(homeworkNoteRegex, "").hashCode();
-
-			var homeworkDone = false;
-			for (i = 0; i < doneHomework.length; i++) {
-				if (doneHomework[i] === testHomeworkString) homeworkDone = true;
+			if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
+				chrome.tabs.create({
+					url: uddatalink,
+					active: false,
+				}, function(tab) {
+					chrome.tabs.executeScript(tab.id, {code: "dowToTrigger = " + (day-1) + "; timeToTrigger = '" + times + "';"});
+				});
+				lessonsCaching.push(dateToID(start));
 			}
-			if (homeworkDone) {
-				homeworkClass = "";
-				homeworkCheckbox = "<label> <input type='checkbox' class='homeworkCheckbox' checked> " + homeworkDoneText + " </label>";
-			}
+
 		}
+	}
+	list = list + "</ul>";
 
-		var times = startTime.hour + ":" + startTime.minute + "-" + endTime.hour + ":" + endTime.minute;
-		var list = "<br><ul>";
-		for (i = 0; i < googleFiles; i++) {
-			if (i < entriesToAdd.length) {
-				var fileName = entriesToAdd[i].name.replace(fileMatch, "");
-				list = list + "<li><a target='_blank' href=" + entriesToAdd[i].url + ">" + fileName + "</a></li>";
-			} else {
-				var uddatalink = "https://www.uddataplus.dk/skema/?id=id_skema#u:e!" + objekt_id + "!" + toCompIsoString(startDate);
-				list = list + "<li><a target='_blank' href='" + uddatalink + "'>" + pleaseOpenUD + "</a></li>";
+	//Woops, turns out we didn't have any files. Get rid of everything.
+	if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
+		attachedFiles = '';
+		list = '';
+	}
 
-				if (!contains(lessonsCaching, dateToID(start)) && fetchFilesAutomatically) {
-					chrome.tabs.create({
-						url: uddatalink,
-						active: false,
-					}, function(tab) {
-						chrome.tabs.executeScript(tab.id, {code: "dowToTrigger = " + (day-1) + "; timeToTrigger = '" + times + "';"});
-					});
-					lessonsCaching.push(dateToID(start));
-				}
-
-			}
-		}
-		list = list + "</ul>";
-
-		//Woops, turns out we didn't have any files. Get rid of everything.
-		if (typeof googleFiles === 'undefined' || googleFiles === 0 || googleFiles === '') {
-			attachedFiles = '';
-			list = '';
-		}
-
-		if (!homework) homeworkCheckbox = "";
-
-		//Append a beautiful object to our list
-		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-			+ weekDays[day] + "</b><br /><i>"
-				+ startTime.hour + ":" + startTime.minute + " - "
-				+ endTime.hour + ":" + endTime.minute + "</i><br />"
-				+ roomsString + rooms.toString() + "<br>"
-				+ teachersString + teachers.toString() + "<br>"
-				+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+	if (!homework) homeworkCheckbox = "";
 
 
-		//Reload homework marking stuff, and add listener
-		setShowOnlyHomework();
-		$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
-	});
+
+
+
+	//Append a beautiful object to our list
+	var string = "<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
+	+ weekDays[day] + "</b><br /><i>"
+	+ startTime.hour + ":" + startTime.minute + " - "
+	+ endTime.hour + ":" + endTime.minute + "</i><br />"
+	+ roomsString + rooms.toString() + "<br>"
+	+ teachersString + teachers.toString() + "<br>"
+	+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>";
+
+	return string;
+
+
+
 }
 
 var doneHomework = null;
