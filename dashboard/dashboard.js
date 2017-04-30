@@ -153,6 +153,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 				if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
 			}
 			callback(events);
+			if (minTime == maxTime) maxTime = minTime + 8;
 			$("#calendar").fullCalendar("option", "minTime", minTime + ":00:00");
 			$("#calendar").fullCalendar("option", "maxTime", maxTime + ":00:00");
 			$("#calendar").fullCalendar("option", "weekends", weekends);
