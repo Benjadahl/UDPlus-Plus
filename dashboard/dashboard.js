@@ -226,10 +226,12 @@ window.onload = function() {
 		}
 	});
 
-	var curtheme = "Default";
+	var curtheme = "default";
 	getStorage('theme', function (obj) {
 		if (!chrome.runtime.error) {
-			curtheme = obj.theme;
+			if (typeof obj.theme !== 'undefined')
+				curtheme = obj.theme;
+
 			runTheme(curtheme, curPage);
 		}
 	});
