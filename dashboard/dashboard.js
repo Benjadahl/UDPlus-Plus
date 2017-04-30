@@ -665,6 +665,15 @@ $("#searchBox").keydown(function(e) {
 		openSearchResult(e.which - 48);
 	} else if (e.which > 96 && e.which < 106) {
 		openSearchResult(e.which - 96);
+	} else if (e.which == 219) {
+		//Progremmer dvorak here
+		openSearchResult(2);
+	} else if (e.which == 222) {
+		openSearchResult(3);
+	} else if (e.which == 191) {
+		openSearchResult(4);
+	} else if (e.which == 187) {
+		openSearchResult(6);
 	}
 });
 
