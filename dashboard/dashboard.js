@@ -619,10 +619,10 @@ $(document).keydown(function(e) {
 		} else if (e.which == 76) {
 			$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
 			setShowOnlyHomework();
-		} else if (e.which == 38) {
+		} else if (e.which == 38 || e.which == 75) {
 			//UP
 			scrollOffset(-1);
-		} else if (e.which == 40) {
+		} else if (e.which == 40 || e.which == 74) {
 			//DOWN
 			scrollOffset(1);
 		} else if (e.which > 48 && e.which < 58) {
