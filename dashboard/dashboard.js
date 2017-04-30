@@ -183,6 +183,7 @@ function rerenderEvents() {
 			//Reload homework marking stuff, and add listener
 			setShowOnlyHomework();
 			$("label > .homeworkCheckbox").click(markDoneHomework);
+			if (currentlySelectedNote !== "") scrollToNote(currentlySelectedNote);
 
 		} catch (error) {
 			//Oh well.
