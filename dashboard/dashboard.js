@@ -90,74 +90,79 @@ function getCalendarEvents(start, end, timezone, callback) {
 
 	getSchedule(startDay, endDay, function(schedule, message) {
 		var events = [];
-		for (day in schedule) {
-			var theDay = schedule[day];
-			for (classes in theDay) {
-				var theClass = theDay[classes];
-				var classObj = {
-					start: theClass['Start'],
-					scrollTo: "#" + dateToID(theClass['Start']),
-					end: theClass['End'],
-					title: theClass['Name'],
-					description: theClass['Note'],
-					googleFiles: theClass["GoogleFiles"],
-					objekt_id: theClass['objekt_id'],
-					rooms: theClass['Rooms'],
-					teachers: theClass['Teachers']
-				};
+		if (schedule === null) {
+			$('#message').html(message);
+			callback(events);
+		} else {
+			for (day in schedule) {
+				var theDay = schedule[day];
+				for (classes in theDay) {
+					var theClass = theDay[classes];
+					var classObj = {
+						start: theClass['Start'],
+						scrollTo: "#" + dateToID(theClass['Start']),
+						end: theClass['End'],
+						title: theClass['Name'],
+						description: theClass['Note'],
+						googleFiles: theClass["GoogleFiles"],
+						objekt_id: theClass['objekt_id'],
+						rooms: theClass['Rooms'],
+						teachers: theClass['Teachers']
+					};
 
-				if (Math.floor(theClass['Start'].getHours()) < minTime)
-					minTime = Math.floor(theClass['Start'].getHours());
+					if (Math.floor(theClass['Start'].getHours()) < minTime)
+						minTime = Math.floor(theClass['Start'].getHours());
 
-				if (Math.ceil(theClass['End'].getHours())+2 > maxTime)
-					maxTime = Math.ceil(theClass['End'].getHours())+2;
+					if (Math.ceil(theClass['End'].getHours())+2 > maxTime)
+						maxTime = Math.ceil(theClass['End'].getHours())+2;
 
-				if (theClass['GoogleFiles'] > 0) {
-					classObj['color'] = "orange";
-					classObj.className = "noteLesson";
-				}
+					if (theClass['GoogleFiles'] > 0) {
+						classObj['color'] = "orange";
+						classObj.className = "noteLesson";
+					}
 
-				if ((typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '')) {
-					classObj['color'] = "orange";
-					classObj.className = "noteLesson";
-					for (var i=0; i < homeworkList.length; i++) {
-						if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
-							classObj.className = "homeworkLesson";
-							classObj['color'] = "red";
+					if ((typeof theClass['Note'] !== 'undefined' && theClass['Note'] !== '')) {
+						classObj['color'] = "orange";
+						classObj.className = "noteLesson";
+						for (var i=0; i < homeworkList.length; i++) {
+							if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
+								classObj.className = "homeworkLesson";
+								classObj['color'] = "red";
+							}
 						}
 					}
-				}
 
 
-				for (i=0; i<theClass['Rooms'].length; i++) {
-					if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
-						classObj.className = classObj.className + " virtualLesson";
-						if (classObj.className.includes("homeworkLesson") || classObj.className.includes("noteLesson")) {
-							classObj['color'] = "brown";
-						} else {
-							classObj['color'] = "green";
+					for (i=0; i<theClass['Rooms'].length; i++) {
+						if (theClass['Rooms'][i].toUpperCase().includes("VIRTUEL")) {
+							classObj.className = classObj.className + " virtualLesson";
+							if (classObj.className.includes("homeworkLesson") || classObj.className.includes("noteLesson")) {
+								classObj['color'] = "brown";
+							} else {
+								classObj['color'] = "green";
+							}
 						}
 					}
-				}
 
-				var hide = false;
-				for (var i=0; i < toHide.length; i++) {
-					if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
-						hide = true;
+					var hide = false;
+					for (var i=0; i < toHide.length; i++) {
+						if (theClass['Name'].toUpperCase().includes(toHide[i].toUpperCase())) {
+							hide = true;
+						}
 					}
+					if (!hide) events.push(classObj);
 				}
-				if (!hide) events.push(classObj);
+				var Sunday = moment(endDay);
+				if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
 			}
-			var Sunday = moment(endDay);
-			if (day === toCompIsoString(Sunday) || day === toCompIsoString(Sunday.subtract(1, 'days'))) weekends = true;
-		}
-		console.log(events);
-		callback(events);
-		$("#calendar").fullCalendar("option", "minTime", minTime + ":00:00");
-		$("#calendar").fullCalendar("option", "maxTime", maxTime + ":00:00");
-		$("#calendar").fullCalendar("option", "weekends", weekends);
-		$('#message').html(message);
+			console.log(events);
+			callback(events);
+			$("#calendar").fullCalendar("option", "minTime", minTime + ":00:00");
+			$("#calendar").fullCalendar("option", "maxTime", maxTime + ":00:00");
+			$("#calendar").fullCalendar("option", "weekends", weekends);
+			$('#message').html(message);
 
+		}
 	});
 }
 
@@ -475,17 +480,17 @@ function addNoteToList (text, subject, start, end, googleFiles, objekt_id, rooms
 
 		//Append a beautiful object to our list
 		$("#todoList").append("<li id=\"" + dateToID(start) + "\" class=\"list-group-item" + homeworkClass + "\"><b>" + subject + " - "
-													+ weekDays[day] + "</b><br /><i>"
-													+ startTime.hour + ":" + startTime.minute + " - "
-													+ endTime.hour + ":" + endTime.minute + "</i><br />"
-													+ roomsString + rooms.toString() + "<br>"
-													+ teachersString + teachers.toString() + "<br>"
-													+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
+			+ weekDays[day] + "</b><br /><i>"
+				+ startTime.hour + ":" + startTime.minute + " - "
+				+ endTime.hour + ":" + endTime.minute + "</i><br />"
+				+ roomsString + rooms.toString() + "<br>"
+				+ teachersString + teachers.toString() + "<br>"
+				+ htmlText + "<br>" + homeworkCheckbox + "<br><b>" + attachedFiles + googleFiles + "</b>" + list + "</li>");
 
 
-													//Reload homework marking stuff, and add listener
-													setShowOnlyHomework();
-													$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
+		//Reload homework marking stuff, and add listener
+		setShowOnlyHomework();
+		$("#" + dateToID(start) + " > label > .homeworkCheckbox").click(markDoneHomework);
 
 	});
 }

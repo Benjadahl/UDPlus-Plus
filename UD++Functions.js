@@ -83,6 +83,7 @@ function leadingZeroes(x, digits=2) {
  * The callback is a function which takes the output and does whatever.
  */
 function getSchedule(startDate, endDate, callback) {
+	console.log("Test");
 	var message = '';
 	$.ajax({
 		url: "https://www.uddataplus.dk/services/rest/skema/hentEgnePersSkemaData?startdato=" + startDate + "&slutdato=" + endDate,
@@ -140,10 +141,10 @@ function getSchedule(startDate, endDate, callback) {
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
 		callback(scheduleReturn, message);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-		debugLog("Request failed: " + textStatus);
+		console.log("Request failed", errorThrown);
 		message = 'Something went wrong getting the schedule.';
+		//TODO: Oversæt
 		if (XMLHttpRequest.status === 401) {
-			//TODO: Oversæt
 			message = 'Not logged in to UDDATA+.';
 		} else if (textStatus == "timeout") {
 			message = "Request to UDDATA+ timed out.";
@@ -151,31 +152,39 @@ function getSchedule(startDate, endDate, callback) {
 			message = "UDDATA+ didn't return a valid schedule.";
 		} else if (XMLHttpRequest.status == 418) {
 			message = "HTTP error 418: I am a teapot";
+		} else if (errorThrown == "Service Unavailable") {
+			message = "UDDATA+ is down";
 		}
-		message = message + " Showing cached schedule";
 		getStorage('scheduleCaches', true, function(obj) {
-			if (!chrome.runtime.error) {
+			if (!chrome.runtime.error && typeof obj.scheduleCaches !== 'undefined') {
 				var scheduleCaches = obj.scheduleCaches;
 				var curDate = moment(startDate);
 				var endDate = moment("2050-11-11");
 				var toReturn = {};
 				var i = 0;
-				while (!curDate.isAfter(endDate) && i < 50) {
-					var shortISO = ToShortISODate(curDate);
-					if (typeof obj.scheduleCaches[shortISO] !== 'undefined') {
-						toReturn[shortISO] = JSON.parse(obj.scheduleCaches[shortISO]);
+				if (typeof scheduleCaches !== 'undefined') {
+					while (!curDate.isAfter(endDate) && i < 50) {
+						var shortISO = ToShortISODate(curDate);
+						if (typeof obj.scheduleCaches[shortISO] !== 'undefined') {
+							toReturn[shortISO] = JSON.parse(obj.scheduleCaches[shortISO]);
 
-						for (classes in toReturn[shortISO]) {
-							toReturn[shortISO][classes]['Start'] = new Date(toReturn[shortISO][classes]['Start']);
-							toReturn[shortISO][classes]['End'] = new Date(toReturn[shortISO][classes]['End']);
+							for (classes in toReturn[shortISO]) {
+								toReturn[shortISO][classes]['Start'] = new Date(toReturn[shortISO][classes]['Start']);
+								toReturn[shortISO][classes]['End'] = new Date(toReturn[shortISO][classes]['End']);
+							}
 						}
+						curDate.add(1, 'days');
+						i++;
 					}
-					curDate.add(1, 'days');
-					i++;
+				} else {
+					message += ", and no cache found";
+					callback(null, message);
 				}
+				message = message + " Showing cached schedule";
 				callback(toReturn, message);
 			} else {
-				callback(null, "Storage error");
+				message += ", and no cache found";
+				callback(null, message);
 			}
 		});
 	});
@@ -261,5 +270,5 @@ String.prototype.hashCode = function(){
 }
 
 function myXOR(a,b) {
-  return ( a || b ) && !( a && b );
+	return ( a || b ) && !( a && b );
 }
