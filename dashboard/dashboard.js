@@ -628,6 +628,9 @@ $(document).keydown(function(e) {
 		} else if (e.which > 48 && e.which < 58) {
 			//Number row
 			openSelectedFile(e.which - 48);
+		} else if (e.which > 96 && e.which < 106) {
+			//Numpad
+			openSelectedFile(e.which - 96);
 		} else if (e.which == 219) {
 			//Progremmer dvorak here
 			openSelectedFile(2);
