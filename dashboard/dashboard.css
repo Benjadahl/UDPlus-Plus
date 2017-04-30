@@ -19,3 +19,8 @@
 body {
 	overflow: hidden;
 }
+
+.selected-event {
+	border-width: 2px;
+	border-color: black !important;
+}

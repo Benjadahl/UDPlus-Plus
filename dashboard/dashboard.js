@@ -128,7 +128,7 @@ function getCalendarEvents(start, end, timezone, callback) {
 						classObj.className = "noteLesson";
 						for (var i=0; i < homeworkList.length; i++) {
 							if (theClass['Note'].toUpperCase().includes(homeworkList[i].toUpperCase())) {
-								classObj.className = "homeworkLesson";
+								classObj.className += " homeworkLesson";
 								classObj['color'] = "red";
 							}
 						}
@@ -152,6 +152,8 @@ function getCalendarEvents(start, end, timezone, callback) {
 							hide = true;
 						}
 					}
+
+					classObj.className += " " + classObj['scrollTo'].substr(1);
 					if (!hide) events.push(classObj);
 				}
 				var Sunday = moment(endDay);
@@ -248,7 +250,9 @@ function scrollToNote(id) {
 		currentlySelectedNote = id;
 		currentlyScrollling = true;
 		$(".list-group-item-success").removeClass("list-group-item-success");
-		$(id).addClass("list-group-item-success");
+		$(".fc-event").removeClass("selected-event");
+		$("li" + id).addClass("list-group-item-success");
+		$("." + id.substr(1) + ".noteLesson").addClass("selected-event");
 		$('#todoList').animate({
 			scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
 		}, 200);
