@@ -640,6 +640,21 @@ $(document).keydown(function(e) {
 			openSelectedFile(4);
 		} else if (e.which == 187) {
 			openSelectedFile(6);
+		} else if (e.which == 83) {
+			$("#searchBox").focus();
+			window.setTimeout(function() {
+				$("#searchBox").val("");
+			}, 1);
+		}
+	}
+});
+
+$("#searchBox").keydown(function(e) {
+	if (e.which == 13) {
+		console.log("Ayy");
+		var searchResults = $("#searchResults > li");
+		if (searchResults.length === 1) {
+			searchResults.find("a")[0].click();
 		}
 	}
 });
