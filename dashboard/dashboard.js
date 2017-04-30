@@ -237,15 +237,15 @@ var teachersString = 'Teachers: ';
 var homeworkDoneText = "Homework done";
 
 function scrollToNote(id) {
-		$('#todoList').stop(true, true);
-		currentlySelectedNote = id;
-		$(".list-group-item-success").removeClass("list-group-item-success");
-		$(".fc-event").removeClass("selected-event");
-		$("li" + id).addClass("list-group-item-success");
-		$("." + id.substr(1) + ".noteLesson").addClass("selected-event");
-		$('#todoList').animate({
-			scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
-		}, 200);
+	$('#todoList').stop(true, true);
+	currentlySelectedNote = id;
+	$(".list-group-item-success").removeClass("list-group-item-success");
+	$(".fc-event").removeClass("selected-event");
+	$("li" + id).addClass("list-group-item-success");
+	$("." + id.substr(1) + ".noteLesson").addClass("selected-event");
+	$('#todoList').animate({
+		scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
+	}, 200);
 }
 
 
