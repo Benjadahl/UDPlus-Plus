@@ -48,13 +48,6 @@ $("#autofetchbox").on("click", setAutoFetch);
 
 //When we scroll, we want to stop marking the note we might have scrolled to previously
 var currentlySelectedNote = "";
-/*
-$('#todoList').on('scroll', function() {
-	if (currentlySelectedNote != "" && !currentlyScrolling) {
-		$(".list-group-item-success").removeClass("list-group-item-success");
-		currentlySelectedNote = "";
-	}
-});*/
 
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
@@ -243,12 +236,9 @@ var roomsString = 'Rooms: ';
 var teachersString = 'Teachers: ';
 var homeworkDoneText = "Homework done";
 
-var currentlyScrolling = false;
 function scrollToNote(id) {
-	if (true) {
 		$('#todoList').stop(true, true);
 		currentlySelectedNote = id;
-		currentlyScrollling = true;
 		$(".list-group-item-success").removeClass("list-group-item-success");
 		$(".fc-event").removeClass("selected-event");
 		$("li" + id).addClass("list-group-item-success");
@@ -256,10 +246,6 @@ function scrollToNote(id) {
 		$('#todoList').animate({
 			scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
 		}, 200);
-		setTimeout(function() {
-			currentlyScrollling = false;
-		}, 500);
-	}
 }
 
 
