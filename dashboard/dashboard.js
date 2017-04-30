@@ -45,14 +45,16 @@ chrome.storage.onChanged.addListener(loadOptions);
 $("#autofetchbox").on("click", setAutoFetch);
 
 
+
 //When we scroll, we want to stop marking the note we might have scrolled to previously
-var noteSelected = false;
+var currentlySelectedNote = "";
+/*
 $('#todoList').on('scroll', function() {
-	if (noteSelected) {
+	if (currentlySelectedNote != "" && !currentlyScrolling) {
 		$(".list-group-item-success").removeClass("list-group-item-success");
-		noteSelected = false;
+		currentlySelectedNote = "";
 	}
-});
+});*/
 
 getStorage({toHide: ""}, function(obj) {
 	if (!chrome.runtime.error) {
@@ -239,6 +241,22 @@ var roomsString = 'Rooms: ';
 var teachersString = 'Teachers: ';
 var homeworkDoneText = "Homework done";
 
+var currentlyScrolling = false;
+function scrollToNote(id) {
+	if (!currentlyScrolling) {
+		currentlyScrollling = true;
+		$(".list-group-item-success").removeClass("list-group-item-success");
+		$(id).addClass("list-group-item-success");
+		$('#todoList').animate({
+			scrollTop: $(id).offset().top - $("#todoList > li:first").offset().top
+		}, 200);
+		setTimeout(function() {
+			currentlySelectedNote = id;
+			currentlyScrollling = false;
+		}, 500);
+	}
+}
+
 
 //Init when we load the window
 window.onload = function() {
@@ -298,15 +316,7 @@ window.onload = function() {
 		eventClick: function(calEvent, jsEvent, view) {
 			//Scroll to event on click
 			if (typeof $(calEvent.scrollTo).html() !== 'undefined') {
-				$(".list-group-item-success").removeClass("list-group-item-success");
-				noteSelected = false;
-				$(calEvent.scrollTo).addClass("list-group-item-success");
-				$('#todoList').animate({
-					scrollTop: $(calEvent.scrollTo).offset().top - $("#todoList > li:first").offset().top
-				}, 200);
-				setTimeout(function() {
-					noteSelected = true;
-				}, 500);
+				scrollToNote(calEvent.scrollTo);
 			}
 		},
 
@@ -564,6 +574,35 @@ function setShowOnlyHomework() {
 	}
 }
 
+function scrollOffset(offset) {
+	if (lessonNotes.length !== 0) {
+
+		if ($(currentlySelectedNote).length == 0) currentlySelectedNote = "";
+		if (currentlySelectedNote == "") {
+			currentlySelectedNote = lessonNotes[lessonNotes.length-1].scrollTo;
+		}
+
+		lessonNotes.forEach(function(item, i) {
+			if (item.scrollTo == currentlySelectedNote) {
+				toIndex = i+offset;
+				if (toIndex < 0) toIndex = lessonNotes.length-1;
+				if (toIndex > lessonNotes.length-1) toIndex = 0;
+				var note = $(lessonNotes[toIndex].scrollTo);
+				var attempts = 0;
+				while (note.css('display') == 'none' && attempts < 50) {
+					toIndex += offset;
+					attempts++;
+					if (toIndex < 0) toIndex = lessonNotes.length-1;
+					if (toIndex > lessonNotes.length-1) toIndex = 0;
+					note = $(lessonNotes[toIndex].scrollTo);
+				}
+				console.log(toIndex);
+				scrollToNote(lessonNotes[toIndex].scrollTo);
+			}
+		});
+	}
+}
+
 //On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
 	if (!$("#searchBox").is(":focus")) {
@@ -574,6 +613,12 @@ $(document).keydown(function(e) {
 		} else if (e.which == 76) {
 			$("#onlyHomeworkBox").prop("checked", !$("#onlyHomeworkBox").prop("checked"));
 			setShowOnlyHomework();
+		} else if (e.which == 38) {
+			//UP
+			scrollOffset(-1);
+		} else if (e.which == 40) {
+			//DOWN
+			scrollOffset(1);
 		}
 	}
 });
