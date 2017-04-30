@@ -605,6 +605,10 @@ function scrollOffset(offset) {
 	}
 }
 
+function openSelectedFile(number) {
+	$(".list-group-item-success>ul>li:nth-child(" + number + ")>a")[0].click();
+}
+
 //On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
 	if (!$("#searchBox").is(":focus")) {
@@ -621,6 +625,18 @@ $(document).keydown(function(e) {
 		} else if (e.which == 40) {
 			//DOWN
 			scrollOffset(1);
+		} else if (e.which > 48 && e.which < 58) {
+			//Number row
+			openSelectedFile(e.which - 48);
+		} else if (e.which == 219) {
+			//Progremmer dvorak here
+			openSelectedFile(2);
+		} else if (e.which == 222) {
+			openSelectedFile(3);
+		} else if (e.which == 191) {
+			openSelectedFile(4);
+		} else if (e.which == 187) {
+			openSelectedFile(6);
 		}
 	}
 });
