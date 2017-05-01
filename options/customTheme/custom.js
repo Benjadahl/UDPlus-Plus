@@ -102,7 +102,7 @@ $("#btnSave").click(function (){
 		for(var T in customTemplate){
 			if($("#" + T).val() != ""){
 				themeObj[T] = $("#" + T).val();
-				console.log("#" + T + "   " + $("#" + T).val())
+				debugLog("#" + T + "   " + $("#" + T).val())
 			}else{
 				delete themeObj[T];
 			}
@@ -130,7 +130,7 @@ $("#btnSave").click(function (){
 $("#btnExport").click(function() {
 
 	//Making new var for themes so you dont overwrite evertime you change something
-	console.log("Clicked");
+	debugLog("Clicked");
 	var themeObj = {};
 
 	//Loading the theme name
@@ -140,7 +140,7 @@ $("#btnExport").click(function() {
 	for(var T in customTemplate){
 		if($("#" + T).val() != ""){
 			themeObj[T] = $("#" + T).val();
-			console.log("#" + T + "   " + $("#" + T).val())
+			debugLog("#" + T + "   " + $("#" + T).val())
 		}else{
 			delete themeObj[T];
 		}
@@ -153,8 +153,8 @@ $("#btnExport").click(function() {
 	//Adds or changes the new custom theme
 	obj[name] = themeObj;
 
-	console.log(obj);
-	console.log(JSON.stringify(obj));
+	debugLog(obj);
+	debugLog(JSON.stringify(obj));
 	$("#textIO").val(JSON.stringify(obj[name]));
 
 });
@@ -163,7 +163,7 @@ $("#btnImport").click(function() {
 
 	var themeString = $("#textIO").val();
 
-	console.log(themeString);
+	debugLog(themeString);
 
 	if (!themeString.includes("</style>")) {
 
@@ -171,7 +171,7 @@ $("#btnImport").click(function() {
 
 		try {
 			var importTheme = JSON.parse(themeString); // this is how you parse a string into JSON
-			console.log(importTheme);
+			debugLog(importTheme);
 
 			//Then cleans all the textboxes
 			for(var T in customTemplate){

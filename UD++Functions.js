@@ -140,7 +140,7 @@ function getSchedule(startDate, endDate, callback) {
 		cacheScheduleFetch(startDate, endDate, scheduleReturn);
 		callback(scheduleReturn, message);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-		console.log("Request failed", errorThrown);
+		debugLog("Request failed", errorThrown);
 		message = 'Something went wrong getting the schedule.';
 		//TODO: Oversæt
 		if (XMLHttpRequest.status === 401) {
@@ -268,6 +268,3 @@ String.prototype.hashCode = function(){
 	return hash;
 }
 
-function myXOR(a,b) {
-	return ( a || b ) && !( a && b );
-}

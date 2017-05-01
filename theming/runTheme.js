@@ -41,7 +41,7 @@ function runTheme(theme, page){
 					applySelector(customTemplate[T][X], customTheme[theme][T], page);
 				}
 
-				console.log(customTemplate[T][X]);
+				debugLog(customTemplate[T][X]);
 
 			}
 		}
