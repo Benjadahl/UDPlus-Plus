@@ -680,6 +680,13 @@ $(document).keydown(function(e) {
 	}
 });
 
+function setCooldown() {
+	lastOpen = Date.now()/1000;
+}
+
+$("button.close").click(setCooldown);
+$("button#closeModal").click(setCooldown);
+
 function openSearchResult(number) {
 	$("#searchResults > li:nth-child(" + number + ") > a")[0].click();
 }
