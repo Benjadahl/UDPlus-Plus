@@ -605,6 +605,7 @@ function openSelectedFile(number) {
 	$(".list-group-item-success>ul>li:nth-child(" + number + ")>a")[0].click();
 }
 
+var lastOpen = (Date.now()/1000);
 //On right and left arrow key, switch day/week/whatever
 $(document).keydown(function(e) {
 	if (!$("#searchBox").is(":focus")) {
@@ -656,7 +657,10 @@ $(document).keydown(function(e) {
 			$("#calendar").fullCalendar('changeView', 'listWeek');
 		} else if (e.which == 72) {
 			//H
-			$("#myModal").modal();
+			if (Date.now()/1000 > lastOpen+1) {
+				$("#myModal").modal('toggle');
+				lastOpen = Date.now()/1000;
+			}
 		} else if (e.which == 77) {
 			//M
 			$(".list-group-item-success > label > input")[0].click();
