@@ -160,16 +160,24 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		};
 
 		readEntries(); // Start reading dirs.<Paste>
+	} else if (message.action == 'openDashboard') {
+		openPage();
 	}
 });
 
 
 
 chrome.runtime.onInstalled.addListener(function(details){
-	if(details.reason === "update"){
+	if (details.reason === "update") {
 		//This code will run every time the plugin is updated
 		//It will make the news paragraph appear under the ++ Settings button
 		setStorage({'showNews' : true});
+		getStorage('dashboardOpened', function(obj) {
+			if (!obj.dashboardOpened) {
+				openPage();
+				setStorage({'dashboardOpened': true});
+			}
+		});
 	}
 });
 
@@ -182,9 +190,17 @@ function openPage() {
 		if (tabs.length > 0) {
 			chrome.tabs.update(tabs[0].id, {active: true});
 		} else {
-			//Create new dashboard tab
-			chrome.tabs.create({
-				url: dashboardURL
+			chrome.tabs.query({active: true}, function(tabs) {
+				if (tabs[0].url === 'chrome://newtab/') {
+					//Switch to Dashboard tab if in new tab window
+					chrome.tabs.update(tabs[0].id, {url: dashboardURL});
+				} else {
+					//Create new dashboard tab
+					chrome.tabs.create({
+						url: dashboardURL
+					});
+
+				}
 			});
 		}
 	});

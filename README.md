@@ -3,6 +3,8 @@
 # UD++
 ![UD++ logo](./resources/icons/icon48.png)
 
+![Build status](https://rend.al/build-status.png)
+
 A Chrome extension for the web platform [Uddata+](https://www.uddataplus.dk).
 
 It aims to enhance the experience of using the platform. By enabling community requested features.

@@ -3,42 +3,149 @@
 		<title>UD++ Dashboard</title>
 		<meta charset="UTF-8">
 	</head>
-	<body style="overflow-x: hidden">
-		<h1 class="text-center">UD++ Dashboard</h1>
-		<p class='text-center' id='message'></p>
+<body>
 
-		<div class="row">
-			<div class="col-md-3">
-				<div style="margin: 5px">
-				<h2 id='searchHeader'>Lesson files</h2>
-				<p id='disclaimer'>Please note that this is only the files from lessons that are cached. More files will automatically be added then you open a lesson note in uddataplus. Click to hide this message.</p>
-				<input type='checkbox' name='autofetchbox' id='autofetchbox'>
-				<label for='autofetchbox' id='autofetchtext'>Automatically fetch lesson files</label>
-				<input type="text" class="form-control" id='searchBox' placeholder="If you can't read this, blame a teacher">
-				<ul style="height: 80%; overflow: auto;" class="list-group" id='searchResults'>
-					<li class="list-group-item">Loading...</li>
+		<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">First launch</h4>
+      </div>
+      <div class="modal-body">
+				<p class="en">Welcome to the new UD++ Dashboard! This page allows you to view your schedule easily, keep on top of homework, and easily access all lesson files. And all of this works when UDDATA is down, granted you have viewed the lessons at least once before. This page can be accessed at any time in the future by clicking the UD++ icon in the top right corner of your browser. Have a good one!</p>
+				<p class="da">Velkommen til det nye UD++ Dashboard! Den her side lader dig nemt se dit skema, holde styr på dine lektier, og nemt få adgang til filer fra lektioner. Og alt det her virker når UDDATA er nede, eller du er offline, blot du har set den del af skemaet en gang før. Du kan altid få adgang til den her side igen ved at klikke på UD++ ikonet i øverste højre hjørne. Hyg dig!</p>
+
+				<h2 class="en">Keyboard Shortcuts</h2>
+				<h2 class="da">Tastatur genveje</h2>
+				<ul class="en">
+					<li>→: Next day/week</li>
+					<li>←: Previous day/week</li>
+					<li>T: Today</li>
+					<li>↓/j: Go down one note</li>
+					<li>↑/k: Go up one note</li>
+					<li>M: Mark homework as done</li>
+					<li>L: Toggle show only homework</li>
+					<li>1-9(When search is not focus): Open file 1-9 in selected note</li>
+					<li>S: Focus search box</li>
+					<li>1-9(When search is in focus): Open result 1-9 in search</li>
+					<li>W: Week view</li>
+					<li>D: Day view</li>
+					<li>A: Agenda view</li>
+					<li>O: Open UD++ Settings</li>
+					<li>B: Open Assignments</li>
+					<li>C: Open Conversations</li>
+					<li>R: Open Resources</li>
+					<li>H: Display this menu</li>
 				</ul>
+				<ul class="da">
+					<li>→: Næste dag/uge</li>
+					<li>←: Sidste dag/uge</li>
+					<li>T: Idag</li>
+					<li>↓/j: Gå en note ned</li>
+					<li>↑/k: Gå en note op</li>
+					<li>M: Marker lektie som lavet</li>
+					<li>L: Toggle vis kun lektier</li>
+					<li>1-9(Når søgefeltet ikke er i fokus): Åben fil 1-9 i valgt note</li>
+					<li>S: Fokuser søgefelt</li>
+					<li>1-9(Når søgefeltet er i fokus): Åben result 1-9 af søgning</li>
+					<li>W: Ugevisning</li>
+					<li>D: Dagsvisning</li>
+					<li>A: Agenda visning</li>
+					<li>O: Åben UD++ Settings</li>
+					<li>B: Åben afleveringer</li>
+					<li>C: Åben samtaler</li>
+					<li>R: Åben ressourcer</li>
+					<li>H: Vis denne menu</li>
+				</ul>
+				<h2>Legend</h2>
+				<ul class="en">
+					<li style="color: blue">Normal lesson</li>
+					<li style="color: red">Homework lesson</li>
+					<li style="color: orange">Note lesson</li>
+					<li style="color: green">Virtual lesson</li>
+					<li style="color: brown">Virtual note lesson</li>
+				</ul>
+				<ul class="da">
+					<li style="color: blue">Normal letion</li>
+					<li style="color: red">Lektion med lektie</li>
+					<li style="color: orange">Lektion med note</li>
+					<li style="color: green">Virtuel lektion</li>
+					<li style="color: brown">Virtuel lektion med note</li>
+				</ul>
+
+      </div>
+			      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+		<!--
+                              |
+                              |
+                              |
+                              |
+                              |
+                              |
+                              |
+                          _ ----- _
+                     .-~             ~-.
+                   /                     \
+        .-- -- -- |                       | -- -- --.
+    .-~ / ~~ ~~ ~~ \        O   O        / ~~ ~~ ~~ \ ~-.
+.-~   /        _ - ~ ~-.             .-~ ~ - _        \   ~-.
+    /      /~          /  ~ ----- ~  \          ~\      \
+  /       /           /               \           \       \
+         /           /                 \           \
+        /           /                   \           \
+       /           |                     |           \
+                   |                     |
+                   |                     |
+                   |                     |
+                   |                     |
+						 I am a friendly spider, here to eat bugs
+		-->
+		<div class="container-fluid">
+			<div class="row">
+				<h1 class="text-center">UD++ Dashboard</h1>
+				<p class='text-center' id='message'></p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3">
+					<div style="margin: 5px">
+						<h2 id='searchHeader'>Lesson files</h2>
+						<p id='disclaimer'>Please note that this is only the files from lessons that are cached. More files will automatically be added then you open a lesson note in uddataplus. Click to hide this message.</p>
+						<input type='checkbox' name='autofetchbox' id='autofetchbox'>
+						<label for='autofetchbox' id='autofetchtext'>Automatically fetch lesson files</label>
+						<input type="text" class="form-control" id='searchBox' placeholder="If you can't read this, blame a teacher">
+						<ul class="list-group list-left" id='searchResults'>
+							<li class="list-group-item">Loading...</li>
+						</ul>
+					</div>
 				</div>
-			</div>
 
-			<div id="scheduleCol" class="col-md-6">
-				<div id='calendar'></div>
-			</div>
+				<div id="scheduleCol" class="col-md-6">
+					<div id='calendar'></div>
+				</div>
 
-			<div class="col-md-3">
-				<h2 id="todo">Lesson notes</h2>
-				<input type="checkbox" id="onlyHomeworkBox" name="onlyHomeworkBox"> <label id="onlyHomeworkText" for="onlyHomeworkBox">Only show undone homework</label>
-				<ul style="height: 80%; overflow: auto;" class="list-group" id="todoList" style="margin: 5px;">
-				</ul>
-			</div>
+				<div class="col-md-3">
+					<h2 id="todo">Lesson notes</h2>
+					<input type="checkbox" id="onlyHomeworkBox" name="onlyHomeworkBox"> <label id="onlyHomeworkText" for="onlyHomeworkBox">Only show undone homework</label>
+					<ul class="list-group list-right" id="todoList" style="margin: 5px;">
+					</ul>
+				</div>
 
+			</div>
 		</div>
 
 
 		<!-- A whole lot of references and scripts we are using. -->
-		<link rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../resources/fullcalendar-3.1.0/fullcalendar.min.css">
+		<link rel="stylesheet" href="dashboard.css">
 		<script src="../resources/jquery-3.1.0.min.js"></script>
 		<script src="../resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<script src='../resources/fullcalendar-3.1.0/lib/moment.min.js'></script>
@@ -57,7 +164,7 @@
 	</body>
 
 
-<style>
+	<style>
 .fc-room {
 	text-align: right;
 	width: 50%;
@@ -77,5 +184,5 @@
 .homeworkLesson {
 	cursor: pointer;
 }
-</style>
+	</style>
 </html>

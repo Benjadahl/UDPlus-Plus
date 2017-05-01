@@ -1,11 +1,9 @@
 console.log("UD++ starting");
 
 //News string in this version. Leave empty for off.
-newsString = "UD++ Dashboard available! Press the UD++ bottom in the top right corner of your browser.";
+newsString = "UD++ Dashboard available! Press the UD++ button in the top right corner of your browser.";
 
 
-//Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
-$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
 
 //Define the variable curtheme to contain the current theme
 var curtheme = "Default";
@@ -79,6 +77,18 @@ function loadSettings() {
 		}
 	});
 
+	getStorage('devMode', function (obj) {
+		if (!chrome.runtime.error) {
+			if(obj.devMode){
+				$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/Inddata.png"));
+			} else {
+				//Changes the current Uddata+ logo to the transparent version that allows the color of the navbar to be visible.
+				$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/UddataLogo.png"));
+			}
+		}
+	});
+
+
 }
 
 // Removes the no-select class, allowing us to select stuff once again.
@@ -140,13 +150,6 @@ getStorage('showNews', function (obj) {
 });
 
 
-getStorage('devMode', function (obj) {
-	if (!chrome.runtime.error) {
-		if(obj.devMode){
-			$("#navbar>div>div>a>img").attr("src",chrome.extension.getURL("resources/Inddata.png"));
-		}
-	}
-});
 
 
 getStorage('message', function (obj) {

@@ -3,7 +3,8 @@ curPage = "assignments";
 
 var table = ".page-content > div > div > table > tbody"
 var hideTask = "";
-var sortBy = 5;
+var sortBy = 3;
+var timeFilterTextHide = false;
 var filterTime = "10";
 
 console.log("Loading assignment page");
@@ -19,12 +20,34 @@ function onAssignmentPageLoad(){
 			//Clear the interval and run the function again
 			clearInterval(checkTitle);
 
-			hideTasks();
-			sortTasks();
+			hideTasks(hideTask);
+			sortTasks(sortBy);
 			fixOverviewButton();
+
+			getStorage('timeFilterTextHide', function(obj) {
+				timeFilterTextHide = obj.timeFilterTextHide;
+				if(!obj.timeFilterTextHide){
+
+					getStorage('lang', function(obj) {
+						if(obj.lang == "dansk"){
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Røde opgaver betyder at de skal afleveres før kl " + filterTime + ". Denne tid kan ændres i UD++ indstillinger. Grønne opgaver er ulæste.</span>");
+						}else{
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Red assignments have a deadline for before " + filterTime + " o'clock. You can change this time in UD++ settings. Green assignments are unread.</span>");
+						}
+						$( "#timeFilter" ).click(function() {
+							$("#timeFilter").remove();
+							setStorage({'timeFilterTextHide': true});
+						});
+
+					});
+				}
+			});
+
 		}
 	}, 100);
 }
+
+
 
 
 //We find out which assignments have a due date before filterTime, and append them a nice little class to identify them.
@@ -80,8 +103,8 @@ function fixOverviewButton(){
 fixOverviewButton();
 
 //Function to hiding already delivered tasks
-function hideTasks(){
-	if(hideTask){
+function hideTasks(hide){
+	if(hide){
 		$(".page-content").children().eq(1).find("div>div").children().eq(1).find("input").trigger("click");
 		$(".page-content").children().eq(1).find("div>div").children().eq(2).find("input").trigger("click");
 	}
@@ -106,10 +129,9 @@ getStorage('TooEarly', function (obj) {
 	}
 });
 
-function sortTasks(){
-	if(sortBy != -1){
-		var element = $("thead > tr").children().eq(sortBy).get(0);
-		console.log(typeof element);
+function sortTasks(sort){
+	if(sort != -1){
+		var element = $("thead > tr").children().eq(sort).get(0);
 		element.click();
 
 	}
@@ -125,4 +147,63 @@ getStorage('sortTaskBy', function (obj) {
 	}
 });
 
+var readAssignments = [];
+
+getStorage('readAssignments', function(obj) {
+	if (typeof obj.readAssignments !== 'undefined') readAssignments = obj.readAssignments;
+	console.log(readAssignments);
+});
+
+function saveRead() {
+	console.log("Saving");
+	setStorage({'readAssignments': readAssignments});
+}
+
+function getAssignmentTitle() {
+	var title = $("h1 > small").html();
+	if (title !== "") {
+		return [$("h1 > small").html().split(",")[0].substring(2), $("h1 > small").html().split(",")[1].substring(1)];
+	} else {
+		return "";
+	}
+}
+
+function saveOpenAssignment() {
+	var curAssignment = getAssignmentTitle();
+	if (!contains(readAssignments, curAssignment) && curAssignment !== '') {
+		readAssignments.push(curAssignment);
+		saveRead();
+	}
+}
+
+function markUnreadAssignments() {
+	var assignments =  $("tbody > tr[class]");
+	assignments.removeClass("unread");
+	assignments.each(function(index) {
+		var children = $(this).children();
+		var subject = $(children[0]).find("div>div").html()
+		var assignmentName = $(children[1]).find("div>div").html()
+		var lock = !$(children[5]).find("div>button>i").hasClass("icon-unlock");
+		if (!contains(readAssignments, [assignmentName, subject]) && !lock) {
+			$(this).addClass("unreadAssignment");
+		}
+	});
+}
+
+function addListeners() {
+	$("button.btn.btn-mini:contains(T)").unbind();
+	$("button.btn.btn-mini:contains(T)").click(function() {
+		console.log("Test");
+		window.setTimeout(onAssignmentPageLoad, 1000);
+	});
+}
+
+window.setInterval(addListeners, 2000);
+
+window.setInterval(saveOpenAssignment, 2000);
+window.setInterval(markUnreadAssignments, 2000);
+
 onAssignmentPageLoad();
+
+
+
