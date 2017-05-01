@@ -20,7 +20,7 @@ describe("Assignment Page", function() {
 			url: "https://www.uddataplus.dk/opgave/?id=id_opgave",
 			active: false,
 		}, function(tab) {
-			chrome.tabs.executeScript(tab.id, {code: "setTimeout(function(){sortTasks(2);}, 5000); setTimeout(function() { hideTasks(true); chrome.runtime.sendMessage({action: 'testing', page: 'assignment', hideTask : $('#gwt-uid-10').is(':checked'), sortBy : $('thead > tr').children().eq(2).hasClass('sorting_asc'), filterTime : myXOR($( '#timeFilter' ).length > 0, timeFilterTextHide) } ); window.close(); }, 10000);"});
+			chrome.tabs.executeScript(tab.id, {code: "setTimeout(function(){sortTasks(2);}, 5000); setTimeout(function() { hideTasks(true); chrome.runtime.sendMessage({action: 'testing', page: 'assignment', hideTask : $('#gwt-uid-10').is(':checked'), sortBy : $('thead > tr').children().eq(2).hasClass('sorting_asc'), filterTime : $( '#timeFilter' ).length > 0 || timeFilterTextHide } ); window.close(); }, 10000);"});
 		});
 	});
 

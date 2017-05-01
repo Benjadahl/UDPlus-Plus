@@ -197,7 +197,7 @@ navigator.webkitPersistentStorage.queryUsageAndQuota (
 	function(usedBytes, grantedBytes) {
 		$("#usedStorage").text(formatSizeUnits(usedBytes));
 	},
-	function(e) { console.log('Error', e);  }
+	function(e) { debugLog('Error', e);  }
 );
 
 function setDevVisible(vis) {

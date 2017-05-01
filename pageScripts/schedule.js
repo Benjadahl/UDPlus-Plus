@@ -125,7 +125,6 @@ function getSelectors() {
 		var classes = $("th[class]:not([class$=r]):visible").attr("class");
 		if (typeof classes !== 'undefined') {
 			var selector = classes.split(" ")[1];
-			console.log(selector);
 			if (obj.tableTopActiveSelector != selector && selector !== 'undefined') setStorage({"tableTopActiveSelector": "." + selector});
 		}
 	});
