@@ -122,7 +122,6 @@ getStorage('hideTask', function (obj) {
 
 getStorage('TooEarly', function (obj) {
 	if (!chrome.runtime.error) {
-		console.log(obj.TooEarly);
 		if (typeof obj.TooEarly != "undefined") {
 			filterTime = obj.TooEarly;
 		}
@@ -151,11 +150,9 @@ var readAssignments = [];
 
 getStorage('readAssignments', function(obj) {
 	if (typeof obj.readAssignments !== 'undefined') readAssignments = obj.readAssignments;
-	console.log(readAssignments);
 });
 
 function saveRead() {
-	console.log("Saving");
 	setStorage({'readAssignments': readAssignments});
 }
 
@@ -193,7 +190,6 @@ function markUnreadAssignments() {
 function addListeners() {
 	$("button.btn.btn-mini:contains(T)").unbind();
 	$("button.btn.btn-mini:contains(T)").click(function() {
-		console.log("Test");
 		window.setTimeout(onAssignmentPageLoad, 1000);
 	});
 }

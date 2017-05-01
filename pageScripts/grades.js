@@ -74,13 +74,13 @@ function addAverage() {
 		});
 
 		var grade = $("table > tbody >tr:last-child > td:nth-child(" + (i+1) + ") > div");
-		console.log(totalGrades);
-		console.log(totalWeight);
+		debugLog(totalGrades);
+		debugLog(totalWeight);
 		//The reason we have this weird rounding is so we can round it to one decimal by multiplying the number to ten, rounding it to an integer, and dividing by ten again.
 		var average = Math.round(10*totalGrades / totalWeight) / 10;
 
 		if (average < 15 && average > -3) {
-			console.log(totalGrades);
+			debugLog(totalGrades);
 			grade.html("<b>" + average + "</b>");
 		} else {
 			grade.html("");

@@ -693,7 +693,7 @@ function openSearchResult(number) {
 
 $("#searchBox").keydown(function(e) {
 	if (e.which == 13) {
-		console.log("Ayy");
+		debugLog("Ayy");
 		var searchResults = $("#searchResults > li");
 		if (searchResults.length === 1) {
 			openSearchResult(1);
