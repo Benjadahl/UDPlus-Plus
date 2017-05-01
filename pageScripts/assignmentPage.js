@@ -23,26 +23,26 @@ function onAssignmentPageLoad(){
 			hideTasks(hideTask);
 			sortTasks(sortBy);
 			fixOverviewButton();
-			
+
 			getStorage('timeFilterTextHide', function(obj) {
 				timeFilterTextHide = obj.timeFilterTextHide;
 				if(!obj.timeFilterTextHide){
-					
+
 					getStorage('lang', function(obj) {
 						if(obj.lang == "dansk"){
-							$(".GDSGMNCBF").append("<span id='timeFilter'>Røde opgaver betyder at de skal afleveres før kl " + filterTime + ". Denne tid kan ændres i ud++ indstillinger.</span>");
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Røde opgaver betyder at de skal afleveres før kl " + filterTime + ". Denne tid kan ændres i UD++ indstillinger. Grønne opgaver er ulæste.</span>");
 						}else{
-							$(".GDSGMNCBF").append("<span id='timeFilter'>Red assignments means that the deadline is before " + filterTime + " o'clock. You can set this in ud++ settings.</span>");
+							$(".GDSGMNCBF").append("<span id='timeFilter'>Red assignments have a deadline for before " + filterTime + " o'clock. You can change this time in UD++ settings. Green assignments are unread.</span>");
 						}
 						$( "#timeFilter" ).click(function() {
 							$("#timeFilter").remove();
 							setStorage({'timeFilterTextHide': true});
 						});
-						
+
 					});
 				}
 			});
-			
+
 		}
 	}, 100);
 }
