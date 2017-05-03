@@ -350,6 +350,7 @@ window.onload = function() {
 	getStorage('dashboardInfoShown', function(obj) {
 		if (!obj.dashboardInfoShown) {
 			$("#myModal").modal();
+			setStorage({"dashboardInfoShown": true});
 		}
 	});
 
