@@ -28,7 +28,7 @@ $("body").mouseup(function() {
 
 //Called when the user scrolls. If the user is scrolling a bunch, and it isn't holding down it's cursor, we assume it's UDDATA doing it, and revert.
 function scrollEvent(e) {
-	var element = $(".always-visible.ps-container.ps-active-y");
+	var element = $("div:not([class])>.always-visible.ps-container:not(.input-block-level)");
 	var height = element.prop('scrollHeight') - element.innerHeight();
 	var newPos = element.scrollTop();
 	if (newPos == height) {
@@ -46,14 +46,14 @@ function checkForSelectors() {
 	if (typeof classes !== 'undefined') {
 		var selector = classes.split(" ")[1];
 		setStorage({'commentTextSelector': "." + selector});
-		$(".always-visible.ps-container.ps-active-y").scroll(scrollEvent);
+		$("div:not([class])>.always-visible.ps-container:not(.input-block-level)").scroll(scrollEvent);
 	} else {
 		window.setTimeout(checkForSelectors, 1000);
 	}
 }
 
 function fixReplacedCharacters() {
-	$('.always-visible.ps-container.ps-active-y > div:nth-child(2) > div[style*=flex]').find("span").each(function() {
+	$('div:not([class])>.always-visible.ps-container:not(.input-block-level) > div:nth-child(2) > div[style*=flex]').find("span").each(function() {
 		var oldHTML = $(this).text();
 		var newHTML = oldHTML.replace(/&quot;/g, '"');
 		newHTML = newHTML.replace(/&#39;/g, "'");
