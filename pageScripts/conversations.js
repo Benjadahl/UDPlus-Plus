@@ -12,13 +12,27 @@ window.onload = function() {
 
 }
 
+//Last scrolling position the user got to by scrolling on it's own
 var lastPos = 0;
+
+//If the user is currently holding down the mouse
+var mouseDown = false;
+
+$("body").mousedown(function() {
+	mouseDown = true;
+});
+
+$("body").mouseup(function() {
+	mouseDown = false;
+});
+
+//Called when the user scrolls. If the user is scrolling a bunch, and it isn't holding down it's cursor, we assume it's UDDATA doing it, and revert.
 function scrollEvent(e) {
 	var element = $(".always-visible.ps-container.ps-active-y");
 	var height = element.prop('scrollHeight') - element.innerHeight();
 	var newPos = element.scrollTop();
 	if (newPos == height) {
-		if (newPos - lastPos > 60) {
+		if (newPos - lastPos > 200 && !mouseDown) {
 			element.scrollTop(lastPos);
 			console.log("Fixed scroll height;");
 		}
