@@ -34,7 +34,7 @@ function scrollEvent(e) {
 	if (newPos == height) {
 		if (newPos - lastPos > 200 && !mouseDown) {
 			element.scrollTop(lastPos);
-			console.log("Fixed scroll height;");
+			console.log("Fixed scroll height");
 		}
 	} else {
 		lastPos = newPos;
@@ -52,3 +52,19 @@ function checkForSelectors() {
 	}
 }
 
+function fixReplacedCharacters() {
+	$('.always-visible.ps-container.ps-active-y > div:nth-child(2) > div[style*=flex]').find("span").each(function() {
+		var oldHTML = $(this).text();
+		var newHTML = oldHTML.replace(/&quot;/g, '"');
+		newHTML = newHTML.replace(/&#39;/g, "'");
+		newHTML = newHTML.replace(/&lt;/g, '<');
+		newHTML = newHTML.replace(/&gt;/g, '>');
+
+		if (oldHTML !== newHTML) {
+			$(this).text(newHTML);
+			console.log("Fixed formatting");
+		}
+	});
+}
+
+window.setInterval(fixReplacedCharacters, 100);
