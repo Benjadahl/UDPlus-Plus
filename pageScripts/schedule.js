@@ -122,11 +122,15 @@ checkScheduleIsLoaded();
 
 function getSelectors() {
 	getStorage("tableTopActiveSelector", function(obj) {
-		var classes = $("th[class]:not([class$=r]):visible").attr("class");
-		if (typeof classes !== 'undefined') {
-			var selector = classes.split(" ")[1];
-			if (obj.tableTopActiveSelector != selector && selector !== 'undefined') setStorage({"tableTopActiveSelector": "." + selector});
-		}
+		var elements = $("th.fc-widget-header");
+		elements.each(function() {
+			var classes = $(this).attr("class").split(" ");
+			if (classes.length == 4) {
+				var selector = classes[2];
+				if (obj.tableTopActiveSelector != selector && selector !== 'undefined') setStorage({"tableTopActiveSelector": "." + selector});
+				console.log(selector);
+			}
+		});
 	});
 }
 
@@ -140,11 +144,11 @@ jQuery.expr[':'].regex = function(elem, index, match) {
 	var matchParams = match[3].split(','),
 		validLabels = /^(data|css):/,
 		attr = {
-			method: matchParams[0].match(validLabels) ?
-				matchParams[0].split(':')[0] : 'attr',
-			property: matchParams.shift().replace(validLabels,'')
-		},
-		regexFlags = 'ig',
+		method: matchParams[0].match(validLabels) ?
+			matchParams[0].split(':')[0] : 'attr',
+		property: matchParams.shift().replace(validLabels,'')
+	},
+	regexFlags = 'ig',
 		regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
 	return regex.test(jQuery(elem)[attr.method](attr.property));
 }
