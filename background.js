@@ -181,7 +181,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 	}
 });
 
-function openPage(date) {
+function openPage(date, searchString) {
 
 	var ending = "";
 	if (typeof date === 'string') {
@@ -384,7 +384,9 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	console.log('inputChanged: ' + text);
 	suggest([
 		{content: ToShortISODate(new Date()), description: "Today's schedule"},
-		{content: text + " number two", description: "TODO: Put something here"}
+		{content: "assignments", description: "Assignments"},
+		{content: "conversations", description: "Conversations"},
+		{content: "resources", description: "Resources"},
 	]);
 });
 
@@ -393,7 +395,13 @@ var dateRegex = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
 chrome.omnibox.onInputEntered.addListener(function(text) {
 	if (dateRegex.exec(text)) {
 		openPage(text);
+	} else if (/(conversations|beskeder|samtaler)/i.exec(text)) {
+		chrome.tabs.update({ url: "https://www.uddataplus.dk/besked/" });
+	} else if (/(assignments|opgaver)/i.exec(text)) {
+		chrome.tabs.update({ url: "https://www.uddataplus.dk/opgave/" });
+	} else if(/(resources|ressources|ressourcer|resourcer)/i.exec(text)) {
+		chrome.tabs.update({ url: "https://www.uddataplus.dk/ressourcer/" });
 	} else {
-		openPage();
+		openPage("", "pdf");
 	}
 });
