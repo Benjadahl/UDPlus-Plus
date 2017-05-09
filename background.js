@@ -181,14 +181,21 @@ chrome.runtime.onInstalled.addListener(function(details){
 	}
 });
 
-function openPage() {
+function openPage(date) {
 
-	var dashboardURL = chrome.runtime.getURL('dashboard/dashboard.html')
+	var ending = "";
+	if (typeof date === 'string') {
+		ending = "#" + date;
+	}
+
+	var noEnding = chrome.runtime.getURL('dashboard/dashboard.html')
+	var dashboardURL = chrome.runtime.getURL('dashboard/dashboard.html' + ending)
 	//Get all tabs with the same URL as dashboard
-	chrome.tabs.query({url: dashboardURL}, function(tabs) {
+	chrome.tabs.query({url: noEnding}, function(tabs) {
 		//If we have a dashboard tab already open, switch to that instead of opening a new one
 		if (tabs.length > 0) {
-			chrome.tabs.update(tabs[0].id, {active: true});
+			chrome.tabs.update(tabs[0].id, {active: true, url: dashboardURL});
+			chrome.tabs.reload(tabs[0].id);
 		} else {
 			chrome.tabs.query({active: true}, function(tabs) {
 				if (tabs[0].url === 'chrome://newtab/') {
@@ -372,3 +379,21 @@ checkEasyADowntime();
 
 //Check EASY-A for new downtime info every 20 minutes.
 setInterval(checkEasyADowntime, 1000 * 60 * 20);
+
+chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
+	console.log('inputChanged: ' + text);
+	suggest([
+		{content: ToShortISODate(new Date()), description: "Today's schedule"},
+		{content: text + " number two", description: "TODO: Put something here"}
+	]);
+});
+
+var dateRegex = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
+// This event is fired with the user accepts the input in the omnibox.
+chrome.omnibox.onInputEntered.addListener(function(text) {
+	if (dateRegex.exec(text)) {
+		openPage(text);
+	} else {
+		openPage();
+	}
+});

@@ -39,6 +39,7 @@
 		"tabs",
 		"unlimitedStorage"
 	],
+	"omnibox": { "keyword": "UD" },
 	"background":{
 		"scripts":["storageHandler.js", "resources/jquery-3.1.0.min.js", "resources/fullcalendar-3.1.0/lib/moment.min.js", "UD++Functions.js", "background.js"]
 	},
