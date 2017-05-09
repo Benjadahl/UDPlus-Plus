@@ -34,7 +34,7 @@ function scrollEvent(e) {
 	if (newPos == height) {
 		if (newPos - lastPos > 200 && !mouseDown) {
 			element.scrollTop(lastPos);
-			console.log("Fixed scroll height");
+			debugLog("Fixed scroll height");
 		}
 	} else {
 		lastPos = newPos;
@@ -52,19 +52,29 @@ function checkForSelectors() {
 	}
 }
 
+function replaceTheCharacters(element) {
+	var oldHTML = $(element).text();
+	var newHTML = oldHTML.replace(/&quot;/g, '"');
+	newHTML = newHTML.replace(/&#39;/g, "'");
+	newHTML = newHTML.replace(/&lt;/g, '<');
+	newHTML = newHTML.replace(/&gt;/g, '>');
+	//This screws up everything. RIP Lenny
+	//newHTML = newHTML.replace(/\( ¿° ¿¿ ¿°\)/g, '( ͡° ͜ʖ ͡°)');
+	//newHTML = newHTML.replace(/\(  ¿°  ¿¿  ¿°\)/g, '( ͡° ͜ʖ ͡°)');
+
+	if (oldHTML !== newHTML) {
+		$(element).text(newHTML);
+		console.log("Fixed formatting");
+	}
+
+}
+
 function fixReplacedCharacters() {
 	$('div:not([class])>.always-visible.ps-container:not(.input-block-level) > div:nth-child(2) > div[style*=flex]').find("span").each(function() {
-		var oldHTML = $(this).text();
-		var newHTML = oldHTML.replace(/&quot;/g, '"');
-		newHTML = newHTML.replace(/&#39;/g, "'");
-		newHTML = newHTML.replace(/&lt;/g, '<');
-		newHTML = newHTML.replace(/&gt;/g, '>');
-
-		if (oldHTML !== newHTML) {
-			$(this).text(newHTML);
-			console.log("Fixed formatting");
-		}
+		replaceTheCharacters(this);
 	});
+	replaceTheCharacters($("div.gwt-HTML.do-select")[0]);
+	replaceTheCharacters($("h2")[0]);
 }
 
 window.setInterval(fixReplacedCharacters, 100);
