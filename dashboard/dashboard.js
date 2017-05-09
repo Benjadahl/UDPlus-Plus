@@ -540,8 +540,10 @@ function markDoneHomework() {
 	var checked = ($(this).is(":checked"));
 	if (!checked) {
 		$(this).parent().parent().addClass("homeworkLI");
+		chrome.runtime.sendMessage({action: "updateTicker", number: 1});
 	} else {
 		$(this).parent().parent().removeClass("homeworkLI");
+		chrome.runtime.sendMessage({action: "updateTicker", number: -1});
 	}
 
 	var alreadyAdded = false;

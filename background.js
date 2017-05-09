@@ -163,7 +163,20 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	} else if (message.action == 'openDashboard') {
 		openPage();
 	} else if (message.action == 'updateTicker') {
-		checkUndoneHomework();
+		if (typeof message.number === 'undefined') {
+			checkUndoneHomework();
+		} else {
+			chrome.browserAction.getBadgeText({}, function(text) {
+				var prevText = parseInt(text);
+				if (text == "") prevText = 0;
+				var newNumber = prevText + message.number;
+				if (newNumber !== 0) {
+					chrome.browserAction.setBadgeText({text: (prevText+message.number).toString()});
+				} else {
+					chrome.browserAction.setBadgeText({text: ""});
+				}
+			});
+		}
 	}
 });
 
