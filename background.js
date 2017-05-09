@@ -162,6 +162,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		readEntries(); // Start reading dirs.<Paste>
 	} else if (message.action == 'openDashboard') {
 		openPage();
+	} else if (message.action == 'updateTicker') {
+		checkUndoneHomework();
 	}
 });
 
@@ -373,6 +375,7 @@ checkEasyADowntime();
 //Check EASY-A for new downtime info every 20 minutes.
 setInterval(checkEasyADowntime, 1000 * 60 * 20);
 
+//Check for how many undone homeworkLessons we have from today to tomorrow.
 function checkUndoneHomework() {
 	var today = new Date();
 	var toDate = new Date().setDate(today.getDate() + 1);
@@ -382,21 +385,33 @@ function checkUndoneHomework() {
 			getSchedule(ToShortISODate(today), ToShortISODate(toDate), function(schedule) {
 				var homework = 0;
 				for (day in schedule) {
-					for (lesson in day) {
+					var theDay = schedule[day];
+					for (lessonNumber in theDay) {
+						var lesson = theDay[lessonNumber];
 						if (typeof lesson['Note'] !== 'undefined' && lesson['Note'] !== '') {
-							for (word in homeworkWords) {
-								if (lesson['Note'].toUpperCase().includes(word.toUpperCase())) {
-									for (hash in doneHomework) {
-										if (lesson['Note'].hashCode() !== hash)
-											homework++;
-									}
+							var homeworkLesson = false;
+							for (word in homeworkList) {
+								if (lesson['Note'].toUpperCase().includes(homeworkList[word].toUpperCase()))
+									homeworkLesson = true;
+							}
+							if (homeworkLesson) {
+								var hash = false;
+								var noteHash = lesson['Note'].replace(homeworkNoteRegex, "").hashCode();
+								for (hash in doneObj.doneHomework) {
+									if (noteHash == doneObj.doneHomework[hash])
+										hash = true;
 								}
+								if (!hash) homework++;
+								console.log(hash);
 							}
 						}
 					}
 				}
-				if (homework !== 0)
+				if (homework !== 0) {
 					chrome.browserAction.setBadgeText({text: homework.toString()});
+				} else {
+					chrome.browserAction.setBadgeText({text: ""});
+				}
 			});
 		});
 	});

@@ -1,3 +1,6 @@
+//Homework regex. We want to store it uniformally.
+var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
+
 function stringToList(string) {
 	var thelist = string.split(",");
 	for (var i=0; i<thelist.length; i++) {
