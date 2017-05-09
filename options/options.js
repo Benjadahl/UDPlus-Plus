@@ -59,6 +59,16 @@ getStorage('homework', function (obj) {
 	}
 });
 
+getStorage('homeworkBadge', function (obj) {
+	if (!chrome.runtime.error) {
+		if (obj.homeworkBadge){
+			$('#homeworkBadge').prop("checked", true);
+		} else {
+			$('#homeworkBadge').prop("checked", false);
+		}
+	}
+});
+
 getStorage("TooEarly", function (obj) {
 	if (!chrome.runtime.error) {
 		if (typeof obj.TooEarly !== 'undefined')
@@ -144,6 +154,12 @@ $('#theme').on("change", function() {
 $('#homework').change(function() {
 	setStorage({'homework' : $('#homework').prop("checked")});
 });
+
+$('#homeworkBadge').change(function() {
+	setStorage({'homeworkBadge' : $('#homeworkBadge').prop("checked")});
+	chrome.runtime.sendMessage({action: 'updateTicker'});
+});
+
 
 $('#cacheFiles').change(function() {
 	setStorage({'cacheFiles' : $('#cacheFiles').prop("checked")});

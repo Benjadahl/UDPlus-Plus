@@ -170,11 +170,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 				var prevText = parseInt(text);
 				if (text == "") prevText = 0;
 				var newNumber = prevText + message.number;
-				if (newNumber !== 0) {
-					chrome.browserAction.setBadgeText({text: (prevText+message.number).toString()});
-				} else {
-					chrome.browserAction.setBadgeText({text: ""});
-				}
+				updateTickerWithNumber(newNumber);
 			});
 		}
 	}
@@ -415,18 +411,30 @@ function checkUndoneHomework() {
 										hash = true;
 								}
 								if (!hash) homework++;
-								console.log(hash);
 							}
 						}
 					}
 				}
-				if (homework !== 0) {
-					chrome.browserAction.setBadgeText({text: homework.toString()});
-				} else {
-					chrome.browserAction.setBadgeText({text: ""});
-				}
+				updateTickerWithNumber(homework);
 			});
 		});
+	});
+}
+
+function updateTickerWithNumber(number) {
+	getStorage('homeworkBadge', function(obj) {
+		if (obj.homeworkBadge) {
+			console.log("Setting");
+			if (number !== 0) {
+				chrome.browserAction.setBadgeText({text: number.toString()});
+				console.log("Ayy");
+			} else {
+				chrome.browserAction.setBadgeText({text: ""});
+				console.log("Ayy2");
+			}
+		} else {
+			chrome.browserAction.setBadgeText({text: ""});
+		}
 	});
 }
 
