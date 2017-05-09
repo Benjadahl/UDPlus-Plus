@@ -372,3 +372,34 @@ checkEasyADowntime();
 
 //Check EASY-A for new downtime info every 20 minutes.
 setInterval(checkEasyADowntime, 1000 * 60 * 20);
+
+function checkUndoneHomework() {
+	var today = new Date();
+	var toDate = new Date().setDate(today.getDate() + 1);
+	getStorage('doneHomework', function(doneObj) {
+		getStorage({'homeworkWords': "lektie,forbered"}, function(wordsObj) {
+			homeworkList = stringToList(wordsObj.homeworkWords);
+			getSchedule(ToShortISODate(today), ToShortISODate(toDate), function(schedule) {
+				var homework = 0;
+				for (day in schedule) {
+					for (lesson in day) {
+						if (typeof lesson['Note'] !== 'undefined' && lesson['Note'] !== '') {
+							for (word in homeworkWords) {
+								if (lesson['Note'].toUpperCase().includes(word.toUpperCase())) {
+									for (hash in doneHomework) {
+										if (lesson['Note'].hashCode() !== hash)
+											homework++;
+									}
+								}
+							}
+						}
+					}
+				}
+				if (homework !== 0)
+					chrome.browserAction.setBadgeText({text: homework.toString()});
+			});
+		});
+	});
+}
+
+checkUndoneHomework();
