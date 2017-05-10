@@ -350,6 +350,10 @@ window.onload = function() {
 		}
 	});
 
+	$('#searchHeader').text(chrome.i18n.getMessage("lessonFiles"));
+	$('#todo').text(chrome.i18n.getMessage("lessonNotes"));
+	$('#disclaimer').text(chrome.i18n.getMessage("fileCacheDisclaimer"));
+
 	//Language stuff
 	getStorage('lang', function(obj) {
 		if (!chrome.runtime.error) {
@@ -360,10 +364,7 @@ window.onload = function() {
 			}
 			if (obj.lang == 'dansk') {
 				lang = obj.lang
-				$('#searchHeader').text("Lektionsfiler");
 				//$('#searchBox').attr("placeholder", "Søg filer");
-				$('#disclaimer').text("Læg venligst mærke til at dette kun er de filer som vi har gemt. Filer bliver kun gemt når du går ind på en lektion i uddata's skema. Tryk for at skjule den her besked.");
-				$('#todo').text("Lektionsnoter");
 				$('#onlyHomeworkText').text("Vis kun ulavede lektier");
 				$('#autofetchtext').text("Hent automatisk lektionsfiler");
 

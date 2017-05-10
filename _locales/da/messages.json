@@ -1,0 +1,11 @@
+{
+	"lessonFiles": {
+		"message": "Lektionsfiler"
+	},
+	"lessonNotes": {
+		"message": "Lektionsnoter"
+	},
+	"fileCacheDisclaimer": {
+		"message": "Læg venligst mærke til at dette kun er de filer som vi har gemt. Filer bliver kun gemt når du går ind på en lektion i uddata's skema. Tryk for at skjule den her besked."
+	}
+}

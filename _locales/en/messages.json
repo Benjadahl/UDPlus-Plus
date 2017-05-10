@@ -1,0 +1,11 @@
+{
+	"lessonFiles": {
+		"message": "Lesson files"
+	},
+	"lessonNotes": {
+		"message": "Lesson notes"
+	},
+	"fileCacheDisclaimer": {
+		"message": "Please note that this is only the files from lessons that are cached. More files will automatically be added then you open a lesson note in uddataplus. Click to hide this message."
+	}
+}
