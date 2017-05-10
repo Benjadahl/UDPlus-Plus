@@ -14,9 +14,6 @@ var entries = null;
 //An extraordinarily stupid match we use to get the filename out of files. But it works...
 var fileMatch = RegExp(/^\d\d\.\d\d\.\d\d\d\d\d\d:\d\d-\d\d:\d\d/);
 
-//Homework gotta be uniform for storing yo
-var homeworkNoteRegex = new RegExp(/(\n|\W|quot|\d|amp)/g);
-
 var hideNotHomework = false;
 
 var fetchFilesAutomatically = false;
@@ -529,6 +526,7 @@ getStorage("doneHomework", function(obj) {
 function saveDoneHomework() {
 	setStorage({"doneHomework": doneHomework});
 	debugLog("Homework saved");
+	chrome.runtime.sendMessage({action: "updateTicker"});
 }
 
 window.addEventListener("beforeunload", function(e) {
@@ -543,8 +541,10 @@ function markDoneHomework() {
 	var checked = ($(this).is(":checked"));
 	if (!checked) {
 		$(this).parent().parent().addClass("homeworkLI");
+		chrome.runtime.sendMessage({action: "updateTicker", number: 1});
 	} else {
 		$(this).parent().parent().removeClass("homeworkLI");
+		chrome.runtime.sendMessage({action: "updateTicker", number: -1});
 	}
 
 	var alreadyAdded = false;

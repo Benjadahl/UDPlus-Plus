@@ -162,6 +162,17 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 		readEntries(); // Start reading dirs.<Paste>
 	} else if (message.action == 'openDashboard') {
 		openPage();
+	} else if (message.action == 'updateTicker') {
+		if (typeof message.number === 'undefined') {
+			checkUndoneHomework();
+		} else {
+			chrome.browserAction.getBadgeText({}, function(text) {
+				var prevText = parseInt(text);
+				if (text == "") prevText = 0;
+				var newNumber = prevText + message.number;
+				updateTickerWithNumber(newNumber);
+			});
+		}
 	}
 });
 
@@ -372,3 +383,59 @@ checkEasyADowntime();
 
 //Check EASY-A for new downtime info every 20 minutes.
 setInterval(checkEasyADowntime, 1000 * 60 * 20);
+
+//Check for how many undone homeworkLessons we have from today to tomorrow.
+function checkUndoneHomework() {
+	var today = new Date();
+	var toDate = new Date().setDate(today.getDate() + 1);
+	getStorage('doneHomework', function(doneObj) {
+		getStorage({'homeworkWords': "lektie,forbered"}, function(wordsObj) {
+			homeworkList = stringToList(wordsObj.homeworkWords);
+			getSchedule(ToShortISODate(today), ToShortISODate(toDate), function(schedule) {
+				var homework = 0;
+				for (day in schedule) {
+					var theDay = schedule[day];
+					for (lessonNumber in theDay) {
+						var lesson = theDay[lessonNumber];
+						if (typeof lesson['Note'] !== 'undefined' && lesson['Note'] !== '') {
+							var homeworkLesson = false;
+							for (word in homeworkList) {
+								if (lesson['Note'].toUpperCase().includes(homeworkList[word].toUpperCase()))
+									homeworkLesson = true;
+							}
+							if (homeworkLesson) {
+								var hash = false;
+								var noteHash = lesson['Note'].replace(homeworkNoteRegex, "").hashCode();
+								for (hash in doneObj.doneHomework) {
+									if (noteHash == doneObj.doneHomework[hash])
+										hash = true;
+								}
+								if (!hash) homework++;
+							}
+						}
+					}
+				}
+				updateTickerWithNumber(homework);
+			});
+		});
+	});
+}
+
+function updateTickerWithNumber(number) {
+	getStorage('homeworkBadge', function(obj) {
+		if (obj.homeworkBadge) {
+			console.log("Setting");
+			if (number !== 0) {
+				chrome.browserAction.setBadgeText({text: number.toString()});
+				console.log("Ayy");
+			} else {
+				chrome.browserAction.setBadgeText({text: ""});
+				console.log("Ayy2");
+			}
+		} else {
+			chrome.browserAction.setBadgeText({text: ""});
+		}
+	});
+}
+
+checkUndoneHomework();
