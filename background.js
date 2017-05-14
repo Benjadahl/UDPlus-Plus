@@ -388,6 +388,8 @@ setInterval(checkEasyADowntime, 1000 * 60 * 20);
 function checkUndoneHomework() {
 	var today = new Date();
 	var toDate = new Date().setDate(today.getDate() + 1);
+	console.log(ToShortISODate(today));
+	console.log(ToShortISODate(toDate));
 	getStorage('doneHomework', function(doneObj) {
 		getStorage({'homeworkWords': "lektie,forbered"}, function(wordsObj) {
 			homeworkList = stringToList(wordsObj.homeworkWords);
@@ -406,8 +408,10 @@ function checkUndoneHomework() {
 							if (homeworkLesson) {
 								var hash = false;
 								var noteHash = lesson['Note'].replace(homeworkNoteRegex, "").hashCode();
-								for (hash in doneObj.doneHomework) {
-									if (noteHash == doneObj.doneHomework[hash])
+								console.log(noteHash);
+								for (hashes in doneObj.doneHomework) {
+									console.log(doneObj.doneHomework[hashes]);
+									if (noteHash == doneObj.doneHomework[hashes])
 										hash = true;
 								}
 								if (!hash) homework++;
@@ -422,15 +426,13 @@ function checkUndoneHomework() {
 }
 
 function updateTickerWithNumber(number) {
+	debugLog("Homework: " + number);
 	getStorage('homeworkBadge', function(obj) {
 		if (obj.homeworkBadge) {
-			console.log("Setting");
 			if (number !== 0) {
 				chrome.browserAction.setBadgeText({text: number.toString()});
-				console.log("Ayy");
 			} else {
 				chrome.browserAction.setBadgeText({text: ""});
-				console.log("Ayy2");
 			}
 		} else {
 			chrome.browserAction.setBadgeText({text: ""});
