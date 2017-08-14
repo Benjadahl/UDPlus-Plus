@@ -74,6 +74,7 @@ var PlusPlusList = {
     lessonStroke:new PlusPlusObject("svg rect", applyCssRule, ["stroke"]),
     noteBackTextColour:new PlusPlusObject(".GNK2GVDDBGB textarea", applyCssRule, ["color"]), //Notes no longer used
 		tableRowNote:new PlusPlusObject(".GEIF5TWDL- table tr th", applyCssRule, ["color"]), //Notes are no longer used
+    lessonTextColor: new PlusPlusObject("svg .GLWM5VOBOY text, .GLWM5VOBA- svg>defs>g>text", applyCssRule, ["fill"])
   },
   absence:{
     absenceSlider:new PlusPlusObject(".ui-slider-range", applyCssRule, ["background-color"])
