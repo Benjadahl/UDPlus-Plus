@@ -1,81 +1,32 @@
-//Most of this code is copy-pasted from https://www.html5rocks.com/en/tutorials/file/filesystem/
-//The filesystem API is only still in Chrome by coincidence basically, and might disappear at any time. But I don't know a better one.
-
-navigator.requestFileSystem  = navigator.requestFileSystem || navigator.webkitRequestFileSystem;
-
-function errorHandler(e) {
-	console.log(e);
-}
-
-var INITIAL_QUOTA = 1024*1024*1024*5; //5GiB
-
-//This is the filesystem object we want to use to save our precious lesson files
-var fs = null;
-
-//Success callback for a filesystem access function
-function successCallback(newfs) {
-	fs = newfs;
-}
+var DB_VERSION = 1; // Bump this every time changes to the database structure is changed
+var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
 
 //Save a file by URL to disk
-function saveLessonFile(date, time, subject, teacher, filename, url, sendResponse) {
-	if (fs !== null) {
+async function saveLessonFile(date, time, subject, teacher, filename, url, sendResponse) {
+  //Fingers crossed this is unique enough. Otherwise, that's a problem.
+  let saveName = date + time + filename;
 
-		//Fingers crossed this is unique enough. Otherwise, that's a problem.
-		let saveName = date + time + filename;
+  console.log(saveName);
 
-		console.log(saveName);
+  var res = await fetch(url);
+  var blob = await fetch.blob();
 
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			if (this.readyState == 4 && this.status == 200){
-				//this.response is what you're looking for
-				//handler(this.response);
-				let blob = this.response;
+  openIndexedDB(function (store) {
+    // Add some data
+    store.put({name: saveName, blob: blob});
+  });
 
-				fs.root.getFile(saveName, {create: true}, function(fileEntry) {
-
-					// Create a FileWriter object for our FileEntry (log.txt).
-					fileEntry.createWriter(function(fileWriter) {
-
-						fileWriter.onwriteend = function(e) {
-							debugLog('Write completed.');
-						};
-
-						fileWriter.onerror = function(e) {
-							debugLog('Write failed: ' + e.toString());
-						};
-
-						fileWriter.write(blob);
-						chrome.runtime.sendMessage({action: "NewFileSaved", filename: filename});
-						return(filename);
-
-					}, errorHandler);
-
-				}, errorHandler);
-
-			}
-		}
-		xhr.open('GET', url);
-		xhr.responseType = 'blob';
-		xhr.send();
-
-
-
-	} else {
-		console.log("Can't save files; user said no");
-		return(filename);
-	}
+  return saveName;
 }
 
 //We ask for access to the filesystem API in HTML5. It's only supported in Chrome, and it's largely undocumented, and only exists by coincidence. But it works, so what the heck.
 function storeFiles() {
-	navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
+	/*navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
 		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, successCallback, errorHandler);
 	}, function(e) {
 		alert("UD++ prøver at gemme filer, men noget gik galt. Det her burde ikke ske.");
 		console.log('Error', e);
-	});
+	});*/
 
 }
 
@@ -107,6 +58,38 @@ function listResults(entries) {
 	lastEntries = entries;
 }
 
+function openIndexedDB (action) {
+  // Open (or create) the database
+  var open = indexedDB.open("LessonFiles", DB_VERSION);
+
+// Create the schema
+  open.onupgradeneeded = function() {
+    var db = open.result;
+    var store = db.createObjectStore("LessonStore", {keyPath: "name"});
+  };
+
+  open.onsuccess = function() {
+    // Start a new transaction
+    var db = open.result;
+    var tx = db.transaction("LessonStore", "readwrite");
+    var store = tx.objectStore("LessonStore");
+
+    action(store);
+
+    // Close the db when the transaction is done
+    tx.oncomplete = function() {
+      db.close();
+    };
+  }
+
+  open.onerror = function (error) {
+    console.log('Could not open IndexedDB', error);
+    return null;
+  }
+
+  return open;
+}
+
 storeFiles();
 
 
@@ -117,7 +100,25 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	} else if (message.action == "downloadScheduleFile") {
 		sendResponse({filename: saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url) });
 	} else if (message.action == "requestFile") {
-		var dirReader = fs.root.createReader();
+	  console.log('Files were requested')
+
+    openIndexedDB(function (store) {
+      var request = store.getAll();
+
+      request.onsuccess = function (event) {
+        console.log('Got data back', this.result);
+        chrome.runtime.sendMessage({action: "returnFilesInfo", entries: this.results});
+      }
+
+      request.onerror = function (err) {
+        console.log('Could not get lessons', err)
+      }
+    });
+
+    return saveName;
+
+
+	  /*var dirReader = fs.root.createReader();
 		var entries = [];
 
 		// Call the reader.readEntries() until no more results are returned.
@@ -132,12 +133,16 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			}, errorHandler);
 		};
 
-		readEntries(); // Start reading dirs.<Paste>
+		readEntries(); // Start reading dirs.<Paste>*/
 	} else if(message.action == "deleteFilesystem"){
 		//Clear out storage here
 		debugLog("Got del message");
 
-		var dirReader = fs.root.createReader();
+    openIndexedDB(function (store) {
+      store.clear();
+    });
+
+		/*var dirReader = fs.root.createReader();
 
 		// Call the reader.readEntries() until no more results are returned.
 		var readEntries = function() {
@@ -159,7 +164,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			}, errorHandler);
 		};
 
-		readEntries(); // Start reading dirs.<Paste>
+		readEntries(); // Start reading dirs.<Paste>*/
 	} else if (message.action == 'openDashboard') {
 		openPage();
 	} else if (message.action == 'updateTicker') {
