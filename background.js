@@ -3,13 +3,15 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 
 //Save a file by URL to disk
 async function saveLessonFile(date, time, subject, teacher, filename, url, sendResponse) {
+  console.log('Saving lesson file...')
   //Fingers crossed this is unique enough. Otherwise, that's a problem.
   let saveName = date + time + filename;
 
   console.log(saveName);
 
+  debugger;
   var res = await fetch(url);
-  var blob = await fetch.blob();
+  var blob = await res.blob();
 
   openIndexedDB(function (store) {
     // Add some data
@@ -37,6 +39,7 @@ function toArray(list) {
 
 var lastEntries = null;
 
+/*
 //This is just a copied function from up top. It returns all the FileEntry objects we can find.
 function listResults(entries) {
 	// Document fragments can improve performance since they're only appended
@@ -50,6 +53,7 @@ function listResults(entries) {
 	//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
 	//		console.log(i);
 	//	});
+
 	toSendEntries = [];
 	entries.forEach(function(entry, i) {
 		toSendEntries.push({name: entry.name, url: entry.toURL()});
@@ -57,6 +61,7 @@ function listResults(entries) {
 	chrome.runtime.sendMessage({action: "returnFilesInfo", entries: toSendEntries});
 	lastEntries = entries;
 }
+*/
 
 function openIndexedDB (action) {
   // Open (or create) the database
@@ -106,8 +111,9 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
       var request = store.getAll();
 
       request.onsuccess = function (event) {
-        console.log('Got data back', this.result);
-        chrome.runtime.sendMessage({action: "returnFilesInfo", entries: this.results});
+        let result = this.result;
+        console.log('Got data back', result);
+        chrome.runtime.sendMessage({action: "returnFilesInfo", entries: result});
       }
 
       request.onerror = function (err) {
