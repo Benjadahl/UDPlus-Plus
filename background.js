@@ -115,7 +115,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
       }
     });
 
-    return saveName;
+    //return saveName;
 
 
 	  /*var dirReader = fs.root.createReader();
