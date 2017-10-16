@@ -15,8 +15,10 @@ async function saveLessonFile(date, time, subject, teacher, filename, url, sendR
 
   openIndexedDB(function (store) {
     // Add some data
-    store.put({name: saveName, blob: blob});
+    store.put({name: saveName, blob: blob, displayName: filename});
   });
+
+  chrome.runtime.sendMessage({action: "NewFileSaved", filename: filename});
 
   return saveName;
 }
