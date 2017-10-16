@@ -21,6 +21,7 @@ async function saveLessonFile(date, time, subject, teacher, filename, url, sendR
   return saveName;
 }
 
+
 //We ask for access to the filesystem API in HTML5. It's only supported in Chrome, and it's largely undocumented, and only exists by coincidence. But it works, so what the heck.
 function storeFiles() {
 	/*navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
@@ -31,7 +32,7 @@ function storeFiles() {
 	});*/
 
 }
-
+/*
 function toArray(list) {
 	return Array.prototype.slice.call(list || [], 0);
 
@@ -39,7 +40,7 @@ function toArray(list) {
 
 var lastEntries = null;
 
-/*
+
 //This is just a copied function from up top. It returns all the FileEntry objects we can find.
 function listResults(entries) {
 	// Document fragments can improve performance since they're only appended
@@ -112,6 +113,14 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
       request.onsuccess = function (event) {
         let result = this.result;
+
+        // Generate new urls as they do not last
+        result.map(function (res) {
+          return Object.assign(res, {
+            url: window.URL.createObjectURL(res.blob)
+          })
+        })
+
         console.log('Got data back', result);
         chrome.runtime.sendMessage({action: "returnFilesInfo", entries: result});
       }
