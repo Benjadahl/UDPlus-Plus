@@ -23,49 +23,6 @@ async function saveLessonFile(date, time, subject, teacher, filename, url, sendR
   return saveName;
 }
 
-
-//We ask for access to the filesystem API in HTML5. It's only supported in Chrome, and it's largely undocumented, and only exists by coincidence. But it works, so what the heck.
-function storeFiles() {
-	/*navigator.webkitPersistentStorage.requestQuota(INITIAL_QUOTA, function(grantedBytes) {
-		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, successCallback, errorHandler);
-	}, function(e) {
-		alert("UD++ prøver at gemme filer, men noget gik galt. Det her burde ikke ske.");
-		console.log('Error', e);
-	});*/
-
-}
-/*
-function toArray(list) {
-	return Array.prototype.slice.call(list || [], 0);
-
-}
-
-var lastEntries = null;
-
-
-//This is just a copied function from up top. It returns all the FileEntry objects we can find.
-function listResults(entries) {
-	// Document fragments can improve performance since they're only appended
-	//   // to the DOM once. Only one browser reflow occurs.
-	var fragment = document.createDocumentFragment();
-	//
-	//	entries.forEach(function(entry, i) {
-	//		var img = entry.isDirectory ? '<img src="folder-icon.gif">' :
-	//			'<img src="file-icon.gif">';
-	//		var li = document.createElement('li');
-	//		li.innerHTML = [img, '<span>', entry.name, '</span>'].join('');
-	//		console.log(i);
-	//	});
-
-	toSendEntries = [];
-	entries.forEach(function(entry, i) {
-		toSendEntries.push({name: entry.name, url: entry.toURL()});
-	});
-	chrome.runtime.sendMessage({action: "returnFilesInfo", entries: toSendEntries});
-	lastEntries = entries;
-}
-*/
-
 function openIndexedDB (action) {
   // Open (or create) the database
   var open = indexedDB.open("LessonFiles", DB_VERSION);
@@ -132,25 +89,6 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
       }
     });
 
-    //return saveName;
-
-
-	  /*var dirReader = fs.root.createReader();
-		var entries = [];
-
-		// Call the reader.readEntries() until no more results are returned.
-		var readEntries = function() {
-			dirReader.readEntries (function(results) {
-				if (!results.length) {
-					listResults(entries.sort());
-				} else {
-					entries = entries.concat(toArray(results));
-					readEntries();
-				}
-			}, errorHandler);
-		};
-
-		readEntries(); // Start reading dirs.<Paste>*/
 	} else if(message.action == "deleteFilesystem"){
 		//Clear out storage here
 		debugLog("Got del message");
@@ -159,29 +97,6 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
       store.clear();
     });
 
-		/*var dirReader = fs.root.createReader();
-
-		// Call the reader.readEntries() until no more results are returned.
-		var readEntries = function() {
-			dirReader.readEntries (function(results) {
-				if (results.length) {
-					for(var i = 0; i < results.length; i++){
-						console.log(results[i].fullPath);
-						fs.root.getFile(results[i].fullPath, {create: false}, function(fileEntry) {
-
-							fileEntry.remove(function() {
-							console.log('File removed.');
-							}, errorHandler);
-
-						}, errorHandler);
-					}
-					readEntries();
-
-				}
-			}, errorHandler);
-		};
-
-		readEntries(); // Start reading dirs.<Paste>*/
 	} else if (message.action == 'openDashboard') {
 		openPage();
 	} else if (message.action == 'updateTicker') {
@@ -198,8 +113,6 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	}
 });
 
-
-
 chrome.runtime.onInstalled.addListener(function(details){
 	if (details.reason === "update") {
 		//This code will run every time the plugin is updated
@@ -215,7 +128,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 function openPage() {
-
 	var dashboardURL = chrome.runtime.getURL('dashboard/dashboard.html')
 	//Get all tabs with the same URL as dashboard
 	chrome.tabs.query({url: dashboardURL}, function(tabs) {
@@ -232,7 +144,6 @@ function openPage() {
 					chrome.tabs.create({
 						url: dashboardURL
 					});
-
 				}
 			});
 		}
