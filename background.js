@@ -9,7 +9,6 @@ async function saveLessonFile(date, time, subject, teacher, filename, url, sendR
 
   console.log(saveName);
 
-  debugger;
   var res = await fetch(url);
   var blob = await res.blob();
 
