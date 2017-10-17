@@ -3,11 +3,11 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 
 //Save a file by URL to disk
 async function saveLessonFile(date, time, subject, teacher, filename, url, sendResponse) {
-  console.log('Saving lesson file...')
+  debugLog('Saving lesson file...')
   //Fingers crossed this is unique enough. Otherwise, that's a problem.
   let saveName = date + time + filename;
 
-  console.log(saveName);
+  debugLog(saveName);
 
   var res = await fetch(url);
   var blob = await res.blob();
@@ -47,15 +47,12 @@ function openIndexedDB (action) {
   }
 
   open.onerror = function (error) {
-    console.log('Could not open IndexedDB', error);
+    debugLog('Could not open IndexedDB', error);
     return null;
   }
 
   return open;
 }
-
-storeFiles();
-
 
 //A bunch of listeners so we can interact with this script from other scripts.
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
@@ -64,7 +61,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	} else if (message.action == "downloadScheduleFile") {
 		sendResponse({filename: saveLessonFile(message.date, message.time, message.subject, message.teacher, message.filename, message.url) });
 	} else if (message.action == "requestFile") {
-	  console.log('Files were requested')
+	  debugLog('Files were requested')
 
     openIndexedDB(function (store) {
       var request = store.getAll();
@@ -79,7 +76,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
           })
         })
 
-        console.log('Got data back', result);
+        debugLog('Got data back', result);
         chrome.runtime.sendMessage({action: "returnFilesInfo", entries: result});
       }
 
