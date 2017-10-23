@@ -391,6 +391,7 @@ function updateTickerWithNumber (number) {
       chrome.browserAction.setBadgeText({text: ''})
     }
   })
+
 }
 
 checkUndoneHomework()

@@ -119,6 +119,12 @@ getStorage('sortTaskBy', function (obj) {
 	}
 });
 
+
+function saveSetting(){
+	$("#saved").show();
+}
+
+
 if (new Date().getMonth() === 11) {
 	getStorage('snowState', function(obj) {
 		if (!chrome.runtime.error) {
@@ -136,9 +142,11 @@ if (new Date().getMonth() === 11) {
 	});
 	$('#SnowOn').on("change", function() {
 		setStorage({'snowState' : [$('#SnowOn').prop("checked"), $('#xmashat').prop("checked")]})
+		saveSetting();
 	});
 	$('#xmashat').on("change", function() {
 		setStorage({'snowState' : [$('#SnowOn').prop("checked"), $('#xmashat').prop("checked")]})
+		saveSetting();
 	});
 } else {
 	$(".SnowOn").remove();
@@ -149,41 +157,50 @@ if (new Date().getMonth() === 11) {
 $('#theme').on("change", function() {
 	setStorage({'theme' : theme.value});
 	curtheme = themes[$('#theme').val()];
+	saveSetting();
 });
 
 $('#homework').change(function() {
 	setStorage({'homework' : $('#homework').prop("checked")});
+	saveSetting();
 });
 
 $('#homeworkBadge').change(function() {
 	setStorage({'homeworkBadge' : $('#homeworkBadge').prop("checked")});
 	chrome.runtime.sendMessage({action: 'updateTicker'});
+	saveSetting();
 });
 
 
 $('#cacheFiles').change(function() {
 	setStorage({'cacheFiles' : $('#cacheFiles').prop("checked")});
+	saveSetting();
 });
 
 $('#TooEarly').change(function() {
 	setStorage({'TooEarly' : $('#TooEarly').val()});
+	saveSetting();
 });
 
 $('#homeworkWords').change(function() {
 	setStorage({'homeworkWords' : $('#homeworkWords').val()});
+	saveSetting();
 });
 
 $('#lessonWords').change(function() {
 	setStorage({'toHide' : $('#lessonWords').val()});
+	saveSetting();
 });
 
 $('#sortTaskBy').on("change", function() {
 	setStorage({'sortTaskBy' : $('#sortTaskBy').val()});
+	saveSetting();
 });
 
 $('#hideTask').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideTask' : $('#hideTask').prop("checked")});
+	saveSetting();
 });
 
 getStorage('hideSidebarCollapse', function(obj) {
@@ -193,6 +210,7 @@ getStorage('hideSidebarCollapse', function(obj) {
 $('#hideSidebarCollapse').change(function() {
 	hideTask = !hideTask;
 	setStorage({'hideSidebarCollapse' : $('#hideSidebarCollapse').prop("checked")});
+	saveSetting();
 });
 
 

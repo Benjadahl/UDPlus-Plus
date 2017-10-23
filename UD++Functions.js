@@ -105,6 +105,9 @@ function getSchedule(startDate, endDate, callback) {
 				//The class name
 				returnClass["Name"] = theClass["kortBetegnelse"];
 
+				if (theClass['kortBetegnelse'] === "" && theClass['bemerkning'] !== "")
+					returnClass['Name'] = theClass['bemerkning']
+
 				//Start and end times
 				returnClass["Start"] = UDDateToDate(theClass["start"]);
 				returnClass["End"] = UDDateToDate(theClass["slut"]);
