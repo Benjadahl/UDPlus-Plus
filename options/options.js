@@ -227,12 +227,19 @@ function formatSizeUnits(bytes){
 	return bytes;
 }
 
-navigator.webkitPersistentStorage.queryUsageAndQuota (
-	function(usedBytes, grantedBytes) {
-		$("#usedStorage").text(formatSizeUnits(usedBytes));
-	},
-	function(e) { debugLog('Error', e);  }
-);
+$("#usedStorage").text("Calculating size...");
+
+chrome.runtime.sendMessage({action: "requestCacheSize"});
+
+chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+  if(message.action === "cacheSize"){
+    if(message.error) {
+      $("#usedStorage").text("An error occurred: " + message.error.message);
+    } else {
+      $("#usedStorage").text(formatSizeUnits(message.cacheSize));
+    }
+  }
+});
 
 function setDevVisible(vis) {
 	if (vis) {

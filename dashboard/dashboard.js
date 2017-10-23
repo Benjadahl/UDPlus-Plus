@@ -347,6 +347,7 @@ window.onload = function() {
 	getStorage('dashboardInfoShown', function(obj) {
 		if (!obj.dashboardInfoShown) {
 			$("#myModal").modal();
+			setStorage({"dashboardInfoShown": true});
 		}
 	});
 
@@ -725,7 +726,7 @@ function searchUpdate() {
 	if (searchQuery == "") {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
-			list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
+			list = list + "<li class='list-group-item'><a target='_blank' download='" + entry.displayName + "' href='" + entry.url + "' >" + fileName + "</a></li>";
 		});
 	} else {
 		entries.forEach(function(entry, i) {
