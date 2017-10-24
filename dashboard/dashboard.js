@@ -728,7 +728,7 @@ function searchUpdate() {
 
     link.click(function (e) {
       chrome.downloads.download({
-        url : window.URL.createObjectURL(entry.blob),
+        url : entry.url,
         filename: entry.displayName
       })
     })

@@ -69,6 +69,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       request.onsuccess = function (event) {
         let result = this.result
 
+        // Generate new urls as they do not last
+        result = result.map(function (res) {
+          return Object.assign(res, {
+            url: window.URL.createObjectURL(res.blob)
+          })
+        })
+
         debugLog('Got data back', result)
         chrome.runtime.sendMessage({action: 'returnFilesInfo', entries: result})
       }
