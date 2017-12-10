@@ -101,13 +101,6 @@ setInterval(allowSelect, 250);
 //var curtheme = "";
 
 
-//Save the language selected on Uddata+
-if($("#language > a").html() === "English"){
-	setStorage({"lang": "dansk"});
-}else if($("#language > a").html() === "Dansk"){
-	setStorage({"lang": "engelsk"});
-}
-
 
 loadSettings();
 
@@ -130,6 +123,9 @@ chrome.runtime.onMessage.addListener(
 
 //The ++Settings menu button
 var extraMenu = '<li><a ontouchend="javascript:uddata_activ_menu(\'id_settings\');" href="#" id="id_settings"><i class="icon-wrench"></i> <span class="menu-text" title="Settings">++ Settings</span></a></li>';
+//The homework button
+var extraMenuHomeworkDK = '<li title="Genvej til uddata lektie oversigten"><a href="/skema/?id=id_skema#lektieoversigt:" id="id_homework"><i class="icon-briefcase" aria-hidden="true"></i> <span class="menu-text" title="Lektie genvej">Lektier</span></a></li>';
+var extraMenuHomeworkEN = '<li title="Shortcut to uddata homework overview"><a href="/skema/?id=id_skema#lektieoversigt:" id="id_homework"><i class="icon-briefcase" aria-hidden="true"></i> <span class="menu-text" title="Homework shortcut">Homework</span></a></li>';
 
 const menuSelector = 'html body.hoverable div#wrapper div#wrapcontent div.main-container.container-fluid div#sidebar.sidebar ul.nav.nav-list';
 
@@ -149,7 +145,22 @@ getStorage('showNews', function (obj) {
 	}
 });
 
+//Save the language selected on Uddata+
+if($("#language > a").html() === "English"){
+	setStorage({"lang": "dansk"});
 
+	//While we are here lets just add the homework button
+	if($("#id_homework").length == 0){
+		$(extraMenuHomeworkDK).insertAfter($("#id_skema").parent());
+	}
+}else if($("#language > a").html() === "Dansk"){
+	setStorage({"lang": "engelsk"});
+
+	//And down here to
+	if($("#id_homework").length == 0){
+		$(extraMenuHomeworkEN).insertAfter($("#id_skema").parent());
+	}
+}
 
 
 getStorage('message', function (obj) {
