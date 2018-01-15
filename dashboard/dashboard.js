@@ -722,24 +722,39 @@ $("#searchBox").keydown(function(e) {
 function searchUpdate() {
 	var searchQuery = $("#searchBox").val();
 
-	var list = "";
+	function generateListElement (entry, fileName) {
+		let element = $('<li/>').addClass('list-group-item')
+    let link = $('<a/>').attr('href', '#').html(fileName)
+
+    link.click(function (e) {
+      chrome.downloads.download({
+        url : entry.url,
+        filename: entry.displayName
+      })
+    })
+
+    return element.append(link)
+  }
+
+	var list = [];
+
 	if (searchQuery == "") {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
-			list = list + "<li class='list-group-item'><a target='_blank' download='" + entry.displayName + "' href='" + entry.url + "' >" + fileName + "</a></li>";
+      list.push(generateListElement(entry, fileName));
 		});
 	} else {
 		entries.forEach(function(entry, i) {
 			var fileName = entry.name.replace(fileMatch, "");
 			if (fileName.toUpperCase().includes(searchQuery.toUpperCase())) {
 				fileName = fileName.replace(new RegExp("(" + searchQuery + ")", 'ig'), '<b>$1</b>');
-				list = list + "<li class='list-group-item'><a target='_blank' href=" + entry.url + ">" + fileName + "</a></li>";
+        list.push(generateListElement(entry, fileName));
 			}
 		});
 
 	}
 
-	document.getElementById("searchResults").innerHTML = list;
+  $('#searchResults').html(list)
 }
 
 $("#searchBox").bind('input', searchUpdate);
