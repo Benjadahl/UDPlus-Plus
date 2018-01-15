@@ -101,7 +101,7 @@ getStorage({toHide: ""}, function (obj) {
 
 getStorage('hideTask', function (obj) {
 	if (!chrome.runtime.error) {
-		if (obj.hideTask){
+		if (!obj.hideTask){
 			$('#hideTask').prop("checked", true);
 		} else {
 			$('#hideTask').prop("checked", false);
@@ -199,7 +199,7 @@ $('#sortTaskBy').on("change", function() {
 
 $('#hideTask').change(function() {
 	hideTask = !hideTask;
-	setStorage({'hideTask' : $('#hideTask').prop("checked")});
+	setStorage({'hideTask' : !($('#hideTask').prop("checked"))});
 	saveSetting();
 });
 
