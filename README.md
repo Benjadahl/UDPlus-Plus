@@ -13,7 +13,7 @@ It aims to enhance the experience of using the platform. By enabling community r
 
 Link to the chrome plugin page for the Chrome Webstore [here](https://chrome.google.com/webstore/detail/ud++/pmlnbmnelhhofakfihcfjiemklhncdin?hl=da&authuser=1)
 
-Link to download firefox addon file [here](https://github.com/Benjadahl/UDPlus-Plus/raw/gh-pages/releases/UDPlus-Plus-1.8.0-Firefox.xpi)
+Link to download firefox addon file [here](https://github.com/Benjadahl/UDPlus-Plus/releases/download/V2.3.2/ud-2.3.2.xpi)
 
 
 ### Features
